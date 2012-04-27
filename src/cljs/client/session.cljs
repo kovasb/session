@@ -6,62 +6,28 @@
   (:use-macros [cljs-jquery.macros :only [$]])
   )
 
-(defprotocol ISession
-  (insert-new-loop [this session-view event])
-  (delete-loop [this session-view event]))
+
+;; session format
+;; {:subsessions [subsession {:type :cljs :loops XX }  ] }
 
 
+(defrecord Session [model])
 
+(extend-type Session
 
-(deftype Session [model]
-
-   ILookup
-  (-lookup [o k] (model k))
-  (-lookup [o k not-found] (model k not-found))
+  IPrintable
+  (-pr-seq [this opts]
+    (concat  ["#session/session "] (-pr-seq (:model this) opts) ""))
 
 
   mvc/IMVC
   (view [this]
-    ($ [:div.session
-        (let [v (mvc/view2 ^{:view :loop-creator} [:loop-creator])]
-          (mvc/control2 ^{:view :loop-creator} [:loop-creator] v)
-          v
-          )
-        (map mvc/render @(:loops model))
-        ] (data "model" model)))
-  (control [this session-view]
-    ($ session-view
-       (on "insert-new-loop" #(insert-new-loop this session-view %)))
-    ($ session-view (on "delete-loop" #(delete-loop this session-view %))))
+    ($ [:div.session.row
+        [:div.span12 [:div.row (map mvc/render (:subsessions (:model this)))]]
 
-  ISession
-  (insert-new-loop [this session-view event]
-    (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
-        loop-model (let [id (loop/new-loop-id)] (loop/Loop. {:id id :input (atom [:loop id]) :output (atom [:loop id])}))
-        loop-view (mvc/render loop-model)
-        session-model this
-          ]
+        ] (data "model" (:model this))))
 
-    ;;(def insert-test [event event-target event-model loop-model loop-view])
-    (if
-        (= event-model [:loop-creator])
-      (swap! (:loops session-model) #(vec (concat [loop-model] %)))
-      (swap! (:loops session-model)
-             #(let
-                  [[left right] (split-with (fn [m] (not= m event-model)) %)]
-                (vec (concat left [event-model loop-model] (rest right))))))
-    ($ loop-view (insertAfter event-target))
-    ($ loop-view (trigger "post-render"))))
+  (control [this session-view] nil)
 
-  (delete-loop [this session-view event]
-    (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
-        session-model this
-        ]
-     ($ event-target (remove))
-     (swap! (:loops session-model) #(vec (filter (fn [m] (not= m event-model)) %)))))
 
   )

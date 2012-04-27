@@ -11,14 +11,14 @@
 (def last-loop-id (atom 0))
 (defn new-loop-id [] (str (swap! last-loop-id #(+ 1 %))))
 
-(defprotocol ILoop
-  (evaluate-loop [model]))
+;;(defprotocol ILoop (evaluate-loop [model]))
 
 
 (deftype Loop [model]
+
   IPrintable
   (-pr-seq [a opts]
-    (concat  ["#session/loop "] (-pr-seq model) ""))
+    (concat  ["#session/loop "] (-pr-seq (assoc model :input @(:input model) :output @(:output model)) opts) ""))
 
    ILookup
   (-lookup [o k] (model k))
@@ -31,11 +31,11 @@
     ($
      [:div.loop-container
       [:div.row.input {:id id}
-       [:div.span10.row
+       [:div.span6.row
         [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "float:right"} "x"]]
-       [:div.span8 {:id (str "area" id) :style "position:relative;height:36px"} @(:input model)]]
+       [:div.span6 {:id (str "area" id) :style "position:relative;height:36px"} @(:input model)]]
       [:div.row {:id (str "out" id)}
-       [:div.span8.loopout {:style "background:#DDD;position:relative;height:20px"}
+       [:div.span6.loopout {:style "background:#DDD;position:relative;height:20px"}
         (mvc/view2 @(:output model))]]
       (mvc/view2 ^{:view :loop-creator} [:loop-creator])
       ]
@@ -50,15 +50,18 @@
                       #(do
                          ;;(js/alert "evaluate-input")
                          (reset! (:input model) (. (. @editor (getSession)) (getValue)))
-                         (evaluate-loop model))))
+                         ($ viewobject (trigger "evaluate-loop")))))
       (add-watch (:output model) :update-output
                  (fn [key atom old new]
-                   ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view2 new)])))))))
+                   (if (= cljs.core.Atom (type new))
+                     (do
+                       (js/alert "add atom to watch")
+                       (add-watch new :update-from-atom
+                                  (fn [key2 atom2 old2 new2]
 
-  ILoop
-  (evaluate-loop [model]
-    (pm/remote
-     (compile-expr-string @(:input model))
-     [result]
-     ;;(js/alert (pr-str (:result result)))
-     (reset! (:output model) (js/eval (:result result))))))
+                                    (js/alert "atom update")
+                                    ($ viewobject
+                                       (find ".loopout") (html "")
+                                       (append ($ [:div (mvc/view2 new2)])))))
+                       ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view2 @new)]))))
+                     ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view2 new)])))))))))

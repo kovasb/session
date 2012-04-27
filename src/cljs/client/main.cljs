@@ -9,12 +9,12 @@
    [session.client.loop :as loop]
    [session.client.session :as session]
    [session.client.mvc :as mvc]
+   [session.client.svgtest :as svgtest]
    )
-  (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm])
 
-  ;;(:use [jayq.core :only [$ append]])
-  ;;(:use-macros [crate.macros :only [defpartial]])
+  (:use-macros [cljs-jquery.macros :only [$]])
+  (:require-macros [fetch.macros :as pm] [client.macros :as cm])
+
   )
 
 
@@ -23,17 +23,33 @@
 
 ;;(defn shift-enter-event? [e] (and (. e (shiftKey)) (= 13 (. e (keycode)))))
 
+(def session (atom nil))
+
+(defn load-session [id]
+  (pm/remote
+   (get-session id)
+   [result]
+   (let [
+         s (js/eval (:result result))
+         v ($ (mvc/view s))
+         ]
+     (reset! session s)
+     (mvc/control s v)
+     ($ "body > .container" (html ""))
+     ($ v (appendTo ($ "body > .container")))
+     ($ ".loop-container" (trigger "post-render"))
+     )))
+
+
+(defn save-session []
+  (pm/remote
+   (store-session (:id @session) (pr-str @session))
+   [result]
+   result))
+
 
 ($ js/document (ready
                 #(do
 
                    (editor/add-keybindings)
-                   (def session
-                     (let [id (loop/new-loop-id)]
-                       (session/Session. {:id 1 :loops (atom [(loop/Loop. {:id 1 :input (atom [:loop id]) :output (atom [:loop id])})])})))
-                   (def viewobject ($ (mvc/view session)))
-                   (mvc/control session viewobject)
-                   ($ viewobject (appendTo ($ "body > .container")))
-                   ($ ".loop-container" (trigger "post-render"))
-
-                   )))
+                   (load-session 1))))

@@ -14,7 +14,10 @@
 
 (defn jquery-dom-element? [elt] (instance? jquery elt))
 
-(defn dom-append [parent child] (.append parent child))
+(defn dom-append [parent child]
+  (if (seq? child)
+    (dorun (map #(dom-append parent %) child))
+    (.append parent child)))
 
 (defn set-dom-attribute [elt [attribute value]]
   (cond
@@ -42,17 +45,25 @@
     )
   )
 
+
+
+(defn hiccup-to-dom-object [x]
+  (let [elt (dom-create (first x)) nextelt (next x)]
+    (if
+        (map? (first nextelt))
+      (let [] (dorun (map #(set-dom-attribute elt %) (first nextelt))) (dorun (map #(dom-append elt (dom-create %)) (next nextelt))) elt)
+      (let [] (dorun (map #(dom-append elt (dom-create %)) nextelt))elt))))
+
+
 (defn dom-create [arg]
   (cond
    (dom-element? arg) (jquery arg)
    (jquery-dom-element? arg) arg
    (keyword? arg) (keyword-to-dom-object arg)
    (string? arg) (jquery (. js/document (createTextNode arg)))
-   (and (or (vector? arg) (seq? arg)) (first arg))
-   (let [elt (dom-create (first arg)) nextelt (next arg)]
-     (if (map? (first nextelt))
-       (let [] (dorun (map #(set-dom-attribute elt %) (first nextelt))) (dorun (map #(dom-append elt (dom-create %)) (next nextelt))) elt)
-       (let [] (dorun (map #(dom-append elt (dom-create %)) nextelt)) elt)))))
+   (and (vector? arg) (first arg)) (hiccup-to-dom-object arg)
+   (seq? arg) (let [root (jquery "")] (dorun (map #(. root (add (dom-create %))) arg)) root)
+   ))
 
 (defn jsObj
   "Convert a clojure map into a JavaScript object"
