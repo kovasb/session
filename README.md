@@ -1,6 +1,10 @@
-# htmlrepl
+# SESSION
 
-A website written with Noir and ClojureScript.
+SESSION is a persistent web repl for clojure and clojurescript.
+1. Output forms are rendered to dom elements according to programmable rules
+2. Outputs and session state are preserved on save as much as possible
+
+Experimental/ pre-Alpha
 
 ## Usage
 
