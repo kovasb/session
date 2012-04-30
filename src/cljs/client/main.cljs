@@ -79,7 +79,7 @@
                 #(do
                    ($ "#savebutton" (on "click" (fn [] (download-session))))
                    (editor/add-keybindings)
-                   (js/alert "load")
+
                    ($ "#fileupload"
                       (fileupload
                        (gobject/create "add" (fn [e data]
