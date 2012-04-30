@@ -10,6 +10,7 @@
    [session.client.session :as session]
    [session.client.mvc :as mvc]
    [session.client.svgtest :as svgtest]
+   [goog.object :as gobject]
    )
 
   (:use-macros [cljs-jquery.macros :only [$]])
@@ -48,8 +49,42 @@
    result))
 
 
+
+;;(js-obj  "dataType" "json"  "done" (fn [e data] (js/alert "result") ))
+
+
+(defn load-new-file [x]
+  (let [
+         s (js/eval x)
+         v ($ (mvc/view s))
+         ]
+     (reset! session s)
+     (mvc/control s v)
+     ($ "body > .container" (html ""))
+     ($ v (appendTo ($ "body > .container")))
+     ($ ".loop-container" (trigger "post-render"))
+     )
+  )
+
+(defn download-session []
+  ($ "#downloadformdata" (val (pr-str @session)))
+  ($ "#downloadform" (submit)))
+
+
+
+(defn ds2 []  (let [dataurl (str "data:text/csv;charset=UTF-8," (js/encodeURIComponent (pr-str @session)))]
+                (js* "window.location.href=~{}" dataurl)))
+
 ($ js/document (ready
                 #(do
-
+                   ($ "#savebutton" (on "click" (fn [] (download-session))))
                    (editor/add-keybindings)
+                   (js/alert "load")
+                   ($ "#fileupload"
+                      (fileupload
+                       (gobject/create "add" (fn [e data]
+                                               (.
+                                                (. data (submit))
+                                                (complete (fn [result status xx] (load-new-file (.-responseText result)))))))
+                       ))
                    (load-session 1))))

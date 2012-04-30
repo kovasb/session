@@ -1,10 +1,14 @@
 (ns session.server
   (:use [noir.fetch.remotes])
   (:use [client.macros])
+  (:use [noir.core])
   (:require [noir.server :as server]
             ;;[himera.server.cljs :as himera]
             [cljs.compiler :as comp]
             [noir.cljs.core :as cljs]
+            ;;[ring.util [response :as response]]
+            [noir.response :as response]
+            [ring.middleware [multipart-params :as mp]]
             )
   )
 
@@ -66,14 +70,29 @@
   (let [filename (str "resources/public/sessions/" id ".clj")]
     (compile-expr-string (slurp filename))))
 
+(defpage [:post "/upload"] x
+  ; do some work
+  ;;(println x)
+  (:result (compile-expr-string (slurp (:tempfile (first (:files x))))))
+
+  )
+
+(defpage [:post "/download"] x
+  ;;(println x)
+  (response/set-headers {"Content-Disposition" "attachment; filename=\"myfile.txt\""}
+  (:session-data x)))
+
 (defn -main [& m]
   (binding [*print-meta* true]
     (let [mode (keyword (or (first m) :dev))
          port (Integer. (get (System/getenv) "PORT" "8090"))]
     ;;  (cljs/start mode cljs-options)
-      (server/add-middleware (fn [handler] (fn [req]
-                                            (binding [
-                                                      *data-readers* {'session/loop #'tag-loop 'session/subsession #'tag-subsession 'session/session #'tag-session 'ui/test #'tag-test 'ui/html #'tag-html}
-                                                      *print-meta* true] (handler req)))))
+      (server/add-middleware
+       (fn [handler] (fn [req]
+                      (binding [
+                                *data-readers* {'session/loop #'tag-loop 'session/subsession #'tag-subsession 'session/session #'tag-session 'ui/test #'tag-test 'ui/html #'tag-html}
+                                *print-meta* true] (handler req)))))
+      (server/add-middleware mp/wrap-multipart-params)
+
      (server/start port {:mode mode
                          :ns 'htmlrepl}))))

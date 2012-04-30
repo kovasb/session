@@ -10,6 +10,9 @@
 ;; session format
 ;; {:subsessions [subsession {:type :cljs :loops XX }  ] }
 
+(def last-loop-id (atom 0))
+(defn new-loop-id [] (str (swap! last-loop-id #(+ 1 %))))
+
 
 (defrecord Session [model])
 
@@ -17,7 +20,7 @@
 
   IPrintable
   (-pr-seq [this opts]
-    (concat  ["#session/session "] (-pr-seq (:model this) opts) ""))
+    (concat  ["#session/session "] (-pr-seq (assoc (:model this) :last-loop-id @last-loop-id) opts) ""))
 
 
   mvc/IMVC
@@ -27,7 +30,7 @@
 
         ] (data "model" (:model this))))
 
-  (control [this session-view] nil)
+  (control [this session-view] (reset! last-loop-id (:last-loop-id (:model this))))
 
 
   )

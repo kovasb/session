@@ -8,7 +8,11 @@
 
 
 (defmethod mvc/view2 :loop-creator [model]
-  ($ [:div.row.span6.loop-creator {:style "background:#000000;height:30px"} ""] (data "model" model)))
+  ($ [:div.row.span6.loop-creator {:style "margin-left:0px;height:18px"}  [:i.new-loop-icon ""]] (data "model" model)))
 
 (defmethod mvc/control2 :loop-creator [model viewobject]
-  ($ viewobject (on "click" #($ :this (trigger "insert-new-loop")))))
+  ($ viewobject (on "click" #($ :this (trigger "insert-new-loop"))))
+  ($ viewobject (on "mouseover" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
+  ($ viewobject (on "mouseout" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
+
+  )

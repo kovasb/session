@@ -8,8 +8,7 @@
   )
 
 
-(def last-loop-id (atom 0))
-(defn new-loop-id [] (str (swap! last-loop-id #(+ 1 %))))
+
 
 ;;(defprotocol ILoop (evaluate-loop [model]))
 
@@ -30,14 +29,23 @@
     (let [id (:id model)]
     ($
      [:div.loop-container
+      ;;[:div.span6.row [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "float:right"} "x"]]
       [:div.row.input {:id id}
-       [:div.span6.row
-        [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "float:right"} "x"]]
-       [:div.span6 {:id (str "area" id) :style "position:relative;height:36px"} @(:input model)]]
+       [:div.span6
+        [:i.icon-chevron-right {:style "float:left"} ""]
+        [:div.span5 {:id (str "area" id) :style "margin-left:0px;position:relative;height:18px"} @(:input model)]]]
       [:div.row {:id (str "out" id)}
-       [:div.span6.loopout {:style "background:#DDD;position:relative;height:20px"}
-        (mvc/view2 @(:output model))]]
-      (mvc/view2 ^{:view :loop-creator} [:loop-creator])
+       [:div.span6
+        [:i.icon-chevron-left {:style "float:left"} ""]
+        [:div.span5.loopout {:style "margin-left:0px;position:relative"}
+         (mvc/view2 @(:output model))]
+        ]
+       ]
+      (let [lc (mvc/view2 ^{:view :loop-creator} [:loop-creator])]
+          ($ lc (on "mouseover" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
+          ($ lc (on "mouseout" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
+          lc
+        )
       ]
      (data "model" model))))
   (control [model viewobject]

@@ -2,11 +2,15 @@
   (:require
    [session.client.loop-creator :as loop-creator]
    [session.client.loop :as loop]
-   [session.client.mvc :as mvc])
+   [session.client.mvc :as mvc]
+   [session.client.session :as session])
+
 
   (:use-macros [cljs-jquery.macros :only [$]])
   (:require-macros [fetch.macros :as pm])
   )
+
+
 
 (defprotocol ISubsession
   (insert-new-loop [this session-view event])
@@ -44,6 +48,7 @@
   mvc/IMVC
   (view [this]
     ($ [:div.subsession.span6
+        [:div.row [:div.span2 [:h3 (if (= :clj (:type this))  "Clojure" "Clojurescript")]]]
         (let [v (mvc/view2 ^{:view :loop-creator} [:loop-creator])]
           (mvc/control2 ^{:view :loop-creator} [:loop-creator] v)
           v
@@ -61,7 +66,7 @@
     (let [
         event-target (. event -target)
         event-model ($ event-target (data "model"))
-        loop-model (let [id (loop/new-loop-id)] (loop/Loop. {:id id :input (atom [:loop id]) :output (atom [:loop id])}))
+        loop-model (let [id (session/new-loop-id)] (loop/Loop. {:id id :input (atom "") :output (atom nil)}))
         loop-view (mvc/render loop-model)
         session-model this
           ]
@@ -92,7 +97,7 @@
         event-target (. event -target)
         event-model ($ event-target (data "model"))
           ]
-      (js/alert (str (:type this)))
+
       (cond
        (= :cljs (:type this)) (evaluate-cljs event-model)
        (= :clj (:type this)) (evaluate-clj event-model)
