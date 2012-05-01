@@ -42,11 +42,24 @@
       (. editor (resize))
       )))
 
+(defn fit-to-length [id editor]
+  (let [val
+        (str  (*
+               (. (. editor -renderer ) -lineHeight)
+               (. (. editor (getSession)) (getLength))
+               )
+              "px")]
+    ($ (str "#" id)
+       (css "height" val))
+    (. editor (resize))
+    ))
+
 (defn create-editor [id]
   (let [
        editor (.edit ace id)
-       mode (. (js-require "ace/mode/clojure") -Mode)
-       fitfn (fit-to-length-function id editor)
+        mode (. (js-require "ace/mode/clojure") -Mode)
+        fitfn  (fit-to-length-function id editor)
+       ;;fitfn (fit-to-length-function id editor)
         ]
     (.setMode (. editor (getSession)) (mode.))
     (.addEventListener (. editor (getSession))  "change" fitfn)

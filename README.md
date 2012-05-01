@@ -10,13 +10,12 @@ Experimental/ pre-Alpha
 
 ```bash
 lein deps
+lein cljsbuild once
 lein run
 ```
 
 ## License
 
-Copyright (C) 2012 FIXME
+Copyright (C) 2012 Kovas Boguta
 
 Distributed under the Eclipse Public License, the same as Clojure.
-
-

@@ -55,7 +55,10 @@
     (let [model ($ viewobject (data "model")) id (:id model) editor (atom [])]
       ($ viewobject (on "click" ".loop-creator" #(do ($ viewobject (trigger "insert-new-loop")) )))
     ;;($ viewobject (on "click" "a.close"))
-      ($ viewobject (on "post-render" #(reset! editor (editor/create-editor (str "area" id)))))
+      ($ viewobject (on "post-render" #(do
+                                         (reset! editor (editor/create-editor (str "area" id)))
+                                         (editor/fit-to-length (str "area" id) @editor)
+                                         )))
       ($ viewobject (on "click" ".loop-deleter" #($ viewobject (trigger "delete-loop"))))
       ($ viewobject (on "evaluate-input"
                       #(do
