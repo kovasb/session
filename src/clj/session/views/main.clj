@@ -11,15 +11,19 @@
               [:div.container {:style "margin-left:20px"}
                [:a.brand {:href "#"} "SESSION"]
                [:ul.nav
-                [:li.active [:a {:href "#"} "Home"]]
+                [:li.active [:a {:href "#"} "Current Session"]]
 
-                [:li [:a#savebutton {:href "#"} "Download"]
+                [:li [:span#savebutton.btn {:href "#"} "Download"]
                  ]
-
+                [:li [:a " "]]
                 [:li
-                 [:form#fileupload {:action "upload" :method "POST" :style "padding: 10px 10px 11px" :enctype "multipart/form-data"}
-                  [:span.fileinput-button
-                   [:a {:href "#"}  "Upload"]
+                 [:form#fileupload {:action "upload" :method "POST"
+                                    ;;:style "padding: 11px 10px 11px"
+                                    :enctype "multipart/form-data"}
+                  [:span.fileinput-button.btn
+                   [:a {:href "#"
+                        :style "color:#000"
+                        }  "Upload"]
                    [:input {:type "file" :name "files[]" :multiple "true"}]
                    ]
 

@@ -29,11 +29,14 @@
     (let [id (:id model)]
     ($
      [:div.loop-container
-      ;;[:div.span6.row [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "float:right"} "x"]]
+      ;;[:div.span6.row ]
       [:div.row.input {:id id}
        [:div.span6
         [:i.icon-chevron-right {:style "float:left"} ""]
-        [:div.span5 {:id (str "area" id) :style "margin-left:0px;position:relative;height:18px"} @(:input model)]]]
+        [:div.span5 {:id (str "area" id) :style "margin-left:0px;position:relative;height:18px"} @(:input model)]
+        [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "margin-left:10px;float:none"} "x"]
+        ]
+       ]
       [:div.row {:id (str "out" id)}
        [:div.span6
         [:i.icon-chevron-left {:style "float:left"} ""]

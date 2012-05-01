@@ -33,10 +33,10 @@
                                 (binding [comp/*cljs-ns* 'session.client.main]
                                   (let [env {:ns (@comp/namespaces comp/*cljs-ns*)
                                              :uses #{'cljs.core}
-                                             :context :expr
+                                             :context :statement
                                              :locals {}}]
 
-                                    (#(comp/emits (comp/analyze % %2)) env expr)))
+                                    (comp/with-core-cljs (comp/emits (comp/analyze env expr)))))
                                  :status 200})
     (catch Exception e (println (str "compiler-expr-string: " x)))
     ))
@@ -52,7 +52,7 @@
 
 (defn tag-loop [x]
   (let [in (:input x) out (:output x)]
-    `(session.client.loop/Loop. ~(assoc x :input `(atom ~in) :output `(atom  ~out)) )))
+    `(session.client.loop/Loop. ~(assoc x :input `(atom ~in) :output `(atom  (quote ~out))) )))
 
 (defn tag-subsession [x]
   (let [loops (:loops x)]
@@ -79,7 +79,7 @@
 
 (defpage [:post "/download"] x
   ;;(println x)
-  (response/set-headers {"Content-Disposition" "attachment; filename=\"myfile.txt\""}
+  (response/set-headers {"Content-Disposition" "attachment; filename=\"session.clj\""}
   (:session-data x)))
 
 (defn -main [& m]

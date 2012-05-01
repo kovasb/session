@@ -29,7 +29,7 @@
    (compile-expr-string @(:input event-model))
    [result]
    ;;(js/alert (pr-str (:result result)))
-   (reset! (:output event-model) (js/eval (:result result)))))
+   (reset! (:output event-model) (let [x (js/eval (:result result))] (if x x nil)))))
 
 
 (deftype Subsession [model]

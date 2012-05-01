@@ -11,6 +11,7 @@
    [session.client.mvc :as mvc]
    [session.client.svgtest :as svgtest]
    [goog.object :as gobject]
+   [session.ui :as ui]
    )
 
   (:use-macros [cljs-jquery.macros :only [$]])
@@ -67,12 +68,12 @@
   )
 
 (defn download-session []
-  ($ "#downloadformdata" (val (pr-str @session)))
+  ($ "#downloadformdata" (val (binding [*print-meta* true]  (pr-str @session))))
   ($ "#downloadform" (submit)))
 
 
 
-(defn ds2 []  (let [dataurl (str "data:text/csv;charset=UTF-8," (js/encodeURIComponent (pr-str @session)))]
+(defn ds2 []  (let [dataurl (str "data:text/csv;charset=UTF-8," (js/encodeURIComponent (binding [*print-meta* true]  (pr-str @session))))]
                 (js* "window.location.href=~{}" dataurl)))
 
 ($ js/document (ready
@@ -87,4 +88,4 @@
                                                 (. data (submit))
                                                 (complete (fn [result status xx] (load-new-file (.-responseText result)))))))
                        ))
-                   (load-session 1))))
+                   (load-session "default-session"))))
