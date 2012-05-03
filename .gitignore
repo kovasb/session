@@ -3,4 +3,3 @@ pom.xml
 /lib/
 /classes/
 .lein*
-resources/public/cljs/
