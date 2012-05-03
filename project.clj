@@ -1,4 +1,4 @@
-(defproject session "0.1.0-SNAPSHOT"
+(defproject session "0.1.2-SNAPSHOT"
   :description "FIXME: write this!"
   :url "http://exampl.com/FIXME"
   :dependencies [[org.clojure/clojure "1.4.0"]

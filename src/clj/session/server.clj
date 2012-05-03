@@ -2,6 +2,7 @@
   (:use [noir.fetch.remotes])
   (:use [client.macros])
   (:use [noir.core])
+  (:use [clojure.java.io :only [resource]])
   (:require [noir.server :as server]
             ;;[himera.server.cljs :as himera]
             [cljs.compiler :as comp]
@@ -67,8 +68,8 @@
     (str "sessions" id ".clj")))
 
 (defremote get-session [id]
-  (let [filename (str "resources/public/sessions/" id ".clj")]
-    (compile-expr-string (slurp filename))))
+  (let [filename (str "public/sessions/" id ".clj")]
+    (compile-expr-string (slurp (resource filename)))))
 
 (defpage [:post "/upload"] x
   ; do some work
