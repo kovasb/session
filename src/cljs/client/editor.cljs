@@ -54,13 +54,17 @@
     (. editor (resize))
     ))
 
+
+
 (defn create-editor [id]
   (let [
-       editor (.edit ace id)
+        editor (.edit ace id)
+
         mode (. (js-require "ace/mode/clojure") -Mode)
         fitfn  (fit-to-length-function id editor)
        ;;fitfn (fit-to-length-function id editor)
         ]
+    (.setHighlightActiveLine editor false)
     (.setMode (. editor (getSession)) (mode.))
     (.addEventListener (. editor (getSession))  "change" fitfn)
     (.setShowGutter (. editor -renderer) false)

@@ -13,7 +13,26 @@
             )
   )
 
+(import '(java.io Writer))
+
 (server/load-views-ns 'session.views)
+
+(defmethod print-method Object [o, ^Writer w]
+  (.write w " \"#<")
+  (.write w (.getSimpleName (class o)))
+  (.write w " ")
+  (.write w (str o))
+  (.write w ">\""))
+
+(defn table-row [x]  [:tr (map #(vector :td (str %)) x)])
+
+(defn table [x]
+  (with-meta
+    [:table.table.table-bordered.table-striped.table-condensed (map table-row x)]
+   {:view :dom}
+))
+
+(defn bar-chart [x] (with-meta x {:view :barchart}))
 
 (def cljs-options {:simple {:src-dir "src/cljs/"}   :advanced {:externs ["externs/jquery.js"]}})
 
@@ -91,6 +110,7 @@
       (server/add-middleware
        (fn [handler] (fn [req]
                       (binding [
+                                *ns* (the-ns 'session.server)
                                 *data-readers* {'session/loop #'tag-loop 'session/subsession #'tag-subsession 'session/session #'tag-session 'ui/test #'tag-test 'ui/html #'tag-html}
                                 *print-meta* true] (handler req)))))
       (server/add-middleware mp/wrap-multipart-params)

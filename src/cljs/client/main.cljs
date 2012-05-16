@@ -23,6 +23,7 @@
 (repl/connect "http://localhost:9000/repl")
 
 
+
 ;;(defn shift-enter-event? [e] (and (. e (shiftKey)) (= 13 (. e (keycode)))))
 
 (def session (atom nil))
@@ -78,6 +79,11 @@
 
 ($ js/document (ready
                 #(do
+                   ($ ".example" (on "click"
+                                     (fn [] (load-session ($ :this (attr "id"))))
+
+                                     ))
+
                    ($ "#savebutton" (on "click" (fn [] (download-session))))
                    (editor/add-keybindings)
 

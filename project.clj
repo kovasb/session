@@ -4,7 +4,8 @@
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [org.clojure/clojurescript "0.0-1011"]
                  [com.keminglabs/c2 "0.1.0-beta1"]
-
+                 [com.cemerick/pomegranate "0.0.12"]
+                 ;;[cascalog "1.8.7"]
 
                  [jayq "0.1.0-alpha1" :exclusions [org.clojure/clojure]]
                  [fetch "0.1.0-alpha2" :exclusions [org.clojure/clojure]]

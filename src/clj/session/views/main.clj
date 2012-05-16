@@ -30,13 +30,15 @@
 
                   ]]
 
-                (comment [:li.dropdown
-                  [:a.dropdown-toggle {:data-toggle "dropdown" :href "#"} "Examples " [:b.caret ""]]
-                  [:ul.dropdown-menu
-                   [:li [:a {:href "#"} "a"]]
-                   [:li [:a {:href "#"} "b"]]
-                   ]
-                  ])
+                [:li.dropdown
+                 [:a.dropdown-toggle {:data-toggle "dropdown" :href "#"} "Examples " [:b.caret ""]]
+                 [:ul.dropdown-menu
+                  [:li#clojure-language.example [:a {:href "#"} "Clojure Language"]]
+                  ;;[:li#twitter-bootstrap.example [:a {:href "#"} "Twitter Bootstrap"]]
+                  ;;[:li#graphics.example [:a {:href "#"} "Graphics"]]
+                  [:li#cascalog.example [:a {:href "#"} "Cascalog"]]
+                  ]
+                 ]
                 ;;[:li [:a {:href "#"} "Rationale"]]
 
                 ]

@@ -8161,6 +8161,14 @@ var session = {ui:{}};
 session.ui.youtube = function(a) {
   return cljs.core.with_meta.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'iframe", cljs.core.ObjMap.fromObject(["\ufdd0'width", "\ufdd0'height", "\ufdd0'src"], {"\ufdd0'width":"420", "\ufdd0'height":"315", "\ufdd0'src":cljs.core.str.call(null, "http://www.youtube.com/embed/", a, "?rel=0")})]), cljs.core.ObjMap.fromObject(["\ufdd0'view"], {"\ufdd0'view":"\ufdd0'dom"}))
 };
+session.ui.table_row = function(a) {
+  return cljs.core.PersistentVector.fromArray(["\ufdd0'tr", cljs.core.map.call(null, function(a) {
+    return cljs.core.vector.call(null, "\ufdd0'td", cljs.core.str.call(null, a))
+  }, a)])
+};
+session.ui.table = function(a) {
+  return cljs.core.with_meta.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'table.table.table-bordered.table-striped.table-condensed", cljs.core.map.call(null, session.ui.table_row, a)]), cljs.core.ObjMap.fromObject(["\ufdd0'view"], {"\ufdd0'view":"\ufdd0'dom"}))
+};
 goog.disposable = {};
 goog.disposable.IDisposable = function() {
 };
@@ -10911,6 +10919,38 @@ cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", functio
     return cljs.core.truth_(b) ? b : cljs.core.keyword_QMARK_.call(null, a)
   }()) ? cljs_jquery.core.dom_create.call(null, a) : cljs.core.truth_(!0) ? cljs_jquery.core.jquery.call(null, a) : null
 });
+session.client.mvc.jsObj = function jsObj(b) {
+  return cljs.core.into.call(null, cljs.core.ObjMap.fromObject([], {}), cljs.core.map.call(null, function(b) {
+    var d = cljs.core.nth.call(null, b, 0, null), b = cljs.core.nth.call(null, b, 1, null), d = cljs.core.truth_(cljs.core.keyword_QMARK_.call(null, d)) ? cljs.core.name.call(null, d) : d, b = cljs.core.truth_(cljs.core.keyword_QMARK_.call(null, b)) ? cljs.core.name.call(null, b) : b;
+    return cljs.core.truth_(cljs.core.map_QMARK_.call(null, b)) ? cljs.core.PersistentVector.fromArray([d, jsObj.call(null, b)]) : cljs.core.PersistentVector.fromArray([d, b])
+  }, b)).strobj
+};
+session.client.mvc.reshape_categorical_data = function(a) {
+  var b = cljs.core.distinct.call(null, cljs.core.map.call(null, cljs.core.first, a)), c = cljs.core.distinct.call(null, cljs.core.map.call(null, function(a) {
+    return cljs.core.nth.call(null, a, 1)
+  }, a)), d = cljs.core.into.call(null, cljs.core.ObjMap.fromObject([], {}), cljs.core.map.call(null, function(a) {
+    return cljs.core.vector.call(null, cljs.core.PersistentVector.fromArray([cljs.core.nth.call(null, a, 0), cljs.core.nth.call(null, a, 1)]), cljs.core.last.call(null, a))
+  }, a));
+  return cljs.core.ObjMap.fromObject(["\ufdd0'data", "\ufdd0'categories", "\ufdd0'bins"], {"\ufdd0'data":cljs.core.map.call(null, function(a) {
+    return cljs.core.map.call(null, function(b) {
+      return d.call(null, cljs.core.PersistentVector.fromArray([b, a]), 0)
+    }, b)
+  }, c), "\ufdd0'categories":c, "\ufdd0'bins":b})
+};
+session.client.mvc.insertBarChart = function(a, b) {
+  return new Highcharts.Chart(session.client.mvc.jsObj.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'chart", "\ufdd0'xAxis", "\ufdd0'series"], {"\ufdd0'chart":cljs.core.ObjMap.fromObject(["\ufdd0'defaultSeriesType", "\ufdd0'renderTo"], {"\ufdd0'defaultSeriesType":"bar", "\ufdd0'renderTo":b}), "\ufdd0'xAxis":cljs.core.ObjMap.fromObject(["\ufdd0'categories"], {"\ufdd0'categories":cljs.core.to_array.call(null, cljs.core.map.call(null, cljs.core.str, "\ufdd0'bins".call(null, a)))}), "\ufdd0'series":cljs.core.to_array.call(null, 
+  cljs.core.map.call(null, function(a, b) {
+    return session.client.mvc.jsObj.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'data"], {"\ufdd0'name":a, "\ufdd0'data":cljs.core.to_array.call(null, b)}))
+  }, "\ufdd0'categories".call(null, a), "\ufdd0'data".call(null, a)))})))
+};
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'barchart", function(a) {
+  var a = session.client.mvc.reshape_categorical_data.call(null, a), b = (cljs.core.truth_(cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"width:200px;height:200px"}), ""]))) ? cljs_jquery.core.jquery.call(null, this) : cljs.core.truth_(function() {
+    var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"width:200px;height:200px"}), ""]));
+    return cljs.core.truth_(a) ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"width:200px;height:200px"}), ""]))
+  }()) ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"width:200px;height:200px"}), ""])) : cljs.core.truth_(!0) ? cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"width:200px;height:200px"}), ""])) : null)[0];
+  session.client.mvc.insertBarChart.call(null, a, b);
+  return b
+});
 cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
   return cljs.core.truth_(cljs.core.instance_QMARK_.call(null, Element, a)) ? a : cljs.core.truth_(cljs.core.instance_QMARK_.call(null, jQuery, a)) ? a : cljs.core.truth_(!0) ? cljs.core.pr_str.call(null, a) : null
 });
@@ -10958,6 +10998,7 @@ session.client.editor.fit_to_length = function(a, b) {
 };
 session.client.editor.create_editor = function(a) {
   var b = session.client.editor.ace.edit(a), c = session.client.editor.js_require.call(null, "ace/mode/clojure").Mode, a = session.client.editor.fit_to_length_function.call(null, a, b);
+  b.setHighlightActiveLine(!1);
   b.getSession().setMode(new c);
   b.getSession().addEventListener("change", a);
   b.renderer.setShowGutter(!1);
@@ -11357,7 +11398,7 @@ session.client.subsession.evaluate_loop = function(a, b, c) {
 };
 session.client.subsession.evaluate_clj = function(a) {
   return fetch.remotes.remote_callback.call(null, "eval-expr-string", cljs.core.PersistentVector.fromArray([cljs.core.deref.call(null, "\ufdd0'input".call(null, a))]), function(b) {
-    return cljs.core.reset_BANG_.call(null, "\ufdd0'output".call(null, a), eval.call(null, "\ufdd0'result".call(null, b)))
+    return cljs.core.reset_BANG_.call(null, "\ufdd0'output".call(null, a), "\ufdd0'result".call(null, b))
   })
 };
 session.client.subsession.evaluate_cljs = function(a) {
@@ -12402,18 +12443,18 @@ session.client.svgtest.result = function() {
     }()])
   })])])
 }();
-var data__50174 = cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'children"], {"\ufdd0'name":"Delicious Pie", "\ufdd0'children":cljs.core.PersistentVector.fromArray([cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'bites"], {"\ufdd0'name":"Eaten", "\ufdd0'bites":11}), cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'bites"], {"\ufdd0'name":"Not Eaten", "\ufdd0'bites":39}), cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'bites"], {"\ufdd0'name":"Silverware", "\ufdd0'bites":8})])}), slices__50175 = 
+var data__30269 = cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'children"], {"\ufdd0'name":"Delicious Pie", "\ufdd0'children":cljs.core.PersistentVector.fromArray([cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'bites"], {"\ufdd0'name":"Eaten", "\ufdd0'bites":11}), cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'bites"], {"\ufdd0'name":"Not Eaten", "\ufdd0'bites":39}), cljs.core.ObjMap.fromObject(["\ufdd0'name", "\ufdd0'bites"], {"\ufdd0'name":"Silverware", "\ufdd0'bites":8})])}), slices__30270 = 
 cljs.core.filter.call(null, function(a) {
   return cljs.core._EQ_.call(null, "\ufdd0'depth".call(null, "\ufdd0'partition".call(null, a)), 1)
-}, c2.layout.partition.partition.call(null, data__50174, "\ufdd0'value", "\ufdd0'bites", "\ufdd0'size", cljs.core.PersistentVector.fromArray([c2.maths.Tau, 1]))), radius__50176 = 170;
-cljs.core.PersistentVector.fromArray(["\ufdd0'svg", cljs.core.PersistentVector.fromArray(["\ufdd0'g", cljs.core.ObjMap.fromObject(["\ufdd0'transform"], {"\ufdd0'transform":"translate(200,200)"}), cljs.core.vector.call(null, slices__50175, function(a) {
+}, c2.layout.partition.partition.call(null, data__30269, "\ufdd0'value", "\ufdd0'bites", "\ufdd0'size", cljs.core.PersistentVector.fromArray([c2.maths.Tau, 1]))), radius__30271 = 170;
+cljs.core.PersistentVector.fromArray(["\ufdd0'svg", cljs.core.PersistentVector.fromArray(["\ufdd0'g", cljs.core.ObjMap.fromObject(["\ufdd0'transform"], {"\ufdd0'transform":"translate(200,200)"}), cljs.core.vector.call(null, slices__30270, function(a) {
   var a = cljs.core.truth_(cljs.core.seq_QMARK_.call(null, a)) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, b = cljs.core.get.call(null, a, "\ufdd0'name");
   cljs.core.get.call(null, a, "\ufdd0'bites");
   var a = cljs.core.get.call(null, a, "\ufdd0'partition"), a = cljs.core.truth_(cljs.core.seq_QMARK_.call(null, a)) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, c = cljs.core.get.call(null, a, "\ufdd0'dx"), d = cljs.core.get.call(null, a, "\ufdd0'x");
-  return cljs.core.PersistentVector.fromArray(["\ufdd0'g.slice", cljs.core.PersistentVector.fromArray(["\ufdd0'path", cljs.core.ObjMap.fromObject(["\ufdd0'd", "\ufdd0'style"], {"\ufdd0'd":c2.svg.arc.call(null, "\ufdd0'outer-radius", radius__50176, "\ufdd0'start-angle", d, "\ufdd0'end-angle", d + c), "\ufdd0'style":session.client.svgtest.style.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'stroke", "\ufdd0'fill"], {"\ufdd0'stroke":"black", "\ufdd0'fill":session.client.svgtest.case$.call(null, b, 
+  return cljs.core.PersistentVector.fromArray(["\ufdd0'g.slice", cljs.core.PersistentVector.fromArray(["\ufdd0'path", cljs.core.ObjMap.fromObject(["\ufdd0'd", "\ufdd0'style"], {"\ufdd0'd":c2.svg.arc.call(null, "\ufdd0'outer-radius", radius__30271, "\ufdd0'start-angle", d, "\ufdd0'end-angle", d + c), "\ufdd0'style":session.client.svgtest.style.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'stroke", "\ufdd0'fill"], {"\ufdd0'stroke":"black", "\ufdd0'fill":session.client.svgtest.case$.call(null, b, 
   "Eaten", "yellow", "Not Eaten", "tan", "Silverware", "silver")}))})]), function() {
     var a = d + c / 2;
-    return cljs.core.PersistentVector.fromArray(["\ufdd0'text", cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y", "\ufdd0'text-anchor"], {"\ufdd0'x":0.5 * radius__50176 * c2.maths.cos.call(null, a), "\ufdd0'y":0.5 * radius__50176 * c2.maths.sin.call(null, a), "\ufdd0'text-anchor":function() {
+    return cljs.core.PersistentVector.fromArray(["\ufdd0'text", cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y", "\ufdd0'text-anchor"], {"\ufdd0'x":0.5 * radius__30271 * c2.maths.cos.call(null, a), "\ufdd0'y":0.5 * radius__30271 * c2.maths.sin.call(null, a), "\ufdd0'text-anchor":function() {
       var b = cljs.core._GT_, c = a % c2.maths.Tau;
       if(cljs.core.truth_(b.call(null, 0.25 * c2.maths.Tau, c))) {
         return"start"
@@ -15211,6 +15252,15 @@ cljs_jquery.core.call_jquery.call(null, cljs.core.truth_(cljs.core._EQ_.call(nul
   var a = cljs.core.vector_QMARK_.call(null, document);
   return cljs.core.truth_(a) ? a : cljs.core.keyword_QMARK_.call(null, document)
 }()) ? cljs_jquery.core.dom_create.call(null, document) : cljs.core.truth_(!0) ? cljs_jquery.core.jquery.call(null, document) : null, cljs.core.PersistentVector.fromArray(["ready", function() {
+  cljs_jquery.core.call_jquery.call(null, cljs.core.truth_(cljs.core._EQ_.call(null, "\ufdd0'this", ".example")) ? cljs_jquery.core.jquery.call(null, this) : cljs.core.truth_(function() {
+    var a = cljs.core.vector_QMARK_.call(null, ".example");
+    return cljs.core.truth_(a) ? a : cljs.core.keyword_QMARK_.call(null, ".example")
+  }()) ? cljs_jquery.core.dom_create.call(null, ".example") : cljs.core.truth_(!0) ? cljs_jquery.core.jquery.call(null, ".example") : null, cljs.core.PersistentVector.fromArray(["on", "click", function() {
+    return session.client.main.load_session.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core.truth_(cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this")) ? cljs_jquery.core.jquery.call(null, this) : cljs.core.truth_(function() {
+      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
+      return cljs.core.truth_(a) ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
+    }()) ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs.core.truth_(!0) ? cljs_jquery.core.jquery.call(null, "\ufdd0'this") : null, cljs.core.PersistentVector.fromArray(["attr", "id"])))
+  }]));
   cljs_jquery.core.call_jquery.call(null, cljs.core.truth_(cljs.core._EQ_.call(null, "\ufdd0'this", "#savebutton")) ? cljs_jquery.core.jquery.call(null, this) : cljs.core.truth_(function() {
     var a = cljs.core.vector_QMARK_.call(null, "#savebutton");
     return cljs.core.truth_(a) ? a : cljs.core.keyword_QMARK_.call(null, "#savebutton")

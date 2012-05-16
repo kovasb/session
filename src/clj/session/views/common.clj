@@ -18,6 +18,7 @@
                [:script {:type "text/javascript" :src "ace/mode-clojure.js"}]
                [:script {:type "text/javascript" :src "jquery.js"}]
                [:script {:type "text/javascript" :src "bootstrap/js/bootstrap.js"}]
+               [:script {:type "text/javascript" :src "highcharts.js"}]
                [:script {:type "text/javascript" :src "js/vendor/jquery.ui.widget.js"}]
                [:script {:type "text/javascript" :src "js/jquery.iframe-transport.js"}]
                [:script {:type "text/javascript" :src "js/jquery.fileupload.js"}]

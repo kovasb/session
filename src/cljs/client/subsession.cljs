@@ -22,7 +22,8 @@
    (eval-expr-string @(:input event-model))
    [result]
    ;;(js/alert (pr-str (:result result)))
-   (reset! (:output event-model) (js/eval (:result result)))))
+   ;;(js/alert  (js/eval (:result result)))
+   (reset! (:output event-model) (:result result))))
 
 (defn evaluate-cljs [event-model]
   (pm/remote
