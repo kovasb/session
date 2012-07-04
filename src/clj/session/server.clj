@@ -1,19 +1,16 @@
 (ns session.server
-  (:use [noir.fetch.remotes])
-  (:use [client.macros])
-  (:use [noir.core])
-  (:use [clojure.java.io :only [resource]])
+  (:use [noir.fetch.remotes]
+        [client.macros]
+        [noir.core]
+        [clojure.java.io :only [resource]])
   (:require [noir.server :as server]
             ;;[himera.server.cljs :as himera]
             [cljs.compiler :as comp]
             [noir.cljs.core :as cljs]
             ;;[ring.util [response :as response]]
             [noir.response :as response]
-            [ring.middleware [multipart-params :as mp]]
-            )
-  )
-
-(import '(java.io Writer))
+            [ring.middleware [multipart-params :as mp]])
+  (:import (java.io Writer)))
 
 (server/load-views-ns 'session.views)
 
