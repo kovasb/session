@@ -12,10 +12,11 @@
                  [noir "1.3.0-beta2" :exclusions [org.clojure/clojure]]
                  ;; [himera "0.1.0-SNAPSHOT" :exclusions
                  ;; [org.clojure/clojure org.clojure/clojurescript ]]
-                 [cljs-jquery "1.0.4-SNAPSHOT" :
-                  exclusions [org.clojure/clojure org.clojure/clojurescript]]
+                 [cljs-jquery "1.0.4-SNAPSHOT"
+                  :exclusions [org.clojure/clojure org.clojure/clojurescript]]
                  [noir-cljs "0.3.0"
-                  :exclusions [org.clojure/clojure org.clojure/clojurescript]]]
+                  :exclusions [org.clojure/clojure org.clojure/clojurescript]]
+                 [com.cemerick/drawbridge "0.0.6"]]
   :dev-dependencies []
   :source-path "src/clj"
   :plugins [[lein-cljsbuild "0.1.8"] ]

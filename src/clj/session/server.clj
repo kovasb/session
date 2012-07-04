@@ -9,7 +9,8 @@
             [noir.cljs.core :as cljs]
             ;;[ring.util [response :as response]]
             [noir.response :as response]
-            [ring.middleware [multipart-params :as mp]])
+            [ring.middleware [multipart-params :as mp]]
+            [cemerick.drawbridge :as db])
   (:import (java.io Writer)))
 
 (server/load-views-ns 'session.views)
@@ -111,6 +112,17 @@
                                 *data-readers* {'session/loop #'tag-loop 'session/subsession #'tag-subsession 'session/session #'tag-session 'ui/test #'tag-test 'ui/html #'tag-html}
                                 *print-meta* true] (handler req)))))
       (server/add-middleware mp/wrap-multipart-params)
-
+      (server/add-middleware
+       (fn [handler]
+         (fn [req]
+           (if (= "/repl" (:uri req))
+             ((-> (db/ring-handler)
+                  ring.middleware.keyword-params/wrap-keyword-params
+                   ring.middleware.nested-params/wrap-nested-params
+                   ring.middleware.params/wrap-params
+                   mp/wrap-multipart-params
+                   ring.middleware.session/wrap-session)
+              req)
+             (handler req)))))
      (server/start port {:mode mode
                          :ns 'htmlrepl}))))

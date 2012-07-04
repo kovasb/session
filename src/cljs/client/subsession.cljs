@@ -3,27 +3,47 @@
    [session.client.loop-creator :as loop-creator]
    [session.client.loop :as loop]
    [session.client.mvc :as mvc]
-   [session.client.session :as session])
-
-
+   [session.client.session :as session]
+   [cljs-jquery.core :as jq]
+   [cljs.reader :as r])
   (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm])
-  )
-
-
+  (:require-macros [fetch.macros :as pm]))
 
 (defprotocol ISubsession
   (insert-new-loop [this session-view event])
   (delete-loop [this session-view event])
   (evaluate-loop [this session-view event]))
 
+(defn make-js-map
+  "makes a javascript map from a clojure one"
+  [cljmap]
+  (let [out (js-obj)]
+    (doall (map #(aset out (name (first %)) (second %)) cljmap))
+    out))
+
+(defn nrepl-eval [form callback]
+  (.ajax
+   jq/jquery
+   "/repl"
+   (make-js-map
+    {"type" "POST"
+     "data" (doto (js/FormData.)
+             (.append "op" "eval")
+             (.append "code" form))
+     "cache" false
+     "contentType" false
+     "processData" false
+     "dataType" "json"
+     "success" (fn [data status xhr]
+                 (callback (r/read-string (aget (aget data 0) "value"))))
+     "headers" (make-js-map
+                {"REPL-Response-Timeout" 500})})))
+
 (defn evaluate-clj [event-model]
-  (pm/remote
-   (eval-expr-string @(:input event-model))
-   [result]
-   ;;(js/alert (pr-str (:result result)))
-   ;;(js/alert  (js/eval (:result result)))
-   (reset! (:output event-model) (:result result))))
+  (nrepl-eval @(:input event-model)
+              (fn [result]
+                (reset! (:output event-model)
+                        result))))
 
 (defn evaluate-cljs [event-model]
   (pm/remote
