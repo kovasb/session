@@ -22,7 +22,7 @@
                (= (aget (aget item "status") 0) "done"))
         (swap! waiting-loops dissoc (aget item "id"))
         ((get @waiting-loops (aget item "id"))
-         (aget item "value")))
+         (r/read-string (aget item "value"))))
       (.log js/console "dropping"))))
 
 (def polling-nrepl? (atom false))
