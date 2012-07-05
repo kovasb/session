@@ -98,7 +98,31 @@
 (defpage [:post "/download"] x
   ;;(println x)
   (response/set-headers {"Content-Disposition" "attachment; filename=\"session.clj\""}
-  (:session-data x)))
+                        (:session-data x)))
+
+(def psuedo-session-store (atom {}))
+
+(defn wrap-with-my-own-non-cookie-based-sessions
+  [handler]
+  (fn [req]
+    (let [session-id (get-in req [:headers "x-session"]) 
+          result
+          (handler
+           (if session-id
+             (assoc req
+               :session (get @psuedo-session-store
+                             session-id))
+             req))]
+      (if (:session result)
+        (let [id (or session-id
+                     (str (java.util.UUID/randomUUID)))]
+          (swap! psuedo-session-store assoc id
+                 (:session result))
+          (update-in (dissoc result :session)
+                     [:headers]
+                     assoc "X-Session"
+                     id))
+        result))))
 
 (defn -main [& m]
   (binding [*print-meta* true]
@@ -121,7 +145,7 @@
                   ring.middleware.nested-params/wrap-nested-params
                   ring.middleware.params/wrap-params
                   mp/wrap-multipart-params
-                  ring.middleware.session/wrap-session)
+                  wrap-with-my-own-non-cookie-based-sessions)
               req)
              (handler req)))))
      (server/start port {:mode mode

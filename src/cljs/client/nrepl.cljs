@@ -12,15 +12,20 @@
 (def waiting-loops
   (atom {}))
 
+(def nrepl-sessions
+  (atom #{}))
+
 (defn nrepl-result-handler [data status xhr]
   (doseq [item (seq data)]
-    (.log js/console item)
+    (swap! nrepl-sessions conj (.getResponseHeader xhr "X-Session"))
     (if (contains?
-           @waiting-loops
-           (aget item "id"))
+         @waiting-loops
+         (aget item "id"))
       (if (and (aget item "status")
                (= (aget (aget item "status") 0) "done"))
-        (swap! waiting-loops dissoc (aget item "id"))
+        (do
+          (swap! waiting-loops dissoc (aget item "id"))
+          (swap! nrepl-sessions disj (aget item "session")))
         ((get @waiting-loops (aget item "id"))
          (r/read-string (aget item "value"))))
       (.log js/console "dropping"))))
@@ -42,17 +47,21 @@
           "processData" false
           "dataType" "json"
           "success" nrepl-result-handler
+          "error" (fn [xhr status error]
+                    (alert error))
           "headers" (make-js-map
-                     {"REPL-Response-Timeout" 1000})})))
+                     (merge
+                      {"REPL-Response-Timeout" 1000}
+                      (when-not (empty? @nrepl-sessions)
+                        {"X-Session" (first @nrepl-sessions)})))})))
      1000)))
+
 
 (defn nrepl-eval [form callback]
   (poll-nrepl)
   ;; TODO: id should really be a uuid
-  (let [id (str (rand-int 1000000))]
+  (let [id (name (gensym 'id))]
     (swap! waiting-loops assoc id callback)
-    (.log js/console "send")
-    (.log js/console form)
     (.ajax
      jq/jquery
      "/repl"
@@ -66,6 +75,11 @@
        "contentType" false
        "processData" false
        "dataType" "json"
+       "error" (fn [xhr status error]
+                 (alert error))
        "success" nrepl-result-handler
        "headers" (make-js-map
-                  {"REPL-Response-Timeout" 500})}))))
+                  (merge
+                   {"REPL-Response-Timeout" 1000}
+                   (when-not (empty? @nrepl-sessions)
+                     {"X-Session" (first @nrepl-sessions)})))}))))
