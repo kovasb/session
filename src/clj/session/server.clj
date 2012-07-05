@@ -118,10 +118,10 @@
            (if (= "/repl" (:uri req))
              ((-> (db/ring-handler)
                   ring.middleware.keyword-params/wrap-keyword-params
-                   ring.middleware.nested-params/wrap-nested-params
-                   ring.middleware.params/wrap-params
-                   mp/wrap-multipart-params
-                   ring.middleware.session/wrap-session)
+                  ring.middleware.nested-params/wrap-nested-params
+                  ring.middleware.params/wrap-params
+                  mp/wrap-multipart-params
+                  ring.middleware.session/wrap-session)
               req)
              (handler req)))))
      (server/start port {:mode mode
