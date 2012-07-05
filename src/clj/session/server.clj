@@ -1,8 +1,8 @@
 (ns session.server
-  (:use [noir.fetch.remotes])
-  (:use [client.macros])
-  (:use [noir.core])
-  (:use [clojure.java.io :only [resource]])
+  (:use [noir.fetch.remotes]
+        [client.macros]
+        [noir.core]
+        [clojure.java.io :only [resource]])
   (:require [noir.server :as server]
             ;;[himera.server.cljs :as himera]
             [cljs.compiler :as comp]
@@ -10,10 +10,8 @@
             ;;[ring.util [response :as response]]
             [noir.response :as response]
             [ring.middleware [multipart-params :as mp]]
-            )
-  )
-
-(import '(java.io Writer))
+            [cemerick.drawbridge :as db])
+  (:import (java.io Writer)))
 
 (server/load-views-ns 'session.views)
 
@@ -100,7 +98,31 @@
 (defpage [:post "/download"] x
   ;;(println x)
   (response/set-headers {"Content-Disposition" "attachment; filename=\"session.clj\""}
-  (:session-data x)))
+                        (:session-data x)))
+
+(def psuedo-session-store (atom {}))
+
+(defn wrap-with-my-own-non-cookie-based-sessions
+  [handler]
+  (fn [req]
+    (let [session-id (get-in req [:headers "x-session"]) 
+          result
+          (handler
+           (if session-id
+             (assoc req
+               :session (get @psuedo-session-store
+                             session-id))
+             req))]
+      (if (:session result)
+        (let [id (or session-id
+                     (str (java.util.UUID/randomUUID)))]
+          (swap! psuedo-session-store assoc id
+                 (:session result))
+          (update-in (dissoc result :session)
+                     [:headers]
+                     assoc "X-Session"
+                     id))
+        result))))
 
 (defn -main [& m]
   (binding [*print-meta* true]
@@ -114,6 +136,17 @@
                                 *data-readers* {'session/loop #'tag-loop 'session/subsession #'tag-subsession 'session/session #'tag-session 'ui/test #'tag-test 'ui/html #'tag-html}
                                 *print-meta* true] (handler req)))))
       (server/add-middleware mp/wrap-multipart-params)
-
+      (server/add-middleware
+       (fn [handler]
+         (fn [req]
+           (if (= "/repl" (:uri req))
+             ((-> (db/ring-handler)
+                  ring.middleware.keyword-params/wrap-keyword-params
+                  ring.middleware.nested-params/wrap-nested-params
+                  ring.middleware.params/wrap-params
+                  mp/wrap-multipart-params
+                  wrap-with-my-own-non-cookie-based-sessions)
+              req)
+             (handler req)))))
      (server/start port {:mode mode
                          :ns 'htmlrepl}))))

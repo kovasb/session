@@ -1,16 +1,13 @@
 (ns session.client.subsession
   (:require
+   ;; Ughhhhh, file names and namespace names don't match up here
    [session.client.loop-creator :as loop-creator]
    [session.client.loop :as loop]
    [session.client.mvc :as mvc]
-   [session.client.session :as session])
-
-
+   [session.client.session :as session]
+   [client.nrepl :as nrepl])
   (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm])
-  )
-
-
+  (:require-macros [fetch.macros :as pm]))
 
 (defprotocol ISubsession
   (insert-new-loop [this session-view event])
@@ -18,12 +15,10 @@
   (evaluate-loop [this session-view event]))
 
 (defn evaluate-clj [event-model]
-  (pm/remote
-   (eval-expr-string @(:input event-model))
-   [result]
-   ;;(js/alert (pr-str (:result result)))
-   ;;(js/alert  (js/eval (:result result)))
-   (reset! (:output event-model) (:result result))))
+  (nrepl/nrepl-eval @(:input event-model)
+                    (fn [result]
+                      (reset! (:output event-model)
+                              result))))
 
 (defn evaluate-cljs [event-model]
   (pm/remote
@@ -35,7 +30,7 @@
 
 (deftype Subsession [model]
 
-   ILookup
+  ILookup
   (-lookup [o k] (model k))
   (-lookup [o k not-found] (model k not-found))
 
@@ -65,42 +60,42 @@
   ISubsession
   (insert-new-loop [this session-view event]
     (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
-        loop-model (let [id (session/new-loop-id)] (loop/Loop. {:id id :input (atom "") :output (atom nil)}))
-        loop-view (mvc/render loop-model)
-        session-model this
+          event-target (. event -target)
+          event-model ($ event-target (data "model"))
+          loop-model (let [id (session/new-loop-id)] (loop/Loop. {:id id :input (atom "") :output (atom nil)}))
+          loop-view (mvc/render loop-model)
+          session-model this
           ]
 
-    ;;(def insert-test [event event-target event-model loop-model loop-view])
-    (if
-        (= event-model [:loop-creator])
-      (swap! (:loops session-model) #(vec (concat [loop-model] %)))
-      (swap! (:loops session-model)
-             #(let
-                  [[left right] (split-with (fn [m] (not= m event-model)) %)]
-                (vec (concat left [event-model loop-model] (rest right))))))
-    ($ loop-view (insertAfter event-target))
-    ($ loop-view (trigger "post-render"))))
+      ;;(def insert-test [event event-target event-model loop-model loop-view])
+      (if
+          (= event-model [:loop-creator])
+        (swap! (:loops session-model) #(vec (concat [loop-model] %)))
+        (swap! (:loops session-model)
+               #(let
+                    [[left right] (split-with (fn [m] (not= m event-model)) %)]
+                  (vec (concat left [event-model loop-model] (rest right))))))
+      ($ loop-view (insertAfter event-target))
+      ($ loop-view (trigger "post-render"))))
 
   (delete-loop [this session-view event]
     (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
-        session-model this
-        ]
-     ($ event-target (remove))
-     (swap! (:loops session-model) #(vec (filter (fn [m] (not= m event-model)) %)))))
+          event-target (. event -target)
+          event-model ($ event-target (data "model"))
+          session-model this
+          ]
+      ($ event-target (remove))
+      (swap! (:loops session-model) #(vec (filter (fn [m] (not= m event-model)) %)))))
 
   (evaluate-loop [this session-view event]
 
     (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
+          event-target (. event -target)
+          event-model ($ event-target (data "model"))
           ]
 
       (cond
        (= :cljs (:type this)) (evaluate-cljs event-model)
        (= :clj (:type this)) (evaluate-clj event-model)
        )
-        )))
+      )))
