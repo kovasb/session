@@ -1,5 +1,5 @@
 (ns session.views.common
-  (:require [noir.cljs.core :as cljs])
+
   (:use [noir.core :only [defpartial]]
         [hiccup.page :only [include-css html5]]))
 
@@ -26,4 +26,6 @@
                [:script {:type "text/javascript" :src "js/jquery.fileupload-ui.js"}]
                [:script {:type "text/javascript" :src "js/locale.js"}]
                [:script {:type "text/javascript" :src "js/main.js"}]
-               (cljs/include-scripts)]))
+               [:script {:type "text/javascript" :src "cljs/bootstrap.js"}]
+
+               ]))

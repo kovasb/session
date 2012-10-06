@@ -15,6 +15,10 @@
                    obj))
      -strobj))
 
+(defn jsObj2 [clj-map ] (let [newobj (js-obj)] (reduce (fn [out kv] (aset out (first kv) (last kv)) out) newobj clj-map)  newobj))
+
+
+
 (def ace (js* "ace"))
 
 (def js-require (js* "require"))
@@ -23,10 +27,10 @@
 
 (defn add-keybindings []
   (.addCommand canon
- (jsObj {
-   :name "evaluateCell"
-   :bindKey {:win "Shift-Return" :mac "Shift-Return" :sender "editor"}
-   :exec (fn [env args request] (def keyevent [env args request])
+ (jsObj2 {
+   "name" "evaluateCell"
+   "bindKey" (jsObj2 {"win" "Shift-Return" "mac" "Shift-Return" "sender" "editor"})
+   "exec" (fn [env args request] (def keyevent [env args request])
            ($ (. (. env -editor) -container) (trigger "evaluate-input")))})))
 
 (defn fit-to-length-function [id editor]
@@ -51,6 +55,7 @@
               "px")]
     ($ (str "#" id)
        (css "height" val))
+
     (. editor (resize))
     ))
 

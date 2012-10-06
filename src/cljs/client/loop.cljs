@@ -1,31 +1,27 @@
 (ns session.client.loop
   (:require
-   [session.client.editor :as editor]
    [session.client.mvc :as mvc]
+   [session.client.editor :as editor]
+   [cljs.reader :as reader]
+   [session.client.loop-creator :as loop-creator]
+
    )
   (:use-macros [cljs-jquery.macros :only [$]])
   (:require-macros [fetch.macros :as pm])
   )
 
 
-
-
-;;(defprotocol ILoop (evaluate-loop [model]))
-
-
 (deftype Loop [model]
-
-  IPrintable
+     IPrintable
   (-pr-seq [a opts]
     (concat  ["#session/loop "] (-pr-seq (assoc model :input @(:input model) :output @(:output model)) opts) ""))
 
    ILookup
   (-lookup [o k] (model k))
   (-lookup [o k not-found] (model k not-found))
+    session.client.mvc/IMVC
+    (view [model]
 
-
-  mvc/IMVC
-  (view [model]
     (let [id (:id model)]
     ($
      [:div.loop-container
@@ -41,13 +37,10 @@
        [:div.span6
         [:i.icon-chevron-left {:style "float:left"} ""]
         [:div.span5.loopout {:style "margin-left:0px;position:relative"}
-         (mvc/view2 @(:output model))]
+         (session.client.mvc/view @(:output model))]
         ]
        ]
-      (let [lc (mvc/view2 ^{:view :loop-creator} [:loop-creator])]
-          ($ lc (on "mouseover" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
-          ($ lc (on "mouseout" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
-          lc
+      (mvc/render (loop-creator/LoopCreator. false)
         )
       ]
      (data "model" model))))
@@ -59,6 +52,8 @@
                                          (reset! editor (editor/create-editor (str "area" id)))
                                          (editor/fit-to-length (str "area" id) @editor)
                                          )))
+      ;;(reset! editor (editor/create-editor ($ viewobject (get 0))))
+      ;;(editor/fit-to-length (str "area" id) @editor)
       ($ viewobject (on "click" ".loop-deleter" #($ viewobject (trigger "delete-loop"))))
       ($ viewobject (on "evaluate-input"
                       #(do
@@ -76,6 +71,8 @@
                                     (js/alert "atom update")
                                     ($ viewobject
                                        (find ".loopout") (html "")
-                                       (append ($ [:div (mvc/view2 new2)])))))
-                       ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view2 @new)]))))
-                     ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view2 new)])))))))))
+                                       (append ($ [:div (mvc/view new2)])))))
+                       ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view @new)]))))
+                     ($ viewobject (find ".loopout") (html "") (append ($ [:div (mvc/view new)])))))))))
+
+(reader/register-tag-parser! "loop" (fn [x] (Loop. (assoc x :input (atom (:input x)) :output (atom (:output x)))) ))

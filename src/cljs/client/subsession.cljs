@@ -3,7 +3,9 @@
    [session.client.loop-creator :as loop-creator]
    [session.client.loop :as loop]
    [session.client.mvc :as mvc]
-   [session.client.session :as session])
+   [session.client.session :as session]
+
+   [cljs.reader :as reader])
 
 
   (:use-macros [cljs-jquery.macros :only [$]])
@@ -19,7 +21,7 @@
 
 (defn evaluate-clj [event-model]
   (pm/remote
-   (eval-expr-string @(:input event-model))
+   (eval-expr-string @(:input event-model) (:id event-model) )
    [result]
    ;;(js/alert (pr-str (:result result)))
    ;;(js/alert  (js/eval (:result result)))
@@ -27,7 +29,7 @@
 
 (defn evaluate-cljs [event-model]
   (pm/remote
-   (compile-expr-string @(:input event-model))
+   (compile-expr-string @(:input event-model) (:id event-model))
    [result]
    ;;(js/alert (pr-str (:result result)))
    (reset! (:output event-model) (let [x (js/eval (:result result))] (if x x nil)))))
@@ -48,12 +50,11 @@
 
   mvc/IMVC
   (view [this]
+
     ($ [:div.subsession.span6
-        [:div.row [:div.span2 [:h3 (if (= :clj (:type this))  "Clojure" "Clojurescript")]]]
-        (let [v (mvc/view2 ^{:view :loop-creator} [:loop-creator])]
-          (mvc/control2 ^{:view :loop-creator} [:loop-creator] v)
-          v
-          )
+
+        (mvc/render (loop-creator/LoopCreator. true))
+
         (map mvc/render @(:loops model))
         ] (data "model" model)))
   (control [this session-view]
@@ -74,13 +75,14 @@
 
     ;;(def insert-test [event event-target event-model loop-model loop-view])
     (if
-        (= event-model [:loop-creator])
+        (= event-model "loop-creator")
       (swap! (:loops session-model) #(vec (concat [loop-model] %)))
       (swap! (:loops session-model)
              #(let
                   [[left right] (split-with (fn [m] (not= m event-model)) %)]
                 (vec (concat left [event-model loop-model] (rest right))))))
     ($ loop-view (insertAfter event-target))
+    ;;(js/alert (str ($ event-target (data "model"))))
     ($ loop-view (trigger "post-render"))))
 
   (delete-loop [this session-view event]
@@ -104,3 +106,5 @@
        (= :clj (:type this)) (evaluate-clj event-model)
        )
         )))
+
+(reader/register-tag-parser! "subsession" (fn [x] (Subsession. (assoc x :loops (atom (:loops x)))) ))

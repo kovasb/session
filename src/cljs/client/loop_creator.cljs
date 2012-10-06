@@ -4,15 +4,14 @@
   )
 
 
+(defrecord LoopCreator [x]
+  mvc/IMVC
+  (view [this]
+    ($ [:div.row.span6.loop-creator {:style "margin-left:0px;height:18px"}  [:i.new-loop-icon ""]] (data "model" "loop-creator")))
+  (control [this viewobject]
+    (if x ($ viewobject (on "click" #($ :this (trigger "insert-new-loop")))))
+    ($ viewobject (on "mouseover" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
+    ($ viewobject (on "mouseout" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))))
 
 
-
-(defmethod mvc/view2 :loop-creator [model]
-  ($ [:div.row.span6.loop-creator {:style "margin-left:0px;height:18px"}  [:i.new-loop-icon ""]] (data "model" model)))
-
-(defmethod mvc/control2 :loop-creator [model viewobject]
-  ($ viewobject (on "click" #($ :this (trigger "insert-new-loop"))))
-  ($ viewobject (on "mouseover" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
-  ($ viewobject (on "mouseout" #($ :this (find ".new-loop-icon") (toggleClass "icon-chevron-right"))))
-
-  )
+;;($ viewobject (on "click" #($ :this (trigger "insert-new-loop"))))
