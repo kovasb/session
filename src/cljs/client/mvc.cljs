@@ -14,8 +14,7 @@
 
 (defmethod view2 :dom [arg] ($ arg))
 
-(defmethod view2 :default [arg]
-  (cond
+(defmethod view2 :default [arg]  (cond
    (instance? js/Element arg) arg
    (instance? js/jQuery arg) arg
    true (pr-str arg)))

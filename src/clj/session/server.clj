@@ -1,4 +1,6 @@
 (ns session.server
+ (:use aleph.http
+       noir-async.core)
   (:use [noir.fetch.remotes])
   (:use [client.macros])
   (:use [noir.core])
@@ -29,6 +31,16 @@
   (let [filename (str "public/sessions/" id ".clj")]
     {:result (slurp (resource filename)) :status 200} ))
 
+
+(defremote eval-expr-string [x]
+  {:status 200 :result (eval (read-string x))})
+
+(defpage-async "/echo" [] conn
+  (on-receive conn (fn echo-cb [m] (async-push conn m))))
+
+(defpage-async "/service" [] conn
+  (on-receive conn (fn [m] (async-push conn (pr-str {:id (:id (read-string m)) :data (eval (read-string (:data (read-string m))))})))))
+
 ;;obsolete
 (defpage [:post "/upload"] x
   (slurp (:tempfile (first (:files x)))))
@@ -38,7 +50,7 @@
   (response/set-headers {"Content-Disposition" "attachment; filename=\"session.clj\""}
   (:session-data x)))
 
-(defn -main [& m]
+(defn -main-old [& m]
   (binding [*print-meta* true]
     (let [mode (keyword (or (first m) :dev))
          port (Integer. (get (System/getenv) "PORT" "8090"))]
@@ -51,3 +63,17 @@
                      *print-meta* true] (handler req)))))
       (server/add-middleware mp/wrap-multipart-params)
       (server/start port {:mode mode :ns 'htmlrepl}))))
+
+
+(defn -main [& m]
+  (let [mode :dev  ;;(keyword (or (first m) :dev))
+        port 8090  ;; (Integer. (get (System/getenv) "PORT" "3502"))
+        noir-handler (server/gen-handler {:mode mode})]
+    (start-http-server
+      (wrap-ring-handler noir-handler)
+      {:port port :websocket true})))
+
+
+
+
+

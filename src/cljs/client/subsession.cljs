@@ -17,15 +17,34 @@
 (defprotocol ISubsession
   (insert-new-loop [this session-view event])
   (delete-loop [this session-view event])
-  (evaluate-loop [this session-view event]))
+  (evaluate-loop [this
+                  ]))
+
+(def callbacks (atom {}))
+
+(def ws  (new js/WebSocket "ws://localhost:8090/service"))
+
+(aset ws "onmessage"
+      (fn [e] (let [data (cljs.reader/read-string (.-data e))]
+          (js/alert (pr-str data))
+           ((@callbacks (:id data))
+           (:data data)
+           ))
+      ))
+
+
+(defn response-handler [event-model]
+      #(reset! (:output event-model) %))
 
 (defn evaluate-clj [event-model]
-  (pm/remote
-   (eval-expr-string @(:input event-model) (:id event-model) )
-   [result]
-   ;;(js/alert (pr-str (:result result)))
-   ;;(js/alert  (js/eval (:result result)))
-   (reset! (:output event-model) (:result result))))
+  (swap! callbacks assoc (:id event-model) (response-handler event-model))
+  (.send
+    ws
+   (pr-str {
+           :op :evaluate-clj
+           :data @(:input event-model)
+           :id (:id event-model)
+   })))
 
 (defn evaluate-cljs [event-model]
   (pm/remote

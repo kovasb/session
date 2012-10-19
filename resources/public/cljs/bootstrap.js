@@ -388,6 +388,13 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  this.stack = Error().stack || "";
+  a && (this.message = "" + a)
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -708,13 +715,6 @@ goog.string.toSelectorCaseCache_ = {};
 goog.string.toSelectorCase = function(a) {
   return goog.string.toSelectorCaseCache_[a] || (goog.string.toSelectorCaseCache_[a] = ("" + a).replace(/([A-Z])/g, "-$1").toLowerCase())
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  this.stack = Error().stack || "";
-  a && (this.message = "" + a)
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -1312,6 +1312,46 @@ goog.object.createSet = function(a) {
   }
   return c
 };
+goog.string.format = function(a, b) {
+  var c = Array.prototype.slice.call(arguments), d = c.shift();
+  if("undefined" == typeof d) {
+    throw Error("[goog.string.format] Template required");
+  }
+  return d.replace(/%([0\-\ \+]*)(\d+)?(\.(\d+))?([%sfdiu])/g, function(a, b, d, h, i, j, k, l) {
+    if("%" == j) {
+      return"%"
+    }
+    var m = c.shift();
+    if("undefined" == typeof m) {
+      throw Error("[goog.string.format] Not enough arguments");
+    }
+    arguments[0] = m;
+    return goog.string.format.demuxes_[j].apply(null, arguments)
+  })
+};
+goog.string.format.demuxes_ = {};
+goog.string.format.demuxes_.s = function(a, b, c) {
+  return isNaN(c) || "" == c || a.length >= c ? a : a = -1 < b.indexOf("-", 0) ? a + goog.string.repeat(" ", c - a.length) : goog.string.repeat(" ", c - a.length) + a
+};
+goog.string.format.demuxes_.f = function(a, b, c, d, e) {
+  d = a.toString();
+  isNaN(e) || "" == e || (d = a.toFixed(e));
+  var f;
+  f = 0 > a ? "-" : 0 <= b.indexOf("+") ? "+" : 0 <= b.indexOf(" ") ? " " : "";
+  0 <= a && (d = f + d);
+  if(isNaN(c) || d.length >= c) {
+    return d
+  }
+  d = isNaN(e) ? Math.abs(a).toString() : Math.abs(a).toFixed(e);
+  a = c - d.length - f.length;
+  0 <= b.indexOf("-", 0) ? d = f + d + goog.string.repeat(" ", a) : (b = 0 <= b.indexOf("0", 0) ? "0" : " ", d = f + goog.string.repeat(b, a) + d);
+  return d
+};
+goog.string.format.demuxes_.d = function(a, b, c, d, e, f, g, h) {
+  return goog.string.format.demuxes_.f(parseInt(a, 10), b, c, d, 0, f, g, h)
+};
+goog.string.format.demuxes_.i = goog.string.format.demuxes_.d;
+goog.string.format.demuxes_.u = goog.string.format.demuxes_.d;
 goog.userAgent = {};
 goog.userAgent.jscript = {};
 goog.userAgent.jscript.ASSUME_NO_JSCRIPT = !1;
@@ -1369,20 +1409,12 @@ cljs.core._STAR_unchecked_if_STAR_ = !1;
 cljs.core._STAR_print_fn_STAR_ = function() {
   throw Error("No *print-fn* fn set for evaluation environment");
 };
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
 cljs.core.truth_ = function(a) {
   return null != a && !1 !== a
 };
-void 0;
 cljs.core.type_satisfies_ = function(a, b) {
-  return a[goog.typeOf(b)] ? !0 : a._ ? !0 : !1
+  return a[goog.typeOf(null == b ? null : b)] ? !0 : a._ ? !0 : !1
 };
-void 0;
 cljs.core.is_proto_ = function(a) {
   return a.constructor.prototype === a
 };
@@ -1414,7 +1446,6 @@ cljs.core.make_array = function() {
   a.cljs$lang$arity$2 = b;
   return a
 }();
-void 0;
 cljs.core.aget = function() {
   var a = null, b = function() {
     var b = function(b, c, d) {
@@ -1454,7 +1485,6 @@ cljs.core.aset = function(a, b, c) {
 cljs.core.alength = function(a) {
   return a.length
 };
-void 0;
 cljs.core.into_array = function() {
   var a = null, b = function(b) {
     return a.call(null, null, b)
@@ -1476,261 +1506,218 @@ cljs.core.into_array = function() {
   a.cljs$lang$arity$2 = c;
   return a
 }();
-void 0;
 cljs.core.IFn = {};
 cljs.core._invoke = function() {
   var a = null, b = function(a) {
     if(a ? a.cljs$core$IFn$_invoke$arity$1 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$1(a)
-    }else {
-      var b;
-      b = cljs.core._invoke[goog.typeOf(a)];
-      if(!b && (b = cljs.core._invoke._, !b)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = b.call(null, a)
+      return a.cljs$core$IFn$_invoke$arity$1(a)
     }
-    return a
+    var b;
+    b = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!b && (b = cljs.core._invoke._, !b)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return b.call(null, a)
   }, c = function(a, b) {
-    var c;
     if(a ? a.cljs$core$IFn$_invoke$arity$2 : a) {
-      c = a.cljs$core$IFn$_invoke$arity$2(a, b)
-    }else {
-      c = cljs.core._invoke[goog.typeOf(a)];
-      if(!c && (c = cljs.core._invoke._, !c)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      c = c.call(null, a, b)
+      return a.cljs$core$IFn$_invoke$arity$2(a, b)
     }
-    return c
+    var c;
+    c = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!c && (c = cljs.core._invoke._, !c)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return c.call(null, a, b)
   }, d = function(a, b, c) {
     if(a ? a.cljs$core$IFn$_invoke$arity$3 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$3(a, b, c)
-    }else {
-      var d;
-      d = cljs.core._invoke[goog.typeOf(a)];
-      if(!d && (d = cljs.core._invoke._, !d)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = d.call(null, a, b, c)
+      return a.cljs$core$IFn$_invoke$arity$3(a, b, c)
     }
-    return a
+    var d;
+    d = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!d && (d = cljs.core._invoke._, !d)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return d.call(null, a, b, c)
   }, e = function(a, b, c, d) {
     if(a ? a.cljs$core$IFn$_invoke$arity$4 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$4(a, b, c, d)
-    }else {
-      var e;
-      e = cljs.core._invoke[goog.typeOf(a)];
-      if(!e && (e = cljs.core._invoke._, !e)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = e.call(null, a, b, c, d)
+      return a.cljs$core$IFn$_invoke$arity$4(a, b, c, d)
     }
-    return a
+    var e;
+    e = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!e && (e = cljs.core._invoke._, !e)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return e.call(null, a, b, c, d)
   }, f = function(a, b, c, d, e) {
     if(a ? a.cljs$core$IFn$_invoke$arity$5 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$5(a, b, c, d, e)
-    }else {
-      var f;
-      f = cljs.core._invoke[goog.typeOf(a)];
-      if(!f && (f = cljs.core._invoke._, !f)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = f.call(null, a, b, c, d, e)
+      return a.cljs$core$IFn$_invoke$arity$5(a, b, c, d, e)
     }
-    return a
+    var f;
+    f = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!f && (f = cljs.core._invoke._, !f)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return f.call(null, a, b, c, d, e)
   }, g = function(a, b, c, d, e, f) {
     if(a ? a.cljs$core$IFn$_invoke$arity$6 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$6(a, b, c, d, e, f)
-    }else {
-      var g;
-      g = cljs.core._invoke[goog.typeOf(a)];
-      if(!g && (g = cljs.core._invoke._, !g)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = g.call(null, a, b, c, d, e, f)
+      return a.cljs$core$IFn$_invoke$arity$6(a, b, c, d, e, f)
     }
-    return a
+    var g;
+    g = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!g && (g = cljs.core._invoke._, !g)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return g.call(null, a, b, c, d, e, f)
   }, h = function(a, b, c, d, e, f, g) {
     if(a ? a.cljs$core$IFn$_invoke$arity$7 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$7(a, b, c, d, e, f, g)
-    }else {
-      var h;
-      h = cljs.core._invoke[goog.typeOf(a)];
-      if(!h && (h = cljs.core._invoke._, !h)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = h.call(null, a, b, c, d, e, f, g)
+      return a.cljs$core$IFn$_invoke$arity$7(a, b, c, d, e, f, g)
     }
-    return a
+    var h;
+    h = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!h && (h = cljs.core._invoke._, !h)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return h.call(null, a, b, c, d, e, f, g)
   }, i = function(a, b, c, d, e, f, g, h) {
     if(a ? a.cljs$core$IFn$_invoke$arity$8 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$8(a, b, c, d, e, f, g, h)
-    }else {
-      var i;
-      i = cljs.core._invoke[goog.typeOf(a)];
-      if(!i && (i = cljs.core._invoke._, !i)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = i.call(null, a, b, c, d, e, f, g, h)
+      return a.cljs$core$IFn$_invoke$arity$8(a, b, c, d, e, f, g, h)
     }
-    return a
+    var i;
+    i = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!i && (i = cljs.core._invoke._, !i)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return i.call(null, a, b, c, d, e, f, g, h)
   }, j = function(a, b, c, d, e, f, g, h, i) {
     if(a ? a.cljs$core$IFn$_invoke$arity$9 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$9(a, b, c, d, e, f, g, h, i)
-    }else {
-      var j;
-      j = cljs.core._invoke[goog.typeOf(a)];
-      if(!j && (j = cljs.core._invoke._, !j)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = j.call(null, a, b, c, d, e, f, g, h, i)
+      return a.cljs$core$IFn$_invoke$arity$9(a, b, c, d, e, f, g, h, i)
     }
-    return a
+    var j;
+    j = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!j && (j = cljs.core._invoke._, !j)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return j.call(null, a, b, c, d, e, f, g, h, i)
   }, k = function(a, b, c, d, e, f, g, h, i, j) {
     if(a ? a.cljs$core$IFn$_invoke$arity$10 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$10(a, b, c, d, e, f, g, h, i, j)
-    }else {
-      var k;
-      k = cljs.core._invoke[goog.typeOf(a)];
-      if(!k && (k = cljs.core._invoke._, !k)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = k.call(null, a, b, c, d, e, f, g, h, i, j)
+      return a.cljs$core$IFn$_invoke$arity$10(a, b, c, d, e, f, g, h, i, j)
     }
-    return a
+    var k;
+    k = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!k && (k = cljs.core._invoke._, !k)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return k.call(null, a, b, c, d, e, f, g, h, i, j)
   }, l = function(a, b, c, d, e, f, g, h, i, j, k) {
     if(a ? a.cljs$core$IFn$_invoke$arity$11 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$11(a, b, c, d, e, f, g, h, i, j, k)
-    }else {
-      var l;
-      l = cljs.core._invoke[goog.typeOf(a)];
-      if(!l && (l = cljs.core._invoke._, !l)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = l.call(null, a, b, c, d, e, f, g, h, i, j, k)
+      return a.cljs$core$IFn$_invoke$arity$11(a, b, c, d, e, f, g, h, i, j, k)
     }
-    return a
+    var l;
+    l = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!l && (l = cljs.core._invoke._, !l)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return l.call(null, a, b, c, d, e, f, g, h, i, j, k)
   }, m = function(a, b, c, d, e, f, g, h, i, j, k, l) {
     if(a ? a.cljs$core$IFn$_invoke$arity$12 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$12(a, b, c, d, e, f, g, h, i, j, k, l)
-    }else {
-      var m;
-      m = cljs.core._invoke[goog.typeOf(a)];
-      if(!m && (m = cljs.core._invoke._, !m)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = m.call(null, a, b, c, d, e, f, g, h, i, j, k, l)
+      return a.cljs$core$IFn$_invoke$arity$12(a, b, c, d, e, f, g, h, i, j, k, l)
     }
-    return a
+    var m;
+    m = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!m && (m = cljs.core._invoke._, !m)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return m.call(null, a, b, c, d, e, f, g, h, i, j, k, l)
   }, n = function(a, b, c, d, e, f, g, h, i, j, k, l, m) {
     if(a ? a.cljs$core$IFn$_invoke$arity$13 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$13(a, b, c, d, e, f, g, h, i, j, k, l, m)
-    }else {
-      var n;
-      n = cljs.core._invoke[goog.typeOf(a)];
-      if(!n && (n = cljs.core._invoke._, !n)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = n.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m)
+      return a.cljs$core$IFn$_invoke$arity$13(a, b, c, d, e, f, g, h, i, j, k, l, m)
     }
-    return a
+    var n;
+    n = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!n && (n = cljs.core._invoke._, !n)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return n.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m)
   }, o = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n) {
     if(a ? a.cljs$core$IFn$_invoke$arity$14 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$14(a, b, c, d, e, f, g, h, i, j, k, l, m, n)
-    }else {
-      var o;
-      o = cljs.core._invoke[goog.typeOf(a)];
-      if(!o && (o = cljs.core._invoke._, !o)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = o.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n)
+      return a.cljs$core$IFn$_invoke$arity$14(a, b, c, d, e, f, g, h, i, j, k, l, m, n)
     }
-    return a
+    var o;
+    o = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!o && (o = cljs.core._invoke._, !o)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return o.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n)
   }, p = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) {
     if(a ? a.cljs$core$IFn$_invoke$arity$15 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
-    }else {
-      var p;
-      p = cljs.core._invoke[goog.typeOf(a)];
-      if(!p && (p = cljs.core._invoke._, !p)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = p.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
+      return a.cljs$core$IFn$_invoke$arity$15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
     }
-    return a
+    var p;
+    p = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!p && (p = cljs.core._invoke._, !p)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return p.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
   }, q = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
     if(a ? a.cljs$core$IFn$_invoke$arity$16 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
-    }else {
-      var q;
-      q = cljs.core._invoke[goog.typeOf(a)];
-      if(!q && (q = cljs.core._invoke._, !q)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = q.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
+      return a.cljs$core$IFn$_invoke$arity$16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
     }
-    return a
+    var q;
+    q = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!q && (q = cljs.core._invoke._, !q)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return q.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
   }, r = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q) {
     if(a ? a.cljs$core$IFn$_invoke$arity$17 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$17(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q)
-    }else {
-      var s;
-      s = cljs.core._invoke[goog.typeOf(a)];
-      if(!s && (s = cljs.core._invoke._, !s)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = s.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q)
+      return a.cljs$core$IFn$_invoke$arity$17(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q)
     }
-    return a
+    var s;
+    s = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!s && (s = cljs.core._invoke._, !s)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return s.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q)
   }, t = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s) {
     if(a ? a.cljs$core$IFn$_invoke$arity$18 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$18(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s)
-    }else {
-      var r;
-      r = cljs.core._invoke[goog.typeOf(a)];
-      if(!r && (r = cljs.core._invoke._, !r)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = r.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s)
+      return a.cljs$core$IFn$_invoke$arity$18(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s)
     }
-    return a
+    var r;
+    r = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!r && (r = cljs.core._invoke._, !r)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return r.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s)
   }, s = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r) {
     if(a ? a.cljs$core$IFn$_invoke$arity$19 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$19(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r)
-    }else {
-      var t;
-      t = cljs.core._invoke[goog.typeOf(a)];
-      if(!t && (t = cljs.core._invoke._, !t)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = t.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r)
+      return a.cljs$core$IFn$_invoke$arity$19(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r)
     }
-    return a
+    var t;
+    t = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!t && (t = cljs.core._invoke._, !t)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return t.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r)
   }, y = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t) {
     if(a ? a.cljs$core$IFn$_invoke$arity$20 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$20(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t)
-    }else {
-      var y;
-      y = cljs.core._invoke[goog.typeOf(a)];
-      if(!y && (y = cljs.core._invoke._, !y)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = y.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t)
+      return a.cljs$core$IFn$_invoke$arity$20(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t)
     }
-    return a
+    var y;
+    y = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!y && (y = cljs.core._invoke._, !y)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return y.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t)
   }, F = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y) {
     if(a ? a.cljs$core$IFn$_invoke$arity$21 : a) {
-      a = a.cljs$core$IFn$_invoke$arity$21(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y)
-    }else {
-      var F;
-      F = cljs.core._invoke[goog.typeOf(a)];
-      if(!F && (F = cljs.core._invoke._, !F)) {
-        throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-      }
-      a = F.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y)
+      return a.cljs$core$IFn$_invoke$arity$21(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y)
     }
-    return a
+    var F;
+    F = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!F && (F = cljs.core._invoke._, !F)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return F.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y)
   }, a = function(a, u, v, w, x, z, A, B, C, D, E, G, H, I, J, K, L, M, N, O, P) {
     switch(arguments.length) {
       case 1:
@@ -1801,82 +1788,64 @@ cljs.core._invoke = function() {
   a.cljs$lang$arity$21 = F;
   return a
 }();
-void 0;
-void 0;
 cljs.core.ICounted = {};
 cljs.core._count = function(a) {
   if(a ? a.cljs$core$ICounted$_count$arity$1 : a) {
-    a = a.cljs$core$ICounted$_count$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._count[goog.typeOf(a)];
-    if(!b && (b = cljs.core._count._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ICounted.-count", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ICounted$_count$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._count[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._count._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ICounted.-count", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IEmptyableCollection = {};
 cljs.core._empty = function(a) {
   if(a ? a.cljs$core$IEmptyableCollection$_empty$arity$1 : a) {
-    a = a.cljs$core$IEmptyableCollection$_empty$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._empty[goog.typeOf(a)];
-    if(!b && (b = cljs.core._empty._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IEmptyableCollection.-empty", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IEmptyableCollection$_empty$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._empty[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._empty._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IEmptyableCollection.-empty", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ICollection = {};
 cljs.core._conj = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ICollection$_conj$arity$2 : a) {
-    c = a.cljs$core$ICollection$_conj$arity$2(a, b)
-  }else {
-    c = cljs.core._conj[goog.typeOf(a)];
-    if(!c && (c = cljs.core._conj._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ICollection.-conj", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ICollection$_conj$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._conj[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._conj._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ICollection.-conj", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IIndexed = {};
 cljs.core._nth = function() {
   var a = null, b = function(a, b) {
-    var c;
     if(a ? a.cljs$core$IIndexed$_nth$arity$2 : a) {
-      c = a.cljs$core$IIndexed$_nth$arity$2(a, b)
-    }else {
-      c = cljs.core._nth[goog.typeOf(a)];
-      if(!c && (c = cljs.core._nth._, !c)) {
-        throw cljs.core.missing_protocol.call(null, "IIndexed.-nth", a);
-      }
-      c = c.call(null, a, b)
+      return a.cljs$core$IIndexed$_nth$arity$2(a, b)
     }
-    return c
+    var c;
+    c = cljs.core._nth[goog.typeOf(null == a ? null : a)];
+    if(!c && (c = cljs.core._nth._, !c)) {
+      throw cljs.core.missing_protocol.call(null, "IIndexed.-nth", a);
+    }
+    return c.call(null, a, b)
   }, c = function(a, b, c) {
     if(a ? a.cljs$core$IIndexed$_nth$arity$3 : a) {
-      a = a.cljs$core$IIndexed$_nth$arity$3(a, b, c)
-    }else {
-      var g;
-      g = cljs.core._nth[goog.typeOf(a)];
-      if(!g && (g = cljs.core._nth._, !g)) {
-        throw cljs.core.missing_protocol.call(null, "IIndexed.-nth", a);
-      }
-      a = g.call(null, a, b, c)
+      return a.cljs$core$IIndexed$_nth$arity$3(a, b, c)
     }
-    return a
+    var g;
+    g = cljs.core._nth[goog.typeOf(null == a ? null : a)];
+    if(!g && (g = cljs.core._nth._, !g)) {
+      throw cljs.core.missing_protocol.call(null, "IIndexed.-nth", a);
+    }
+    return g.call(null, a, b, c)
   }, a = function(a, e, f) {
     switch(arguments.length) {
       case 2:
@@ -1890,82 +1859,64 @@ cljs.core._nth = function() {
   a.cljs$lang$arity$3 = c;
   return a
 }();
-void 0;
-void 0;
 cljs.core.ASeq = {};
-void 0;
-void 0;
 cljs.core.ISeq = {};
 cljs.core._first = function(a) {
   if(a ? a.cljs$core$ISeq$_first$arity$1 : a) {
-    a = a.cljs$core$ISeq$_first$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._first[goog.typeOf(a)];
-    if(!b && (b = cljs.core._first._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ISeq.-first", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ISeq$_first$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._first[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._first._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ISeq.-first", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._rest = function(a) {
   if(a ? a.cljs$core$ISeq$_rest$arity$1 : a) {
-    a = a.cljs$core$ISeq$_rest$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._rest[goog.typeOf(a)];
-    if(!b && (b = cljs.core._rest._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ISeq.-rest", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ISeq$_rest$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._rest[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._rest._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ISeq.-rest", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.INext = {};
 cljs.core._next = function(a) {
   if(a ? a.cljs$core$INext$_next$arity$1 : a) {
-    a = a.cljs$core$INext$_next$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._next[goog.typeOf(a)];
-    if(!b && (b = cljs.core._next._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "INext.-next", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$INext$_next$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._next[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._next._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "INext.-next", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ILookup = {};
 cljs.core._lookup = function() {
   var a = null, b = function(a, b) {
-    var c;
     if(a ? a.cljs$core$ILookup$_lookup$arity$2 : a) {
-      c = a.cljs$core$ILookup$_lookup$arity$2(a, b)
-    }else {
-      c = cljs.core._lookup[goog.typeOf(a)];
-      if(!c && (c = cljs.core._lookup._, !c)) {
-        throw cljs.core.missing_protocol.call(null, "ILookup.-lookup", a);
-      }
-      c = c.call(null, a, b)
+      return a.cljs$core$ILookup$_lookup$arity$2(a, b)
     }
-    return c
+    var c;
+    c = cljs.core._lookup[goog.typeOf(null == a ? null : a)];
+    if(!c && (c = cljs.core._lookup._, !c)) {
+      throw cljs.core.missing_protocol.call(null, "ILookup.-lookup", a);
+    }
+    return c.call(null, a, b)
   }, c = function(a, b, c) {
     if(a ? a.cljs$core$ILookup$_lookup$arity$3 : a) {
-      a = a.cljs$core$ILookup$_lookup$arity$3(a, b, c)
-    }else {
-      var g;
-      g = cljs.core._lookup[goog.typeOf(a)];
-      if(!g && (g = cljs.core._lookup._, !g)) {
-        throw cljs.core.missing_protocol.call(null, "ILookup.-lookup", a);
-      }
-      a = g.call(null, a, b, c)
+      return a.cljs$core$ILookup$_lookup$arity$3(a, b, c)
     }
-    return a
+    var g;
+    g = cljs.core._lookup[goog.typeOf(null == a ? null : a)];
+    if(!g && (g = cljs.core._lookup._, !g)) {
+      throw cljs.core.missing_protocol.call(null, "ILookup.-lookup", a);
+    }
+    return g.call(null, a, b, c)
   }, a = function(a, e, f) {
     switch(arguments.length) {
       case 2:
@@ -1979,233 +1930,181 @@ cljs.core._lookup = function() {
   a.cljs$lang$arity$3 = c;
   return a
 }();
-void 0;
-void 0;
 cljs.core.IAssociative = {};
 cljs.core._contains_key_QMARK_ = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IAssociative$_contains_key_QMARK_$arity$2 : a) {
-    c = a.cljs$core$IAssociative$_contains_key_QMARK_$arity$2(a, b)
-  }else {
-    c = cljs.core._contains_key_QMARK_[goog.typeOf(a)];
-    if(!c && (c = cljs.core._contains_key_QMARK_._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IAssociative.-contains-key?", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IAssociative$_contains_key_QMARK_$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._contains_key_QMARK_[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._contains_key_QMARK_._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IAssociative.-contains-key?", a);
+  }
+  return c.call(null, a, b)
 };
 cljs.core._assoc = function(a, b, c) {
   if(a ? a.cljs$core$IAssociative$_assoc$arity$3 : a) {
-    a = a.cljs$core$IAssociative$_assoc$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._assoc[goog.typeOf(a)];
-    if(!d && (d = cljs.core._assoc._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IAssociative.-assoc", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IAssociative$_assoc$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._assoc[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._assoc._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IAssociative.-assoc", a);
+  }
+  return d.call(null, a, b, c)
 };
-void 0;
-void 0;
 cljs.core.IMap = {};
 cljs.core._dissoc = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IMap$_dissoc$arity$2 : a) {
-    c = a.cljs$core$IMap$_dissoc$arity$2(a, b)
-  }else {
-    c = cljs.core._dissoc[goog.typeOf(a)];
-    if(!c && (c = cljs.core._dissoc._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IMap.-dissoc", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IMap$_dissoc$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._dissoc[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._dissoc._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IMap.-dissoc", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IMapEntry = {};
 cljs.core._key = function(a) {
   if(a ? a.cljs$core$IMapEntry$_key$arity$1 : a) {
-    a = a.cljs$core$IMapEntry$_key$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._key[goog.typeOf(a)];
-    if(!b && (b = cljs.core._key._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMapEntry.-key", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IMapEntry$_key$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._key[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._key._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMapEntry.-key", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._val = function(a) {
   if(a ? a.cljs$core$IMapEntry$_val$arity$1 : a) {
-    a = a.cljs$core$IMapEntry$_val$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._val[goog.typeOf(a)];
-    if(!b && (b = cljs.core._val._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMapEntry.-val", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IMapEntry$_val$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._val[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._val._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMapEntry.-val", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ISet = {};
 cljs.core._disjoin = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ISet$_disjoin$arity$2 : a) {
-    c = a.cljs$core$ISet$_disjoin$arity$2(a, b)
-  }else {
-    c = cljs.core._disjoin[goog.typeOf(a)];
-    if(!c && (c = cljs.core._disjoin._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ISet.-disjoin", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ISet$_disjoin$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._disjoin[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._disjoin._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ISet.-disjoin", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IStack = {};
 cljs.core._peek = function(a) {
   if(a ? a.cljs$core$IStack$_peek$arity$1 : a) {
-    a = a.cljs$core$IStack$_peek$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._peek[goog.typeOf(a)];
-    if(!b && (b = cljs.core._peek._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IStack.-peek", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IStack$_peek$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._peek[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._peek._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IStack.-peek", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._pop = function(a) {
   if(a ? a.cljs$core$IStack$_pop$arity$1 : a) {
-    a = a.cljs$core$IStack$_pop$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._pop[goog.typeOf(a)];
-    if(!b && (b = cljs.core._pop._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IStack.-pop", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IStack$_pop$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._pop[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._pop._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IStack.-pop", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IVector = {};
 cljs.core._assoc_n = function(a, b, c) {
   if(a ? a.cljs$core$IVector$_assoc_n$arity$3 : a) {
-    a = a.cljs$core$IVector$_assoc_n$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._assoc_n[goog.typeOf(a)];
-    if(!d && (d = cljs.core._assoc_n._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IVector.-assoc-n", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IVector$_assoc_n$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._assoc_n[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._assoc_n._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IVector.-assoc-n", a);
+  }
+  return d.call(null, a, b, c)
 };
-void 0;
-void 0;
 cljs.core.IDeref = {};
 cljs.core._deref = function(a) {
   if(a ? a.cljs$core$IDeref$_deref$arity$1 : a) {
-    a = a.cljs$core$IDeref$_deref$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._deref[goog.typeOf(a)];
-    if(!b && (b = cljs.core._deref._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IDeref.-deref", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IDeref$_deref$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._deref[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._deref._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IDeref.-deref", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IDerefWithTimeout = {};
 cljs.core._deref_with_timeout = function(a, b, c) {
   if(a ? a.cljs$core$IDerefWithTimeout$_deref_with_timeout$arity$3 : a) {
-    a = a.cljs$core$IDerefWithTimeout$_deref_with_timeout$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._deref_with_timeout[goog.typeOf(a)];
-    if(!d && (d = cljs.core._deref_with_timeout._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IDerefWithTimeout.-deref-with-timeout", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IDerefWithTimeout$_deref_with_timeout$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._deref_with_timeout[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._deref_with_timeout._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IDerefWithTimeout.-deref-with-timeout", a);
+  }
+  return d.call(null, a, b, c)
 };
-void 0;
-void 0;
 cljs.core.IMeta = {};
 cljs.core._meta = function(a) {
   if(a ? a.cljs$core$IMeta$_meta$arity$1 : a) {
-    a = a.cljs$core$IMeta$_meta$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._meta[goog.typeOf(a)];
-    if(!b && (b = cljs.core._meta._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMeta.-meta", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IMeta$_meta$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._meta[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._meta._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMeta.-meta", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IWithMeta = {};
 cljs.core._with_meta = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IWithMeta$_with_meta$arity$2 : a) {
-    c = a.cljs$core$IWithMeta$_with_meta$arity$2(a, b)
-  }else {
-    c = cljs.core._with_meta[goog.typeOf(a)];
-    if(!c && (c = cljs.core._with_meta._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IWithMeta.-with-meta", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IWithMeta$_with_meta$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._with_meta[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._with_meta._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IWithMeta.-with-meta", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IReduce = {};
 cljs.core._reduce = function() {
   var a = null, b = function(a, b) {
-    var c;
     if(a ? a.cljs$core$IReduce$_reduce$arity$2 : a) {
-      c = a.cljs$core$IReduce$_reduce$arity$2(a, b)
-    }else {
-      c = cljs.core._reduce[goog.typeOf(a)];
-      if(!c && (c = cljs.core._reduce._, !c)) {
-        throw cljs.core.missing_protocol.call(null, "IReduce.-reduce", a);
-      }
-      c = c.call(null, a, b)
+      return a.cljs$core$IReduce$_reduce$arity$2(a, b)
     }
-    return c
+    var c;
+    c = cljs.core._reduce[goog.typeOf(null == a ? null : a)];
+    if(!c && (c = cljs.core._reduce._, !c)) {
+      throw cljs.core.missing_protocol.call(null, "IReduce.-reduce", a);
+    }
+    return c.call(null, a, b)
   }, c = function(a, b, c) {
     if(a ? a.cljs$core$IReduce$_reduce$arity$3 : a) {
-      a = a.cljs$core$IReduce$_reduce$arity$3(a, b, c)
-    }else {
-      var g;
-      g = cljs.core._reduce[goog.typeOf(a)];
-      if(!g && (g = cljs.core._reduce._, !g)) {
-        throw cljs.core.missing_protocol.call(null, "IReduce.-reduce", a);
-      }
-      a = g.call(null, a, b, c)
+      return a.cljs$core$IReduce$_reduce$arity$3(a, b, c)
     }
-    return a
+    var g;
+    g = cljs.core._reduce[goog.typeOf(null == a ? null : a)];
+    if(!g && (g = cljs.core._reduce._, !g)) {
+      throw cljs.core.missing_protocol.call(null, "IReduce.-reduce", a);
+    }
+    return g.call(null, a, b, c)
   }, a = function(a, e, f) {
     switch(arguments.length) {
       case 2:
@@ -2219,429 +2118,328 @@ cljs.core._reduce = function() {
   a.cljs$lang$arity$3 = c;
   return a
 }();
-void 0;
-void 0;
 cljs.core.IKVReduce = {};
 cljs.core._kv_reduce = function(a, b, c) {
   if(a ? a.cljs$core$IKVReduce$_kv_reduce$arity$3 : a) {
-    a = a.cljs$core$IKVReduce$_kv_reduce$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._kv_reduce[goog.typeOf(a)];
-    if(!d && (d = cljs.core._kv_reduce._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IKVReduce.-kv-reduce", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IKVReduce$_kv_reduce$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._kv_reduce[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._kv_reduce._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IKVReduce.-kv-reduce", a);
+  }
+  return d.call(null, a, b, c)
 };
-void 0;
-void 0;
 cljs.core.IEquiv = {};
 cljs.core._equiv = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IEquiv$_equiv$arity$2 : a) {
-    c = a.cljs$core$IEquiv$_equiv$arity$2(a, b)
-  }else {
-    c = cljs.core._equiv[goog.typeOf(a)];
-    if(!c && (c = cljs.core._equiv._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IEquiv.-equiv", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IEquiv$_equiv$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._equiv[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._equiv._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IEquiv.-equiv", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IHash = {};
 cljs.core._hash = function(a) {
   if(a ? a.cljs$core$IHash$_hash$arity$1 : a) {
-    a = a.cljs$core$IHash$_hash$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._hash[goog.typeOf(a)];
-    if(!b && (b = cljs.core._hash._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IHash.-hash", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IHash$_hash$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._hash[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._hash._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IHash.-hash", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ISeqable = {};
 cljs.core._seq = function(a) {
   if(a ? a.cljs$core$ISeqable$_seq$arity$1 : a) {
-    a = a.cljs$core$ISeqable$_seq$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._seq[goog.typeOf(a)];
-    if(!b && (b = cljs.core._seq._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ISeqable.-seq", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ISeqable$_seq$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._seq[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._seq._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ISeqable.-seq", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ISequential = {};
-void 0;
-void 0;
 cljs.core.IList = {};
-void 0;
-void 0;
 cljs.core.IRecord = {};
-void 0;
-void 0;
 cljs.core.IReversible = {};
 cljs.core._rseq = function(a) {
   if(a ? a.cljs$core$IReversible$_rseq$arity$1 : a) {
-    a = a.cljs$core$IReversible$_rseq$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._rseq[goog.typeOf(a)];
-    if(!b && (b = cljs.core._rseq._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IReversible.-rseq", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IReversible$_rseq$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._rseq[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._rseq._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IReversible.-rseq", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ISorted = {};
 cljs.core._sorted_seq = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ISorted$_sorted_seq$arity$2 : a) {
-    c = a.cljs$core$ISorted$_sorted_seq$arity$2(a, b)
-  }else {
-    c = cljs.core._sorted_seq[goog.typeOf(a)];
-    if(!c && (c = cljs.core._sorted_seq._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ISorted.-sorted-seq", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ISorted$_sorted_seq$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._sorted_seq[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._sorted_seq._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ISorted.-sorted-seq", a);
+  }
+  return c.call(null, a, b)
 };
 cljs.core._sorted_seq_from = function(a, b, c) {
   if(a ? a.cljs$core$ISorted$_sorted_seq_from$arity$3 : a) {
-    a = a.cljs$core$ISorted$_sorted_seq_from$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._sorted_seq_from[goog.typeOf(a)];
-    if(!d && (d = cljs.core._sorted_seq_from._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "ISorted.-sorted-seq-from", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$ISorted$_sorted_seq_from$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._sorted_seq_from[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._sorted_seq_from._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ISorted.-sorted-seq-from", a);
+  }
+  return d.call(null, a, b, c)
 };
 cljs.core._entry_key = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ISorted$_entry_key$arity$2 : a) {
-    c = a.cljs$core$ISorted$_entry_key$arity$2(a, b)
-  }else {
-    c = cljs.core._entry_key[goog.typeOf(a)];
-    if(!c && (c = cljs.core._entry_key._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ISorted.-entry-key", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ISorted$_entry_key$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._entry_key[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._entry_key._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ISorted.-entry-key", a);
+  }
+  return c.call(null, a, b)
 };
 cljs.core._comparator = function(a) {
   if(a ? a.cljs$core$ISorted$_comparator$arity$1 : a) {
-    a = a.cljs$core$ISorted$_comparator$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._comparator[goog.typeOf(a)];
-    if(!b && (b = cljs.core._comparator._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ISorted.-comparator", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ISorted$_comparator$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._comparator[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._comparator._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ISorted.-comparator", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IPrintable = {};
 cljs.core._pr_seq = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IPrintable$_pr_seq$arity$2 : a) {
-    c = a.cljs$core$IPrintable$_pr_seq$arity$2(a, b)
-  }else {
-    c = cljs.core._pr_seq[goog.typeOf(a)];
-    if(!c && (c = cljs.core._pr_seq._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IPrintable.-pr-seq", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IPrintable$_pr_seq$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._pr_seq[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._pr_seq._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IPrintable.-pr-seq", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IPending = {};
 cljs.core._realized_QMARK_ = function(a) {
   if(a ? a.cljs$core$IPending$_realized_QMARK_$arity$1 : a) {
-    a = a.cljs$core$IPending$_realized_QMARK_$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._realized_QMARK_[goog.typeOf(a)];
-    if(!b && (b = cljs.core._realized_QMARK_._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IPending.-realized?", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IPending$_realized_QMARK_$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._realized_QMARK_[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._realized_QMARK_._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IPending.-realized?", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IWatchable = {};
 cljs.core._notify_watches = function(a, b, c) {
   if(a ? a.cljs$core$IWatchable$_notify_watches$arity$3 : a) {
-    a = a.cljs$core$IWatchable$_notify_watches$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._notify_watches[goog.typeOf(a)];
-    if(!d && (d = cljs.core._notify_watches._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IWatchable.-notify-watches", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IWatchable$_notify_watches$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._notify_watches[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._notify_watches._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IWatchable.-notify-watches", a);
+  }
+  return d.call(null, a, b, c)
 };
 cljs.core._add_watch = function(a, b, c) {
   if(a ? a.cljs$core$IWatchable$_add_watch$arity$3 : a) {
-    a = a.cljs$core$IWatchable$_add_watch$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._add_watch[goog.typeOf(a)];
-    if(!d && (d = cljs.core._add_watch._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IWatchable.-add-watch", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IWatchable$_add_watch$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._add_watch[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._add_watch._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IWatchable.-add-watch", a);
+  }
+  return d.call(null, a, b, c)
 };
 cljs.core._remove_watch = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IWatchable$_remove_watch$arity$2 : a) {
-    c = a.cljs$core$IWatchable$_remove_watch$arity$2(a, b)
-  }else {
-    c = cljs.core._remove_watch[goog.typeOf(a)];
-    if(!c && (c = cljs.core._remove_watch._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IWatchable.-remove-watch", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IWatchable$_remove_watch$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._remove_watch[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._remove_watch._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IWatchable.-remove-watch", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IEditableCollection = {};
 cljs.core._as_transient = function(a) {
   if(a ? a.cljs$core$IEditableCollection$_as_transient$arity$1 : a) {
-    a = a.cljs$core$IEditableCollection$_as_transient$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._as_transient[goog.typeOf(a)];
-    if(!b && (b = cljs.core._as_transient._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IEditableCollection.-as-transient", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IEditableCollection$_as_transient$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._as_transient[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._as_transient._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IEditableCollection.-as-transient", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ITransientCollection = {};
 cljs.core._conj_BANG_ = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ITransientCollection$_conj_BANG_$arity$2 : a) {
-    c = a.cljs$core$ITransientCollection$_conj_BANG_$arity$2(a, b)
-  }else {
-    c = cljs.core._conj_BANG_[goog.typeOf(a)];
-    if(!c && (c = cljs.core._conj_BANG_._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientCollection.-conj!", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ITransientCollection$_conj_BANG_$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._conj_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._conj_BANG_._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientCollection.-conj!", a);
+  }
+  return c.call(null, a, b)
 };
 cljs.core._persistent_BANG_ = function(a) {
   if(a ? a.cljs$core$ITransientCollection$_persistent_BANG_$arity$1 : a) {
-    a = a.cljs$core$ITransientCollection$_persistent_BANG_$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._persistent_BANG_[goog.typeOf(a)];
-    if(!b && (b = cljs.core._persistent_BANG_._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientCollection.-persistent!", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ITransientCollection$_persistent_BANG_$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._persistent_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._persistent_BANG_._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientCollection.-persistent!", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ITransientAssociative = {};
 cljs.core._assoc_BANG_ = function(a, b, c) {
   if(a ? a.cljs$core$ITransientAssociative$_assoc_BANG_$arity$3 : a) {
-    a = a.cljs$core$ITransientAssociative$_assoc_BANG_$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._assoc_BANG_[goog.typeOf(a)];
-    if(!d && (d = cljs.core._assoc_BANG_._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientAssociative.-assoc!", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$ITransientAssociative$_assoc_BANG_$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._assoc_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._assoc_BANG_._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientAssociative.-assoc!", a);
+  }
+  return d.call(null, a, b, c)
 };
-void 0;
-void 0;
 cljs.core.ITransientMap = {};
 cljs.core._dissoc_BANG_ = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ITransientMap$_dissoc_BANG_$arity$2 : a) {
-    c = a.cljs$core$ITransientMap$_dissoc_BANG_$arity$2(a, b)
-  }else {
-    c = cljs.core._dissoc_BANG_[goog.typeOf(a)];
-    if(!c && (c = cljs.core._dissoc_BANG_._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientMap.-dissoc!", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ITransientMap$_dissoc_BANG_$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._dissoc_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._dissoc_BANG_._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientMap.-dissoc!", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.ITransientVector = {};
 cljs.core._assoc_n_BANG_ = function(a, b, c) {
   if(a ? a.cljs$core$ITransientVector$_assoc_n_BANG_$arity$3 : a) {
-    a = a.cljs$core$ITransientVector$_assoc_n_BANG_$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._assoc_n_BANG_[goog.typeOf(a)];
-    if(!d && (d = cljs.core._assoc_n_BANG_._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientVector.-assoc-n!", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$ITransientVector$_assoc_n_BANG_$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._assoc_n_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._assoc_n_BANG_._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientVector.-assoc-n!", a);
+  }
+  return d.call(null, a, b, c)
 };
 cljs.core._pop_BANG_ = function(a) {
   if(a ? a.cljs$core$ITransientVector$_pop_BANG_$arity$1 : a) {
-    a = a.cljs$core$ITransientVector$_pop_BANG_$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._pop_BANG_[goog.typeOf(a)];
-    if(!b && (b = cljs.core._pop_BANG_._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientVector.-pop!", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$ITransientVector$_pop_BANG_$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._pop_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._pop_BANG_._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientVector.-pop!", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.ITransientSet = {};
 cljs.core._disjoin_BANG_ = function(a, b) {
-  var c;
   if(a ? a.cljs$core$ITransientSet$_disjoin_BANG_$arity$2 : a) {
-    c = a.cljs$core$ITransientSet$_disjoin_BANG_$arity$2(a, b)
-  }else {
-    c = cljs.core._disjoin_BANG_[goog.typeOf(a)];
-    if(!c && (c = cljs.core._disjoin_BANG_._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "ITransientSet.-disjoin!", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$ITransientSet$_disjoin_BANG_$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._disjoin_BANG_[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._disjoin_BANG_._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "ITransientSet.-disjoin!", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IComparable = {};
 cljs.core._compare = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IComparable$_compare$arity$2 : a) {
-    c = a.cljs$core$IComparable$_compare$arity$2(a, b)
-  }else {
-    c = cljs.core._compare[goog.typeOf(a)];
-    if(!c && (c = cljs.core._compare._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IComparable.-compare", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IComparable$_compare$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._compare[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._compare._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IComparable.-compare", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
-void 0;
 cljs.core.IChunk = {};
 cljs.core._drop_first = function(a) {
   if(a ? a.cljs$core$IChunk$_drop_first$arity$1 : a) {
-    a = a.cljs$core$IChunk$_drop_first$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._drop_first[goog.typeOf(a)];
-    if(!b && (b = cljs.core._drop_first._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IChunk.-drop-first", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IChunk$_drop_first$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._drop_first[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._drop_first._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IChunk.-drop-first", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IChunkedSeq = {};
 cljs.core._chunked_first = function(a) {
   if(a ? a.cljs$core$IChunkedSeq$_chunked_first$arity$1 : a) {
-    a = a.cljs$core$IChunkedSeq$_chunked_first$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._chunked_first[goog.typeOf(a)];
-    if(!b && (b = cljs.core._chunked_first._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IChunkedSeq.-chunked-first", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IChunkedSeq$_chunked_first$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._chunked_first[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._chunked_first._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IChunkedSeq.-chunked-first", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._chunked_rest = function(a) {
   if(a ? a.cljs$core$IChunkedSeq$_chunked_rest$arity$1 : a) {
-    a = a.cljs$core$IChunkedSeq$_chunked_rest$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._chunked_rest[goog.typeOf(a)];
-    if(!b && (b = cljs.core._chunked_rest._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IChunkedSeq.-chunked-rest", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IChunkedSeq$_chunked_rest$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._chunked_rest[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._chunked_rest._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IChunkedSeq.-chunked-rest", a);
+  }
+  return b.call(null, a)
 };
-void 0;
-void 0;
 cljs.core.IChunkedNext = {};
 cljs.core._chunked_next = function(a) {
   if(a ? a.cljs$core$IChunkedNext$_chunked_next$arity$1 : a) {
-    a = a.cljs$core$IChunkedNext$_chunked_next$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._chunked_next[goog.typeOf(a)];
-    if(!b && (b = cljs.core._chunked_next._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IChunkedNext.-chunked-next", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IChunkedNext$_chunked_next$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._chunked_next[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._chunked_next._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IChunkedNext.-chunked-next", a);
+  }
+  return b.call(null, a)
 };
-void 0;
 cljs.core.identical_QMARK_ = function(a, b) {
   return a === b
 };
-void 0;
-void 0;
 cljs.core._EQ_ = function() {
   var a = null, b = function(a, b) {
     var c = a === b;
@@ -2697,9 +2495,9 @@ cljs.core.nil_QMARK_ = function(a) {
 cljs.core.type = function(a) {
   return null == a ? null : a.constructor
 };
-void 0;
-void 0;
-void 0;
+cljs.core.instance_QMARK_ = function(a, b) {
+  return b instanceof a
+};
 cljs.core.IHash["null"] = !0;
 cljs.core._hash["null"] = function() {
   return 0
@@ -2803,7 +2601,8 @@ cljs.core._dissoc["null"] = function() {
 };
 Date.prototype.cljs$core$IEquiv$ = !0;
 Date.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(a, b) {
-  return a.toString() === b.toString()
+  var c = cljs.core.instance_QMARK_.call(null, Date, b);
+  return c ? a.toString() === b.toString() : c
 };
 cljs.core.IHash.number = !0;
 cljs.core._hash.number = function(a) {
@@ -2824,8 +2623,6 @@ cljs.core._hash._ = function(a) {
 cljs.core.inc = function(a) {
   return a + 1
 };
-void 0;
-void 0;
 cljs.core.ci_reduce = function() {
   var a = null, b = function(a, b) {
     var c = cljs.core._count.call(null, a);
@@ -2940,11 +2737,6 @@ cljs.core.array_reduce = function() {
   a.cljs$lang$arity$4 = d;
   return a
 }();
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
 cljs.core.IndexedSeq = function(a, b) {
   this.a = a;
   this.i = b;
@@ -3246,7 +3038,6 @@ cljs.core.conj = function() {
 cljs.core.empty = function(a) {
   return cljs.core._empty.call(null, a)
 };
-void 0;
 cljs.core.accumulating_seq_count = function(a) {
   for(var a = cljs.core.seq.call(null, a), b = 0;;) {
     if(cljs.core.counted_QMARK_.call(null, a)) {
@@ -3259,7 +3050,6 @@ cljs.core.accumulating_seq_count = function(a) {
 cljs.core.count = function(a) {
   return cljs.core.counted_QMARK_.call(null, a) ? cljs.core._count.call(null, a) : cljs.core.accumulating_seq_count.call(null, a)
 };
-void 0;
 cljs.core.linear_traversal_nth = function() {
   var a = null, b = function(b, c) {
     if(null == b) {
@@ -3619,7 +3409,7 @@ cljs.core.js_obj = function() {
       case 0:
         return{};
       default:
-        return b.cljs$lang$arity$variadic(falsecljs.core.array_seq(arguments, 0))
+        return b.cljs$lang$arity$variadic(cljs.core.array_seq(arguments, 0))
     }
     throw"Invalid arity: " + arguments.length;
   };
@@ -3673,9 +3463,6 @@ cljs.core.true_QMARK_ = function(a) {
 };
 cljs.core.undefined_QMARK_ = function(a) {
   return void 0 === a
-};
-cljs.core.instance_QMARK_ = function(a, b) {
-  return b instanceof a
 };
 cljs.core.seq_QMARK_ = function(a) {
   if(null == a) {
@@ -3745,7 +3532,7 @@ cljs.core.distinct_QMARK_ = function() {
       if(cljs.core._EQ_.call(null, a, b)) {
         return!1
       }
-      a = cljs.core.set([b, a]);
+      a = cljs.core.PersistentHashSet.fromArray([b, a]);
       for(b = c;;) {
         var d = cljs.core.first.call(null, b), c = cljs.core.next.call(null, b);
         if(cljs.core.truth_(b)) {
@@ -3838,7 +3625,6 @@ cljs.core.fn__GT_comparator = function(a) {
     return cljs.core.number_QMARK_.call(null, d) ? d : cljs.core.truth_(d) ? -1 : cljs.core.truth_(a.call(null, c, b)) ? 1 : 0
   }
 };
-void 0;
 cljs.core.sort = function() {
   var a = null, b = function(b) {
     return a.call(null, cljs.core.compare, b)
@@ -3911,7 +3697,6 @@ cljs.core.seq_reduce = function() {
   a.cljs$lang$arity$3 = c;
   return a
 }();
-void 0;
 cljs.core.shuffle = function(a) {
   a = cljs.core.to_array.call(null, a);
   goog.array.shuffle(a);
@@ -4654,6 +4439,22 @@ cljs.core.subs = function() {
   };
   return a
 }();
+cljs.core.format = function() {
+  var a = function(a, b) {
+    return cljs.core.apply.call(null, goog.string.format, a, b)
+  }, b = function(b, d) {
+    var e = null;
+    goog.isDef(d) && (e = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0));
+    return a.call(this, b, e)
+  };
+  b.cljs$lang$maxFixedArity = 1;
+  b.cljs$lang$applyTo = function(b) {
+    var d = cljs.core.first(b), b = cljs.core.rest(b);
+    return a(d, b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
 cljs.core.symbol = function() {
   var a = null, b = function(a) {
     cljs.core.symbol_QMARK_.call(null, a) ? a : cljs.core.keyword_QMARK_.call(null, a) && cljs.core.str_STAR_.call(null, "\ufdd1", "'", cljs.core.subs.call(null, a, 2));
@@ -4713,8 +4514,6 @@ cljs.core.hash_coll = function(a) {
     return cljs.core.hash_combine.call(null, a, cljs.core.hash.call(null, c, !1))
   }, cljs.core.hash.call(null, cljs.core.first.call(null, a), !1), cljs.core.next.call(null, a))
 };
-void 0;
-void 0;
 cljs.core.hash_imap = function(a) {
   for(var b = 0, a = cljs.core.seq.call(null, a);;) {
     if(a) {
@@ -4733,7 +4532,6 @@ cljs.core.hash_iset = function(a) {
     }
   }
 };
-void 0;
 cljs.core.extend_object_BANG_ = function(a, b) {
   var c = cljs.core.seq.call(null, b);
   if(c) {
@@ -5046,13 +4844,20 @@ cljs.core.Keyword.cljs$lang$type = !0;
 cljs.core.Keyword.cljs$lang$ctorPrSeq = function() {
   return cljs.core.list.call(null, "cljs.core/Keyword")
 };
-cljs.core.Keyword.prototype.call = function(a, b) {
-  if(null == b) {
-    return null
+cljs.core.Keyword.prototype.call = function() {
+  var a = null;
+  return a = function(a, c, d) {
+    switch(arguments.length) {
+      case 2:
+        var e;
+        null == c ? e = null : (e = c.strobj, e = null == e ? cljs.core._lookup.call(null, c, this.k, null) : e[this.k]);
+        return e;
+      case 3:
+        return e = null == c ? d : cljs.core._lookup.call(null, c, this.k, d), e
+    }
+    throw"Invalid arity: " + arguments.length;
   }
-  var c = b.strobj;
-  return null == c ? cljs.core._lookup.call(null, b, this.k, null) : c[this.k]
-};
+}();
 cljs.core.Keyword.prototype.apply = function(a, b) {
   return a.call.apply(a, [a].concat(b.slice()))
 };
@@ -5132,7 +4937,6 @@ cljs.core.LazySeq.prototype.cljs$core$IEmptyableCollection$_empty$arity$1 = func
   return cljs.core.with_meta.call(null, cljs.core.List.EMPTY, this.meta)
 };
 cljs.core.LazySeq;
-void 0;
 cljs.core.ChunkBuffer = function(a, b) {
   this.buf = a;
   this.end = b;
@@ -5578,7 +5382,6 @@ cljs.core.pop_BANG_ = function(a) {
 cljs.core.disj_BANG_ = function(a, b) {
   return cljs.core._disjoin_BANG_.call(null, a, b)
 };
-void 0;
 cljs.core.apply_to = function(a, b, c) {
   var d = cljs.core.seq.call(null, c);
   if(0 === b) {
@@ -5669,7 +5472,6 @@ cljs.core.apply_to = function(a, b, c) {
   }
   throw Error("Only up to 20 arguments supported on functions");
 };
-void 0;
 cljs.core.apply = function() {
   var a = null, b = function(a, b) {
     var c = a.cljs$lang$maxFixedArity;
@@ -7600,13 +7402,6 @@ cljs.core.pop_tail = function pop_tail(b, c, d) {
   cljs.core.pv_aset.call(null, d, e, null);
   return d
 };
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
 cljs.core.PersistentVector = function(a, b, c, d, e, f) {
   this.meta = a;
   this.cnt = b;
@@ -8589,7 +8384,6 @@ cljs.core.array_map_index_of = function(a, b) {
     e += 2
   }
 };
-void 0;
 cljs.core.PersistentArrayMap = function(a, b, c, d) {
   this.meta = a;
   this.cnt = b;
@@ -8722,7 +8516,6 @@ cljs.core.PersistentArrayMap.fromArrays = function(a, b) {
     }
   }
 };
-void 0;
 cljs.core.TransientArrayMap = function(a, b, c) {
   this.editable_QMARK_ = a;
   this.len = b;
@@ -8795,7 +8588,6 @@ cljs.core.TransientArrayMap.prototype.cljs$core$ICounted$_count$arity$1 = functi
   throw Error("count after persistent!");
 };
 cljs.core.TransientArrayMap;
-void 0;
 cljs.core.array__GT_transient_hash_map = function(a, b) {
   for(var c = cljs.core.transient$.call(null, cljs.core.ObjMap.EMPTY), d = 0;;) {
     if(d < a) {
@@ -8813,12 +8605,6 @@ cljs.core.Box.cljs$lang$ctorPrSeq = function() {
   return cljs.core.list.call(null, "cljs.core/Box")
 };
 cljs.core.Box;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
 cljs.core.key_test = function(a, b) {
   return goog.isString(a) ? a === b : cljs.core._EQ_.call(null, a, b)
 };
@@ -8897,7 +8683,6 @@ cljs.core.inode_kv_reduce = function(a, b, c) {
     }
   }
 };
-void 0;
 cljs.core.BitmapIndexedNode = function(a, b, c) {
   this.edit = a;
   this.bitmap = b;
@@ -9413,7 +9198,6 @@ cljs.core.create_array_node_seq = function() {
   a.cljs$lang$arity$4 = c;
   return a
 }();
-void 0;
 cljs.core.PersistentHashMap = function(a, b, c, d, e, f) {
   this.meta = a;
   this.cnt = b;
@@ -9674,8 +9458,6 @@ cljs.core.PersistentTreeMapSeq;
 cljs.core.create_tree_map_seq = function(a, b, c) {
   return new cljs.core.PersistentTreeMapSeq(null, cljs.core.tree_map_seq_push.call(null, a, null, b), b, c, null)
 };
-void 0;
-void 0;
 cljs.core.balance_left = function(a, b, c, d) {
   return cljs.core.instance_QMARK_.call(null, cljs.core.RedNode, c) ? cljs.core.instance_QMARK_.call(null, cljs.core.RedNode, c.left) ? new cljs.core.RedNode(c.key, c.val, c.left.blacken(), new cljs.core.BlackNode(a, b, c.right, d, null), null) : cljs.core.instance_QMARK_.call(null, cljs.core.RedNode, c.right) ? new cljs.core.RedNode(c.right.key, c.right.val, new cljs.core.BlackNode(c.key, c.val, c.left, c.right.left, null), new cljs.core.BlackNode(a, b, c.right.right, d, null), null) : new cljs.core.BlackNode(a, 
   b, c, d, null) : new cljs.core.BlackNode(a, b, c, d, null)
@@ -10043,7 +9825,6 @@ cljs.core.tree_map_replace = function tree_map_replace(b, c, d, e) {
   var f = c.key, g = b.call(null, d, f);
   return 0 === g ? c.replace(f, e, c.left, c.right) : 0 > g ? c.replace(f, c.val, tree_map_replace.call(null, b, c.left, d, e), c.right) : c.replace(f, c.val, c.left, tree_map_replace.call(null, b, c.right, d, e))
 };
-void 0;
 cljs.core.PersistentTreeMap = function(a, b, c, d, e) {
   this.comp = a;
   this.tree = b;
@@ -10203,6 +9984,28 @@ cljs.core.array_map = function() {
   b.cljs$lang$arity$variadic = a;
   return b
 }();
+cljs.core.obj_map = function() {
+  var a = function(a) {
+    for(var b = [], e = {}, a = cljs.core.seq.call(null, a);;) {
+      if(a) {
+        b.push(cljs.core.first.call(null, a)), e[cljs.core.first.call(null, a)] = cljs.core.second.call(null, a), a = cljs.core.nnext.call(null, a)
+      }else {
+        return cljs.core.ObjMap.fromObject.call(null, b, e)
+      }
+    }
+  }, b = function(b) {
+    var d = null;
+    goog.isDef(b) && (d = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0));
+    return a.call(this, d)
+  };
+  b.cljs$lang$maxFixedArity = 0;
+  b.cljs$lang$applyTo = function(b) {
+    b = cljs.core.seq(b);
+    return a(b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
 cljs.core.sorted_map = function() {
   var a = function(a) {
     for(var a = cljs.core.seq.call(null, a), b = cljs.core.PersistentTreeMap.EMPTY;;) {
@@ -10305,13 +10108,12 @@ cljs.core.merge_with = function() {
 cljs.core.select_keys = function(a, b) {
   for(var c = cljs.core.ObjMap.EMPTY, d = cljs.core.seq.call(null, b);;) {
     if(d) {
-      var e = cljs.core.first.call(null, d), f = cljs.core._lookup.call(null, a, e, "\ufdd0'user/not-found"), c = cljs.core.not_EQ_.call(null, f, "\ufdd0'user/not-found") ? cljs.core.assoc.call(null, c, e, f) : c, d = cljs.core.next.call(null, d)
+      var e = cljs.core.first.call(null, d), f = cljs.core._lookup.call(null, a, e, "\ufdd0'cljs.core/not-found"), c = cljs.core.not_EQ_.call(null, f, "\ufdd0'cljs.core/not-found") ? cljs.core.assoc.call(null, c, e, f) : c, d = cljs.core.next.call(null, d)
     }else {
       return c
     }
   }
 };
-void 0;
 cljs.core.PersistentHashSet = function(a, b, c) {
   this.meta = a;
   this.hash_map = b;
@@ -10383,6 +10185,15 @@ cljs.core.PersistentHashSet.prototype.cljs$core$IEmptyableCollection$_empty$arit
 };
 cljs.core.PersistentHashSet;
 cljs.core.PersistentHashSet.EMPTY = new cljs.core.PersistentHashSet(null, cljs.core.hash_map.call(null), 0);
+cljs.core.PersistentHashSet.fromArray = function(a) {
+  for(var b = cljs.core.count.call(null, a), c = 0, d = cljs.core.transient$.call(null, cljs.core.PersistentHashSet.EMPTY);;) {
+    if(c < b) {
+      var e = c + 1, d = cljs.core.conj_BANG_.call(null, d, a[c]), c = e
+    }else {
+      return cljs.core.persistent_BANG_.call(null, d)
+    }
+  }
+};
 cljs.core.TransientHashSet = function(a) {
   this.transient_map = a;
   this.cljs$lang$protocol_mask$partition0$ = 259;
@@ -10513,14 +10324,47 @@ cljs.core.PersistentTreeSet.prototype.cljs$core$IEmptyableCollection$_empty$arit
 };
 cljs.core.PersistentTreeSet;
 cljs.core.PersistentTreeSet.EMPTY = new cljs.core.PersistentTreeSet(null, cljs.core.sorted_map.call(null), 0);
-cljs.core.set = function(a) {
-  for(var a = cljs.core.seq.call(null, a), b = cljs.core.transient$.call(null, cljs.core.PersistentHashSet.EMPTY);;) {
-    if(cljs.core.seq.call(null, a)) {
-      var c = cljs.core.next.call(null, a), b = cljs.core.conj_BANG_.call(null, b, cljs.core.first.call(null, a)), a = c
-    }else {
-      return cljs.core.persistent_BANG_.call(null, b)
+cljs.core.hash_set = function() {
+  var a = null, b = function() {
+    return cljs.core.PersistentHashSet.EMPTY
+  }, c = function() {
+    var a = function(a) {
+      for(var a = cljs.core.seq.call(null, a), b = cljs.core.transient$.call(null, cljs.core.PersistentHashSet.EMPTY);;) {
+        if(cljs.core.seq.call(null, a)) {
+          var c = cljs.core.next.call(null, a), b = cljs.core.conj_BANG_.call(null, b, cljs.core.first.call(null, a)), a = c
+        }else {
+          return cljs.core.persistent_BANG_.call(null, b)
+        }
+      }
+    }, b = function(b) {
+      var c = null;
+      goog.isDef(b) && (c = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0));
+      return a.call(this, c)
+    };
+    b.cljs$lang$maxFixedArity = 0;
+    b.cljs$lang$applyTo = function(b) {
+      b = cljs.core.seq(b);
+      return a(b)
+    };
+    b.cljs$lang$arity$variadic = a;
+    return b
+  }(), a = function(a) {
+    switch(arguments.length) {
+      case 0:
+        return b.call(this);
+      default:
+        return c.cljs$lang$arity$variadic(cljs.core.array_seq(arguments, 0))
     }
-  }
+    throw"Invalid arity: " + arguments.length;
+  };
+  a.cljs$lang$maxFixedArity = 0;
+  a.cljs$lang$applyTo = c.cljs$lang$applyTo;
+  a.cljs$lang$arity$0 = b;
+  a.cljs$lang$arity$variadic = c.cljs$lang$arity$variadic;
+  return a
+}();
+cljs.core.set = function(a) {
+  return cljs.core.apply.call(null, cljs.core.hash_set, a)
 };
 cljs.core.sorted_set = function() {
   var a = function(a) {
@@ -10588,7 +10432,7 @@ cljs.core.distinct = function(a) {
         }
       }.call(null, a, e)
     }, null)
-  }.call(null, a, cljs.core.set([]))
+  }.call(null, a, cljs.core.PersistentHashSet.EMPTY)
 };
 cljs.core.butlast = function(a) {
   for(var b = cljs.core.PersistentVector.EMPTY;;) {
@@ -10745,7 +10589,7 @@ cljs.core.mk_bound_fn = function(a, b, c) {
 cljs.core.subseq = function() {
   var a = null, b = function(a, b, c) {
     var g = cljs.core.mk_bound_fn.call(null, a, b, c);
-    return cljs.core.truth_(cljs.core.set([cljs.core._GT_, cljs.core._GT__EQ_]).call(null, b)) ? (a = cljs.core._sorted_seq_from.call(null, a, c, !0), cljs.core.truth_(a) ? (b = cljs.core.nth.call(null, a, 0, null), cljs.core.truth_(g.call(null, b)) ? a : cljs.core.next.call(null, a)) : null) : cljs.core.take_while.call(null, g, cljs.core._sorted_seq.call(null, a, !0))
+    return cljs.core.truth_(cljs.core.PersistentHashSet.fromArray([cljs.core._GT_, cljs.core._GT__EQ_]).call(null, b)) ? (a = cljs.core._sorted_seq_from.call(null, a, c, !0), cljs.core.truth_(a) ? (b = cljs.core.nth.call(null, a, 0, null), cljs.core.truth_(g.call(null, b)) ? a : cljs.core.next.call(null, a)) : null) : cljs.core.take_while.call(null, g, cljs.core._sorted_seq.call(null, a, !0))
   }, c = function(a, b, c, g, h) {
     var i = cljs.core._sorted_seq_from.call(null, a, c, !0);
     if(cljs.core.truth_(i)) {
@@ -10769,7 +10613,7 @@ cljs.core.subseq = function() {
 cljs.core.rsubseq = function() {
   var a = null, b = function(a, b, c) {
     var g = cljs.core.mk_bound_fn.call(null, a, b, c);
-    return cljs.core.truth_(cljs.core.set([cljs.core._LT_, cljs.core._LT__EQ_]).call(null, b)) ? (a = cljs.core._sorted_seq_from.call(null, a, c, !1), cljs.core.truth_(a) ? (b = cljs.core.nth.call(null, a, 0, null), cljs.core.truth_(g.call(null, b)) ? a : cljs.core.next.call(null, a)) : null) : cljs.core.take_while.call(null, g, cljs.core._sorted_seq.call(null, a, !1))
+    return cljs.core.truth_(cljs.core.PersistentHashSet.fromArray([cljs.core._LT_, cljs.core._LT__EQ_]).call(null, b)) ? (a = cljs.core._sorted_seq_from.call(null, a, c, !1), cljs.core.truth_(a) ? (b = cljs.core.nth.call(null, a, 0, null), cljs.core.truth_(g.call(null, b)) ? a : cljs.core.next.call(null, a)) : null) : cljs.core.take_while.call(null, g, cljs.core._sorted_seq.call(null, a, !1))
   }, c = function(a, b, c, g, h) {
     var i = cljs.core._sorted_seq_from.call(null, a, h, !1);
     if(cljs.core.truth_(i)) {
@@ -11247,28 +11091,37 @@ cljs.core.pr_seq = function pr_seq(b, c) {
   }() ? cljs.core._pr_seq.call(null, b, c) : cljs.core.truth_(cljs.core.regexp_QMARK_.call(null, b)) ? cljs.core.list.call(null, '#"', b.source, '"') : cljs.core.list.call(null, "#<", "" + cljs.core.str(b), ">"))
 };
 cljs.core.pr_sb = function(a, b) {
-  var c = cljs.core.first.call(null, a), d = new goog.string.StringBuffer, e = cljs.core.seq.call(null, a);
-  if(e) {
-    for(var f = cljs.core.first.call(null, e);;) {
-      f !== c && d.append(" ");
-      var g = cljs.core.seq.call(null, cljs.core.pr_seq.call(null, f, b));
-      if(g) {
-        for(f = cljs.core.first.call(null, g);;) {
-          if(d.append(f), f = cljs.core.next.call(null, g)) {
-            g = f, f = cljs.core.first.call(null, g)
+  var c = new goog.string.StringBuffer, d = cljs.core.seq.call(null, cljs.core.pr_seq.call(null, cljs.core.first.call(null, a), b));
+  if(d) {
+    for(var e = cljs.core.first.call(null, d);;) {
+      if(c.append(e), e = cljs.core.next.call(null, d)) {
+        d = e, e = cljs.core.first.call(null, d)
+      }else {
+        break
+      }
+    }
+  }
+  if(e = cljs.core.seq.call(null, cljs.core.next.call(null, a))) {
+    for(d = cljs.core.first.call(null, e);;) {
+      c.append(" ");
+      var f = cljs.core.seq.call(null, cljs.core.pr_seq.call(null, d, b));
+      if(f) {
+        for(d = cljs.core.first.call(null, f);;) {
+          if(c.append(d), d = cljs.core.next.call(null, f)) {
+            f = d, d = cljs.core.first.call(null, f)
           }else {
             break
           }
         }
       }
       if(e = cljs.core.next.call(null, e)) {
-        f = e, e = cljs.core.first.call(null, f), g = f, f = e, e = g
+        d = e, e = cljs.core.first.call(null, d), f = d, d = e, e = f
       }else {
         break
       }
     }
   }
-  return d
+  return c
 };
 cljs.core.pr_str_with_opts = function(a, b) {
   return"" + cljs.core.str(cljs.core.pr_sb.call(null, a, b))
@@ -11279,22 +11132,31 @@ cljs.core.prn_str_with_opts = function(a, b) {
   return"" + cljs.core.str(c)
 };
 cljs.core.pr_with_opts = function(a, b) {
-  var c = cljs.core.first.call(null, a), d = cljs.core.seq.call(null, a);
-  if(d) {
-    for(var e = cljs.core.first.call(null, d);;) {
-      e !== c && cljs.core.string_print.call(null, " ");
-      var f = cljs.core.seq.call(null, cljs.core.pr_seq.call(null, e, b));
-      if(f) {
-        for(e = cljs.core.first.call(null, f);;) {
-          if(cljs.core.string_print.call(null, e), e = cljs.core.next.call(null, f)) {
-            f = e, e = cljs.core.first.call(null, f)
+  var c = cljs.core.seq.call(null, cljs.core.pr_seq.call(null, cljs.core.first.call(null, a), b));
+  if(c) {
+    for(var d = cljs.core.first.call(null, c);;) {
+      if(cljs.core.string_print.call(null, d), d = cljs.core.next.call(null, c)) {
+        c = d, d = cljs.core.first.call(null, c)
+      }else {
+        break
+      }
+    }
+  }
+  if(d = cljs.core.seq.call(null, cljs.core.next.call(null, a))) {
+    for(c = cljs.core.first.call(null, d);;) {
+      cljs.core.string_print.call(null, " ");
+      var e = cljs.core.seq.call(null, cljs.core.pr_seq.call(null, c, b));
+      if(e) {
+        for(c = cljs.core.first.call(null, e);;) {
+          if(cljs.core.string_print.call(null, c), c = cljs.core.next.call(null, e)) {
+            e = c, c = cljs.core.first.call(null, e)
           }else {
             break
           }
         }
       }
       if(d = cljs.core.next.call(null, d)) {
-        e = d, d = cljs.core.first.call(null, e), f = e, e = d, d = f
+        c = d, d = cljs.core.first.call(null, c), e = c, c = d, d = e
       }else {
         return null
       }
@@ -11440,6 +11302,22 @@ cljs.core.prn = function() {
   b.cljs$lang$applyTo = function(b) {
     b = cljs.core.seq(b);
     return a(b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
+cljs.core.printf = function() {
+  var a = function(a, b) {
+    return cljs.core.print.call(null, cljs.core.apply.call(null, cljs.core.format, a, b))
+  }, b = function(b, d) {
+    var e = null;
+    goog.isDef(d) && (e = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0));
+    return a.call(this, b, e)
+  };
+  b.cljs$lang$maxFixedArity = 1;
+  b.cljs$lang$applyTo = function(b) {
+    var d = cljs.core.first(b), b = cljs.core.rest(b);
+    return a(d, b)
   };
   b.cljs$lang$arity$variadic = a;
   return b
@@ -11687,7 +11565,7 @@ cljs.core.atom = function() {
 cljs.core.reset_BANG_ = function(a, b) {
   var c = a.validator;
   if(cljs.core.truth_(c) && !cljs.core.truth_(c.call(null, b))) {
-    throw Error([cljs.core.str("Assert failed: "), cljs.core.str("Validator rejected reference state"), cljs.core.str("\n"), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'validate", "\ufdd1'new-value"), cljs.core.hash_map("\ufdd0'line", 6394))))].join(""));
+    throw Error([cljs.core.str("Assert failed: "), cljs.core.str("Validator rejected reference state"), cljs.core.str("\n"), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'validate", "\ufdd1'new-value"), cljs.core.hash_map("\ufdd0'line", 6440))))].join(""));
   }
   c = a.state;
   a.state = b;
@@ -12056,17 +11934,17 @@ cljs.core.descendants = function() {
 cljs.core.derive = function() {
   var a = null, b = function(b, c) {
     if(!cljs.core.truth_(cljs.core.namespace.call(null, c))) {
-      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'namespace", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 6678))))].join(""));
+      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'namespace", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 6724))))].join(""));
     }
     cljs.core.swap_BANG_.call(null, cljs.core.global_hierarchy, a, b, c);
     return null
   }, c = function(a, b, c) {
     if(!cljs.core.not_EQ_.call(null, b, c)) {
-      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'not=", "\ufdd1'tag", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 6682))))].join(""));
+      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'not=", "\ufdd1'tag", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 6728))))].join(""));
     }
     var g = (new cljs.core.Keyword("\ufdd0'parents")).call(null, a), h = (new cljs.core.Keyword("\ufdd0'descendants")).call(null, a), i = (new cljs.core.Keyword("\ufdd0'ancestors")).call(null, a), j = function(a, b, c, d, e) {
       return cljs.core.reduce.call(null, function(a, b) {
-        return cljs.core.assoc.call(null, a, b, cljs.core.reduce.call(null, cljs.core.conj, cljs.core._lookup.call(null, e, b, cljs.core.set([])), cljs.core.cons.call(null, d, e.call(null, d))))
+        return cljs.core.assoc.call(null, a, b, cljs.core.reduce.call(null, cljs.core.conj, cljs.core._lookup.call(null, e, b, cljs.core.PersistentHashSet.EMPTY), cljs.core.cons.call(null, d, e.call(null, d))))
       }, a, cljs.core.cons.call(null, b, c.call(null, b)))
     };
     if(cljs.core.contains_QMARK_.call(null, g.call(null, b), c)) {
@@ -12078,7 +11956,8 @@ cljs.core.derive = function() {
       if(cljs.core.contains_QMARK_.call(null, i.call(null, c), b)) {
         throw Error([cljs.core.str("Cyclic derivation:"), cljs.core.str(c), cljs.core.str("has"), cljs.core.str(b), cljs.core.str("as ancestor")].join(""));
       }
-      b = cljs.core.ObjMap.fromObject(["\ufdd0'parents", "\ufdd0'ancestors", "\ufdd0'descendants"], {"\ufdd0'parents":cljs.core.assoc.call(null, (new cljs.core.Keyword("\ufdd0'parents")).call(null, a), b, cljs.core.conj.call(null, cljs.core._lookup.call(null, g, b, cljs.core.set([])), c)), "\ufdd0'ancestors":j.call(null, (new cljs.core.Keyword("\ufdd0'ancestors")).call(null, a), b, h, c, i), "\ufdd0'descendants":j.call(null, (new cljs.core.Keyword("\ufdd0'descendants")).call(null, a), c, i, b, h)})
+      b = cljs.core.ObjMap.fromObject(["\ufdd0'parents", "\ufdd0'ancestors", "\ufdd0'descendants"], {"\ufdd0'parents":cljs.core.assoc.call(null, (new cljs.core.Keyword("\ufdd0'parents")).call(null, a), b, cljs.core.conj.call(null, cljs.core._lookup.call(null, g, b, cljs.core.PersistentHashSet.EMPTY), c)), "\ufdd0'ancestors":j.call(null, (new cljs.core.Keyword("\ufdd0'ancestors")).call(null, a), b, h, c, i), "\ufdd0'descendants":j.call(null, (new cljs.core.Keyword("\ufdd0'descendants")).call(null, 
+      a), c, i, b, h)})
     }
     return cljs.core.truth_(b) ? b : a
   }, a = function(a, e, f) {
@@ -12099,7 +11978,7 @@ cljs.core.underive = function() {
     cljs.core.swap_BANG_.call(null, cljs.core.global_hierarchy, a, b, c);
     return null
   }, c = function(a, b, c) {
-    var g = (new cljs.core.Keyword("\ufdd0'parents")).call(null, a), h = cljs.core.truth_(g.call(null, b)) ? cljs.core.disj.call(null, g.call(null, b), c) : cljs.core.set([]), h = cljs.core.truth_(cljs.core.not_empty.call(null, h)) ? cljs.core.assoc.call(null, g, b, h) : cljs.core.dissoc.call(null, g, b), h = cljs.core.flatten.call(null, cljs.core.map.call(null, function(a) {
+    var g = (new cljs.core.Keyword("\ufdd0'parents")).call(null, a), h = cljs.core.truth_(g.call(null, b)) ? cljs.core.disj.call(null, g.call(null, b), c) : cljs.core.PersistentHashSet.EMPTY, h = cljs.core.truth_(cljs.core.not_empty.call(null, h)) ? cljs.core.assoc.call(null, g, b, h) : cljs.core.dissoc.call(null, g, b), h = cljs.core.flatten.call(null, cljs.core.map.call(null, function(a) {
       return cljs.core.cons.call(null, cljs.core.first.call(null, a), cljs.core.interpose.call(null, cljs.core.first.call(null, a), cljs.core.second.call(null, a)))
     }, cljs.core.seq.call(null, h)));
     return cljs.core.contains_QMARK_.call(null, g.call(null, b), c) ? cljs.core.reduce.call(null, function(a, b) {
@@ -12183,113 +12062,95 @@ cljs.core.find_and_cache_best_method = function find_and_cache_best_method(b, c,
   }
   return null
 };
-void 0;
 cljs.core.IMultiFn = {};
 cljs.core._reset = function(a) {
   if(a ? a.cljs$core$IMultiFn$_reset$arity$1 : a) {
-    a = a.cljs$core$IMultiFn$_reset$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._reset[goog.typeOf(a)];
-    if(!b && (b = cljs.core._reset._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-reset", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IMultiFn$_reset$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._reset[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._reset._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-reset", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._add_method = function(a, b, c) {
   if(a ? a.cljs$core$IMultiFn$_add_method$arity$3 : a) {
-    a = a.cljs$core$IMultiFn$_add_method$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._add_method[goog.typeOf(a)];
-    if(!d && (d = cljs.core._add_method._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-add-method", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IMultiFn$_add_method$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._add_method[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._add_method._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-add-method", a);
+  }
+  return d.call(null, a, b, c)
 };
 cljs.core._remove_method = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IMultiFn$_remove_method$arity$2 : a) {
-    c = a.cljs$core$IMultiFn$_remove_method$arity$2(a, b)
-  }else {
-    c = cljs.core._remove_method[goog.typeOf(a)];
-    if(!c && (c = cljs.core._remove_method._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-remove-method", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IMultiFn$_remove_method$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._remove_method[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._remove_method._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-remove-method", a);
+  }
+  return c.call(null, a, b)
 };
 cljs.core._prefer_method = function(a, b, c) {
   if(a ? a.cljs$core$IMultiFn$_prefer_method$arity$3 : a) {
-    a = a.cljs$core$IMultiFn$_prefer_method$arity$3(a, b, c)
-  }else {
-    var d;
-    d = cljs.core._prefer_method[goog.typeOf(a)];
-    if(!d && (d = cljs.core._prefer_method._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-prefer-method", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.cljs$core$IMultiFn$_prefer_method$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = cljs.core._prefer_method[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = cljs.core._prefer_method._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-prefer-method", a);
+  }
+  return d.call(null, a, b, c)
 };
 cljs.core._get_method = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IMultiFn$_get_method$arity$2 : a) {
-    c = a.cljs$core$IMultiFn$_get_method$arity$2(a, b)
-  }else {
-    c = cljs.core._get_method[goog.typeOf(a)];
-    if(!c && (c = cljs.core._get_method._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-get-method", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IMultiFn$_get_method$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._get_method[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._get_method._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-get-method", a);
+  }
+  return c.call(null, a, b)
 };
 cljs.core._methods = function(a) {
   if(a ? a.cljs$core$IMultiFn$_methods$arity$1 : a) {
-    a = a.cljs$core$IMultiFn$_methods$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._methods[goog.typeOf(a)];
-    if(!b && (b = cljs.core._methods._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-methods", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IMultiFn$_methods$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._methods[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._methods._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-methods", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._prefers = function(a) {
   if(a ? a.cljs$core$IMultiFn$_prefers$arity$1 : a) {
-    a = a.cljs$core$IMultiFn$_prefers$arity$1(a)
-  }else {
-    var b;
-    b = cljs.core._prefers[goog.typeOf(a)];
-    if(!b && (b = cljs.core._prefers._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-prefers", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$core$IMultiFn$_prefers$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.core._prefers[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.core._prefers._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-prefers", a);
+  }
+  return b.call(null, a)
 };
 cljs.core._dispatch = function(a, b) {
-  var c;
   if(a ? a.cljs$core$IMultiFn$_dispatch$arity$2 : a) {
-    c = a.cljs$core$IMultiFn$_dispatch$arity$2(a, b)
-  }else {
-    c = cljs.core._dispatch[goog.typeOf(a)];
-    if(!c && (c = cljs.core._dispatch._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IMultiFn.-dispatch", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$core$IMultiFn$_dispatch$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.core._dispatch[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.core._dispatch._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IMultiFn.-dispatch", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
 cljs.core.do_dispatch = function(a, b, c) {
   b = cljs.core.apply.call(null, b, c);
   a = cljs.core._get_method.call(null, a, b);
@@ -12356,7 +12217,7 @@ cljs.core.MultiFn.prototype.cljs$core$IMultiFn$_prefer_method$arity$3 = function
     throw Error([cljs.core.str("Preference conflict in multimethod '"), cljs.core.str(this.name), cljs.core.str("': "), cljs.core.str(c), cljs.core.str(" is already preferred to "), cljs.core.str(b)].join(""));
   }
   cljs.core.swap_BANG_.call(null, this.prefer_table, function(a) {
-    return cljs.core.assoc.call(null, a, b, cljs.core.conj.call(null, cljs.core._lookup.call(null, a, b, cljs.core.set([])), c))
+    return cljs.core.assoc.call(null, a, b, cljs.core.conj.call(null, cljs.core._lookup.call(null, a, b, cljs.core.PersistentHashSet.EMPTY), c))
   });
   return cljs.core.reset_cache.call(null, this.method_cache, this.method_table, this.cached_hierarchy, this.hierarchy)
 };
@@ -12423,24 +12284,14 @@ cljs.core.UUID.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function() {
   return cljs.core.list.call(null, [cljs.core.str('#uuid "'), cljs.core.str(this.uuid), cljs.core.str('"')].join(""))
 };
 cljs.core.UUID.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(a, b) {
-  return this.uuid === b.uuid
+  var c = cljs.core.instance_QMARK_.call(null, cljs.core.UUID, b);
+  return c ? this.uuid === b.uuid : c
 };
 cljs.core.UUID.prototype.toString = function() {
   return cljs.core.pr_str.call(null, this)
 };
 cljs.core.UUID;
 var session = {ui:{}};
-session.ui.youtube = function(a) {
-  return cljs.core._lookup.call(null, cljs.core.deref.call(null, cljs.reader._STAR_tag_table_STAR_), "hiccup", null).call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'iframe", cljs.core.ObjMap.fromObject(["\ufdd0'width", "\ufdd0'height", "\ufdd0'src"], {"\ufdd0'width":"420", "\ufdd0'height":"315", "\ufdd0'src":[cljs.core.str("http://www.youtube.com/embed/"), cljs.core.str(a), cljs.core.str("?rel=0")].join("")})], !0))
-};
-session.ui.table_row = function(a) {
-  return cljs.core.PersistentVector.fromArray(["\ufdd0'tr", cljs.core.map.call(null, function(a) {
-    return cljs.core.vector.call(null, "\ufdd0'td", "" + cljs.core.str(a))
-  }, a)], !0)
-};
-session.ui.table = function(a) {
-  return cljs.core._lookup.call(null, cljs.core.deref.call(null, cljs.reader._STAR_tag_table_STAR_), "hiccup", null).call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'table.table.table-bordered.table-striped.table-condensed", cljs.core.map.call(null, session.ui.table_row, a)], !0))
-};
 goog.disposable = {};
 goog.disposable.IDisposable = function() {
 };
@@ -15041,159 +14892,30 @@ goog.net.XhrIo.prototype.formatMsg_ = function(a) {
 goog.debug.entryPointRegistry.register(function(a) {
   goog.net.XhrIo.prototype.onReadyStateChangeEntryPoint_ = a(goog.net.XhrIo.prototype.onReadyStateChangeEntryPoint_)
 });
-session.client = {};
-session.client.mvc = {};
-void 0;
-session.client.mvc.IMVC = {};
-session.client.mvc.view = function(a) {
-  if(a ? a.session$client$mvc$IMVC$view$arity$1 : a) {
-    a = a.session$client$mvc$IMVC$view$arity$1(a)
-  }else {
-    var b;
-    b = session.client.mvc.view[goog.typeOf(a)];
-    if(!b && (b = session.client.mvc.view._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IMVC.view", a);
-    }
-    a = b.call(null, a)
-  }
-  return a
-};
-session.client.mvc.control = function(a, b) {
-  var c;
-  if(a ? a.session$client$mvc$IMVC$control$arity$2 : a) {
-    c = a.session$client$mvc$IMVC$control$arity$2(a, b)
-  }else {
-    c = session.client.mvc.control[goog.typeOf(a)];
-    if(!c && (c = session.client.mvc.control._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "IMVC.control", a);
-    }
-    c = c.call(null, a, b)
-  }
-  return c
-};
-void 0;
-session.client.mvc.control2 = function() {
-  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
-  return new cljs.core.MultiFn("control2", function(a) {
-    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
-  }, "\ufdd0'default", e, a, b, c, d)
-}();
-cljs.core._add_method.call(null, session.client.mvc.control2, "\ufdd0'default", function() {
-  return null
-});
-session.client.mvc.view2 = function() {
-  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
-  return new cljs.core.MultiFn("view2", function(a) {
-    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
-  }, "\ufdd0'default", e, a, b, c, d)
-}();
-cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", function(a) {
-  if(cljs.core._EQ_.call(null, "\ufdd0'this", a)) {
-    return cljs_jquery.core.jquery.call(null, this)
-  }
-  var b;
-  b = (b = cljs.core.vector_QMARK_.call(null, a)) ? b : cljs.core.keyword_QMARK_.call(null, a);
-  return b ? cljs_jquery.core.dom_create.call(null, a) : cljs_jquery.core.jquery.call(null, a)
-});
-cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
-  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
-});
-session.client.mvc.render = function(a) {
-  var b = session.client.mvc.view.call(null, a);
-  session.client.mvc.control.call(null, a, b);
-  return b
-};
-session.client.mvc.IMVC._ = !0;
-session.client.mvc.view._ = function(a) {
-  return cljs.core.pr_str.call(null, a)
-};
-session.client.mvc.control._ = function(a, b) {
-  return b
-};
-session.client.editor = {};
-session.client.editor.jsObj = function jsObj(b) {
-  return cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, cljs.core.map.call(null, function(b) {
-    var d = cljs.core.nth.call(null, b, 0, null), b = cljs.core.nth.call(null, b, 1, null), d = cljs.core.keyword_QMARK_.call(null, d) ? cljs.core.name.call(null, d) : d, b = cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : b;
-    return cljs.core.map_QMARK_.call(null, b) ? cljs.core.PersistentVector.fromArray([d, jsObj.call(null, b)], !0) : cljs.core.PersistentVector.fromArray([d, b], !0)
-  }, b)).strobj
-};
-session.client.editor.jsObj2 = function(a) {
-  var b = {};
-  cljs.core.reduce.call(null, function(a, b) {
-    a[cljs.core.first.call(null, b)] = cljs.core.last.call(null, b);
-    return a
-  }, b, a);
-  return b
-};
-session.client.editor.ace = ace;
-session.client.editor.js_require = require;
-session.client.editor.canon = session.client.editor.js_require.call(null, "pilot/canon");
-session.client.editor.add_keybindings = function() {
-  return session.client.editor.canon.addCommand(session.client.editor.jsObj2.call(null, cljs.core.ObjMap.fromObject(["name", "bindKey", "exec"], {name:"evaluateCell", bindKey:session.client.editor.jsObj2.call(null, cljs.core.ObjMap.fromObject(["win", "mac", "sender"], {win:"Shift-Return", mac:"Shift-Return", sender:"editor"})), exec:function(a, b, c) {
-    session.client.editor.keyevent = cljs.core.PersistentVector.fromArray([a, b, c], !0);
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", a.editor.container) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var b = cljs.core.vector_QMARK_.call(null, a.editor.container);
-      return b ? b : cljs.core.keyword_QMARK_.call(null, a.editor.container)
-    }() ? cljs_jquery.core.dom_create.call(null, a.editor.container) : cljs_jquery.core.jquery.call(null, a.editor.container), cljs.core.PersistentVector.fromArray(["trigger", "evaluate-input"], !0))
-  }})))
-};
-session.client.editor.fit_to_length_function = function(a, b) {
-  return function() {
-    var c = [cljs.core.str(b.renderer.lineHeight * b.getSession().getLength()), cljs.core.str("px")].join("");
-    cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", [cljs.core.str("#"), cljs.core.str(a)].join("")) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var b = cljs.core.vector_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""));
-      return b ? b : cljs.core.keyword_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""))
-    }() ? cljs_jquery.core.dom_create.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")) : cljs_jquery.core.jquery.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")), cljs.core.PersistentVector.fromArray(["css", "height", c], !0));
-    return b.resize()
-  }
-};
-session.client.editor.fit_to_length = function(a, b) {
-  var c = [cljs.core.str(b.renderer.lineHeight * b.getSession().getLength()), cljs.core.str("px")].join("");
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", [cljs.core.str("#"), cljs.core.str(a)].join("")) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var b = cljs.core.vector_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""));
-    return b ? b : cljs.core.keyword_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""))
-  }() ? cljs_jquery.core.dom_create.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")) : cljs_jquery.core.jquery.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")), cljs.core.PersistentVector.fromArray(["css", "height", c], !0));
-  return b.resize()
-};
-session.client.editor.create_editor = function(a) {
-  var b = session.client.editor.ace.edit(a), c = session.client.editor.js_require.call(null, "ace/mode/clojure").Mode, a = session.client.editor.fit_to_length_function.call(null, a, b);
-  b.setHighlightActiveLine(!1);
-  b.getSession().setMode(new c);
-  b.getSession().addEventListener("change", a);
-  b.renderer.setShowGutter(!1);
-  b.renderer.setHScrollBarAlwaysVisible(!1);
-  return b
-};
 cljs.reader = {};
-void 0;
 cljs.reader.PushbackReader = {};
 cljs.reader.read_char = function(a) {
   if(a ? a.cljs$reader$PushbackReader$read_char$arity$1 : a) {
-    a = a.cljs$reader$PushbackReader$read_char$arity$1(a)
-  }else {
-    var b;
-    b = cljs.reader.read_char[goog.typeOf(a)];
-    if(!b && (b = cljs.reader.read_char._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "PushbackReader.read-char", a);
-    }
-    a = b.call(null, a)
+    return a.cljs$reader$PushbackReader$read_char$arity$1(a)
   }
-  return a
+  var b;
+  b = cljs.reader.read_char[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = cljs.reader.read_char._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "PushbackReader.read-char", a);
+  }
+  return b.call(null, a)
 };
 cljs.reader.unread = function(a, b) {
-  var c;
   if(a ? a.cljs$reader$PushbackReader$unread$arity$2 : a) {
-    c = a.cljs$reader$PushbackReader$unread$arity$2(a, b)
-  }else {
-    c = cljs.reader.unread[goog.typeOf(a)];
-    if(!c && (c = cljs.reader.unread._, !c)) {
-      throw cljs.core.missing_protocol.call(null, "PushbackReader.unread", a);
-    }
-    c = c.call(null, a, b)
+    return a.cljs$reader$PushbackReader$unread$arity$2(a, b)
   }
-  return c
+  var c;
+  c = cljs.reader.unread[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = cljs.reader.unread._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "PushbackReader.unread", a);
+  }
+  return c.call(null, a, b)
 };
-void 0;
 cljs.reader.StringPushbackReader = function(a, b, c) {
   this.s = a;
   this.index_atom = b;
@@ -15248,9 +14970,6 @@ cljs.reader.number_literal_QMARK_ = function(a, b) {
     return b
   }()) : c
 };
-void 0;
-void 0;
-void 0;
 cljs.reader.reader_error = function() {
   var a = function(a, b) {
     throw Error(cljs.core.apply.call(null, cljs.core.str, b));
@@ -15375,7 +15094,6 @@ cljs.reader.read_delimited_list = function(a, b, c) {
 cljs.reader.not_implemented = function(a, b) {
   return cljs.reader.reader_error.call(null, a, "Reader for ", b, " not implemented yet")
 };
-void 0;
 cljs.reader.read_dispatch = function(a, b) {
   var c = cljs.reader.read_char.call(null, a), d = cljs.reader.dispatch_macros.call(null, c);
   if(cljs.core.truth_(d)) {
@@ -15556,7 +15274,7 @@ cljs.reader.parse_and_validate_timestamp = function() {
       cljs.core.nth.call(null, k, 2, null);
       var l = cljs.core.map.call(null, function(a) {
         return cljs.core.map.call(null, function(a) {
-          return parseInt(a)
+          return parseInt(a, 10)
         }, a)
       }, cljs.core.map.call(null, function(a, b) {
         return cljs.core.update_in.call(null, b, cljs.core.PersistentVector.fromArray([0], !0), a)
@@ -15601,6 +15319,69 @@ cljs.reader.register_tag_parser_BANG_ = function(a, b) {
 cljs.reader.deregister_tag_parser_BANG_ = function(a) {
   var a = cljs.core.name.call(null, a), b = cljs.core._lookup.call(null, cljs.core.deref.call(null, cljs.reader._STAR_tag_table_STAR_), a, null);
   cljs.core.swap_BANG_.call(null, cljs.reader._STAR_tag_table_STAR_, cljs.core.dissoc, a);
+  return b
+};
+session.client = {};
+session.client.mvc = {};
+session.client.mvc.IMVC = {};
+session.client.mvc.view = function(a) {
+  if(a ? a.session$client$mvc$IMVC$view$arity$1 : a) {
+    return a.session$client$mvc$IMVC$view$arity$1(a)
+  }
+  var b;
+  b = session.client.mvc.view[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = session.client.mvc.view._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMVC.view", a);
+  }
+  return b.call(null, a)
+};
+session.client.mvc.control = function(a, b) {
+  if(a ? a.session$client$mvc$IMVC$control$arity$2 : a) {
+    return a.session$client$mvc$IMVC$control$arity$2(a, b)
+  }
+  var c;
+  c = session.client.mvc.control[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = session.client.mvc.control._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IMVC.control", a);
+  }
+  return c.call(null, a, b)
+};
+session.client.mvc.control2 = function() {
+  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
+  return new cljs.core.MultiFn("control2", function(a) {
+    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
+  }, "\ufdd0'default", e, a, b, c, d)
+}();
+cljs.core._add_method.call(null, session.client.mvc.control2, "\ufdd0'default", function() {
+  return null
+});
+session.client.mvc.view2 = function() {
+  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
+  return new cljs.core.MultiFn("view2", function(a) {
+    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
+  }, "\ufdd0'default", e, a, b, c, d)
+}();
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", function(a) {
+  if(cljs.core._EQ_.call(null, "\ufdd0'this", a)) {
+    return cljs_jquery.core.jquery.call(null, this)
+  }
+  var b;
+  b = (b = cljs.core.vector_QMARK_.call(null, a)) ? b : cljs.core.keyword_QMARK_.call(null, a);
+  return b ? cljs_jquery.core.dom_create.call(null, a) : cljs_jquery.core.jquery.call(null, a)
+});
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
+  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
+});
+session.client.mvc.render = function(a) {
+  var b = session.client.mvc.view.call(null, a);
+  session.client.mvc.control.call(null, a, b);
+  return b
+};
+session.client.mvc.IMVC._ = !0;
+session.client.mvc.view._ = function(a) {
+  return cljs.core.pr_str.call(null, a)
+};
+session.client.mvc.control._ = function(a, b) {
   return b
 };
 session.client.loop_creator = {};
@@ -15692,7 +15473,7 @@ session.client.loop_creator.LoopCreator.prototype.cljs$core$IMeta$_meta$arity$1 
   return this.__meta
 };
 session.client.loop_creator.LoopCreator.prototype.cljs$core$IMap$_dissoc$arity$2 = function(a, b) {
-  return cljs.core.contains_QMARK_.call(null, cljs.core.set(["\ufdd0'x"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.loop_creator.LoopCreator(this.x, this.__meta, this.__hash, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
+  return cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.fromArray(["\ufdd0'x"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.loop_creator.LoopCreator(this.x, this.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
 };
 session.client.loop_creator.LoopCreator.cljs$lang$type = !0;
 session.client.loop_creator.LoopCreator.cljs$lang$ctorPrSeq = function() {
@@ -15705,6 +15486,60 @@ session.client.loop_creator.map__GT_LoopCreator = function(a) {
   return new session.client.loop_creator.LoopCreator((new cljs.core.Keyword("\ufdd0'x")).call(null, a), null, cljs.core.dissoc.call(null, a, "\ufdd0'x"))
 };
 session.client.loop_creator.LoopCreator;
+session.client.editor = {};
+session.client.editor.jsObj = function jsObj(b) {
+  return cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, cljs.core.map.call(null, function(b) {
+    var d = cljs.core.nth.call(null, b, 0, null), b = cljs.core.nth.call(null, b, 1, null), d = cljs.core.keyword_QMARK_.call(null, d) ? cljs.core.name.call(null, d) : d, b = cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : b;
+    return cljs.core.map_QMARK_.call(null, b) ? cljs.core.PersistentVector.fromArray([d, jsObj.call(null, b)], !0) : cljs.core.PersistentVector.fromArray([d, b], !0)
+  }, b)).strobj
+};
+session.client.editor.jsObj2 = function(a) {
+  var b = {};
+  cljs.core.reduce.call(null, function(a, b) {
+    a[cljs.core.first.call(null, b)] = cljs.core.last.call(null, b);
+    return a
+  }, b, a);
+  return b
+};
+session.client.editor.ace = ace;
+session.client.editor.js_require = require;
+session.client.editor.canon = session.client.editor.js_require.call(null, "pilot/canon");
+session.client.editor.add_keybindings = function() {
+  return session.client.editor.canon.addCommand(session.client.editor.jsObj2.call(null, cljs.core.ObjMap.fromObject(["name", "bindKey", "exec"], {name:"evaluateCell", bindKey:session.client.editor.jsObj2.call(null, cljs.core.ObjMap.fromObject(["win", "mac", "sender"], {win:"Shift-Return", mac:"Shift-Return", sender:"editor"})), exec:function(a, b, c) {
+    session.client.editor.keyevent = cljs.core.PersistentVector.fromArray([a, b, c], !0);
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", a.editor.container) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var b = cljs.core.vector_QMARK_.call(null, a.editor.container);
+      return b ? b : cljs.core.keyword_QMARK_.call(null, a.editor.container)
+    }() ? cljs_jquery.core.dom_create.call(null, a.editor.container) : cljs_jquery.core.jquery.call(null, a.editor.container), cljs.core.PersistentVector.fromArray(["trigger", "evaluate-input"], !0))
+  }})))
+};
+session.client.editor.fit_to_length_function = function(a, b) {
+  return function() {
+    var c = [cljs.core.str(b.renderer.lineHeight * b.getSession().getLength()), cljs.core.str("px")].join("");
+    cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", [cljs.core.str("#"), cljs.core.str(a)].join("")) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var b = cljs.core.vector_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""));
+      return b ? b : cljs.core.keyword_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""))
+    }() ? cljs_jquery.core.dom_create.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")) : cljs_jquery.core.jquery.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")), cljs.core.PersistentVector.fromArray(["css", "height", c], !0));
+    return b.resize()
+  }
+};
+session.client.editor.fit_to_length = function(a, b) {
+  var c = [cljs.core.str(b.renderer.lineHeight * b.getSession().getLength()), cljs.core.str("px")].join("");
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", [cljs.core.str("#"), cljs.core.str(a)].join("")) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var b = cljs.core.vector_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""));
+    return b ? b : cljs.core.keyword_QMARK_.call(null, [cljs.core.str("#"), cljs.core.str(a)].join(""))
+  }() ? cljs_jquery.core.dom_create.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")) : cljs_jquery.core.jquery.call(null, [cljs.core.str("#"), cljs.core.str(a)].join("")), cljs.core.PersistentVector.fromArray(["css", "height", c], !0));
+  return b.resize()
+};
+session.client.editor.create_editor = function(a) {
+  var b = session.client.editor.ace.edit(a), c = session.client.editor.js_require.call(null, "ace/mode/clojure").Mode, a = session.client.editor.fit_to_length_function.call(null, a, b);
+  b.setHighlightActiveLine(!1);
+  b.getSession().setMode(new c);
+  b.getSession().addEventListener("change", a);
+  b.renderer.setShowGutter(!1);
+  b.renderer.setHScrollBarAlwaysVisible(!1);
+  return b
+};
 session.client.loop = {};
 session.client.loop.Loop = function(a) {
   this.model = a;
@@ -15880,7 +15715,7 @@ session.client.session.Session.prototype.cljs$core$IMeta$_meta$arity$1 = functio
   return this.__meta
 };
 session.client.session.Session.prototype.cljs$core$IMap$_dissoc$arity$2 = function(a, b) {
-  return cljs.core.contains_QMARK_.call(null, cljs.core.set(["\ufdd0'model"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.session.Session(this.model, this.__meta, this.__hash, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
+  return cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.fromArray(["\ufdd0'model"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.session.Session(this.model, this.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
 };
 session.client.session.Session.cljs$lang$type = !0;
 session.client.session.Session.cljs$lang$ctorPrSeq = function() {
@@ -15952,52 +15787,55 @@ cljs.reader.register_tag_parser_BANG_.call(null, "session", function(a) {
   return new session.client.session.Session(a)
 });
 session.client.subsession = {};
-void 0;
 session.client.subsession.ISubsession = {};
 session.client.subsession.insert_new_loop = function(a, b, c) {
   if(a ? a.session$client$subsession$ISubsession$insert_new_loop$arity$3 : a) {
-    a = a.session$client$subsession$ISubsession$insert_new_loop$arity$3(a, b, c)
-  }else {
-    var d;
-    d = session.client.subsession.insert_new_loop[goog.typeOf(a)];
-    if(!d && (d = session.client.subsession.insert_new_loop._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "ISubsession.insert-new-loop", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.session$client$subsession$ISubsession$insert_new_loop$arity$3(a, b, c)
   }
-  return a
+  var d;
+  d = session.client.subsession.insert_new_loop[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = session.client.subsession.insert_new_loop._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ISubsession.insert-new-loop", a);
+  }
+  return d.call(null, a, b, c)
 };
 session.client.subsession.delete_loop = function(a, b, c) {
   if(a ? a.session$client$subsession$ISubsession$delete_loop$arity$3 : a) {
-    a = a.session$client$subsession$ISubsession$delete_loop$arity$3(a, b, c)
-  }else {
-    var d;
-    d = session.client.subsession.delete_loop[goog.typeOf(a)];
-    if(!d && (d = session.client.subsession.delete_loop._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "ISubsession.delete-loop", a);
-    }
-    a = d.call(null, a, b, c)
+    return a.session$client$subsession$ISubsession$delete_loop$arity$3(a, b, c)
   }
-  return a
-};
-session.client.subsession.evaluate_loop = function(a, b, c) {
-  if(a ? a.session$client$subsession$ISubsession$evaluate_loop$arity$3 : a) {
-    a = a.session$client$subsession$ISubsession$evaluate_loop$arity$3(a, b, c)
-  }else {
-    var d;
-    d = session.client.subsession.evaluate_loop[goog.typeOf(a)];
-    if(!d && (d = session.client.subsession.evaluate_loop._, !d)) {
-      throw cljs.core.missing_protocol.call(null, "ISubsession.evaluate-loop", a);
-    }
-    a = d.call(null, a, b, c)
+  var d;
+  d = session.client.subsession.delete_loop[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = session.client.subsession.delete_loop._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ISubsession.delete-loop", a);
   }
-  return a
+  return d.call(null, a, b, c)
 };
-void 0;
+session.client.subsession.evaluate_loop = function(a) {
+  if(a ? a.session$client$subsession$ISubsession$evaluate_loop$arity$1 : a) {
+    return a.session$client$subsession$ISubsession$evaluate_loop$arity$1(a)
+  }
+  var b;
+  b = session.client.subsession.evaluate_loop[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = session.client.subsession.evaluate_loop._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "ISubsession.evaluate-loop", a);
+  }
+  return b.call(null, a)
+};
+session.client.subsession.callbacks = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY);
+session.client.subsession.ws = new WebSocket("ws://localhost:8090/service");
+session.client.subsession.ws.onmessage = function(a) {
+  a = cljs.reader.read_string.call(null, a.data);
+  alert(cljs.core.pr_str.call(null, a));
+  return cljs.core.deref.call(null, session.client.subsession.callbacks).call(null, (new cljs.core.Keyword("\ufdd0'id")).call(null, a)).call(null, (new cljs.core.Keyword("\ufdd0'data")).call(null, a))
+};
+session.client.subsession.response_handler = function(a) {
+  return function(b) {
+    return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a), b)
+  }
+};
 session.client.subsession.evaluate_clj = function(a) {
-  return fetch.remotes.remote_callback.call(null, "eval-expr-string", cljs.core.PersistentVector.fromArray([cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), (new cljs.core.Keyword("\ufdd0'id")).call(null, a)], !0), function(b) {
-    return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a), (new cljs.core.Keyword("\ufdd0'result")).call(null, b))
-  })
+  cljs.core.swap_BANG_.call(null, session.client.subsession.callbacks, cljs.core.assoc, (new cljs.core.Keyword("\ufdd0'id")).call(null, a), session.client.subsession.response_handler.call(null, a));
+  return session.client.subsession.ws.send(cljs.core.pr_str.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'data", "\ufdd0'id"], {"\ufdd0'op":"\ufdd0'evaluate-clj", "\ufdd0'data":cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), "\ufdd0'id":(new cljs.core.Keyword("\ufdd0'id")).call(null, a)})))
 };
 session.client.subsession.evaluate_cljs = function(a) {
   return fetch.remotes.remote_callback.call(null, "compile-expr-string", cljs.core.PersistentVector.fromArray([cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), (new cljs.core.Keyword("\ufdd0'id")).call(null, a)], !0), function(b) {
@@ -16604,35 +16442,6 @@ goog.Uri.QueryData.prototype.extend = function(a) {
     }, this)
   }
 };
-session.client.hiccup = {};
-session.client.hiccup.Hiccup = function(a) {
-  this.model = a;
-  this.cljs$lang$protocol_mask$partition1$ = 0;
-  this.cljs$lang$protocol_mask$partition0$ = 536870912
-};
-session.client.hiccup.Hiccup.cljs$lang$type = !0;
-session.client.hiccup.Hiccup.cljs$lang$ctorPrSeq = function() {
-  return cljs.core.list.call(null, "session.client.hiccup/Hiccup")
-};
-session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$ = !0;
-session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
-  if(cljs.core._EQ_.call(null, "\ufdd0'this", this.model)) {
-    return cljs_jquery.core.jquery.call(null, this)
-  }
-  var a;
-  a = (a = cljs.core.vector_QMARK_.call(null, this.model)) ? a : cljs.core.keyword_QMARK_.call(null, this.model);
-  return a ? cljs_jquery.core.dom_create.call(null, this.model) : cljs_jquery.core.jquery.call(null, this.model)
-};
-session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
-  return b
-};
-session.client.hiccup.Hiccup.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#hiccup "], !0), cljs.core._pr_seq.call(null, this.model, b), "")
-};
-session.client.hiccup.Hiccup;
-cljs.reader.register_tag_parser_BANG_.call(null, "hiccup", function(a) {
-  return new session.client.hiccup.Hiccup(a)
-});
 var clojure = {string:{}};
 clojure.string.seq_reverse = function(a) {
   return cljs.core.reduce.call(null, cljs.core.conj, cljs.core.List.EMPTY, a)
@@ -16843,24 +16652,109 @@ cljs_jquery.core.call_jquery = function(a, b) {
   }
   throw Error([cljs.core.str("No matching clause: "), cljs.core.str(g)].join(""));
 };
+session.client.hiccup = {};
+session.client.hiccup.Hiccup = function(a) {
+  this.model = a;
+  this.cljs$lang$protocol_mask$partition1$ = 0;
+  this.cljs$lang$protocol_mask$partition0$ = 536870912
+};
+session.client.hiccup.Hiccup.cljs$lang$type = !0;
+session.client.hiccup.Hiccup.cljs$lang$ctorPrSeq = function() {
+  return cljs.core.list.call(null, "session.client.hiccup/Hiccup")
+};
+session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$ = !0;
+session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
+  if(cljs.core._EQ_.call(null, "\ufdd0'this", this.model)) {
+    return cljs_jquery.core.jquery.call(null, this)
+  }
+  var a;
+  a = (a = cljs.core.vector_QMARK_.call(null, this.model)) ? a : cljs.core.keyword_QMARK_.call(null, this.model);
+  return a ? cljs_jquery.core.dom_create.call(null, this.model) : cljs_jquery.core.jquery.call(null, this.model)
+};
+session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
+  return b
+};
+session.client.hiccup.Hiccup.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
+  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#hiccup "], !0), cljs.core._pr_seq.call(null, this.model, b), "")
+};
+session.client.hiccup.Hiccup;
+cljs.reader.register_tag_parser_BANG_.call(null, "hiccup", function(a) {
+  return new session.client.hiccup.Hiccup(a)
+});
+var fetch = {util:{}};
+fetch.util.clj__GT_js = function clj__GT_js(b) {
+  return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
+    var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
+    return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
+  }, cljs.core.ObjMap.EMPTY, b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
+};
+fetch.core = {};
+fetch.core.__GT_method = function(a) {
+  return clojure.string.upper_case.call(null, cljs.core.name.call(null, a))
+};
+fetch.core.parse_route = function(a) {
+  if(cljs.core.string_QMARK_.call(null, a)) {
+    return cljs.core.PersistentVector.fromArray(["GET", a], !0)
+  }
+  if(cljs.core.vector_QMARK_.call(null, a)) {
+    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
+    return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null, b), a], !0)
+  }
+  return cljs.core.PersistentVector.fromArray(["GET", a], !0)
+};
+fetch.core.__GT_data = function(a) {
+  a = fetch.util.clj__GT_js.call(null, a);
+  a = goog.Uri.QueryData.createFromMap(new goog.structs.Map(a));
+  return"" + cljs.core.str(a)
+};
+fetch.core.__GT_callback = function(a) {
+  return cljs.core.truth_(a) ? function(b) {
+    b = b.getResponseText();
+    return a.call(null, b)
+  } : null
+};
+fetch.core.xhr = function() {
+  var a = function(a, b, e, f) {
+    var f = cljs.core.nth.call(null, f, 0, null), g = new goog.net.XhrIo, h = fetch.core.parse_route.call(null, a), a = cljs.core.nth.call(null, h, 0, null), h = cljs.core.nth.call(null, h, 1, null), b = fetch.core.__GT_data.call(null, b), i = fetch.core.__GT_callback.call(null, e);
+    cljs.core.truth_(i) && goog.events.listen(g, goog.net.EventType.COMPLETE, function() {
+      return i.call(null, g)
+    });
+    return g.send(h, a, b, cljs.core.truth_(f) ? fetch.util.clj__GT_js.call(null, f) : null)
+  }, b = function(b, d, e, f) {
+    var g = null;
+    goog.isDef(f) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
+    return a.call(this, b, d, e, g)
+  };
+  b.cljs$lang$maxFixedArity = 3;
+  b.cljs$lang$applyTo = function(b) {
+    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), f = cljs.core.first(cljs.core.next(cljs.core.next(b))), b = cljs.core.rest(cljs.core.next(cljs.core.next(b)));
+    return a(d, e, f, b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
+fetch.remotes = {};
+fetch.remotes.remote_uri = "/_fetch";
+fetch.remotes.remote_callback = function(a, b, c) {
+  return fetch.core.xhr.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'post", fetch.remotes.remote_uri], !0), cljs.core.ObjMap.fromObject(["\ufdd0'remote", "\ufdd0'params"], {"\ufdd0'remote":a, "\ufdd0'params":cljs.core.pr_str.call(null, b)}), cljs.core.truth_(c) ? function(a) {
+    a = cljs.core._EQ_.call(null, a, "") ? "nil" : a;
+    return c.call(null, cljs.reader.read_string.call(null, a))
+  } : null)
+};
 clojure.browser = {};
 clojure.browser.event = {};
-void 0;
 clojure.browser.event.EventType = {};
 clojure.browser.event.event_types = function(a) {
   if(a ? a.clojure$browser$event$EventType$event_types$arity$1 : a) {
-    a = a.clojure$browser$event$EventType$event_types$arity$1(a)
-  }else {
-    var b;
-    b = clojure.browser.event.event_types[goog.typeOf(a)];
-    if(!b && (b = clojure.browser.event.event_types._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "EventType.event-types", a);
-    }
-    a = b.call(null, a)
+    return a.clojure$browser$event$EventType$event_types$arity$1(a)
   }
-  return a
+  var b;
+  b = clojure.browser.event.event_types[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = clojure.browser.event.event_types._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "EventType.event-types", a);
+  }
+  return b.call(null, a)
 };
-void 0;
 Element.prototype.clojure$browser$event$EventType$ = !0;
 Element.prototype.clojure$browser$event$EventType$event_types$arity$1 = function() {
   return cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, cljs.core.map.call(null, function(a) {
@@ -18584,57 +18478,48 @@ clojure.browser.net.event_types = cljs.core.into.call(null, cljs.core.ObjMap.EMP
   var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
   return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null, b.toLowerCase()), a], !0)
 }, cljs.core.merge.call(null, cljs.core.js__GT_clj.call(null, goog.net.EventType))));
-void 0;
 clojure.browser.net.IConnection = {};
 clojure.browser.net.connect = function() {
   var a = null, b = function(a) {
     if(a ? a.clojure$browser$net$IConnection$connect$arity$1 : a) {
-      a = a.clojure$browser$net$IConnection$connect$arity$1(a)
-    }else {
-      var b;
-      b = clojure.browser.net.connect[goog.typeOf(a)];
-      if(!b && (b = clojure.browser.net.connect._, !b)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
-      }
-      a = b.call(null, a)
+      return a.clojure$browser$net$IConnection$connect$arity$1(a)
     }
-    return a
+    var b;
+    b = clojure.browser.net.connect[goog.typeOf(null == a ? null : a)];
+    if(!b && (b = clojure.browser.net.connect._, !b)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
+    }
+    return b.call(null, a)
   }, c = function(a, b) {
-    var c;
     if(a ? a.clojure$browser$net$IConnection$connect$arity$2 : a) {
-      c = a.clojure$browser$net$IConnection$connect$arity$2(a, b)
-    }else {
-      c = clojure.browser.net.connect[goog.typeOf(a)];
-      if(!c && (c = clojure.browser.net.connect._, !c)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
-      }
-      c = c.call(null, a, b)
+      return a.clojure$browser$net$IConnection$connect$arity$2(a, b)
     }
-    return c
+    var c;
+    c = clojure.browser.net.connect[goog.typeOf(null == a ? null : a)];
+    if(!c && (c = clojure.browser.net.connect._, !c)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
+    }
+    return c.call(null, a, b)
   }, d = function(a, b, c) {
     if(a ? a.clojure$browser$net$IConnection$connect$arity$3 : a) {
-      a = a.clojure$browser$net$IConnection$connect$arity$3(a, b, c)
-    }else {
-      var d;
-      d = clojure.browser.net.connect[goog.typeOf(a)];
-      if(!d && (d = clojure.browser.net.connect._, !d)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
-      }
-      a = d.call(null, a, b, c)
+      return a.clojure$browser$net$IConnection$connect$arity$3(a, b, c)
     }
-    return a
+    var d;
+    d = clojure.browser.net.connect[goog.typeOf(null == a ? null : a)];
+    if(!d && (d = clojure.browser.net.connect._, !d)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
+    }
+    return d.call(null, a, b, c)
   }, e = function(a, b, c, d) {
     if(a ? a.clojure$browser$net$IConnection$connect$arity$4 : a) {
-      a = a.clojure$browser$net$IConnection$connect$arity$4(a, b, c, d)
-    }else {
-      var e;
-      e = clojure.browser.net.connect[goog.typeOf(a)];
-      if(!e && (e = clojure.browser.net.connect._, !e)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
-      }
-      a = e.call(null, a, b, c, d)
+      return a.clojure$browser$net$IConnection$connect$arity$4(a, b, c, d)
     }
-    return a
+    var e;
+    e = clojure.browser.net.connect[goog.typeOf(null == a ? null : a)];
+    if(!e && (e = clojure.browser.net.connect._, !e)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.connect", a);
+    }
+    return e.call(null, a, b, c, d)
   }, a = function(a, g, h, i) {
     switch(arguments.length) {
       case 1:
@@ -18656,65 +18541,55 @@ clojure.browser.net.connect = function() {
 }();
 clojure.browser.net.transmit = function() {
   var a = null, b = function(a, b) {
-    var c;
     if(a ? a.clojure$browser$net$IConnection$transmit$arity$2 : a) {
-      c = a.clojure$browser$net$IConnection$transmit$arity$2(a, b)
-    }else {
-      c = clojure.browser.net.transmit[goog.typeOf(a)];
-      if(!c && (c = clojure.browser.net.transmit._, !c)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
-      }
-      c = c.call(null, a, b)
+      return a.clojure$browser$net$IConnection$transmit$arity$2(a, b)
     }
-    return c
+    var c;
+    c = clojure.browser.net.transmit[goog.typeOf(null == a ? null : a)];
+    if(!c && (c = clojure.browser.net.transmit._, !c)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
+    }
+    return c.call(null, a, b)
   }, c = function(a, b, c) {
     if(a ? a.clojure$browser$net$IConnection$transmit$arity$3 : a) {
-      a = a.clojure$browser$net$IConnection$transmit$arity$3(a, b, c)
-    }else {
-      var d;
-      d = clojure.browser.net.transmit[goog.typeOf(a)];
-      if(!d && (d = clojure.browser.net.transmit._, !d)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
-      }
-      a = d.call(null, a, b, c)
+      return a.clojure$browser$net$IConnection$transmit$arity$3(a, b, c)
     }
-    return a
+    var d;
+    d = clojure.browser.net.transmit[goog.typeOf(null == a ? null : a)];
+    if(!d && (d = clojure.browser.net.transmit._, !d)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
+    }
+    return d.call(null, a, b, c)
   }, d = function(a, b, c, d) {
     if(a ? a.clojure$browser$net$IConnection$transmit$arity$4 : a) {
-      a = a.clojure$browser$net$IConnection$transmit$arity$4(a, b, c, d)
-    }else {
-      var e;
-      e = clojure.browser.net.transmit[goog.typeOf(a)];
-      if(!e && (e = clojure.browser.net.transmit._, !e)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
-      }
-      a = e.call(null, a, b, c, d)
+      return a.clojure$browser$net$IConnection$transmit$arity$4(a, b, c, d)
     }
-    return a
+    var e;
+    e = clojure.browser.net.transmit[goog.typeOf(null == a ? null : a)];
+    if(!e && (e = clojure.browser.net.transmit._, !e)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
+    }
+    return e.call(null, a, b, c, d)
   }, e = function(a, b, c, d, e) {
     if(a ? a.clojure$browser$net$IConnection$transmit$arity$5 : a) {
-      a = a.clojure$browser$net$IConnection$transmit$arity$5(a, b, c, d, e)
-    }else {
-      var f;
-      f = clojure.browser.net.transmit[goog.typeOf(a)];
-      if(!f && (f = clojure.browser.net.transmit._, !f)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
-      }
-      a = f.call(null, a, b, c, d, e)
+      return a.clojure$browser$net$IConnection$transmit$arity$5(a, b, c, d, e)
     }
-    return a
+    var f;
+    f = clojure.browser.net.transmit[goog.typeOf(null == a ? null : a)];
+    if(!f && (f = clojure.browser.net.transmit._, !f)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
+    }
+    return f.call(null, a, b, c, d, e)
   }, f = function(a, b, c, d, e, f) {
     if(a ? a.clojure$browser$net$IConnection$transmit$arity$6 : a) {
-      a = a.clojure$browser$net$IConnection$transmit$arity$6(a, b, c, d, e, f)
-    }else {
-      var m;
-      m = clojure.browser.net.transmit[goog.typeOf(a)];
-      if(!m && (m = clojure.browser.net.transmit._, !m)) {
-        throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
-      }
-      a = m.call(null, a, b, c, d, e, f)
+      return a.clojure$browser$net$IConnection$transmit$arity$6(a, b, c, d, e, f)
     }
-    return a
+    var m;
+    m = clojure.browser.net.transmit[goog.typeOf(null == a ? null : a)];
+    if(!m && (m = clojure.browser.net.transmit._, !m)) {
+      throw cljs.core.missing_protocol.call(null, "IConnection.transmit", a);
+    }
+    return m.call(null, a, b, c, d, e, f)
   }, a = function(a, h, i, j, k, l) {
     switch(arguments.length) {
       case 2:
@@ -18739,18 +18614,15 @@ clojure.browser.net.transmit = function() {
 }();
 clojure.browser.net.close = function(a) {
   if(a ? a.clojure$browser$net$IConnection$close$arity$1 : a) {
-    a = a.clojure$browser$net$IConnection$close$arity$1(a)
-  }else {
-    var b;
-    b = clojure.browser.net.close[goog.typeOf(a)];
-    if(!b && (b = clojure.browser.net.close._, !b)) {
-      throw cljs.core.missing_protocol.call(null, "IConnection.close", a);
-    }
-    a = b.call(null, a)
+    return a.clojure$browser$net$IConnection$close$arity$1(a)
   }
-  return a
+  var b;
+  b = clojure.browser.net.close[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = clojure.browser.net.close._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IConnection.close", a);
+  }
+  return b.call(null, a)
 };
-void 0;
 goog.net.XhrIo.prototype.clojure$browser$event$EventType$ = !0;
 goog.net.XhrIo.prototype.clojure$browser$event$EventType$event_types$arity$1 = function() {
   return cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, cljs.core.map.call(null, function(a) {
@@ -18782,33 +18654,28 @@ clojure.browser.net.xpc_config_fields = cljs.core.into.call(null, cljs.core.ObjM
 clojure.browser.net.xhr_connection = function() {
   return new goog.net.XhrIo
 };
-void 0;
 clojure.browser.net.ICrossPageChannel = {};
 clojure.browser.net.register_service = function() {
   var a = null, b = function(a, b, c) {
     if(a ? a.clojure$browser$net$ICrossPageChannel$register_service$arity$3 : a) {
-      a = a.clojure$browser$net$ICrossPageChannel$register_service$arity$3(a, b, c)
-    }else {
-      var g;
-      g = clojure.browser.net.register_service[goog.typeOf(a)];
-      if(!g && (g = clojure.browser.net.register_service._, !g)) {
-        throw cljs.core.missing_protocol.call(null, "ICrossPageChannel.register-service", a);
-      }
-      a = g.call(null, a, b, c)
+      return a.clojure$browser$net$ICrossPageChannel$register_service$arity$3(a, b, c)
     }
-    return a
+    var g;
+    g = clojure.browser.net.register_service[goog.typeOf(null == a ? null : a)];
+    if(!g && (g = clojure.browser.net.register_service._, !g)) {
+      throw cljs.core.missing_protocol.call(null, "ICrossPageChannel.register-service", a);
+    }
+    return g.call(null, a, b, c)
   }, c = function(a, b, c, g) {
     if(a ? a.clojure$browser$net$ICrossPageChannel$register_service$arity$4 : a) {
-      a = a.clojure$browser$net$ICrossPageChannel$register_service$arity$4(a, b, c, g)
-    }else {
-      var h;
-      h = clojure.browser.net.register_service[goog.typeOf(a)];
-      if(!h && (h = clojure.browser.net.register_service._, !h)) {
-        throw cljs.core.missing_protocol.call(null, "ICrossPageChannel.register-service", a);
-      }
-      a = h.call(null, a, b, c, g)
+      return a.clojure$browser$net$ICrossPageChannel$register_service$arity$4(a, b, c, g)
     }
-    return a
+    var h;
+    h = clojure.browser.net.register_service[goog.typeOf(null == a ? null : a)];
+    if(!h && (h = clojure.browser.net.register_service._, !h)) {
+      throw cljs.core.missing_protocol.call(null, "ICrossPageChannel.register-service", a);
+    }
+    return h.call(null, a, b, c, g)
   }, a = function(a, e, f, g) {
     switch(arguments.length) {
       case 3:
@@ -18822,7 +18689,6 @@ clojure.browser.net.register_service = function() {
   a.cljs$lang$arity$4 = c;
   return a
 }();
-void 0;
 goog.net.xpc.CrossPageChannel.prototype.clojure$browser$net$IConnection$ = !0;
 goog.net.xpc.CrossPageChannel.prototype.clojure$browser$net$IConnection$connect$arity$1 = function(a) {
   return clojure.browser.net.connect.call(null, a, null)
@@ -18951,66 +18817,6 @@ clojure.browser.repl.connect = function(a) {
     return a.style.display = "none"
   })
 };
-var fetch = {util:{}};
-fetch.util.clj__GT_js = function clj__GT_js(b) {
-  return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
-    var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
-    return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
-  }, cljs.core.ObjMap.EMPTY, b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
-};
-fetch.core = {};
-fetch.core.__GT_method = function(a) {
-  return clojure.string.upper_case.call(null, cljs.core.name.call(null, a))
-};
-fetch.core.parse_route = function(a) {
-  if(cljs.core.string_QMARK_.call(null, a)) {
-    return cljs.core.PersistentVector.fromArray(["GET", a], !0)
-  }
-  if(cljs.core.vector_QMARK_.call(null, a)) {
-    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
-    return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null, b), a], !0)
-  }
-  return cljs.core.PersistentVector.fromArray(["GET", a], !0)
-};
-fetch.core.__GT_data = function(a) {
-  a = fetch.util.clj__GT_js.call(null, a);
-  a = goog.Uri.QueryData.createFromMap(new goog.structs.Map(a));
-  return"" + cljs.core.str(a)
-};
-fetch.core.__GT_callback = function(a) {
-  return cljs.core.truth_(a) ? function(b) {
-    b = b.getResponseText();
-    return a.call(null, b)
-  } : null
-};
-fetch.core.xhr = function() {
-  var a = function(a, b, e, f) {
-    var f = cljs.core.nth.call(null, f, 0, null), g = new goog.net.XhrIo, h = fetch.core.parse_route.call(null, a), a = cljs.core.nth.call(null, h, 0, null), h = cljs.core.nth.call(null, h, 1, null), b = fetch.core.__GT_data.call(null, b), i = fetch.core.__GT_callback.call(null, e);
-    cljs.core.truth_(i) && goog.events.listen(g, goog.net.EventType.COMPLETE, function() {
-      return i.call(null, g)
-    });
-    return g.send(h, a, b, cljs.core.truth_(f) ? fetch.util.clj__GT_js.call(null, f) : null)
-  }, b = function(b, d, e, f) {
-    var g = null;
-    goog.isDef(f) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
-    return a.call(this, b, d, e, g)
-  };
-  b.cljs$lang$maxFixedArity = 3;
-  b.cljs$lang$applyTo = function(b) {
-    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), f = cljs.core.first(cljs.core.next(cljs.core.next(b))), b = cljs.core.rest(cljs.core.next(cljs.core.next(b)));
-    return a(d, e, f, b)
-  };
-  b.cljs$lang$arity$variadic = a;
-  return b
-}();
-fetch.remotes = {};
-fetch.remotes.remote_uri = "/_fetch";
-fetch.remotes.remote_callback = function(a, b, c) {
-  return fetch.core.xhr.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'post", fetch.remotes.remote_uri], !0), cljs.core.ObjMap.fromObject(["\ufdd0'remote", "\ufdd0'params"], {"\ufdd0'remote":a, "\ufdd0'params":cljs.core.pr_str.call(null, b)}), cljs.core.truth_(c) ? function(a) {
-    a = cljs.core._EQ_.call(null, a, "") ? "nil" : a;
-    return c.call(null, cljs.reader.read_string.call(null, a))
-  } : null)
-};
 session.client.main = {};
 clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
 session.client.main.session = cljs.core.atom.call(null, null);
@@ -19121,3 +18927,167 @@ cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this",
   }}], !0));
   return session.client.main.load_session.call(null, "default-session")
 }], !0));
+goog.net.WebSocket = function(a, b) {
+  goog.events.EventTarget.call(this);
+  this.autoReconnect_ = goog.isDef(a) ? a : !0;
+  this.getNextReconnect_ = b || goog.net.WebSocket.EXPONENTIAL_BACKOFF_;
+  this.nextReconnect_ = this.getNextReconnect_(this.reconnectAttempt_)
+};
+goog.inherits(goog.net.WebSocket, goog.events.EventTarget);
+goog.net.WebSocket.prototype.webSocket_ = null;
+goog.net.WebSocket.prototype.url_ = null;
+goog.net.WebSocket.prototype.protocol_ = void 0;
+goog.net.WebSocket.prototype.closeExpected_ = !1;
+goog.net.WebSocket.prototype.reconnectAttempt_ = 0;
+goog.net.WebSocket.prototype.logger_ = goog.debug.Logger.getLogger("goog.net.WebSocket");
+goog.net.WebSocket.EventType = {CLOSED:goog.events.getUniqueId("closed"), ERROR:goog.events.getUniqueId("error"), MESSAGE:goog.events.getUniqueId("message"), OPENED:goog.events.getUniqueId("opened")};
+goog.net.WebSocket.ReadyState_ = {CONNECTING:0, OPEN:1, CLOSING:2, CLOSED:3};
+goog.net.WebSocket.EXPONENTIAL_BACKOFF_CEILING_ = 6E4;
+goog.net.WebSocket.EXPONENTIAL_BACKOFF_ = function(a) {
+  a = 1E3 * Math.pow(2, a);
+  return Math.min(a, goog.net.WebSocket.EXPONENTIAL_BACKOFF_CEILING_)
+};
+goog.net.WebSocket.protectEntryPoints = function(a) {
+  goog.net.WebSocket.prototype.onOpen_ = a.protectEntryPoint(goog.net.WebSocket.prototype.onOpen_);
+  goog.net.WebSocket.prototype.onClose_ = a.protectEntryPoint(goog.net.WebSocket.prototype.onClose_);
+  goog.net.WebSocket.prototype.onMessage_ = a.protectEntryPoint(goog.net.WebSocket.prototype.onMessage_);
+  goog.net.WebSocket.prototype.onError_ = a.protectEntryPoint(goog.net.WebSocket.prototype.onError_)
+};
+goog.net.WebSocket.prototype.open = function(a, b) {
+  goog.asserts.assert(goog.global.WebSocket, "This browser does not support WebSocket");
+  goog.asserts.assert(!this.isOpen(), "The WebSocket is already open");
+  this.clearReconnectTimer_();
+  this.url_ = a;
+  (this.protocol_ = b) ? (this.logger_.info("Opening the WebSocket on " + this.url_ + " with protocol " + this.protocol_), this.webSocket_ = new WebSocket(this.url_, this.protocol_)) : (this.logger_.info("Opening the WebSocket on " + this.url_), this.webSocket_ = new WebSocket(this.url_));
+  this.webSocket_.onopen = goog.bind(this.onOpen_, this);
+  this.webSocket_.onclose = goog.bind(this.onClose_, this);
+  this.webSocket_.onmessage = goog.bind(this.onMessage_, this);
+  this.webSocket_.onerror = goog.bind(this.onError_, this)
+};
+goog.net.WebSocket.prototype.close = function() {
+  this.clearReconnectTimer_();
+  this.webSocket_ && (this.logger_.info("Closing the WebSocket."), this.closeExpected_ = !0, this.webSocket_.close(), this.webSocket_ = null)
+};
+goog.net.WebSocket.prototype.send = function(a) {
+  goog.asserts.assert(this.isOpen(), "Cannot send without an open socket");
+  this.webSocket_.send(a)
+};
+goog.net.WebSocket.prototype.isOpen = function() {
+  return!!this.webSocket_ && this.webSocket_.readyState == goog.net.WebSocket.ReadyState_.OPEN
+};
+goog.net.WebSocket.prototype.onOpen_ = function() {
+  this.logger_.info("WebSocket opened on " + this.url_);
+  this.dispatchEvent(goog.net.WebSocket.EventType.OPENED);
+  this.reconnectAttempt_ = 0;
+  this.nextReconnect_ = this.getNextReconnect_(this.reconnectAttempt_)
+};
+goog.net.WebSocket.prototype.onClose_ = function(a) {
+  this.logger_.info("The WebSocket on " + this.url_ + " closed.");
+  this.dispatchEvent(goog.net.WebSocket.EventType.CLOSED);
+  this.webSocket_ = null;
+  this.closeExpected_ ? (this.logger_.info("The WebSocket closed normally."), this.url_ = null, this.protocol_ = void 0) : (this.logger_.severe("The WebSocket disconnected unexpectedly: " + a.data), this.autoReconnect_ && (this.logger_.info("Seconds until next reconnect attempt: " + Math.floor(this.nextReconnect_ / 1E3)), this.reconnectTimer_ = goog.Timer.callOnce(goog.bind(this.open, this, this.url_, this.protocol_), this.nextReconnect_, this), this.reconnectAttempt_++, this.nextReconnect_ = this.getNextReconnect_(this.reconnectAttempt_)));
+  this.closeExpected_ = !1
+};
+goog.net.WebSocket.prototype.onMessage_ = function(a) {
+  this.dispatchEvent(new goog.net.WebSocket.MessageEvent(a.data))
+};
+goog.net.WebSocket.prototype.onError_ = function(a) {
+  a = a.data;
+  this.logger_.severe("An error occurred: " + a);
+  this.dispatchEvent(new goog.net.WebSocket.ErrorEvent(a))
+};
+goog.net.WebSocket.prototype.clearReconnectTimer_ = function() {
+  goog.isDefAndNotNull(this.reconnectTimer_) && goog.Timer.clear(this.reconnectTimer_);
+  this.reconnectTimer_ = null
+};
+goog.net.WebSocket.prototype.disposeInternal = function() {
+  goog.net.WebSocket.superClass_.disposeInternal.call(this);
+  this.close()
+};
+goog.net.WebSocket.MessageEvent = function(a) {
+  goog.events.Event.call(this, goog.net.WebSocket.EventType.MESSAGE);
+  this.message = a
+};
+goog.inherits(goog.net.WebSocket.MessageEvent, goog.events.Event);
+goog.net.WebSocket.ErrorEvent = function(a) {
+  goog.events.Event.call(this, goog.net.WebSocket.EventType.ERROR);
+  this.data = a
+};
+goog.inherits(goog.net.WebSocket.ErrorEvent, goog.events.Event);
+goog.debug.entryPointRegistry.register(function(a) {
+  goog.net.WebSocket.prototype.onOpen_ = a(goog.net.WebSocket.prototype.onOpen_);
+  goog.net.WebSocket.prototype.onClose_ = a(goog.net.WebSocket.prototype.onClose_);
+  goog.net.WebSocket.prototype.onMessage_ = a(goog.net.WebSocket.prototype.onMessage_);
+  goog.net.WebSocket.prototype.onError_ = a(goog.net.WebSocket.prototype.onError_)
+});
+session.client.websocket = {};
+session.client.websocket.create = function() {
+  return new goog.net.WebSocket
+};
+session.client.websocket.configure = function() {
+  var a = null, b = function(b, c, d) {
+    return a.call(null, b, c, d, null)
+  }, c = function(b, c, d, h) {
+    return a.call(null, b, c, d, h, null)
+  }, d = function(a, b, c, d, i) {
+    var j = new goog.events.EventHandler;
+    j.listen(a, goog.net.WebSocket.EventType.OPENED, b);
+    j.listen(a, goog.net.WebSocket.EventType.MESSAGE, function(a) {
+      var a = a.message(), b = cljs.core.re_matches.call(null, /\/([^ ]+) (.*)/, a);
+      cljs.core.nth.call(null, b, 0, null);
+      var d = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null);
+      alert("websocket", [cljs.core.str("R: "), cljs.core.str(a)].join(""));
+      return c.call(null, d, b)
+    });
+    cljs.core.truth_(d) && j.listen(a, goog.net.WebSocket.EventType.ERROR, d);
+    cljs.core.truth_(i) && j.listen(a, goog.net.WebSocket.EventType.CLOSED, i);
+    return a
+  }, a = function(a, f, g, h, i) {
+    switch(arguments.length) {
+      case 3:
+        return b.call(this, a, f, g);
+      case 4:
+        return c.call(this, a, f, g, h);
+      case 5:
+        return d.call(this, a, f, g, h, i)
+    }
+    throw"Invalid arity: " + arguments.length;
+  };
+  a.cljs$lang$arity$3 = b;
+  a.cljs$lang$arity$4 = c;
+  a.cljs$lang$arity$5 = d;
+  return a
+}();
+session.client.websocket.connect_BANG_ = function(a, b) {
+  try {
+    return a.open(b), a
+  }catch(c) {
+    if(cljs.core.instance_QMARK_.call(null, Error, c)) {
+      return alert("websocket", "No WebSocket supported, get a decent browser.")
+    }
+    throw c;
+  }
+};
+session.client.websocket.close_BANG_ = function(a) {
+  return a.close()
+};
+session.client.websocket.emit_BANG_ = function() {
+  var a = null, b = function(b, c) {
+    return a.call(null, b, c, null)
+  }, c = function(a, b, c) {
+    b = [cljs.core.str("/"), cljs.core.str(b), cljs.core.str(cljs.core.truth_(c) ? [cljs.core.str(" "), cljs.core.str(c)].join("") : null)].join("");
+    alert("websocket", [cljs.core.str("T: "), cljs.core.str(b)].join(""));
+    return a.send(b)
+  }, a = function(a, e, f) {
+    switch(arguments.length) {
+      case 2:
+        return b.call(this, a, e);
+      case 3:
+        return c.call(this, a, e, f)
+    }
+    throw"Invalid arity: " + arguments.length;
+  };
+  a.cljs$lang$arity$2 = b;
+  a.cljs$lang$arity$3 = c;
+  return a
+}();
