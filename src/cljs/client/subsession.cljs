@@ -17,8 +17,7 @@
 (defprotocol ISubsession
   (insert-new-loop [this session-view event])
   (delete-loop [this session-view event])
-  (evaluate-loop [this
-                  ]))
+  (evaluate-loop [this session-view event]))
 
 (def callbacks (atom {}))
 

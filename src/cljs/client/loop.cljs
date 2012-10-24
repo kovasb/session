@@ -29,7 +29,11 @@
       [:div.row.input {:id id}
        [:div.span6
         [:i.icon-chevron-right {:style "float:left"} ""]
-        [:div.span5 {:id (str "area" id) :style "margin-left:0px;position:relative;height:18px"} @(:input model)]
+        [:textarea.span5
+         {:id (str "area" id)
+          ;;:style "margin-left:0px;position:relative;height:18px"
+          }
+         @(:input model)]
         [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "margin-left:10px;float:none"} "x"]
         ]
        ]
@@ -50,7 +54,7 @@
     ;;($ viewobject (on "click" "a.close"))
       ($ viewobject (on "post-render" #(do
                                          (reset! editor (editor/create-editor (str "area" id)))
-                                         (editor/fit-to-length (str "area" id) @editor)
+                                         ;;(editor/fit-to-length (str "area" id) @editor)
                                          )))
       ;;(reset! editor (editor/create-editor ($ viewobject (get 0))))
       ;;(editor/fit-to-length (str "area" id) @editor)
@@ -58,7 +62,9 @@
       ($ viewobject (on "evaluate-input"
                       #(do
                          ;;(js/alert "evaluate-input")
-                         (reset! (:input model) (. (. @editor (getSession)) (getValue)))
+                         (reset!
+                          (:input model)
+                          (.  @editor (getValue)))
                          ($ viewobject (trigger "evaluate-loop")))))
       (add-watch (:output model) :update-output
                  (fn [key atom old new]
