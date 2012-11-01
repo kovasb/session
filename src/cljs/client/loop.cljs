@@ -23,30 +23,16 @@
     (view [model]
 
     (let [id (:id model)]
-    ($
-     [:div.loop-container
-      ;;[:div.span6.row ]
-      [:div.row.input {:id id}
-       [:div.span6
-        [:i.icon-chevron-right {:style "float:left"} ""]
-        [:textarea.span5
-         {:id (str "area" id)
-          ;;:style "margin-left:0px;position:relative;height:18px"
-          }
-         @(:input model)]
-        [:a.close.loop-deleter {:href "#" :id (str "delete" id) :style "margin-left:10px;float:none"} "x"]
-        ]
-       ]
-      [:div.row {:id (str "out" id)}
-       [:div.span6
-        [:i.icon-chevron-left {:style "float:left"} ""]
-        [:div.span5.loopout {:style "margin-left:0px;position:relative"}
-         (session.client.mvc/view @(:output model))]
-        ]
-       ]
-      (mvc/render (loop-creator/LoopCreator. false)
-        )
-      ]
+      ($
+        [:div.row.loop-container
+         ;;[:div.span6.row ]
+         ;;:div.row.input {:id id}
+         [:div.span5 [:textarea {:id (str "area" id)}
+          @(:input model)]]
+         [:div.span5.loopout
+          ;;{:style "margin-left:0px;position:relative"}
+          (session.client.mvc/view @(:output model))]
+         ]
      (data "model" model))))
   (control [model viewobject]
     (let [model ($ viewobject (data "model")) id (:id model) editor (atom [])]

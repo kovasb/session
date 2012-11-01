@@ -15,10 +15,10 @@ if(cljs.core.string_QMARK_.call(null,route))
 {return cljs.core.PersistentVector.fromArray(["GET",route], true);
 } else
 {if(cljs.core.vector_QMARK_.call(null,route))
-{var vec__13212__13213 = route;
-var m__13214 = cljs.core.nth.call(null,vec__13212__13213,0,null);
-var u__13215 = cljs.core.nth.call(null,vec__13212__13213,1,null);
-return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null,m__13214),u__13215], true);
+{var vec__13213__13214 = route;
+var m__13215 = cljs.core.nth.call(null,vec__13213__13214,0,null);
+var u__13216 = cljs.core.nth.call(null,vec__13213__13214,1,null);
+return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null,m__13215),u__13216], true);
 } else
 {if("\uFDD0'else")
 {return cljs.core.PersistentVector.fromArray(["GET",route], true);
@@ -29,15 +29,15 @@ return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null,m_
 }
 });
 fetch.core.__GT_data = (function __GT_data(d){
-var cur__13218 = fetch.util.clj__GT_js.call(null,d);
-var query__13219 = goog.Uri.QueryData.createFromMap((new goog.structs.Map(cur__13218)));
-return [cljs.core.str(query__13219)].join('');
+var cur__13219 = fetch.util.clj__GT_js.call(null,d);
+var query__13220 = goog.Uri.QueryData.createFromMap((new goog.structs.Map(cur__13219)));
+return [cljs.core.str(query__13220)].join('');
 });
 fetch.core.__GT_callback = (function __GT_callback(callback){
 if(cljs.core.truth_(callback))
 {return (function (req){
-var data__13221 = req.getResponseText();
-return callback.call(null,data__13221);
+var data__13222 = req.getResponseText();
+return callback.call(null,data__13222);
 });
 } else
 {return null;
@@ -47,37 +47,37 @@ return callback.call(null,data__13221);
 * @param {...*} var_args
 */
 fetch.core.xhr = (function() { 
-var xhr__delegate = function (route,content,callback,p__13222){
-var vec__13233__13234 = p__13222;
-var opts__13235 = cljs.core.nth.call(null,vec__13233__13234,0,null);
-var req__13237 = (new goog.net.XhrIo());
-var vec__13236__13238 = fetch.core.parse_route.call(null,route);
-var method__13239 = cljs.core.nth.call(null,vec__13236__13238,0,null);
-var uri__13240 = cljs.core.nth.call(null,vec__13236__13238,1,null);
-var data__13241 = fetch.core.__GT_data.call(null,content);
-var callback__13242 = fetch.core.__GT_callback.call(null,callback);
-if(cljs.core.truth_(callback__13242))
-{goog.events.listen(req__13237,goog.net.EventType.COMPLETE,(function (){
-return callback__13242.call(null,req__13237);
+var xhr__delegate = function (route,content,callback,p__13223){
+var vec__13234__13235 = p__13223;
+var opts__13236 = cljs.core.nth.call(null,vec__13234__13235,0,null);
+var req__13238 = (new goog.net.XhrIo());
+var vec__13237__13239 = fetch.core.parse_route.call(null,route);
+var method__13240 = cljs.core.nth.call(null,vec__13237__13239,0,null);
+var uri__13241 = cljs.core.nth.call(null,vec__13237__13239,1,null);
+var data__13242 = fetch.core.__GT_data.call(null,content);
+var callback__13243 = fetch.core.__GT_callback.call(null,callback);
+if(cljs.core.truth_(callback__13243))
+{goog.events.listen(req__13238,goog.net.EventType.COMPLETE,(function (){
+return callback__13243.call(null,req__13238);
 }));
 } else
 {}
-return req__13237.send(uri__13240,method__13239,data__13241,(cljs.core.truth_(opts__13235)?fetch.util.clj__GT_js.call(null,opts__13235):null));
+return req__13238.send(uri__13241,method__13240,data__13242,(cljs.core.truth_(opts__13236)?fetch.util.clj__GT_js.call(null,opts__13236):null));
 };
 var xhr = function (route,content,callback,var_args){
-var p__13222 = null;
+var p__13223 = null;
 if (goog.isDef(var_args)) {
-  p__13222 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3),0);
+  p__13223 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3),0);
 } 
-return xhr__delegate.call(this, route, content, callback, p__13222);
+return xhr__delegate.call(this, route, content, callback, p__13223);
 };
 xhr.cljs$lang$maxFixedArity = 3;
-xhr.cljs$lang$applyTo = (function (arglist__13243){
-var route = cljs.core.first(arglist__13243);
-var content = cljs.core.first(cljs.core.next(arglist__13243));
-var callback = cljs.core.first(cljs.core.next(cljs.core.next(arglist__13243)));
-var p__13222 = cljs.core.rest(cljs.core.next(cljs.core.next(arglist__13243)));
-return xhr__delegate(route, content, callback, p__13222);
+xhr.cljs$lang$applyTo = (function (arglist__13244){
+var route = cljs.core.first(arglist__13244);
+var content = cljs.core.first(cljs.core.next(arglist__13244));
+var callback = cljs.core.first(cljs.core.next(cljs.core.next(arglist__13244)));
+var p__13223 = cljs.core.rest(cljs.core.next(cljs.core.next(arglist__13244)));
+return xhr__delegate(route, content, callback, p__13223);
 });
 xhr.cljs$lang$arity$variadic = xhr__delegate;
 return xhr;
