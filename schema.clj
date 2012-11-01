@@ -18,6 +18,12 @@
  :db/valueType :db.type/ref
  :db/cardinality :db.cardinality/one
  :db.install/_attribute :db.part/db :db/id #db/id[:db.part/db]}
+;; temporary ui hack
+{:db/ident :request/ui-id
+ :db/valueType :db.type/string
+ :db/cardinality :db.cardinality/one
+ :db.install/_attribute :db.part/db :db/id #db/id[:db.part/db]}
+
 
 ;; response entity attributes
 {:db/ident :response/summary

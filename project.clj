@@ -6,7 +6,7 @@
    [org.clojure/clojurescript "0.0-1450"]
    [org.clojars.nmeyer/simple-avro "0.0.6"]
    [storm/carbonite "1.5.0"]
-   [com.datomic/datomic-free "0.8.3538"]
+   [com.datomic/datomic-free "0.8.3561"]
    [noir-async "1.1.0-beta10"]
    [cheshire "2.0.4"]
    [jayq "0.1.0-alpha1" :exclusions [org.clojure/clojure]]

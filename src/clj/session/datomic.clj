@@ -1,8 +1,10 @@
 (ns session.datomic
   (:require session.schema)
+  (:require [noir-async.core :as noir-async])
+  (:require [lamina.core :as lamina])
   (:use [datomic.api :only (q db tempid) :as d]))
 
-(def uri "datomic:free://localhost:4334/session1")
+(def uri "datomic:free://localhost:4334/session-default")
 
 ;; create database
 (defn create-db [] (d/create-database uri))
@@ -20,30 +22,17 @@
    session.schema/schema
    ))
 
-(defn create-action-request [datastring]
+(defn create-action-request [ui-id datastring]
   (let [actionid (d/tempid :db.part/user)
         requestid (d/tempid :db.part/user)
         dataid (d/tempid :db.part/user)]
       [
        [:db/add actionid :action/request requestid]
+       [:db/add requestid :request/ui-id ui-id]
        [:db/add requestid :request/op :evaluate]
        [:db/add requestid :request/data dataid]
        [:db/add dataid :data/edn datastring]
        ]))
-
-(q '[:find ?id ?id2
-     :where
-     [?id :action/request ?id2]]
-   (db conn))
-
-;; actions and their request data
-(q '[:find ?id ?op ?string
-     :where
-     [?id :action/request ?id2]
-     [?id2 :request/op ?op]
-     [?id2 :request/data ?did]
-     [?did :data/edn ?string]]
-   (db conn))
 
 
 (defn request-data [x rdb]
@@ -55,8 +44,7 @@
         [?requestid :request/data ?did]
         [?did :data/edn ?string]]
        rdb
-       [[actionid requestid]])
-    ))
+       [[actionid requestid]])))
 
 (def last-tx (atom nil))
 
@@ -66,8 +54,7 @@
     [
      [:db/add actionid :action/response resultid]
      [:db/add resultid :response/summary (pr-str result)]
-     [:db/add resultid :response/status :success]
-    ]))
+     [:db/add resultid :response/status :success]]))
 
 ;; how to use the tx datoms directly in datalog?
 (defn process-request [request]
@@ -76,59 +63,139 @@
       (if x
         (d/transact
          conn
-         (apply response-datoms (first (request-data x rdb)))
-         )
-        ))))
+         (apply response-datoms (first (request-data x rdb))))))))
 
-(defn process-request-sub [x] (reset! last-tx x))
 
-(defn process-queue []
-  (doseq [req (repeatedly #(.take queue))]
+
+(defn process-requests [tx-report-queue]
+  (doseq [req (repeatedly #(.take tx-report-queue))]
     (.start (Thread. #(process-request req)))))
 
+(defn process-requests-thread [conn]
+  (.start (Thread. #(process-requests (d/tx-report-queue conn)))))
 
+(def last-response (atom nil))
+
+
+
+;; requests without responses
+(defn uncompleted-actions-q []
+  (q '[:find ?id
+      :where
+      [?id :action/request _]
+      [(session.datomic/attr-missing? $ ?id :action/response)]]
+    (db conn)))
+
+;; requests with responses
+(defn completed-actions-q []
+  (q '[:find ?id
+      :where
+      [?id :action/response _]
+      [?id :action/request _]
+      ]
+    (db conn)))
 
 (defn attr-missing? [db eid attr]
       (not (attr (d/entity db eid))))
 
-;; requests without responses
-(q '[:find ?id
-     :where
-     [?id :action/request _]
-     [(session.datomic/attr-missing? $ ?id :action/response)]]
-   (db conn))
-
-;; requests with responses
-(q '[:find ?id
-     :where
-     [?id :action/response _]
-     [?id :action/request _]
-     ]
-   (db conn))
-
 ;; unprocessed actions and their request data
-(q '[:find ?id ?op ?string
-     :where
-     [?id :action/request ?id2]
-     [(session.datomic/attr-missing? $ ?id :action/response)]
-     [?id2 :request/op ?op]
-     [?id2 :request/data ?did]
-     [?did :data/edn ?string]]
-   (db conn))
+(defn unprocessed-actions-q []
+  (q '[:find ?id ?op ?string
+      :where
+      [?id :action/request ?id2]
+      [(session.datomic/attr-missing? $ ?id :action/response)]
+      [?id2 :request/op ?op]
+      [?id2 :request/data ?did]
+      [?did :data/edn ?string]]
+    (db conn)))
 
 ;; loops and their data
-(q '[:find ?id ?in-string ?out-string
-     :where
-     [?id :action/response ?responseid]
-     [?id :action/request ?requestid]
-     [?requestid :request/op ?op]
-     [?requestid :request/data ?did]
-     [?did :data/edn ?in-string]
-     [?responseid :response/summary ?out-string]]
-   (db conn))
+(defn actions-q []
+  (q '[:find ?id ?in-string ?out-string
+      :where
+      [?id :action/response ?responseid]
+      [?id :action/request ?requestid]
+      [?requestid :request/op ?op]
+      [?requestid :request/data ?did]
+      [?did :data/edn ?in-string]
+      [?responseid :response/summary ?out-string]]
+    (db conn)))
 
 
-(defn get-requests [conn]
- 1
+(defn requests-q []
+  (q '[:find ?id ?id2
+      :where
+      [?id :action/request ?id2]]
+    (db conn)))
 
-  )
+;; actions and their request data
+(defn actions-requests-q []
+  (q '[:find ?id ?op ?string
+      :where
+      [?id :action/request ?id2]
+      [?id2 :request/op ?op]
+      [?id2 :request/data ?did]
+      [?did :data/edn ?string]]
+    (db conn)))
+
+
+
+(def datomic-channel (lamina/permanent-channel))
+
+
+(defn subscribe-channel [ch]
+  (lamina/siphon datomic-channel ch))
+
+(defn submit-request [m]
+  (d/transact conn
+              (let [d (read-string m)]
+                (create-action-request
+                 (:id d)
+                 (:data d)))))
+
+(defn submit-response [data]
+  (lamina/enqueue datomic-channel
+           (pr-str {:data (:data data
+                           ) :id (:id data)})))
+
+
+(defn process-response [response]
+  (let [rdb (:db-after response) datoms (:tx-data response)]
+    (let [x (first (filter #(= :action/response (d/ident rdb (:a %))) datoms))]
+      (let
+       [d (q '[:find ?req ?res ?res-summary ?ui-id
+            :in $ ?x
+            :where
+            [$ ?x :action/request ?req]
+            [$ ?x :action/response ?res]
+            [$ ?res :response/summary ?res-summary]
+            [$ ?req :request/ui-id ?ui-id]
+            ]
+             (db conn) (:e x))]
+       (if (not (empty? d))
+         (submit-response {:id (nth (first d) 3)
+           :data (read-string (nth (first d) 2))})
+         )
+       )
+      (reset! last-response (:e x))
+      )))
+
+
+(noir-async/defpage-async "/service" [] conn
+  (subscribe-channel (:request-channel conn))
+  (noir-async/on-receive conn (fn [m]  (submit-request m))))
+
+
+(comment (async-push conn
+             (pr-str
+              {:id
+               (:id (read-string m))
+               :data (eval (read-string xx))})))
+
+
+(defn process-responses [tx-report-queue]
+  (doseq [req (repeatedly #(.take tx-report-queue))]
+    (.start (Thread. #(process-response req)))))
+
+(defn process-responses-thread [conn]
+  (.start (Thread. #(process-responses (d/tx-report-queue conn)))))

@@ -38,8 +38,7 @@
 (defpage-async "/echo" [] conn
   (on-receive conn (fn echo-cb [m] (async-push conn m))))
 
-(defpage-async "/service" [] conn
-  (on-receive conn (fn [m] (async-push conn (pr-str {:id (:id (read-string m)) :data (eval (read-string (:data (read-string m))))})))))
+
 
 ;;obsolete
 (defpage [:post "/upload"] x
@@ -72,8 +71,3 @@
     (start-http-server
       (wrap-ring-handler noir-handler)
       {:port port :websocket true})))
-
-
-
-
-
