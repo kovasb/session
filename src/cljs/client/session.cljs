@@ -26,7 +26,7 @@
 (defn load-subsession-tab [x]
   ($ ".tab-content" (html ""))
   ($ [:tab-pane (mvc/render x)] (appendTo ($ ".tab-content")))
-  ($ ".loop-creator" (trigger "post-render"))
+  ($ ".loop-container" (trigger "post-render"))
   ($ "#sessiontabs > li" (removeClass "active"))
   ($ (str "#tab" (name (:type x))) (addClass "active"))
 

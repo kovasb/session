@@ -25,12 +25,10 @@
 
 (aset ws "onmessage"
       (fn [e] (let [data (cljs.reader/read-string (.-data e))]
-          (js/alert (pr-str data))
+
            ((@callbacks (:id data))
            (:data data)
-           ))
-      ))
-
+           ))))
 
 (defn response-handler [event-model]
       #(reset! (:output event-model) %))
@@ -42,8 +40,7 @@
    (pr-str {
            :op :evaluate-clj
            :data @(:input event-model)
-           :id (:id event-model)
-   })))
+           :id (:id event-model)})))
 
 (defn evaluate-cljs [event-model]
   (pm/remote
@@ -69,7 +66,7 @@
   mvc/IMVC
   (view [this]
 
-    ($ [:div.subsession.span6
+    ($ [:div.subsession
 
         (mvc/render (loop-creator/LoopCreator. true))
 

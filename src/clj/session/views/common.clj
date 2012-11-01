@@ -10,11 +10,7 @@
                (include-css "bootstrap/css/bootstrap.css")
                (include-css "css/jquery.fileupload-ui.css")
                (include-css "css/codemirror.css")
-               (include-css "css/fatcursor.css")
-               (include-css "css/docs.css")
-               [:style {:type "text/css"}  ".ace_editor .ace_sb {overflow-y: hidden;}\n .ace_scroller {overflow-x: hidden}"]
-
-               ]
+               (include-css "css/fatcursor.css")]
               [:body {:style "padding-top:40px"}
                content
                ;;[:script {:type "text/javascript" :src "ace/ace.js"}]
