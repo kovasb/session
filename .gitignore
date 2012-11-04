@@ -3,5 +3,7 @@ pom.xml
 /lib/
 /classes/
 .lein*
+.#*
+.DS_Store
 
 target/repl-port

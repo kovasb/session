@@ -2,6 +2,7 @@
   (:require [cljs.tagged-literals :as tl])
   )
 
+;; should be default fall-through reader in cljs mode
 (defn taghelper [tag data] `((cljs.core/get (cljs.core/deref cljs.reader/*tag-table*) ~tag) ~data))
 
 (def *clj-auto-data-readers* (atom {}))
@@ -25,6 +26,40 @@
 (deftag "session")
 (deftag "subsession")
 (deftag "loop")
+
+(defprotocol TaggedData
+  (tag [x])
+  (data [x]))
+
+(defrecord Session [subsessions id last-loop-id]
+  TaggedData
+  (tag [x] "session")
+  (data [x] (into {} x)))
+
+(defrecord Subsession [loops type]
+  TaggedData
+  (tag [x] "subsession")
+  (data [x] (into {} x)))
+
+(defrecord Loop [id output input]
+  TaggedData
+  (tag [x] "loop")
+  (data [x] (into {} x)))
+
+(defmethod print-method session.tags.TaggedData [o w]
+  (.write w (str "#" (tag o) " "))
+  (print-method (data o) w))
+
+(defmethod print-dup session.tags.TaggedData [o w]
+  (.write w (str "#" (tag o) " "))
+  (print-dup (data o) w))
+
+
+(prefer-method print-method  session.tags.TaggedData clojure.lang.IRecord)
+(prefer-method print-method  session.tags.TaggedData clojure.lang.IPersistentMap)
+(prefer-method print-dup  session.tags.TaggedData clojure.lang.IRecord)
+(prefer-method print-dup  session.tags.TaggedData clojure.lang.IPersistentMap)
+
 
 ;; issue is if data readers itself gets redefined later by the compiler
 

@@ -2,6 +2,7 @@
   (:require session.schema)
   (:require [noir-async.core :as noir-async])
   (:require [lamina.core :as lamina])
+  (:use session.tags)
   (:use [datomic.api :only (q db tempid) :as d]))
 
 (def uri "datomic:free://localhost:4334/session-default")
@@ -19,8 +20,7 @@
 (defn load-schema [conn]
   (d/transact
    conn
-   session.schema/schema
-   ))
+   session.schema/schema))
 
 (defn create-action-request [ui-id datastring]
   (let [actionid (d/tempid :db.part/user)
@@ -199,3 +199,14 @@
 
 (defn process-responses-thread [conn]
   (.start (Thread. #(process-responses (d/tx-report-queue conn)))))
+
+
+(defn get-loop-maps []
+  (map (fn [[id input output]] {:id (str id) :input input :output (read-string output)}) (actions-q)))
+
+(defn get-datomic-session []
+  (map->Session
+   {:id 1 :last-loop-id 1
+    :subsessions [(map->Subsession
+                  {:type :clj
+                   :loops (mapv map->Loop (get-loop-maps))})]}))
