@@ -22,17 +22,7 @@
    conn
    session.schema/schema))
 
-(defn create-action-request [ui-id datastring]
-  (let [actionid (d/tempid :db.part/user)
-        requestid (d/tempid :db.part/user)
-        dataid (d/tempid :db.part/user)]
-      [
-       [:db/add actionid :action/request requestid]
-       [:db/add requestid :request/ui-id ui-id]
-       [:db/add requestid :request/op :evaluate]
-       [:db/add requestid :request/data dataid]
-       [:db/add dataid :data/edn datastring]
-       ]))
+
 
 
 (defn request-data [x rdb]
@@ -146,6 +136,19 @@
 (defn subscribe-channel [ch]
   (lamina/siphon datomic-channel ch))
 
+
+(defn create-action-request [ui-id datastring]
+  (let [actionid (read-string ui-id)
+        requestid (d/tempid :db.part/user)
+        dataid (d/tempid :db.part/user)]
+      [
+       [:db/add actionid :action/request requestid]
+       [:db/add requestid :request/ui-id ui-id]
+       [:db/add requestid :request/op :evaluate]
+       [:db/add requestid :request/data dataid]
+       [:db/add dataid :data/edn datastring]
+       ]))
+
 (defn submit-request [m]
   (d/transact conn
               (let [d (read-string m)]
@@ -201,6 +204,28 @@
   (.start (Thread. #(process-responses (d/tx-report-queue conn)))))
 
 
+(defn follow-next-action
+  ([entity]
+   (lazy-seq
+    (when-let [s (:action/next entity)]
+      (cons s (follow-next-action s))))))
+
+(defn actions-q []
+  (q '[:find ?id ?in-string ?out-string
+      :where
+      [?id :action/response ?responseid]
+      [?id :action/request ?requestid]
+      [?requestid :request/op ?op]
+      [?requestid :request/data ?did]
+      [?did :data/edn ?in-string]
+      [?responseid :response/summary ?out-string]]
+    (db conn)))
+
+(defn entity-data [entity]
+  {:output (let [d (get-in entity [:action/response :response/summary])] (if d (read-string d) nil))
+   :input (get-in entity [:action/request :request/data :data/edn])
+   :id (str (:db/id entity))})
+
 (defn get-loop-maps []
   (map (fn [[id input output]] {:id (str id) :input input :output (read-string output)}) (actions-q)))
 
@@ -209,4 +234,4 @@
    {:id 1 :last-loop-id 1
     :subsessions [(map->Subsession
                   {:type :clj
-                   :loops (mapv map->Loop (get-loop-maps))})]}))
+                   :loops (mapv map->Loop (map entity-data (follow-next-action  (datomic.api/entity (db conn) :action/root))))})]}))
