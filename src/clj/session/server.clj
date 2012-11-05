@@ -21,49 +21,10 @@
 
 (server/load-views-ns 'session.views)
 
-;;obsolete
-(defremote store-session [id data]
-  (let [filename (str "resources/public/sessions/" id ".clj")]
-    (spit filename data)
-    (str "sessions" id ".clj")))
-
-;;obsolete
 (defremote get-session [id]
-  (let [filename (str "public/sessions/" id ".clj")]
+  (let []
     {:result (pr-str (session.datomic/get-datomic-session)) ;;(slurp (resource filename))
      :status 200} ))
-
-
-(defremote eval-expr-string [x]
-  {:status 200 :result (eval (read-string x))})
-
-(defpage-async "/echo" [] conn
-  (on-receive conn (fn echo-cb [m] (async-push conn m))))
-
-
-
-;;obsolete
-(defpage [:post "/upload"] x
-  (slurp (:tempfile (first (:files x)))))
-
-;;obsolete
-(defpage [:post "/download"] x
-  (response/set-headers {"Content-Disposition" "attachment; filename=\"session.clj\""}
-  (:session-data x)))
-
-(defn -main-old [& m]
-  (binding [*print-meta* true]
-    (let [mode (keyword (or (first m) :dev))
-         port (Integer. (get (System/getenv) "PORT" "8090"))]
-
-      (server/add-middleware
-       (fn [handler]
-         (fn [req]
-           (binding [
-                     *ns* (the-ns 'session.server)
-                     *print-meta* true] (handler req)))))
-      (server/add-middleware mp/wrap-multipart-params)
-      (server/start port {:mode mode :ns 'htmlrepl}))))
 
 
 (defn -main [& m]

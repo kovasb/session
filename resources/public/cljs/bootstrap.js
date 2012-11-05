@@ -1612,112 +1612,112 @@ cljs.core._invoke = function() {
     if(a ? a.cljs$core$IFn$_invoke$arity$11 : a) {
       return a.cljs$core$IFn$_invoke$arity$11(a, b, c, d, e, f, g, h, i, j, k)
     }
-    var l;
-    l = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
-    if(!l && (l = cljs.core._invoke._, !l)) {
-      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
-    }
-    return l.call(null, a, b, c, d, e, f, g, h, i, j, k)
-  }, l = function(a, b, c, d, e, f, g, h, i, j, k, l) {
-    if(a ? a.cljs$core$IFn$_invoke$arity$12 : a) {
-      return a.cljs$core$IFn$_invoke$arity$12(a, b, c, d, e, f, g, h, i, j, k, l)
-    }
     var m;
     m = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!m && (m = cljs.core._invoke._, !m)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return m.call(null, a, b, c, d, e, f, g, h, i, j, k, l)
-  }, n = function(a, b, c, d, e, f, g, h, i, j, k, l, m) {
+    return m.call(null, a, b, c, d, e, f, g, h, i, j, k)
+  }, l = function(a, b, c, d, e, f, g, h, i, j, k, m) {
+    if(a ? a.cljs$core$IFn$_invoke$arity$12 : a) {
+      return a.cljs$core$IFn$_invoke$arity$12(a, b, c, d, e, f, g, h, i, j, k, m)
+    }
+    var l;
+    l = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
+    if(!l && (l = cljs.core._invoke._, !l)) {
+      throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
+    }
+    return l.call(null, a, b, c, d, e, f, g, h, i, j, k, m)
+  }, n = function(a, b, c, d, e, f, g, h, i, j, k, m, l) {
     if(a ? a.cljs$core$IFn$_invoke$arity$13 : a) {
-      return a.cljs$core$IFn$_invoke$arity$13(a, b, c, d, e, f, g, h, i, j, k, l, m)
+      return a.cljs$core$IFn$_invoke$arity$13(a, b, c, d, e, f, g, h, i, j, k, m, l)
     }
     var n;
     n = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!n && (n = cljs.core._invoke._, !n)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return n.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m)
-  }, o = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n) {
+    return n.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l)
+  }, o = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n) {
     if(a ? a.cljs$core$IFn$_invoke$arity$14 : a) {
-      return a.cljs$core$IFn$_invoke$arity$14(a, b, c, d, e, f, g, h, i, j, k, l, m, n)
+      return a.cljs$core$IFn$_invoke$arity$14(a, b, c, d, e, f, g, h, i, j, k, m, l, n)
     }
     var o;
     o = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!o && (o = cljs.core._invoke._, !o)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return o.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n)
-  }, p = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) {
+    return o.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n)
+  }, p = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o) {
     if(a ? a.cljs$core$IFn$_invoke$arity$15 : a) {
-      return a.cljs$core$IFn$_invoke$arity$15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
+      return a.cljs$core$IFn$_invoke$arity$15(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o)
     }
     var p;
     p = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!p && (p = cljs.core._invoke._, !p)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return p.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)
-  }, q = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+    return p.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o)
+  }, q = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p) {
     if(a ? a.cljs$core$IFn$_invoke$arity$16 : a) {
-      return a.cljs$core$IFn$_invoke$arity$16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
+      return a.cljs$core$IFn$_invoke$arity$16(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p)
     }
     var q;
     q = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!q && (q = cljs.core._invoke._, !q)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return q.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
-  }, r = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q) {
+    return q.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p)
+  }, r = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q) {
     if(a ? a.cljs$core$IFn$_invoke$arity$17 : a) {
-      return a.cljs$core$IFn$_invoke$arity$17(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q)
+      return a.cljs$core$IFn$_invoke$arity$17(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q)
     }
     var s;
     s = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!s && (s = cljs.core._invoke._, !s)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return s.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q)
-  }, t = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s) {
+    return s.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q)
+  }, t = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s) {
     if(a ? a.cljs$core$IFn$_invoke$arity$18 : a) {
-      return a.cljs$core$IFn$_invoke$arity$18(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s)
+      return a.cljs$core$IFn$_invoke$arity$18(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s)
     }
     var r;
     r = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!r && (r = cljs.core._invoke._, !r)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return r.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s)
-  }, s = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r) {
+    return r.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s)
+  }, s = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r) {
     if(a ? a.cljs$core$IFn$_invoke$arity$19 : a) {
-      return a.cljs$core$IFn$_invoke$arity$19(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r)
+      return a.cljs$core$IFn$_invoke$arity$19(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r)
     }
     var t;
     t = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!t && (t = cljs.core._invoke._, !t)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return t.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r)
-  }, y = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t) {
+    return t.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r)
+  }, y = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r, t) {
     if(a ? a.cljs$core$IFn$_invoke$arity$20 : a) {
-      return a.cljs$core$IFn$_invoke$arity$20(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t)
+      return a.cljs$core$IFn$_invoke$arity$20(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r, t)
     }
     var y;
     y = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!y && (y = cljs.core._invoke._, !y)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return y.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t)
-  }, F = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y) {
+    return y.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r, t)
+  }, F = function(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r, t, y) {
     if(a ? a.cljs$core$IFn$_invoke$arity$21 : a) {
-      return a.cljs$core$IFn$_invoke$arity$21(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y)
+      return a.cljs$core$IFn$_invoke$arity$21(a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r, t, y)
     }
     var F;
     F = cljs.core._invoke[goog.typeOf(null == a ? null : a)];
     if(!F && (F = cljs.core._invoke._, !F)) {
       throw cljs.core.missing_protocol.call(null, "IFn.-invoke", a);
     }
-    return F.call(null, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, s, r, t, y)
+    return F.call(null, a, b, c, d, e, f, g, h, i, j, k, m, l, n, o, p, q, s, r, t, y)
   }, a = function(a, u, v, w, x, z, A, B, C, D, E, G, H, I, J, K, L, M, N, O, P) {
     switch(arguments.length) {
       case 1:
@@ -6254,13 +6254,13 @@ cljs.core.every_pred = function() {
           return cljs.core.truth_(j) && (j = b.call(null, d), cljs.core.truth_(j) && (j = c.call(null, d), cljs.core.truth_(j) && (j = a.call(null, e), cljs.core.truth_(j) && (j = b.call(null, e), cljs.core.truth_(j) && (j = c.call(null, e), cljs.core.truth_(j) && (j = a.call(null, i), cljs.core.truth_(j))))))) ? (j = b.call(null, i), cljs.core.truth_(j) ? c.call(null, i) : j) : j
         }())
       }, l = function() {
-        var e = function(e, j, k, l) {
+        var e = function(e, j, k, m) {
           return cljs.core.boolean$.call(null, function() {
-            var m = d.call(null, e, j, k);
-            return cljs.core.truth_(m) ? cljs.core.every_QMARK_.call(null, function(d) {
+            var l = d.call(null, e, j, k);
+            return cljs.core.truth_(l) ? cljs.core.every_QMARK_.call(null, function(d) {
               var e = a.call(null, d);
               return cljs.core.truth_(e) ? (e = b.call(null, d), cljs.core.truth_(e) ? c.call(null, d) : e) : e
-            }, l) : m
+            }, m) : l
           }())
         }, j = function(a, b, c, d) {
           var f = null;
@@ -15229,6 +15229,326 @@ goog.net.XhrIo.prototype.formatMsg_ = function(a) {
 goog.debug.entryPointRegistry.register(function(a) {
   goog.net.XhrIo.prototype.onReadyStateChangeEntryPoint_ = a(goog.net.XhrIo.prototype.onReadyStateChangeEntryPoint_)
 });
+var session = {client:{}};
+session.client.mvc = {};
+session.client.mvc.IMVC = {};
+session.client.mvc.view = function(a) {
+  if(a ? a.session$client$mvc$IMVC$view$arity$1 : a) {
+    return a.session$client$mvc$IMVC$view$arity$1(a)
+  }
+  var b;
+  b = session.client.mvc.view[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = session.client.mvc.view._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMVC.view", a);
+  }
+  return b.call(null, a)
+};
+session.client.mvc.control = function(a, b) {
+  if(a ? a.session$client$mvc$IMVC$control$arity$2 : a) {
+    return a.session$client$mvc$IMVC$control$arity$2(a, b)
+  }
+  var c;
+  c = session.client.mvc.control[goog.typeOf(null == a ? null : a)];
+  if(!c && (c = session.client.mvc.control._, !c)) {
+    throw cljs.core.missing_protocol.call(null, "IMVC.control", a);
+  }
+  return c.call(null, a, b)
+};
+session.client.mvc.control2 = function() {
+  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
+  return new cljs.core.MultiFn("control2", function(a) {
+    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
+  }, "\ufdd0'default", e, a, b, c, d)
+}();
+cljs.core._add_method.call(null, session.client.mvc.control2, "\ufdd0'default", function() {
+  return null
+});
+session.client.mvc.view2 = function() {
+  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
+  return new cljs.core.MultiFn("view2", function(a) {
+    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
+  }, "\ufdd0'default", e, a, b, c, d)
+}();
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", function(a) {
+  if(cljs.core._EQ_.call(null, "\ufdd0'this", a)) {
+    return cljs_jquery.core.jquery.call(null, this)
+  }
+  var b;
+  b = (b = cljs.core.vector_QMARK_.call(null, a)) ? b : cljs.core.keyword_QMARK_.call(null, a);
+  return b ? cljs_jquery.core.dom_create.call(null, a) : cljs_jquery.core.jquery.call(null, a)
+});
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
+  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
+});
+session.client.mvc.render = function(a) {
+  var b = session.client.mvc.view.call(null, a);
+  session.client.mvc.control.call(null, a, b);
+  return b
+};
+session.client.mvc.IMVC._ = !0;
+session.client.mvc.view._ = function(a) {
+  return cljs.core.pr_str.call(null, a)
+};
+session.client.mvc.control._ = function(a, b) {
+  return b
+};
+subpar.core = {};
+subpar.core.get_index = function(a) {
+  return a.indexFromPos(a.getCursor())
+};
+subpar.core.go_to_index = function(a, b, c) {
+  return cljs.core.not_EQ_.call(null, b, c) ? a.setCursor(a.posFromIndex(c)) : null
+};
+subpar.core.nothing_selected_QMARK_ = function(a) {
+  return cljs.core._EQ_.call(null, "", a.getSelection())
+};
+subpar.core.get_info = function(a) {
+  return cljs.core.PersistentVector.fromArray([a.getCursor(), subpar.core.get_index.call(null, a), a.getValue()], !0)
+};
+subpar.core.open_expression = function(a, b) {
+  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null);
+  return cljs.core.truth_(subpar.paredit.in_string.call(null, c, e)) ? (a.replaceRange(cljs.core.nth.call(null, b, 0), d), a.setCursor(d.line, d.ch + 1)) : a.compoundChange(function() {
+    a.replaceRange(b, d);
+    a.setCursor(d.line, d.ch + 1);
+    return a.indentLine(d.line)
+  })
+};
+goog.exportSymbol("subpar.core.open_expression", subpar.core.open_expression);
+subpar.core.forward_delete = function(a) {
+  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
+    var b = subpar.core.get_info.call(null, a);
+    cljs.core.nth.call(null, b, 0, null);
+    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.forward_delete_action.call(null, b, c), d = a.posFromIndex(c), e = a.posFromIndex(c + 1), f = a.posFromIndex(c - 1), c = a.posFromIndex(c + 2), g = cljs.core._EQ_;
+    if(g.call(null, 1, b)) {
+      return a.replaceRange("", d, e)
+    }
+    if(g.call(null, 2, b)) {
+      return a.replaceRange("", f, e)
+    }
+    if(g.call(null, 3, b)) {
+      return a.replaceRange("", d, c)
+    }
+    if(g.call(null, 4, b)) {
+      return a.setCursor(e)
+    }
+    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
+  }
+  return a.replaceSelection("")
+};
+goog.exportSymbol("subpar.core.forward_delete", subpar.core.forward_delete);
+subpar.core.backward_delete = function(a) {
+  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
+    var b = subpar.core.get_info.call(null, a);
+    cljs.core.nth.call(null, b, 0, null);
+    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.backward_delete_action.call(null, b, c), d = a.posFromIndex(c - 1), e = a.posFromIndex(c), f = a.posFromIndex(c + 1), c = a.posFromIndex(c - 2), g = cljs.core._EQ_;
+    if(g.call(null, 1, b)) {
+      return a.replaceRange("", d, e)
+    }
+    if(g.call(null, 2, b)) {
+      return a.replaceRange("", d, f)
+    }
+    if(g.call(null, 3, b)) {
+      return a.replaceRange("", c, e)
+    }
+    if(g.call(null, 4, b)) {
+      return a.setCursor(d)
+    }
+    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
+  }
+  return a.replaceSelection("")
+};
+goog.exportSymbol("subpar.core.backward_delete", subpar.core.backward_delete);
+subpar.core.double_quote = function(a) {
+  var b = subpar.core.get_info.call(null, a), c = cljs.core.nth.call(null, b, 0, null), d = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.double_quote_action.call(null, b, d), e = cljs.core._EQ_;
+  if(e.call(null, 0, b)) {
+    return subpar.core.open_expression.call(null, a, '""')
+  }
+  if(e.call(null, 1, b)) {
+    return a.replaceRange('\\"', c)
+  }
+  if(e.call(null, 2, b)) {
+    return subpar.core.go_to_index.call(null, a, d, d + 1)
+  }
+  if(e.call(null, 3, b)) {
+    return a.replaceRange('"', c)
+  }
+  throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
+};
+goog.exportSymbol("subpar.core.double_quote", subpar.core.double_quote);
+subpar.core.close_expression = function(a, b) {
+  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = subpar.paredit.parse.call(null, c);
+  if(cljs.core.truth_(subpar.paredit.in_string_QMARK_.call(null, c, e))) {
+    return a.replaceRange(b, d), a.setCursor(d.line, d.ch + 1)
+  }
+  var f = subpar.paredit.close_expression_vals.call(null, c, e), d = cljs.core.nth.call(null, f, 0, null), c = cljs.core.nth.call(null, f, 1, null), g = cljs.core.nth.call(null, f, 2, null), f = cljs.core.nth.call(null, f, 3, null);
+  return cljs.core.truth_(f) ? (cljs.core.truth_(d) && a.replaceRange("", a.posFromIndex(c), a.posFromIndex(g)), subpar.core.go_to_index.call(null, a, e, f)) : null
+};
+goog.exportSymbol("subpar.core.close_expression", subpar.core.close_expression);
+subpar.core.go = function(a, b) {
+  var c = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, c, 0, null);
+  var d = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = b.call(null, c, d);
+  return subpar.core.go_to_index.call(null, a, d, c)
+};
+subpar.core.backward_up = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.backward_up_fn)
+};
+goog.exportSymbol("subpar.core.backward_up", subpar.core.backward_up);
+subpar.core.forward_down = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.forward_down_fn)
+};
+goog.exportSymbol("subpar.core.forward_down", subpar.core.forward_down);
+subpar.core.backward = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.backward_fn)
+};
+goog.exportSymbol("subpar.core.backward", subpar.core.backward);
+subpar.core.forward = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.forward_fn)
+};
+goog.exportSymbol("subpar.core.forward", subpar.core.forward);
+subpar.core.backward_down = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.backward_down_fn)
+};
+goog.exportSymbol("subpar.core.backward_down", subpar.core.backward_down);
+subpar.core.forward_up = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.forward_up_fn)
+};
+goog.exportSymbol("subpar.core.forward_up", subpar.core.forward_up);
+subpar.core.forward_slurp = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.forward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
+  if(cljs.core.truth_(f)) {
+    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
+    return a.compoundChange(function() {
+      a.replaceRange(d, i);
+      a.replaceRange("", g, h);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, j, j + f))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.forward_slurp", subpar.core.forward_slurp);
+subpar.core.backward_slurp = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
+  if(cljs.core.truth_(f)) {
+    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
+    return a.compoundChange(function() {
+      a.replaceRange("", g, h);
+      a.replaceRange(d, i);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, j, j + f))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.backward_slurp", subpar.core.backward_slurp);
+subpar.core.backward_barf = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_barf_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
+  if(cljs.core.truth_(g)) {
+    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(b)].join("") : b, i = a.posFromIndex(e), j = a.posFromIndex(d), k = a.posFromIndex(d + 1), m = j.line;
+    return a.compoundChange(function() {
+      a.replaceRange(h, i);
+      a.replaceRange("", j, k);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, m, m + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.backward_barf", subpar.core.backward_barf);
+subpar.core.forward_barf = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), d = subpar.paredit.forward_barf_vals.call(null, b, c), c = cljs.core.nth.call(null, d, 0, null), b = cljs.core.nth.call(null, d, 1, null), e = cljs.core.nth.call(null, d, 2, null), f = cljs.core.nth.call(null, d, 3, null), g = cljs.core.nth.call(null, d, 4, null), d = cljs.core.nth.call(null, d, 5, null);
+  if(cljs.core.truth_(g)) {
+    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(c)].join("") : c, i = a.posFromIndex(e), j = a.posFromIndex(b), k = a.posFromIndex(b + 1), m = a.posFromIndex(d).line;
+    return a.compoundChange(function() {
+      a.replaceRange("", j, k);
+      a.replaceRange(h, i);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, m, m + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.forward_barf", subpar.core.forward_barf);
+subpar.core.splice_delete_backward = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_backward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
+  if(cljs.core.truth_(f)) {
+    var h = a.posFromIndex(f).line, i = a.posFromIndex(e), j = a.posFromIndex(e + 1), k = a.posFromIndex(b), m = a.posFromIndex(d);
+    return a.compoundChange(function() {
+      a.replaceRange("", i, j);
+      a.replaceRange("", k, m);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, h, h + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.splice_delete_backward", subpar.core.splice_delete_backward);
+subpar.core.splice_delete_forward = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_forward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
+  if(cljs.core.truth_(f)) {
+    var h = a.posFromIndex(f).line, i = a.posFromIndex(b), j = a.posFromIndex(b + 1), k = a.posFromIndex(d), m = a.posFromIndex(e);
+    return a.compoundChange(function() {
+      a.replaceRange("", k, m);
+      a.replaceRange("", i, j);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, h, h + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.splice_delete_forward", subpar.core.splice_delete_forward);
+subpar.core.splice = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
+  if(cljs.core.truth_(e)) {
+    var g = a.posFromIndex(e).line, h = a.posFromIndex(b), i = a.posFromIndex(b + 1), j = a.posFromIndex(d), k = a.posFromIndex(d + 1);
+    return a.compoundChange(function() {
+      a.replaceRange("", j, k);
+      a.replaceRange("", h, i);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, g, g + f))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.splice", subpar.core.splice);
+subpar.core.indent_selection = function(a) {
+  if(cljs.core.truth_(a.somethingSelected())) {
+    var b = a.getCursor(!0).line, c = a.getCursor(!1).line;
+    return a.compoundChange(function() {
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, b, c + 1))
+    })
+  }
+  return a.indentLine(a.getCursor().line)
+};
+goog.exportSymbol("subpar.core.indent_selection", subpar.core.indent_selection);
+session.client.editor = {};
+session.client.editor.create_editor = function(a) {
+  return CodeMirror.fromTextArea(document.getElementById(a), {lineNumbers:!1, mode:"text/x-clojure", keyMap:"subpar"})
+};
 cljs.reader = {};
 cljs.reader.PushbackReader = {};
 cljs.reader.read_char = function(a) {
@@ -15658,819 +15978,6 @@ cljs.reader.deregister_tag_parser_BANG_ = function(a) {
   cljs.core.swap_BANG_.call(null, cljs.reader._STAR_tag_table_STAR_, cljs.core.dissoc, a);
   return b
 };
-var session = {client:{}};
-session.client.mvc = {};
-session.client.mvc.IMVC = {};
-session.client.mvc.view = function(a) {
-  if(a ? a.session$client$mvc$IMVC$view$arity$1 : a) {
-    return a.session$client$mvc$IMVC$view$arity$1(a)
-  }
-  var b;
-  b = session.client.mvc.view[goog.typeOf(null == a ? null : a)];
-  if(!b && (b = session.client.mvc.view._, !b)) {
-    throw cljs.core.missing_protocol.call(null, "IMVC.view", a);
-  }
-  return b.call(null, a)
-};
-session.client.mvc.control = function(a, b) {
-  if(a ? a.session$client$mvc$IMVC$control$arity$2 : a) {
-    return a.session$client$mvc$IMVC$control$arity$2(a, b)
-  }
-  var c;
-  c = session.client.mvc.control[goog.typeOf(null == a ? null : a)];
-  if(!c && (c = session.client.mvc.control._, !c)) {
-    throw cljs.core.missing_protocol.call(null, "IMVC.control", a);
-  }
-  return c.call(null, a, b)
-};
-session.client.mvc.control2 = function() {
-  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
-  return new cljs.core.MultiFn("control2", function(a) {
-    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
-  }, "\ufdd0'default", e, a, b, c, d)
-}();
-cljs.core._add_method.call(null, session.client.mvc.control2, "\ufdd0'default", function() {
-  return null
-});
-session.client.mvc.view2 = function() {
-  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
-  return new cljs.core.MultiFn("view2", function(a) {
-    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
-  }, "\ufdd0'default", e, a, b, c, d)
-}();
-cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", function(a) {
-  if(cljs.core._EQ_.call(null, "\ufdd0'this", a)) {
-    return cljs_jquery.core.jquery.call(null, this)
-  }
-  var b;
-  b = (b = cljs.core.vector_QMARK_.call(null, a)) ? b : cljs.core.keyword_QMARK_.call(null, a);
-  return b ? cljs_jquery.core.dom_create.call(null, a) : cljs_jquery.core.jquery.call(null, a)
-});
-cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
-  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
-});
-session.client.mvc.render = function(a) {
-  var b = session.client.mvc.view.call(null, a);
-  session.client.mvc.control.call(null, a, b);
-  return b
-};
-session.client.mvc.IMVC._ = !0;
-session.client.mvc.view._ = function(a) {
-  return cljs.core.pr_str.call(null, a)
-};
-session.client.mvc.control._ = function(a, b) {
-  return b
-};
-session.client.loop_creator = {};
-session.client.loop_creator.LoopCreator = function(a, b, c) {
-  this.x = a;
-  this.__meta = b;
-  this.__extmap = c;
-  this.cljs$lang$protocol_mask$partition1$ = 0;
-  this.cljs$lang$protocol_mask$partition0$ = 619054858;
-  1 < arguments.length ? (this.__meta = b, this.__extmap = c) : this.__extmap = this.__meta = null
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IHash$_hash$arity$1 = function(a) {
-  var b = this.__hash;
-  return null != b ? b : this.__hash = a = cljs.core.hash_imap.call(null, a)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
-  return a.cljs$core$ILookup$_lookup$arity$3(a, b, null)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
-  return"\ufdd0'x" === b ? this.x : cljs.core._lookup.call(null, this.__extmap, b, c)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(a, b, c) {
-  return cljs.core.identical_QMARK_.call(null, "\ufdd0'x", b) ? new session.client.loop_creator.LoopCreator(c, this.__meta, this.__extmap, null) : new session.client.loop_creator.LoopCreator(this.x, this.__meta, cljs.core.assoc.call(null, this.__extmap, b, c), null)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$ICollection$_conj$arity$2 = function(a, b) {
-  return cljs.core.vector_QMARK_.call(null, b) ? a.cljs$core$IAssociative$_assoc$arity$3(a, cljs.core._nth.call(null, b, 0), cljs.core._nth.call(null, b, 1)) : cljs.core.reduce.call(null, cljs.core._conj, a, b)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$ISeqable$_seq$arity$1 = function() {
-  return cljs.core.seq.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'x", this.x)], !0), this.__extmap))
-};
-session.client.loop_creator.LoopCreator.prototype.session$client$mvc$IMVC$ = !0;
-session.client.loop_creator.LoopCreator.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0));
-    return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0))
-  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", 
-  ""], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", "loop-creator"], !0))
-};
-session.client.loop_creator.LoopCreator.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
-  cljs.core.truth_(this.x) && cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "click", function() {
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
-      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
-    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["trigger", "insert-new-loop"], !0))
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "mouseover", function() {
-    return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
-      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
-    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["find", ".new-loop-icon"], !0)), cljs.core.PersistentVector.fromArray(["toggleClass", "icon-chevron-right"], !0))
-  }], !0));
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "mouseout", function() {
-    return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
-      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
-    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["find", ".new-loop-icon"], !0)), cljs.core.PersistentVector.fromArray(["toggleClass", "icon-chevron-right"], !0))
-  }], !0))
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.pr_sequential.call(null, function(a) {
-    return cljs.core.pr_sequential.call(null, cljs.core.pr_seq, "", " ", "", b, a)
-  }, [cljs.core.str("#"), cljs.core.str("LoopCreator"), cljs.core.str("{")].join(""), ", ", "}", b, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'x", this.x)], !0), this.__extmap))
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$ICounted$_count$arity$1 = function() {
-  return 1 + cljs.core.count.call(null, this.__extmap)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(a, b) {
-  return cljs.core.truth_(function() {
-    if(cljs.core.truth_(b)) {
-      var c = a.constructor === b.constructor;
-      return c ? cljs.core.equiv_map.call(null, a, b) : c
-    }
-    return b
-  }()) ? !0 : !1
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-  return new session.client.loop_creator.LoopCreator(this.x, b, this.__extmap, this.__hash)
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-  return this.__meta
-};
-session.client.loop_creator.LoopCreator.prototype.cljs$core$IMap$_dissoc$arity$2 = function(a, b) {
-  return cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.fromArray(["\ufdd0'x"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.loop_creator.LoopCreator(this.x, this.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
-};
-session.client.loop_creator.LoopCreator.cljs$lang$type = !0;
-session.client.loop_creator.LoopCreator.cljs$lang$ctorPrSeq = function() {
-  return cljs.core.list.call(null, "session.client.loop-creator/LoopCreator")
-};
-session.client.loop_creator.__GT_LoopCreator = function(a) {
-  return new session.client.loop_creator.LoopCreator(a)
-};
-session.client.loop_creator.map__GT_LoopCreator = function(a) {
-  return new session.client.loop_creator.LoopCreator((new cljs.core.Keyword("\ufdd0'x")).call(null, a), null, cljs.core.dissoc.call(null, a, "\ufdd0'x"))
-};
-session.client.loop_creator.LoopCreator;
-subpar.core = {};
-subpar.core.get_index = function(a) {
-  return a.indexFromPos(a.getCursor())
-};
-subpar.core.go_to_index = function(a, b, c) {
-  return cljs.core.not_EQ_.call(null, b, c) ? a.setCursor(a.posFromIndex(c)) : null
-};
-subpar.core.nothing_selected_QMARK_ = function(a) {
-  return cljs.core._EQ_.call(null, "", a.getSelection())
-};
-subpar.core.get_info = function(a) {
-  return cljs.core.PersistentVector.fromArray([a.getCursor(), subpar.core.get_index.call(null, a), a.getValue()], !0)
-};
-subpar.core.open_expression = function(a, b) {
-  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null);
-  return cljs.core.truth_(subpar.paredit.in_string.call(null, c, e)) ? (a.replaceRange(cljs.core.nth.call(null, b, 0), d), a.setCursor(d.line, d.ch + 1)) : a.compoundChange(function() {
-    a.replaceRange(b, d);
-    a.setCursor(d.line, d.ch + 1);
-    return a.indentLine(d.line)
-  })
-};
-goog.exportSymbol("subpar.core.open_expression", subpar.core.open_expression);
-subpar.core.forward_delete = function(a) {
-  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
-    var b = subpar.core.get_info.call(null, a);
-    cljs.core.nth.call(null, b, 0, null);
-    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.forward_delete_action.call(null, b, c), d = a.posFromIndex(c), e = a.posFromIndex(c + 1), f = a.posFromIndex(c - 1), c = a.posFromIndex(c + 2), g = cljs.core._EQ_;
-    if(g.call(null, 1, b)) {
-      return a.replaceRange("", d, e)
-    }
-    if(g.call(null, 2, b)) {
-      return a.replaceRange("", f, e)
-    }
-    if(g.call(null, 3, b)) {
-      return a.replaceRange("", d, c)
-    }
-    if(g.call(null, 4, b)) {
-      return a.setCursor(e)
-    }
-    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
-  }
-  return a.replaceSelection("")
-};
-goog.exportSymbol("subpar.core.forward_delete", subpar.core.forward_delete);
-subpar.core.backward_delete = function(a) {
-  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
-    var b = subpar.core.get_info.call(null, a);
-    cljs.core.nth.call(null, b, 0, null);
-    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.backward_delete_action.call(null, b, c), d = a.posFromIndex(c - 1), e = a.posFromIndex(c), f = a.posFromIndex(c + 1), c = a.posFromIndex(c - 2), g = cljs.core._EQ_;
-    if(g.call(null, 1, b)) {
-      return a.replaceRange("", d, e)
-    }
-    if(g.call(null, 2, b)) {
-      return a.replaceRange("", d, f)
-    }
-    if(g.call(null, 3, b)) {
-      return a.replaceRange("", c, e)
-    }
-    if(g.call(null, 4, b)) {
-      return a.setCursor(d)
-    }
-    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
-  }
-  return a.replaceSelection("")
-};
-goog.exportSymbol("subpar.core.backward_delete", subpar.core.backward_delete);
-subpar.core.double_quote = function(a) {
-  var b = subpar.core.get_info.call(null, a), c = cljs.core.nth.call(null, b, 0, null), d = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.double_quote_action.call(null, b, d), e = cljs.core._EQ_;
-  if(e.call(null, 0, b)) {
-    return subpar.core.open_expression.call(null, a, '""')
-  }
-  if(e.call(null, 1, b)) {
-    return a.replaceRange('\\"', c)
-  }
-  if(e.call(null, 2, b)) {
-    return subpar.core.go_to_index.call(null, a, d, d + 1)
-  }
-  if(e.call(null, 3, b)) {
-    return a.replaceRange('"', c)
-  }
-  throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
-};
-goog.exportSymbol("subpar.core.double_quote", subpar.core.double_quote);
-subpar.core.close_expression = function(a, b) {
-  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = subpar.paredit.parse.call(null, c);
-  if(cljs.core.truth_(subpar.paredit.in_string_QMARK_.call(null, c, e))) {
-    return a.replaceRange(b, d), a.setCursor(d.line, d.ch + 1)
-  }
-  var f = subpar.paredit.close_expression_vals.call(null, c, e), d = cljs.core.nth.call(null, f, 0, null), c = cljs.core.nth.call(null, f, 1, null), g = cljs.core.nth.call(null, f, 2, null), f = cljs.core.nth.call(null, f, 3, null);
-  return cljs.core.truth_(f) ? (cljs.core.truth_(d) && a.replaceRange("", a.posFromIndex(c), a.posFromIndex(g)), subpar.core.go_to_index.call(null, a, e, f)) : null
-};
-goog.exportSymbol("subpar.core.close_expression", subpar.core.close_expression);
-subpar.core.go = function(a, b) {
-  var c = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, c, 0, null);
-  var d = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = b.call(null, c, d);
-  return subpar.core.go_to_index.call(null, a, d, c)
-};
-subpar.core.backward_up = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.backward_up_fn)
-};
-goog.exportSymbol("subpar.core.backward_up", subpar.core.backward_up);
-subpar.core.forward_down = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.forward_down_fn)
-};
-goog.exportSymbol("subpar.core.forward_down", subpar.core.forward_down);
-subpar.core.backward = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.backward_fn)
-};
-goog.exportSymbol("subpar.core.backward", subpar.core.backward);
-subpar.core.forward = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.forward_fn)
-};
-goog.exportSymbol("subpar.core.forward", subpar.core.forward);
-subpar.core.backward_down = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.backward_down_fn)
-};
-goog.exportSymbol("subpar.core.backward_down", subpar.core.backward_down);
-subpar.core.forward_up = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.forward_up_fn)
-};
-goog.exportSymbol("subpar.core.forward_up", subpar.core.forward_up);
-subpar.core.forward_slurp = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.forward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
-  if(cljs.core.truth_(f)) {
-    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
-    return a.compoundChange(function() {
-      a.replaceRange(d, i);
-      a.replaceRange("", g, h);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, j, j + f))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.forward_slurp", subpar.core.forward_slurp);
-subpar.core.backward_slurp = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
-  if(cljs.core.truth_(f)) {
-    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
-    return a.compoundChange(function() {
-      a.replaceRange("", g, h);
-      a.replaceRange(d, i);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, j, j + f))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.backward_slurp", subpar.core.backward_slurp);
-subpar.core.backward_barf = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_barf_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
-  if(cljs.core.truth_(g)) {
-    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(b)].join("") : b, i = a.posFromIndex(e), j = a.posFromIndex(d), k = a.posFromIndex(d + 1), m = j.line;
-    return a.compoundChange(function() {
-      a.replaceRange(h, i);
-      a.replaceRange("", j, k);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, m, m + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.backward_barf", subpar.core.backward_barf);
-subpar.core.forward_barf = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), d = subpar.paredit.forward_barf_vals.call(null, b, c), c = cljs.core.nth.call(null, d, 0, null), b = cljs.core.nth.call(null, d, 1, null), e = cljs.core.nth.call(null, d, 2, null), f = cljs.core.nth.call(null, d, 3, null), g = cljs.core.nth.call(null, d, 4, null), d = cljs.core.nth.call(null, d, 5, null);
-  if(cljs.core.truth_(g)) {
-    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(c)].join("") : c, i = a.posFromIndex(e), j = a.posFromIndex(b), k = a.posFromIndex(b + 1), m = a.posFromIndex(d).line;
-    return a.compoundChange(function() {
-      a.replaceRange("", j, k);
-      a.replaceRange(h, i);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, m, m + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.forward_barf", subpar.core.forward_barf);
-subpar.core.splice_delete_backward = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_backward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
-  if(cljs.core.truth_(f)) {
-    var h = a.posFromIndex(f).line, i = a.posFromIndex(e), j = a.posFromIndex(e + 1), k = a.posFromIndex(b), m = a.posFromIndex(d);
-    return a.compoundChange(function() {
-      a.replaceRange("", i, j);
-      a.replaceRange("", k, m);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, h, h + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.splice_delete_backward", subpar.core.splice_delete_backward);
-subpar.core.splice_delete_forward = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_forward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
-  if(cljs.core.truth_(f)) {
-    var h = a.posFromIndex(f).line, i = a.posFromIndex(b), j = a.posFromIndex(b + 1), k = a.posFromIndex(d), m = a.posFromIndex(e);
-    return a.compoundChange(function() {
-      a.replaceRange("", k, m);
-      a.replaceRange("", i, j);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, h, h + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.splice_delete_forward", subpar.core.splice_delete_forward);
-subpar.core.splice = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
-  if(cljs.core.truth_(e)) {
-    var g = a.posFromIndex(e).line, h = a.posFromIndex(b), i = a.posFromIndex(b + 1), j = a.posFromIndex(d), k = a.posFromIndex(d + 1);
-    return a.compoundChange(function() {
-      a.replaceRange("", j, k);
-      a.replaceRange("", h, i);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, g, g + f))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.splice", subpar.core.splice);
-subpar.core.indent_selection = function(a) {
-  if(cljs.core.truth_(a.somethingSelected())) {
-    var b = a.getCursor(!0).line, c = a.getCursor(!1).line;
-    return a.compoundChange(function() {
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, b, c + 1))
-    })
-  }
-  return a.indentLine(a.getCursor().line)
-};
-goog.exportSymbol("subpar.core.indent_selection", subpar.core.indent_selection);
-session.client.editor = {};
-session.client.editor.create_editor = function(a) {
-  return CodeMirror.fromTextArea(document.getElementById(a), {lineNumbers:!1, mode:"text/x-clojure", keyMap:"subpar"})
-};
-session.client.loop = {};
-session.client.loop.Loop = function(a) {
-  this.model = a;
-  this.cljs$lang$protocol_mask$partition1$ = 0;
-  this.cljs$lang$protocol_mask$partition0$ = 536871168
-};
-session.client.loop.Loop.cljs$lang$type = !0;
-session.client.loop.Loop.cljs$lang$ctorPrSeq = function() {
-  return cljs.core.list.call(null, "session.client.loop/Loop")
-};
-session.client.loop.Loop.prototype.session$client$mvc$IMVC$ = !0;
-session.client.loop.Loop.prototype.session$client$mvc$IMVC$view$arity$1 = function(a) {
-  var b = (new cljs.core.Keyword("\ufdd0'id")).call(null, a);
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
-  session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var c = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
-    session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0));
-    return c ? c : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
-    session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0))
-  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
-  session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, 
-  a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", a], !0))
-};
-session.client.loop.Loop.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
-  var c = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["data", "model"], !0)), d = (new cljs.core.Keyword("\ufdd0'id")).call(null, c), e = cljs.core.atom.call(null, cljs.core.PersistentVector.EMPTY);
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "click", ".loop-creator", function() {
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, b);
-      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["trigger", "insert-new-loop"], !0))
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "post-render", function() {
-    return cljs.core.reset_BANG_.call(null, e, session.client.editor.create_editor.call(null, [cljs.core.str("area"), cljs.core.str(d)].join("")))
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "click", ".loop-deleter", function() {
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, b);
-      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["trigger", "delete-loop"], !0))
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "evaluate-input", function() {
-    cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, c), cljs.core.deref.call(null, e).getValue());
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, b);
-      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["trigger", "evaluate-loop"], !0))
-  }], !0));
-  return cljs.core.add_watch.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, c), "\ufdd0'update-output", function(a, c, d, e) {
-    return cljs.core._EQ_.call(null, cljs.core.Atom, cljs.core.type.call(null, e)) ? (alert("add atom to watch"), cljs.core.add_watch.call(null, e, "\ufdd0'update-from-atom", function(a, c, d, e) {
-      alert("atom update");
-      return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-        var a = cljs.core.vector_QMARK_.call(null, b);
-        return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-      }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["find", ".loopout"], !0)), cljs.core.PersistentVector.fromArray(["html", ""], !0)), cljs.core.PersistentVector.fromArray(["append", cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-        var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0));
-        return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0))
-      }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0))], !0))
-    }), cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, b);
-      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["find", ".loopout"], !0)), cljs.core.PersistentVector.fromArray(["html", ""], !0)), cljs.core.PersistentVector.fromArray(["append", cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, cljs.core.deref.call(null, e))], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, cljs.core.deref.call(null, e))], !0));
-      return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, cljs.core.deref.call(null, e))], !0))
-    }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, cljs.core.deref.call(null, e))], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, cljs.core.deref.call(null, e))], !0))], !0))) : cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", 
-    b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, b);
-      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["find", ".loopout"], !0)), cljs.core.PersistentVector.fromArray(["html", ""], !0)), cljs.core.PersistentVector.fromArray(["append", cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0));
-      return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0))
-    }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0))], !0))
-  })
-};
-session.client.loop.Loop.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
-  return this.model.call(null, b)
-};
-session.client.loop.Loop.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
-  return this.model.call(null, b, c)
-};
-session.client.loop.Loop.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#session/loop "], !0), cljs.core._pr_seq.call(null, cljs.core.assoc.call(null, this.model, "\ufdd0'input", cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, this.model)), "\ufdd0'output", cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, this.model))), b), "")
-};
-session.client.loop.Loop;
-cljs.reader.register_tag_parser_BANG_.call(null, "loop", function(a) {
-  return new session.client.loop.Loop(cljs.core.assoc.call(null, a, "\ufdd0'input", cljs.core.atom.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), "\ufdd0'output", cljs.core.atom.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a))))
-});
-session.client.session = {};
-session.client.session.last_loop_id = cljs.core.atom.call(null, 0);
-session.client.session.new_loop_id = function() {
-  var a = cljs.core.swap_BANG_.call(null, session.client.session.last_loop_id, function(a) {
-    return 1 + a
-  });
-  fetch.remotes.remote_callback.call(null, "new-loop", cljs.core.PersistentVector.fromArray([a], !0), function(a) {
-    return a
-  });
-  return"" + cljs.core.str(a)
-};
-session.client.session.Session = function(a, b, c) {
-  this.model = a;
-  this.__meta = b;
-  this.__extmap = c;
-  this.cljs$lang$protocol_mask$partition1$ = 0;
-  this.cljs$lang$protocol_mask$partition0$ = 619054858;
-  1 < arguments.length ? (this.__meta = b, this.__extmap = c) : this.__extmap = this.__meta = null
-};
-session.client.session.Session.prototype.cljs$core$IHash$_hash$arity$1 = function(a) {
-  var b = this.__hash;
-  return null != b ? b : this.__hash = a = cljs.core.hash_imap.call(null, a)
-};
-session.client.session.Session.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
-  return a.cljs$core$ILookup$_lookup$arity$3(a, b, null)
-};
-session.client.session.Session.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
-  return"\ufdd0'model" === b ? this.model : cljs.core._lookup.call(null, this.__extmap, b, c)
-};
-session.client.session.Session.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(a, b, c) {
-  return cljs.core.identical_QMARK_.call(null, "\ufdd0'model", b) ? new session.client.session.Session(c, this.__meta, this.__extmap, null) : new session.client.session.Session(this.model, this.__meta, cljs.core.assoc.call(null, this.__extmap, b, c), null)
-};
-session.client.session.Session.prototype.cljs$core$ICollection$_conj$arity$2 = function(a, b) {
-  return cljs.core.vector_QMARK_.call(null, b) ? a.cljs$core$IAssociative$_assoc$arity$3(a, cljs.core._nth.call(null, b, 0), cljs.core._nth.call(null, b, 1)) : cljs.core.reduce.call(null, cljs.core._conj, a, b)
-};
-session.client.session.Session.prototype.cljs$core$ISeqable$_seq$arity$1 = function() {
-  return cljs.core.seq.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'model", this.model)], !0), this.__extmap))
-};
-session.client.session.Session.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.pr_sequential.call(null, function(a) {
-    return cljs.core.pr_sequential.call(null, cljs.core.pr_seq, "", " ", "", b, a)
-  }, [cljs.core.str("#"), cljs.core.str("Session"), cljs.core.str("{")].join(""), ", ", "}", b, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'model", this.model)], !0), this.__extmap))
-};
-session.client.session.Session.prototype.cljs$core$ICounted$_count$arity$1 = function() {
-  return 1 + cljs.core.count.call(null, this.__extmap)
-};
-session.client.session.Session.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(a, b) {
-  return cljs.core.truth_(function() {
-    if(cljs.core.truth_(b)) {
-      var c = a.constructor === b.constructor;
-      return c ? cljs.core.equiv_map.call(null, a, b) : c
-    }
-    return b
-  }()) ? !0 : !1
-};
-session.client.session.Session.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-  return new session.client.session.Session(this.model, b, this.__extmap, this.__hash)
-};
-session.client.session.Session.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-  return this.__meta
-};
-session.client.session.Session.prototype.cljs$core$IMap$_dissoc$arity$2 = function(a, b) {
-  return cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.fromArray(["\ufdd0'model"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.session.Session(this.model, this.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
-};
-session.client.session.Session.cljs$lang$type = !0;
-session.client.session.Session.cljs$lang$ctorPrSeq = function() {
-  return cljs.core.list.call(null, "session.client.session/Session")
-};
-session.client.session.__GT_Session = function(a) {
-  return new session.client.session.Session(a)
-};
-session.client.session.map__GT_Session = function(a) {
-  return new session.client.session.Session((new cljs.core.Keyword("\ufdd0'model")).call(null, a), null, cljs.core.dissoc.call(null, a, "\ufdd0'model"))
-};
-session.client.session.Session;
-session.client.session.load_subsession_tab = function(a) {
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", ".tab-content") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, ".tab-content");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, ".tab-content")
-  }() ? cljs_jquery.core.dom_create.call(null, ".tab-content") : cljs_jquery.core.jquery.call(null, ".tab-content"), cljs.core.PersistentVector.fromArray(["html", ""], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var b = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0));
-    return b ? b : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0))
-  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0)), cljs.core.PersistentVector.fromArray(["appendTo", cljs.core._EQ_.call(null, "\ufdd0'this", ".tab-content") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, ".tab-content");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, ".tab-content")
-  }() ? cljs_jquery.core.dom_create.call(null, ".tab-content") : cljs_jquery.core.jquery.call(null, ".tab-content")], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", ".loop-container") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, ".loop-container");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, ".loop-container")
-  }() ? cljs_jquery.core.dom_create.call(null, ".loop-container") : cljs_jquery.core.jquery.call(null, ".loop-container"), cljs.core.PersistentVector.fromArray(["trigger", "post-render"], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "#sessiontabs > li") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "#sessiontabs > li");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "#sessiontabs > li")
-  }() ? cljs_jquery.core.dom_create.call(null, "#sessiontabs > li") : cljs_jquery.core.jquery.call(null, "#sessiontabs > li"), cljs.core.PersistentVector.fromArray(["removeClass", "active"], !0));
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var b = cljs.core.vector_QMARK_.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join(""));
-    return b ? b : cljs.core.keyword_QMARK_.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join(""))
-  }() ? cljs_jquery.core.dom_create.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")) : cljs_jquery.core.jquery.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")), cljs.core.PersistentVector.fromArray(["addClass", "active"], !0))
-};
-session.client.session.make_session_tabs = function(a) {
-  return cljs.core.PersistentVector.fromArray(["\ufdd0'div.tabbable", cljs.core.PersistentVector.fromArray(["\ufdd0'ul#sessiontabs.nav.nav-tabs", cljs.core.map.call(null, function(a) {
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, 
-    (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var c = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, 
-      a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0));
-      return c ? c : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, 
-      a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0))
-    }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, 
-    a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), 
-    cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
-      return session.client.session.load_subsession_tab.call(null, a)
-    }], !0))
-  }, a)], !0)], !0)
-};
-session.client.session.Session.prototype.session$client$mvc$IMVC$ = !0;
-session.client.session.Session.prototype.session$client$mvc$IMVC$view$arity$1 = function(a) {
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var b = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0));
-    return b ? b : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0))
-  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, 
-  (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", (new cljs.core.Keyword("\ufdd0'model")).call(null, a)], !0))
-};
-session.client.session.Session.prototype.session$client$mvc$IMVC$control$arity$2 = function(a) {
-  return cljs.core.reset_BANG_.call(null, session.client.session.last_loop_id, (new cljs.core.Keyword("\ufdd0'last-loop-id")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a)))
-};
-session.client.session.Session.prototype.cljs$core$IPrintable$ = !0;
-session.client.session.Session.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#session/session "], !0), cljs.core._pr_seq.call(null, cljs.core.assoc.call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a), "\ufdd0'last-loop-id", cljs.core.deref.call(null, session.client.session.last_loop_id)), b), "")
-};
-cljs.reader.register_tag_parser_BANG_.call(null, "session", function(a) {
-  return new session.client.session.Session(a)
-});
-session.client.subsession = {};
-session.client.subsession.ISubsession = {};
-session.client.subsession.insert_new_loop = function(a, b, c) {
-  if(a ? a.session$client$subsession$ISubsession$insert_new_loop$arity$3 : a) {
-    return a.session$client$subsession$ISubsession$insert_new_loop$arity$3(a, b, c)
-  }
-  var d;
-  d = session.client.subsession.insert_new_loop[goog.typeOf(null == a ? null : a)];
-  if(!d && (d = session.client.subsession.insert_new_loop._, !d)) {
-    throw cljs.core.missing_protocol.call(null, "ISubsession.insert-new-loop", a);
-  }
-  return d.call(null, a, b, c)
-};
-session.client.subsession.delete_loop = function(a, b, c) {
-  if(a ? a.session$client$subsession$ISubsession$delete_loop$arity$3 : a) {
-    return a.session$client$subsession$ISubsession$delete_loop$arity$3(a, b, c)
-  }
-  var d;
-  d = session.client.subsession.delete_loop[goog.typeOf(null == a ? null : a)];
-  if(!d && (d = session.client.subsession.delete_loop._, !d)) {
-    throw cljs.core.missing_protocol.call(null, "ISubsession.delete-loop", a);
-  }
-  return d.call(null, a, b, c)
-};
-session.client.subsession.evaluate_loop = function(a, b, c) {
-  if(a ? a.session$client$subsession$ISubsession$evaluate_loop$arity$3 : a) {
-    return a.session$client$subsession$ISubsession$evaluate_loop$arity$3(a, b, c)
-  }
-  var d;
-  d = session.client.subsession.evaluate_loop[goog.typeOf(null == a ? null : a)];
-  if(!d && (d = session.client.subsession.evaluate_loop._, !d)) {
-    throw cljs.core.missing_protocol.call(null, "ISubsession.evaluate-loop", a);
-  }
-  return d.call(null, a, b, c)
-};
-session.client.subsession.callbacks = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY);
-session.client.subsession.ws = new WebSocket("ws://localhost:8090/service");
-session.client.subsession.ws.onmessage = function(a) {
-  a = cljs.reader.read_string.call(null, a.data);
-  return cljs.core.deref.call(null, session.client.subsession.callbacks).call(null, (new cljs.core.Keyword("\ufdd0'id")).call(null, a)).call(null, (new cljs.core.Keyword("\ufdd0'data")).call(null, a))
-};
-session.client.subsession.response_handler = function(a) {
-  return function(b) {
-    return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a), b)
-  }
-};
-session.client.subsession.evaluate_clj = function(a) {
-  cljs.core.swap_BANG_.call(null, session.client.subsession.callbacks, cljs.core.assoc, (new cljs.core.Keyword("\ufdd0'id")).call(null, a), session.client.subsession.response_handler.call(null, a));
-  return session.client.subsession.ws.send(cljs.core.pr_str.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'data", "\ufdd0'id"], {"\ufdd0'op":"\ufdd0'evaluate-clj", "\ufdd0'data":cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), "\ufdd0'id":(new cljs.core.Keyword("\ufdd0'id")).call(null, a)})))
-};
-session.client.subsession.evaluate_cljs = function(a) {
-  return fetch.remotes.remote_callback.call(null, "compile-expr-string", cljs.core.PersistentVector.fromArray([cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), (new cljs.core.Keyword("\ufdd0'id")).call(null, a)], !0), function(b) {
-    return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a), function() {
-      var a = eval((new cljs.core.Keyword("\ufdd0'result")).call(null, b));
-      return cljs.core.truth_(a) ? a : null
-    }())
-  })
-};
-session.client.subsession.Subsession = function(a) {
-  this.model = a;
-  this.cljs$lang$protocol_mask$partition1$ = 0;
-  this.cljs$lang$protocol_mask$partition0$ = 536871168
-};
-session.client.subsession.Subsession.cljs$lang$type = !0;
-session.client.subsession.Subsession.cljs$lang$ctorPrSeq = function() {
-  return cljs.core.list.call(null, "session.client.subsession/Subsession")
-};
-session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$ = !0;
-session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$insert_new_loop$arity$3 = function(a, b, c) {
-  var d = c.target, e = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, d);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
-  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["data", "model"], !0)), f = function() {
-    var a = session.client.session.new_loop_id.call(null);
-    return new session.client.loop.Loop(cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'input", "\ufdd0'output"], {"\ufdd0'id":a, "\ufdd0'input":cljs.core.atom.call(null, ""), "\ufdd0'output":cljs.core.atom.call(null, null)}))
-  }(), g = session.client.mvc.render.call(null, f);
-  cljs.core._EQ_.call(null, e, "loop-creator") ? cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a), function(a) {
-    return cljs.core.vec.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([f], !0), a))
-  }) : cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a), function(a) {
-    var b = cljs.core.split_with.call(null, function(a) {
-      return cljs.core.not_EQ_.call(null, a, e)
-    }, a), a = cljs.core.nth.call(null, b, 0, null), b = cljs.core.nth.call(null, b, 1, null);
-    return cljs.core.vec.call(null, cljs.core.concat.call(null, a, cljs.core.PersistentVector.fromArray([e, f], !0), cljs.core.rest.call(null, b)))
-  });
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", g) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, g);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, g)
-  }() ? cljs_jquery.core.dom_create.call(null, g) : cljs_jquery.core.jquery.call(null, g), cljs.core.PersistentVector.fromArray(["insertAfter", d], !0));
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", g) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, g);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, g)
-  }() ? cljs_jquery.core.dom_create.call(null, g) : cljs_jquery.core.jquery.call(null, g), cljs.core.PersistentVector.fromArray(["trigger", "post-render"], !0))
-};
-session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$delete_loop$arity$3 = function(a, b, c) {
-  var d = c.target, e = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, d);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
-  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["data", "model"], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, d);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
-  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["remove"], !0));
-  return cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a), function(a) {
-    return cljs.core.vec.call(null, cljs.core.filter.call(null, function(a) {
-      return cljs.core.not_EQ_.call(null, a, e)
-    }, a))
-  })
-};
-session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$evaluate_loop$arity$3 = function(a, b, c) {
-  var d = c.target, b = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, d);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
-  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["data", "model"], !0));
-  return cljs.core._EQ_.call(null, "\ufdd0'cljs", (new cljs.core.Keyword("\ufdd0'type")).call(null, a)) ? session.client.subsession.evaluate_cljs.call(null, b) : cljs.core._EQ_.call(null, "\ufdd0'clj", (new cljs.core.Keyword("\ufdd0'type")).call(null, a)) ? session.client.subsession.evaluate_clj.call(null, b) : null
-};
-session.client.subsession.Subsession.prototype.session$client$mvc$IMVC$ = !0;
-session.client.subsession.Subsession.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
-  var a = this;
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var b = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0));
-    return b ? b : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0))
-  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), 
-  cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0)), cljs.core.PersistentVector.fromArray(["data", "model", a.model], !0))
-};
-session.client.subsession.Subsession.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "insert-new-loop", function(c) {
-    return session.client.subsession.insert_new_loop.call(null, a, b, c)
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "delete-loop", function(c) {
-    return session.client.subsession.delete_loop.call(null, a, b, c)
-  }], !0));
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, b);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
-  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "evaluate-loop", function(c) {
-    return session.client.subsession.evaluate_loop.call(null, a, b, c)
-  }], !0))
-};
-session.client.subsession.Subsession.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#session/subsession "], !0), cljs.core._pr_seq.call(null, cljs.core.assoc.call(null, this.model, "\ufdd0'loops", cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, this.model))), b), "")
-};
-session.client.subsession.Subsession.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
-  return this.model.call(null, b)
-};
-session.client.subsession.Subsession.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
-  return this.model.call(null, b, c)
-};
-session.client.subsession.Subsession;
-cljs.reader.register_tag_parser_BANG_.call(null, "subsession", function(a) {
-  return new session.client.subsession.Subsession(cljs.core.assoc.call(null, a, "\ufdd0'loops", cljs.core.atom.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a))))
-});
 goog.net.xpc = {};
 goog.net.xpc.TransportTypes = {NATIVE_MESSAGING:1, FRAME_ELEMENT_METHOD:2, IFRAME_RELAY:3, IFRAME_POLLING:4, FLASH:5, NIX:6};
 goog.net.xpc.TransportNames = {1:"NativeMessagingTransport", 2:"FrameElementMethodTransport", 3:"IframeRelayTransport", 4:"IframePollingTransport", 5:"FlashTransport", 6:"NixTransport"};
@@ -17208,67 +16715,6 @@ session.client.hiccup.Hiccup;
 cljs.reader.register_tag_parser_BANG_.call(null, "hiccup", function(a) {
   return new session.client.hiccup.Hiccup(a)
 });
-session.ui = {};
-var fetch = {util:{}};
-fetch.util.clj__GT_js = function clj__GT_js(b) {
-  return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
-    var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
-    return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
-  }, cljs.core.ObjMap.EMPTY, b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
-};
-fetch.core = {};
-fetch.core.__GT_method = function(a) {
-  return clojure.string.upper_case.call(null, cljs.core.name.call(null, a))
-};
-fetch.core.parse_route = function(a) {
-  if(cljs.core.string_QMARK_.call(null, a)) {
-    return cljs.core.PersistentVector.fromArray(["GET", a], !0)
-  }
-  if(cljs.core.vector_QMARK_.call(null, a)) {
-    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
-    return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null, b), a], !0)
-  }
-  return cljs.core.PersistentVector.fromArray(["GET", a], !0)
-};
-fetch.core.__GT_data = function(a) {
-  a = fetch.util.clj__GT_js.call(null, a);
-  a = goog.Uri.QueryData.createFromMap(new goog.structs.Map(a));
-  return"" + cljs.core.str(a)
-};
-fetch.core.__GT_callback = function(a) {
-  return cljs.core.truth_(a) ? function(b) {
-    b = b.getResponseText();
-    return a.call(null, b)
-  } : null
-};
-fetch.core.xhr = function() {
-  var a = function(a, b, e, f) {
-    var f = cljs.core.nth.call(null, f, 0, null), g = new goog.net.XhrIo, h = fetch.core.parse_route.call(null, a), a = cljs.core.nth.call(null, h, 0, null), h = cljs.core.nth.call(null, h, 1, null), b = fetch.core.__GT_data.call(null, b), i = fetch.core.__GT_callback.call(null, e);
-    cljs.core.truth_(i) && goog.events.listen(g, goog.net.EventType.COMPLETE, function() {
-      return i.call(null, g)
-    });
-    return g.send(h, a, b, cljs.core.truth_(f) ? fetch.util.clj__GT_js.call(null, f) : null)
-  }, b = function(b, d, e, f) {
-    var g = null;
-    goog.isDef(f) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
-    return a.call(this, b, d, e, g)
-  };
-  b.cljs$lang$maxFixedArity = 3;
-  b.cljs$lang$applyTo = function(b) {
-    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), f = cljs.core.first(cljs.core.next(cljs.core.next(b))), b = cljs.core.rest(cljs.core.next(cljs.core.next(b)));
-    return a(d, e, f, b)
-  };
-  b.cljs$lang$arity$variadic = a;
-  return b
-}();
-fetch.remotes = {};
-fetch.remotes.remote_uri = "/_fetch";
-fetch.remotes.remote_callback = function(a, b, c) {
-  return fetch.core.xhr.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'post", fetch.remotes.remote_uri], !0), cljs.core.ObjMap.fromObject(["\ufdd0'remote", "\ufdd0'params"], {"\ufdd0'remote":a, "\ufdd0'params":cljs.core.pr_str.call(null, b)}), cljs.core.truth_(c) ? function(a) {
-    a = cljs.core._EQ_.call(null, a, "") ? "nil" : a;
-    return c.call(null, cljs.reader.read_string.call(null, a))
-  } : null)
-};
 clojure.browser = {};
 clojure.browser.event = {};
 clojure.browser.event.EventType = {};
@@ -19345,182 +18791,67 @@ clojure.browser.repl.connect = function(a) {
     return a.style.display = "none"
   })
 };
-session.client.main = {};
-clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
-session.client.main.session = cljs.core.atom.call(null, null);
-session.client.main.load_session = function(a) {
-  return fetch.remotes.remote_callback.call(null, "get-session", cljs.core.PersistentVector.fromArray([a], !0), function(a) {
-    session.client.main.saved_result = (new cljs.core.Keyword("\ufdd0'result")).call(null, a);
-    var c = cljs.reader.read_string.call(null, (new cljs.core.Keyword("\ufdd0'result")).call(null, a)), d = cljs.core._EQ_.call(null, "\ufdd0'this", session.client.mvc.view.call(null, c)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, session.client.mvc.view.call(null, c));
-      return a ? a : cljs.core.keyword_QMARK_.call(null, session.client.mvc.view.call(null, c))
-    }() ? cljs_jquery.core.dom_create.call(null, session.client.mvc.view.call(null, c)) : cljs_jquery.core.jquery.call(null, session.client.mvc.view.call(null, c));
-    cljs.core.reset_BANG_.call(null, session.client.main.session, c);
-    session.client.mvc.control.call(null, c, d);
-    cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "body > .container") ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, "body > .container");
-      return a ? a : cljs.core.keyword_QMARK_.call(null, "body > .container")
-    }() ? cljs_jquery.core.dom_create.call(null, "body > .container") : cljs_jquery.core.jquery.call(null, "body > .container"), cljs.core.PersistentVector.fromArray(["html", ""], !0));
-    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, d);
-      return a ? a : cljs.core.keyword_QMARK_.call(null, d)
-    }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["appendTo", cljs.core._EQ_.call(null, "\ufdd0'this", "body > .container") ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, "body > .container");
-      return a ? a : cljs.core.keyword_QMARK_.call(null, "body > .container")
-    }() ? cljs_jquery.core.dom_create.call(null, "body > .container") : cljs_jquery.core.jquery.call(null, "body > .container")], !0))
-  })
+session.ui = {};
+var fetch = {util:{}};
+fetch.util.clj__GT_js = function clj__GT_js(b) {
+  return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
+    var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
+    return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
+  }, cljs.core.ObjMap.EMPTY, b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
 };
-session.client.main.save_session = function() {
-  return fetch.remotes.remote_callback.call(null, "store-session", cljs.core.PersistentVector.fromArray([(new cljs.core.Keyword("\ufdd0'id")).call(null, cljs.core.deref.call(null, session.client.main.session)), cljs.core.pr_str.call(null, cljs.core.deref.call(null, session.client.main.session))], !0), function(a) {
-    return a
-  })
+fetch.core = {};
+fetch.core.__GT_method = function(a) {
+  return clojure.string.upper_case.call(null, cljs.core.name.call(null, a))
 };
-session.client.main.load_new_file = function(a) {
-  var b = cljs.reader.read_string.call(null, a), c = cljs.core._EQ_.call(null, "\ufdd0'this", session.client.mvc.view.call(null, b)) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, session.client.mvc.view.call(null, b));
-    return a ? a : cljs.core.keyword_QMARK_.call(null, session.client.mvc.view.call(null, b))
-  }() ? cljs_jquery.core.dom_create.call(null, session.client.mvc.view.call(null, b)) : cljs_jquery.core.jquery.call(null, session.client.mvc.view.call(null, b));
-  cljs.core.reset_BANG_.call(null, session.client.main.session, b);
-  session.client.mvc.control.call(null, b, c);
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "body > .container") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "body > .container");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "body > .container")
-  }() ? cljs_jquery.core.dom_create.call(null, "body > .container") : cljs_jquery.core.jquery.call(null, "body > .container"), cljs.core.PersistentVector.fromArray(["html", ""], !0));
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", c) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, c);
-    return a ? a : cljs.core.keyword_QMARK_.call(null, c)
-  }() ? cljs_jquery.core.dom_create.call(null, c) : cljs_jquery.core.jquery.call(null, c), cljs.core.PersistentVector.fromArray(["appendTo", cljs.core._EQ_.call(null, "\ufdd0'this", "body > .container") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "body > .container");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "body > .container")
-  }() ? cljs_jquery.core.dom_create.call(null, "body > .container") : cljs_jquery.core.jquery.call(null, "body > .container")], !0))
+fetch.core.parse_route = function(a) {
+  if(cljs.core.string_QMARK_.call(null, a)) {
+    return cljs.core.PersistentVector.fromArray(["GET", a], !0)
+  }
+  if(cljs.core.vector_QMARK_.call(null, a)) {
+    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
+    return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null, b), a], !0)
+  }
+  return cljs.core.PersistentVector.fromArray(["GET", a], !0)
 };
-session.client.main.download_session = function() {
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "#downloadformdata") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "#downloadformdata");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "#downloadformdata")
-  }() ? cljs_jquery.core.dom_create.call(null, "#downloadformdata") : cljs_jquery.core.jquery.call(null, "#downloadformdata"), cljs.core.PersistentVector.fromArray(["val", function() {
-    var a = cljs.core._STAR_print_meta_STAR_;
-    try {
-      return cljs.core._STAR_print_meta_STAR_ = !0, cljs.core.pr_str.call(null, cljs.core.deref.call(null, session.client.main.session))
-    }finally {
-      cljs.core._STAR_print_meta_STAR_ = a
-    }
-  }()], !0));
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "#downloadform") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "#downloadform");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "#downloadform")
-  }() ? cljs_jquery.core.dom_create.call(null, "#downloadform") : cljs_jquery.core.jquery.call(null, "#downloadform"), cljs.core.PersistentVector.fromArray(["submit"], !0))
+fetch.core.__GT_data = function(a) {
+  a = fetch.util.clj__GT_js.call(null, a);
+  a = goog.Uri.QueryData.createFromMap(new goog.structs.Map(a));
+  return"" + cljs.core.str(a)
 };
-session.client.main.ds2 = function() {
-  var a = [cljs.core.str("data:text/csv;charset=UTF-8,"), cljs.core.str(encodeURIComponent(function() {
-    var a = cljs.core._STAR_print_meta_STAR_;
-    try {
-      return cljs.core._STAR_print_meta_STAR_ = !0, cljs.core.pr_str.call(null, cljs.core.deref.call(null, session.client.main.session))
-    }finally {
-      cljs.core._STAR_print_meta_STAR_ = a
-    }
-  }()))].join("");
-  return window.location.href = a
+fetch.core.__GT_callback = function(a) {
+  return cljs.core.truth_(a) ? function(b) {
+    b = b.getResponseText();
+    return a.call(null, b)
+  } : null
 };
-session.client.main.keymap = {"Shift-Enter":function(a) {
-  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", a.getWrapperElement()) ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var b = cljs.core.vector_QMARK_.call(null, a.getWrapperElement());
-    return b ? b : cljs.core.keyword_QMARK_.call(null, a.getWrapperElement())
-  }() ? cljs_jquery.core.dom_create.call(null, a.getWrapperElement()) : cljs_jquery.core.jquery.call(null, a.getWrapperElement()), cljs.core.PersistentVector.fromArray(["trigger", "evaluate-input"], !0))
-}, Backspace:function(a) {
-  return subpar.core.backward_delete.call(null, a)
-}, Delete:function(a) {
-  return subpar.core.forward_delete.call(null, a)
-}, "Ctrl-D":function(a) {
-  return subpar.core.forward_delete.call(null, a)
-}, "Shift-9":function(a) {
-  return subpar.core.open_expression.call(null, a, "()")
-}, "[":function(a) {
-  return subpar.core.open_expression.call(null, a, "[]")
-}, "Shift-[":function(a) {
-  return subpar.core.open_expression.call(null, a, "{}")
-}, "Shift-0":function(a) {
-  return subpar.core.close_expression.call(null, a, ")")
-}, "]":function(a) {
-  return subpar.core.close_expression.call(null, a, "]")
-}, "Shift-]":function(a) {
-  return subpar.core.close_expression.call(null, a, "}")
-}, "Shift-'":function(a) {
-  return subpar.core.double_quote.call(null, a)
-}, "Ctrl-Alt-F":function(a) {
-  return subpar.core.forward.call(null, a)
-}, "Ctrl-Alt-B":function(a) {
-  return subpar.core.backward.call(null, a)
-}, "Ctrl-Alt-U":function(a) {
-  return subpar.core.backward_up.call(null, a)
-}, "Ctrl-Alt-D":function(a) {
-  return subpar.core.forward_down.call(null, a)
-}, "Ctrl-Alt-P":function(a) {
-  return subpar.core.backward_down.call(null, a)
-}, "Ctrl-Alt-N":function(a) {
-  return subpar.core.forward_up.call(null, a)
-}, "Shift-Ctrl-[":function(a) {
-  return subpar.core.backward_barf.call(null, a)
-}, "Ctrl-Alt-Right":function(a) {
-  return subpar.core.backward_barf.call(null, a)
-}, "Ctrl-]":function(a) {
-  return subpar.core.backward_barf.call(null, a)
-}, "Shift-Ctrl-]":function(a) {
-  return subpar.core.forward_barf.call(null, a)
-}, "Ctrl-Left":function(a) {
-  return subpar.core.forward_barf.call(null, a)
-}, "Shift-Ctrl-9":function(a) {
-  return subpar.core.backward_slurp.call(null, a)
-}, "Ctrl-Alt-Left":function(a) {
-  return subpar.core.backward_slurp.call(null, a)
-}, "Ctrl-[":function(a) {
-  return subpar.core.backward_slurp.call(null, a)
-}, "Shift-Ctrl-0":function(a) {
-  return subpar.core.forward_slurp.call(null, a)
-}, "Ctrl-Right":function(a) {
-  return subpar.core.forward_slurp.call(null, a)
-}, "Alt-Up":function(a) {
-  return subpar.core.splice_delete_backward.call(null, a)
-}, "Alt-Down":function(a) {
-  return subpar.core.splice_delete_forward.call(null, a)
-}, "Alt-S":function(a) {
-  return subpar.core.splice.call(null, a)
-}, "Ctrl-Alt-\\":function(a) {
-  return subpar.core.indent_selection.call(null, a)
-}, fallthrough:["basic", "emacs"]};
-CodeMirror.keyMap.subpar = session.client.main.keymap;
-cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", document) ? cljs_jquery.core.jquery.call(null, this) : function() {
-  var a = cljs.core.vector_QMARK_.call(null, document);
-  return a ? a : cljs.core.keyword_QMARK_.call(null, document)
-}() ? cljs_jquery.core.dom_create.call(null, document) : cljs_jquery.core.jquery.call(null, document), cljs.core.PersistentVector.fromArray(["ready", function() {
-  cljs.reader.register_tag_parser_BANG_.call(null, "testtag", function(a) {
-    return cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray([a], !0)], !0)
-  });
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", ".example") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, ".example");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, ".example")
-  }() ? cljs_jquery.core.dom_create.call(null, ".example") : cljs_jquery.core.jquery.call(null, ".example"), cljs.core.PersistentVector.fromArray(["on", "click", function() {
-    return session.client.main.load_session.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
-      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
-      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
-    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["attr", "id"], !0)))
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "#savebutton") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "#savebutton");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "#savebutton")
-  }() ? cljs_jquery.core.dom_create.call(null, "#savebutton") : cljs_jquery.core.jquery.call(null, "#savebutton"), cljs.core.PersistentVector.fromArray(["on", "click", function() {
-    return session.client.main.download_session.call(null)
-  }], !0));
-  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "#fileupload") ? cljs_jquery.core.jquery.call(null, this) : function() {
-    var a = cljs.core.vector_QMARK_.call(null, "#fileupload");
-    return a ? a : cljs.core.keyword_QMARK_.call(null, "#fileupload")
-  }() ? cljs_jquery.core.dom_create.call(null, "#fileupload") : cljs_jquery.core.jquery.call(null, "#fileupload"), cljs.core.PersistentVector.fromArray(["fileupload", {add:function(a, b) {
-    return b.submit().complete(function(a) {
-      return session.client.main.load_new_file.call(null, a.responseText)
-    })
-  }}], !0));
-  return session.client.main.load_session.call(null, "default-session")
-}], !0));
+fetch.core.xhr = function() {
+  var a = function(a, b, e, f) {
+    var f = cljs.core.nth.call(null, f, 0, null), g = new goog.net.XhrIo, h = fetch.core.parse_route.call(null, a), a = cljs.core.nth.call(null, h, 0, null), h = cljs.core.nth.call(null, h, 1, null), b = fetch.core.__GT_data.call(null, b), i = fetch.core.__GT_callback.call(null, e);
+    cljs.core.truth_(i) && goog.events.listen(g, goog.net.EventType.COMPLETE, function() {
+      return i.call(null, g)
+    });
+    return g.send(h, a, b, cljs.core.truth_(f) ? fetch.util.clj__GT_js.call(null, f) : null)
+  }, b = function(b, d, e, f) {
+    var g = null;
+    goog.isDef(f) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
+    return a.call(this, b, d, e, g)
+  };
+  b.cljs$lang$maxFixedArity = 3;
+  b.cljs$lang$applyTo = function(b) {
+    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), f = cljs.core.first(cljs.core.next(cljs.core.next(b))), b = cljs.core.rest(cljs.core.next(cljs.core.next(b)));
+    return a(d, e, f, b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
+fetch.remotes = {};
+fetch.remotes.remote_uri = "/_fetch";
+fetch.remotes.remote_callback = function(a, b, c) {
+  return fetch.core.xhr.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'post", fetch.remotes.remote_uri], !0), cljs.core.ObjMap.fromObject(["\ufdd0'remote", "\ufdd0'params"], {"\ufdd0'remote":a, "\ufdd0'params":cljs.core.pr_str.call(null, b)}), cljs.core.truth_(c) ? function(a) {
+    a = cljs.core._EQ_.call(null, a, "") ? "nil" : a;
+    return c.call(null, cljs.reader.read_string.call(null, a))
+  } : null)
+};
 goog.net.WebSocket = function(a, b) {
   goog.events.EventTarget.call(this);
   this.autoReconnect_ = goog.isDef(a) ? a : !0;
@@ -19685,3 +19016,570 @@ session.client.websocket.emit_BANG_ = function() {
   a.cljs$lang$arity$3 = c;
   return a
 }();
+session.client.loop_creator = {};
+session.client.loop_creator.LoopCreator = function(a, b, c) {
+  this.x = a;
+  this.__meta = b;
+  this.__extmap = c;
+  this.cljs$lang$protocol_mask$partition1$ = 0;
+  this.cljs$lang$protocol_mask$partition0$ = 619054858;
+  1 < arguments.length ? (this.__meta = b, this.__extmap = c) : this.__extmap = this.__meta = null
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IHash$_hash$arity$1 = function(a) {
+  var b = this.__hash;
+  return null != b ? b : this.__hash = a = cljs.core.hash_imap.call(null, a)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
+  return a.cljs$core$ILookup$_lookup$arity$3(a, b, null)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
+  return"\ufdd0'x" === b ? this.x : cljs.core._lookup.call(null, this.__extmap, b, c)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(a, b, c) {
+  return cljs.core.identical_QMARK_.call(null, "\ufdd0'x", b) ? new session.client.loop_creator.LoopCreator(c, this.__meta, this.__extmap, null) : new session.client.loop_creator.LoopCreator(this.x, this.__meta, cljs.core.assoc.call(null, this.__extmap, b, c), null)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$ICollection$_conj$arity$2 = function(a, b) {
+  return cljs.core.vector_QMARK_.call(null, b) ? a.cljs$core$IAssociative$_assoc$arity$3(a, cljs.core._nth.call(null, b, 0), cljs.core._nth.call(null, b, 1)) : cljs.core.reduce.call(null, cljs.core._conj, a, b)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$ISeqable$_seq$arity$1 = function() {
+  return cljs.core.seq.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'x", this.x)], !0), this.__extmap))
+};
+session.client.loop_creator.LoopCreator.prototype.session$client$mvc$IMVC$ = !0;
+session.client.loop_creator.LoopCreator.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0));
+    return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0))
+  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", ""], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-creator", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;height:18px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.new-loop-icon", 
+  ""], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", "loop-creator"], !0))
+};
+session.client.loop_creator.LoopCreator.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
+  cljs.core.truth_(this.x) && cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "click", function() {
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
+      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
+    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["trigger", "insert-new-loop"], !0))
+  }], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "mouseover", function() {
+    return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
+      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
+    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["find", ".new-loop-icon"], !0)), cljs.core.PersistentVector.fromArray(["toggleClass", "icon-chevron-right"], !0))
+  }], !0));
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "mouseout", function() {
+    return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "\ufdd0'this") ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, "\ufdd0'this");
+      return a ? a : cljs.core.keyword_QMARK_.call(null, "\ufdd0'this")
+    }() ? cljs_jquery.core.dom_create.call(null, "\ufdd0'this") : cljs_jquery.core.jquery.call(null, "\ufdd0'this"), cljs.core.PersistentVector.fromArray(["find", ".new-loop-icon"], !0)), cljs.core.PersistentVector.fromArray(["toggleClass", "icon-chevron-right"], !0))
+  }], !0))
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
+  return cljs.core.pr_sequential.call(null, function(a) {
+    return cljs.core.pr_sequential.call(null, cljs.core.pr_seq, "", " ", "", b, a)
+  }, [cljs.core.str("#"), cljs.core.str("LoopCreator"), cljs.core.str("{")].join(""), ", ", "}", b, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'x", this.x)], !0), this.__extmap))
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$ICounted$_count$arity$1 = function() {
+  return 1 + cljs.core.count.call(null, this.__extmap)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(a, b) {
+  return cljs.core.truth_(function() {
+    if(cljs.core.truth_(b)) {
+      var c = a.constructor === b.constructor;
+      return c ? cljs.core.equiv_map.call(null, a, b) : c
+    }
+    return b
+  }()) ? !0 : !1
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+  return new session.client.loop_creator.LoopCreator(this.x, b, this.__extmap, this.__hash)
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+  return this.__meta
+};
+session.client.loop_creator.LoopCreator.prototype.cljs$core$IMap$_dissoc$arity$2 = function(a, b) {
+  return cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.fromArray(["\ufdd0'x"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.loop_creator.LoopCreator(this.x, this.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
+};
+session.client.loop_creator.LoopCreator.cljs$lang$type = !0;
+session.client.loop_creator.LoopCreator.cljs$lang$ctorPrSeq = function() {
+  return cljs.core.list.call(null, "session.client.loop-creator/LoopCreator")
+};
+session.client.loop_creator.__GT_LoopCreator = function(a) {
+  return new session.client.loop_creator.LoopCreator(a)
+};
+session.client.loop_creator.map__GT_LoopCreator = function(a) {
+  return new session.client.loop_creator.LoopCreator((new cljs.core.Keyword("\ufdd0'x")).call(null, a), null, cljs.core.dissoc.call(null, a, "\ufdd0'x"))
+};
+session.client.loop_creator.LoopCreator;
+session.client.loop = {};
+session.client.loop.Loop = function(a) {
+  this.model = a;
+  this.cljs$lang$protocol_mask$partition1$ = 0;
+  this.cljs$lang$protocol_mask$partition0$ = 256
+};
+session.client.loop.Loop.cljs$lang$type = !0;
+session.client.loop.Loop.cljs$lang$ctorPrSeq = function() {
+  return cljs.core.list.call(null, "session.client.loop/Loop")
+};
+session.client.loop.Loop.prototype.session$client$mvc$IMVC$ = !0;
+session.client.loop.Loop.prototype.session$client$mvc$IMVC$view$arity$1 = function(a) {
+  var b = (new cljs.core.Keyword("\ufdd0'id")).call(null, a);
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
+  session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var c = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
+    session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0));
+    return c ? c : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
+    session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0))
+  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", 
+  session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5", cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, 
+  a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span5.loopout", session.client.mvc.view.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", a], !0))
+};
+session.client.loop.Loop.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
+  var c = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["data", "model"], !0)), d = (new cljs.core.Keyword("\ufdd0'id")).call(null, c), e = cljs.core.atom.call(null, cljs.core.PersistentVector.EMPTY);
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "click", ".loop-creator", function() {
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, b);
+      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["trigger", "insert-new-loop"], !0))
+  }], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "post-render", function() {
+    return cljs.core.reset_BANG_.call(null, e, session.client.editor.create_editor.call(null, [cljs.core.str("area"), cljs.core.str(d)].join("")))
+  }], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "click", ".loop-deleter", function() {
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, b);
+      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["trigger", "delete-loop"], !0))
+  }], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "evaluate-input", function() {
+    cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, c), cljs.core.deref.call(null, e).getValue());
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, b);
+      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["trigger", "evaluate-loop"], !0))
+  }], !0));
+  return cljs.core.add_watch.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, c), "\ufdd0'update-output", function(a, c, d, e) {
+    return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, b);
+      return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+    }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["find", ".loopout"], !0)), cljs.core.PersistentVector.fromArray(["html", ""], !0)), cljs.core.PersistentVector.fromArray(["append", cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0));
+      return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0))
+    }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", session.client.mvc.view.call(null, e)], !0))], !0))
+  })
+};
+session.client.loop.Loop.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
+  return this.model.call(null, b)
+};
+session.client.loop.Loop.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
+  return this.model.call(null, b, c)
+};
+session.client.loop.Loop;
+session.client.session = {};
+session.client.session.last_loop_id = cljs.core.atom.call(null, 0);
+session.client.session.new_loop_id = function() {
+  var a = cljs.core.swap_BANG_.call(null, session.client.session.last_loop_id, function(a) {
+    return 1 + a
+  });
+  fetch.remotes.remote_callback.call(null, "new-loop", cljs.core.PersistentVector.fromArray([a], !0), function(a) {
+    return a
+  });
+  return"" + cljs.core.str(a)
+};
+session.client.session.Session = function(a, b, c) {
+  this.model = a;
+  this.__meta = b;
+  this.__extmap = c;
+  this.cljs$lang$protocol_mask$partition1$ = 0;
+  this.cljs$lang$protocol_mask$partition0$ = 619054858;
+  1 < arguments.length ? (this.__meta = b, this.__extmap = c) : this.__extmap = this.__meta = null
+};
+session.client.session.Session.prototype.cljs$core$IHash$_hash$arity$1 = function(a) {
+  var b = this.__hash;
+  return null != b ? b : this.__hash = a = cljs.core.hash_imap.call(null, a)
+};
+session.client.session.Session.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
+  return a.cljs$core$ILookup$_lookup$arity$3(a, b, null)
+};
+session.client.session.Session.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
+  return"\ufdd0'model" === b ? this.model : cljs.core._lookup.call(null, this.__extmap, b, c)
+};
+session.client.session.Session.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(a, b, c) {
+  return cljs.core.identical_QMARK_.call(null, "\ufdd0'model", b) ? new session.client.session.Session(c, this.__meta, this.__extmap, null) : new session.client.session.Session(this.model, this.__meta, cljs.core.assoc.call(null, this.__extmap, b, c), null)
+};
+session.client.session.Session.prototype.cljs$core$ICollection$_conj$arity$2 = function(a, b) {
+  return cljs.core.vector_QMARK_.call(null, b) ? a.cljs$core$IAssociative$_assoc$arity$3(a, cljs.core._nth.call(null, b, 0), cljs.core._nth.call(null, b, 1)) : cljs.core.reduce.call(null, cljs.core._conj, a, b)
+};
+session.client.session.Session.prototype.cljs$core$ISeqable$_seq$arity$1 = function() {
+  return cljs.core.seq.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'model", this.model)], !0), this.__extmap))
+};
+session.client.session.Session.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
+  return cljs.core.pr_sequential.call(null, function(a) {
+    return cljs.core.pr_sequential.call(null, cljs.core.pr_seq, "", " ", "", b, a)
+  }, [cljs.core.str("#"), cljs.core.str("Session"), cljs.core.str("{")].join(""), ", ", "}", b, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([cljs.core.vector.call(null, "\ufdd0'model", this.model)], !0), this.__extmap))
+};
+session.client.session.Session.prototype.cljs$core$ICounted$_count$arity$1 = function() {
+  return 1 + cljs.core.count.call(null, this.__extmap)
+};
+session.client.session.Session.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(a, b) {
+  return cljs.core.truth_(function() {
+    if(cljs.core.truth_(b)) {
+      var c = a.constructor === b.constructor;
+      return c ? cljs.core.equiv_map.call(null, a, b) : c
+    }
+    return b
+  }()) ? !0 : !1
+};
+session.client.session.Session.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+  return new session.client.session.Session(this.model, b, this.__extmap, this.__hash)
+};
+session.client.session.Session.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+  return this.__meta
+};
+session.client.session.Session.prototype.cljs$core$IMap$_dissoc$arity$2 = function(a, b) {
+  return cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.fromArray(["\ufdd0'model"]), b) ? cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, a), this.__meta), b) : new session.client.session.Session(this.model, this.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, this.__extmap, b)), null)
+};
+session.client.session.Session.cljs$lang$type = !0;
+session.client.session.Session.cljs$lang$ctorPrSeq = function() {
+  return cljs.core.list.call(null, "session.client.session/Session")
+};
+session.client.session.__GT_Session = function(a) {
+  return new session.client.session.Session(a)
+};
+session.client.session.map__GT_Session = function(a) {
+  return new session.client.session.Session((new cljs.core.Keyword("\ufdd0'model")).call(null, a), null, cljs.core.dissoc.call(null, a, "\ufdd0'model"))
+};
+session.client.session.Session;
+session.client.session.load_subsession_tab = function(a) {
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", ".tab-content") ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, ".tab-content");
+    return a ? a : cljs.core.keyword_QMARK_.call(null, ".tab-content")
+  }() ? cljs_jquery.core.dom_create.call(null, ".tab-content") : cljs_jquery.core.jquery.call(null, ".tab-content"), cljs.core.PersistentVector.fromArray(["html", ""], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var b = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0));
+    return b ? b : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0))
+  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'tab-pane", session.client.mvc.render.call(null, a)], !0)), cljs.core.PersistentVector.fromArray(["appendTo", cljs.core._EQ_.call(null, "\ufdd0'this", ".tab-content") ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, ".tab-content");
+    return a ? a : cljs.core.keyword_QMARK_.call(null, ".tab-content")
+  }() ? cljs_jquery.core.dom_create.call(null, ".tab-content") : cljs_jquery.core.jquery.call(null, ".tab-content")], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", ".loop-container") ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, ".loop-container");
+    return a ? a : cljs.core.keyword_QMARK_.call(null, ".loop-container")
+  }() ? cljs_jquery.core.dom_create.call(null, ".loop-container") : cljs_jquery.core.jquery.call(null, ".loop-container"), cljs.core.PersistentVector.fromArray(["trigger", "post-render"], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "#sessiontabs > li") ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, "#sessiontabs > li");
+    return a ? a : cljs.core.keyword_QMARK_.call(null, "#sessiontabs > li")
+  }() ? cljs_jquery.core.dom_create.call(null, "#sessiontabs > li") : cljs_jquery.core.jquery.call(null, "#sessiontabs > li"), cljs.core.PersistentVector.fromArray(["removeClass", "active"], !0));
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var b = cljs.core.vector_QMARK_.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join(""));
+    return b ? b : cljs.core.keyword_QMARK_.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join(""))
+  }() ? cljs_jquery.core.dom_create.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")) : cljs_jquery.core.jquery.call(null, [cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")), cljs.core.PersistentVector.fromArray(["addClass", "active"], !0))
+};
+session.client.session.make_session_tabs = function(a) {
+  return cljs.core.PersistentVector.fromArray(["\ufdd0'div.tabbable", cljs.core.PersistentVector.fromArray(["\ufdd0'ul#sessiontabs.nav.nav-tabs", cljs.core.map.call(null, function(a) {
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, 
+    (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var c = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, 
+      a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0));
+      return c ? c : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, 
+      a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0))
+    }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, 
+    a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'li", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("tab"), cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.PersistentVector.fromArray(["\ufdd0'a", cljs.core.ObjMap.fromObject(["\ufdd0'href"], {"\ufdd0'href":[cljs.core.str("#tab"), 
+    cljs.core.str(cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a)))].join("")}), cljs.core.name.call(null, (new cljs.core.Keyword("\ufdd0'type")).call(null, a))], !0)], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
+      return session.client.session.load_subsession_tab.call(null, a)
+    }], !0))
+  }, a)], !0)], !0)
+};
+session.client.session.Session.prototype.session$client$mvc$IMVC$ = !0;
+session.client.session.Session.prototype.session$client$mvc$IMVC$view$arity$1 = function(a) {
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var b = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0));
+    return b ? b : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0))
+  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.session.row", session.client.session.make_session_tabs.call(null, 
+  (new cljs.core.Keyword("\ufdd0'subsessions")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a))), cljs.core.PersistentVector.fromArray(["\ufdd0'div.tab-content", ""], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", (new cljs.core.Keyword("\ufdd0'model")).call(null, a)], !0))
+};
+session.client.session.Session.prototype.session$client$mvc$IMVC$control$arity$2 = function(a) {
+  return cljs.core.reset_BANG_.call(null, session.client.session.last_loop_id, (new cljs.core.Keyword("\ufdd0'last-loop-id")).call(null, (new cljs.core.Keyword("\ufdd0'model")).call(null, a)))
+};
+session.client.subsession = {};
+session.client.subsession.ISubsession = {};
+session.client.subsession.insert_new_loop = function(a, b, c) {
+  if(a ? a.session$client$subsession$ISubsession$insert_new_loop$arity$3 : a) {
+    return a.session$client$subsession$ISubsession$insert_new_loop$arity$3(a, b, c)
+  }
+  var d;
+  d = session.client.subsession.insert_new_loop[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = session.client.subsession.insert_new_loop._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ISubsession.insert-new-loop", a);
+  }
+  return d.call(null, a, b, c)
+};
+session.client.subsession.delete_loop = function(a, b, c) {
+  if(a ? a.session$client$subsession$ISubsession$delete_loop$arity$3 : a) {
+    return a.session$client$subsession$ISubsession$delete_loop$arity$3(a, b, c)
+  }
+  var d;
+  d = session.client.subsession.delete_loop[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = session.client.subsession.delete_loop._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ISubsession.delete-loop", a);
+  }
+  return d.call(null, a, b, c)
+};
+session.client.subsession.evaluate_loop = function(a, b, c) {
+  if(a ? a.session$client$subsession$ISubsession$evaluate_loop$arity$3 : a) {
+    return a.session$client$subsession$ISubsession$evaluate_loop$arity$3(a, b, c)
+  }
+  var d;
+  d = session.client.subsession.evaluate_loop[goog.typeOf(null == a ? null : a)];
+  if(!d && (d = session.client.subsession.evaluate_loop._, !d)) {
+    throw cljs.core.missing_protocol.call(null, "ISubsession.evaluate-loop", a);
+  }
+  return d.call(null, a, b, c)
+};
+session.client.subsession.callbacks = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY);
+session.client.subsession.ws = new WebSocket("ws://localhost:8090/service");
+session.client.subsession.ws.onmessage = function(a) {
+  a = cljs.reader.read_string.call(null, a.data);
+  return cljs.core.deref.call(null, session.client.subsession.callbacks).call(null, (new cljs.core.Keyword("\ufdd0'id")).call(null, a)).call(null, (new cljs.core.Keyword("\ufdd0'data")).call(null, a))
+};
+session.client.subsession.response_handler = function(a) {
+  return function(b) {
+    return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a), b)
+  }
+};
+session.client.subsession.evaluate_clj = function(a) {
+  cljs.core.swap_BANG_.call(null, session.client.subsession.callbacks, cljs.core.assoc, (new cljs.core.Keyword("\ufdd0'id")).call(null, a), session.client.subsession.response_handler.call(null, a));
+  return session.client.subsession.ws.send(cljs.core.pr_str.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'data", "\ufdd0'id"], {"\ufdd0'op":"\ufdd0'evaluate-clj", "\ufdd0'data":cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), "\ufdd0'id":(new cljs.core.Keyword("\ufdd0'id")).call(null, a)})))
+};
+session.client.subsession.evaluate_cljs = function(a) {
+  return fetch.remotes.remote_callback.call(null, "compile-expr-string", cljs.core.PersistentVector.fromArray([cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), (new cljs.core.Keyword("\ufdd0'id")).call(null, a)], !0), function(b) {
+    return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a), function() {
+      var a = eval((new cljs.core.Keyword("\ufdd0'result")).call(null, b));
+      return cljs.core.truth_(a) ? a : null
+    }())
+  })
+};
+session.client.subsession.Subsession = function(a) {
+  this.model = a;
+  this.cljs$lang$protocol_mask$partition1$ = 0;
+  this.cljs$lang$protocol_mask$partition0$ = 256
+};
+session.client.subsession.Subsession.cljs$lang$type = !0;
+session.client.subsession.Subsession.cljs$lang$ctorPrSeq = function() {
+  return cljs.core.list.call(null, "session.client.subsession/Subsession")
+};
+session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$ = !0;
+session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$insert_new_loop$arity$3 = function(a, b, c) {
+  var d = c.target, e = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, d);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
+  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["data", "model"], !0)), f = function() {
+    var a = session.client.session.new_loop_id.call(null);
+    return new session.client.loop.Loop(cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'input", "\ufdd0'output"], {"\ufdd0'id":a, "\ufdd0'input":cljs.core.atom.call(null, ""), "\ufdd0'output":cljs.core.atom.call(null, null)}))
+  }(), g = session.client.mvc.render.call(null, f);
+  cljs.core._EQ_.call(null, e, "loop-creator") ? cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a), function(a) {
+    return cljs.core.vec.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray([f], !0), a))
+  }) : cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a), function(a) {
+    var b = cljs.core.split_with.call(null, function(a) {
+      return cljs.core.not_EQ_.call(null, a, e)
+    }, a), a = cljs.core.nth.call(null, b, 0, null), b = cljs.core.nth.call(null, b, 1, null);
+    return cljs.core.vec.call(null, cljs.core.concat.call(null, a, cljs.core.PersistentVector.fromArray([e, f], !0), cljs.core.rest.call(null, b)))
+  });
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", g) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, g);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, g)
+  }() ? cljs_jquery.core.dom_create.call(null, g) : cljs_jquery.core.jquery.call(null, g), cljs.core.PersistentVector.fromArray(["insertAfter", d], !0));
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", g) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, g);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, g)
+  }() ? cljs_jquery.core.dom_create.call(null, g) : cljs_jquery.core.jquery.call(null, g), cljs.core.PersistentVector.fromArray(["trigger", "post-render"], !0))
+};
+session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$delete_loop$arity$3 = function(a, b, c) {
+  var d = c.target, e = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, d);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
+  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["data", "model"], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, d);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
+  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["remove"], !0));
+  return cljs.core.swap_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a), function(a) {
+    return cljs.core.vec.call(null, cljs.core.filter.call(null, function(a) {
+      return cljs.core.not_EQ_.call(null, a, e)
+    }, a))
+  })
+};
+session.client.subsession.Subsession.prototype.session$client$subsession$ISubsession$evaluate_loop$arity$3 = function(a, b, c) {
+  var d = c.target, a = cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, d);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, d)
+  }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["data", "model"], !0));
+  return session.client.subsession.evaluate_clj.call(null, a)
+};
+session.client.subsession.Subsession.prototype.session$client$mvc$IMVC$ = !0;
+session.client.subsession.Subsession.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
+  var a = this;
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var b = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0));
+    return b ? b : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0))
+  }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.subsession", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(!0)), 
+  cljs.core.map.call(null, session.client.mvc.render, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a.model)))], !0)), cljs.core.PersistentVector.fromArray(["data", "model", a.model], !0))
+};
+session.client.subsession.Subsession.prototype.session$client$mvc$IMVC$control$arity$2 = function(a, b) {
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "insert-new-loop", function(c) {
+    return session.client.subsession.insert_new_loop.call(null, a, b, c)
+  }], !0));
+  cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "delete-loop", function(c) {
+    return session.client.subsession.delete_loop.call(null, a, b, c)
+  }], !0));
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", b) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var a = cljs.core.vector_QMARK_.call(null, b);
+    return a ? a : cljs.core.keyword_QMARK_.call(null, b)
+  }() ? cljs_jquery.core.dom_create.call(null, b) : cljs_jquery.core.jquery.call(null, b), cljs.core.PersistentVector.fromArray(["on", "evaluate-loop", function(c) {
+    return session.client.subsession.evaluate_loop.call(null, a, b, c)
+  }], !0))
+};
+session.client.subsession.Subsession.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
+  return this.model.call(null, b)
+};
+session.client.subsession.Subsession.prototype.cljs$core$ILookup$_lookup$arity$3 = function(a, b, c) {
+  return this.model.call(null, b, c)
+};
+session.client.subsession.Subsession;
+session.client.main = {};
+clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");
+session.client.main.session = cljs.core.atom.call(null, null);
+session.client.main.load_session = function(a) {
+  return fetch.remotes.remote_callback.call(null, "get-session", cljs.core.PersistentVector.fromArray([a], !0), function(a) {
+    var c = cljs.reader.read_string.call(null, (new cljs.core.Keyword("\ufdd0'result")).call(null, a)), d = cljs.core._EQ_.call(null, "\ufdd0'this", session.client.mvc.view.call(null, c)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, session.client.mvc.view.call(null, c));
+      return a ? a : cljs.core.keyword_QMARK_.call(null, session.client.mvc.view.call(null, c))
+    }() ? cljs_jquery.core.dom_create.call(null, session.client.mvc.view.call(null, c)) : cljs_jquery.core.jquery.call(null, session.client.mvc.view.call(null, c));
+    cljs.core.reset_BANG_.call(null, session.client.main.session, c);
+    session.client.mvc.control.call(null, c, d);
+    cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", "body > .container") ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, "body > .container");
+      return a ? a : cljs.core.keyword_QMARK_.call(null, "body > .container")
+    }() ? cljs_jquery.core.dom_create.call(null, "body > .container") : cljs_jquery.core.jquery.call(null, "body > .container"), cljs.core.PersistentVector.fromArray(["html", ""], !0));
+    return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", d) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, d);
+      return a ? a : cljs.core.keyword_QMARK_.call(null, d)
+    }() ? cljs_jquery.core.dom_create.call(null, d) : cljs_jquery.core.jquery.call(null, d), cljs.core.PersistentVector.fromArray(["appendTo", cljs.core._EQ_.call(null, "\ufdd0'this", "body > .container") ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, "body > .container");
+      return a ? a : cljs.core.keyword_QMARK_.call(null, "body > .container")
+    }() ? cljs_jquery.core.dom_create.call(null, "body > .container") : cljs_jquery.core.jquery.call(null, "body > .container")], !0))
+  })
+};
+session.client.main.keymap = {"Shift-Enter":function(a) {
+  return cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", a.getWrapperElement()) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    var b = cljs.core.vector_QMARK_.call(null, a.getWrapperElement());
+    return b ? b : cljs.core.keyword_QMARK_.call(null, a.getWrapperElement())
+  }() ? cljs_jquery.core.dom_create.call(null, a.getWrapperElement()) : cljs_jquery.core.jquery.call(null, a.getWrapperElement()), cljs.core.PersistentVector.fromArray(["trigger", "evaluate-input"], !0))
+}, Backspace:function(a) {
+  return subpar.core.backward_delete.call(null, a)
+}, Delete:function(a) {
+  return subpar.core.forward_delete.call(null, a)
+}, "Ctrl-D":function(a) {
+  return subpar.core.forward_delete.call(null, a)
+}, "Shift-9":function(a) {
+  return subpar.core.open_expression.call(null, a, "()")
+}, "[":function(a) {
+  return subpar.core.open_expression.call(null, a, "[]")
+}, "Shift-[":function(a) {
+  return subpar.core.open_expression.call(null, a, "{}")
+}, "Shift-0":function(a) {
+  return subpar.core.close_expression.call(null, a, ")")
+}, "]":function(a) {
+  return subpar.core.close_expression.call(null, a, "]")
+}, "Shift-]":function(a) {
+  return subpar.core.close_expression.call(null, a, "}")
+}, "Shift-'":function(a) {
+  return subpar.core.double_quote.call(null, a)
+}, "Ctrl-Alt-F":function(a) {
+  return subpar.core.forward.call(null, a)
+}, "Ctrl-Alt-B":function(a) {
+  return subpar.core.backward.call(null, a)
+}, "Ctrl-Alt-U":function(a) {
+  return subpar.core.backward_up.call(null, a)
+}, "Ctrl-Alt-D":function(a) {
+  return subpar.core.forward_down.call(null, a)
+}, "Ctrl-Alt-P":function(a) {
+  return subpar.core.backward_down.call(null, a)
+}, "Ctrl-Alt-N":function(a) {
+  return subpar.core.forward_up.call(null, a)
+}, "Shift-Ctrl-[":function(a) {
+  return subpar.core.backward_barf.call(null, a)
+}, "Ctrl-Alt-Right":function(a) {
+  return subpar.core.backward_barf.call(null, a)
+}, "Ctrl-]":function(a) {
+  return subpar.core.backward_barf.call(null, a)
+}, "Shift-Ctrl-]":function(a) {
+  return subpar.core.forward_barf.call(null, a)
+}, "Ctrl-Left":function(a) {
+  return subpar.core.forward_barf.call(null, a)
+}, "Shift-Ctrl-9":function(a) {
+  return subpar.core.backward_slurp.call(null, a)
+}, "Ctrl-Alt-Left":function(a) {
+  return subpar.core.backward_slurp.call(null, a)
+}, "Ctrl-[":function(a) {
+  return subpar.core.backward_slurp.call(null, a)
+}, "Shift-Ctrl-0":function(a) {
+  return subpar.core.forward_slurp.call(null, a)
+}, "Ctrl-Right":function(a) {
+  return subpar.core.forward_slurp.call(null, a)
+}, "Alt-Up":function(a) {
+  return subpar.core.splice_delete_backward.call(null, a)
+}, "Alt-Down":function(a) {
+  return subpar.core.splice_delete_forward.call(null, a)
+}, "Alt-S":function(a) {
+  return subpar.core.splice.call(null, a)
+}, "Ctrl-Alt-\\":function(a) {
+  return subpar.core.indent_selection.call(null, a)
+}, fallthrough:["basic", "emacs"]};
+cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", document) ? cljs_jquery.core.jquery.call(null, this) : function() {
+  var a = cljs.core.vector_QMARK_.call(null, document);
+  return a ? a : cljs.core.keyword_QMARK_.call(null, document)
+}() ? cljs_jquery.core.dom_create.call(null, document) : cljs_jquery.core.jquery.call(null, document), cljs.core.PersistentVector.fromArray(["ready", function() {
+  CodeMirror.keyMap.subpar = session.client.main.keymap;
+  cljs.reader.register_tag_parser_BANG_.call(null, "testtag", function(a) {
+    return cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray([a], !0)], !0)
+  });
+  cljs.reader.register_tag_parser_BANG_.call(null, "loop", function(a) {
+    return new session.client.loop.Loop(cljs.core.assoc.call(null, a, "\ufdd0'input", cljs.core.atom.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a)), "\ufdd0'output", cljs.core.atom.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a))))
+  });
+  cljs.reader.register_tag_parser_BANG_.call(null, "session", function(a) {
+    return new session.client.session.Session(a)
+  });
+  cljs.reader.register_tag_parser_BANG_.call(null, "subsession", function(a) {
+    return new session.client.subsession.Subsession(cljs.core.assoc.call(null, a, "\ufdd0'loops", cljs.core.atom.call(null, (new cljs.core.Keyword("\ufdd0'loops")).call(null, a))))
+  });
+  return session.client.main.load_session.call(null, "default-session")
+}], !0));

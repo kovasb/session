@@ -23,8 +23,6 @@
    session.schema/schema))
 
 
-
-
 (defn request-data [x rdb]
   (let [actionid (:e x) requestid (:v x)]
     (q '[:find ?actionid ?op ?string

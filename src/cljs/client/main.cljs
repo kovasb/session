@@ -14,23 +14,11 @@
    [subpar.core]
    [goog.object :as gobject]
    [session.ui :as ui]
-   [cljs.reader :as reader]
-   )
-
+   [cljs.reader :as reader])
   (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm] [client.macros :as cm])
-
-  )
-
+  (:require-macros [fetch.macros :as pm] [client.macros :as cm]))
 
 (repl/connect "http://localhost:9000/repl")
-
-
-
-
-;;(def tagtest #inst "2012-01-01")
-
-;;(defn shift-enter-event? [e] (and (. e (shiftKey)) (= 13 (. e (keycode)))))
 
 (def session (atom nil))
 
@@ -38,57 +26,13 @@
   (pm/remote
    (get-session id)
    [result]
-   (def saved-result (:result result))
    (let [
          s (reader/read-string (:result result))
-         v  ($ (mvc/view s))
-         ]
-
-
-     (reset! session s)
-
-     (mvc/control s v)
-
-     ($ "body > .container" (html ""))
-     ($ v (appendTo ($ "body > .container")))
-     ;;($ ".loop-container" (trigger "post-render"))
-     )))
-
-
-(defn save-session []
-  (pm/remote
-   (store-session (:id @session) (pr-str @session))
-   [result]
-   result))
-
-
-
-;;(js-obj  "dataType" "json"  "done" (fn [e data] (js/alert "result") ))
-
-
-(defn load-new-file [x]
-  (let [
-        s (reader/read-string x)
-         v ($ (mvc/view s))
-         ]
+         v  ($ (mvc/view s))]
      (reset! session s)
      (mvc/control s v)
      ($ "body > .container" (html ""))
-     ($ v (appendTo ($ "body > .container")))
-     ;;($ ".loop-container" (trigger "post-render"))
-     )
-  )
-
-(defn download-session []
-  ($ "#downloadformdata" (val (binding [*print-meta* true]  (pr-str @session))))
-  ($ "#downloadform" (submit)))
-
-
-
-(defn ds2 []  (let [dataurl (str "data:text/csv;charset=UTF-8," (js/encodeURIComponent (binding [*print-meta* true]  (pr-str @session))))]
-                (js* "window.location.href=~{}" dataurl)))
-
-
+     ($ v (appendTo ($ "body > .container"))))))
 
 (def keymap
   (js-obj
@@ -128,34 +72,14 @@
    "fallthrough" (array "basic" "emacs"))) ;; not sure if this is right
 
 
-(aset CodeMirror.keyMap "subpar" keymap)
-
-;; on shift return:  codemirror get corresponding widget, trigger event
-
 ($ js/document (ready
                 #(do
-
+                   (aset CodeMirror.keyMap "subpar" keymap)
                    (reader/register-tag-parser! "testtag" (fn [x] [[x]] ))
-
-                   ($ ".example" (on "click"
-                                     (fn [] (load-session ($ :this (attr "id"))))
-
-                                     ))
-
-                   ($ "#savebutton" (on "click" (fn [] (download-session))))
-
-
-
-                   ($ "#fileupload"
-                      (fileupload
-                       (gobject/create "add" (fn [e data]
-                                               (.
-                                                (. data (submit))
-                                                (complete (fn [result status xx] (load-new-file (.-responseText result)))))))
-                       ))
-
-                   (load-session "default-session")
-
-
-
-                   )))
+                   (reader/register-tag-parser! "loop"
+                                                (fn [x] (loop/Loop. (assoc x :input (atom (:input x)) :output (atom (:output x)))) ))
+                   (reader/register-tag-parser! "session"
+                                                (fn [x] (session/Session. x) ))
+                   (reader/register-tag-parser! "subsession"
+                                                (fn [x] (subsession/Subsession. (assoc x :loops (atom (:loops x)))) ))
+                   (load-session "default-session"))))
