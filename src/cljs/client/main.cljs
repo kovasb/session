@@ -77,9 +77,9 @@
                    (aset CodeMirror.keyMap "subpar" keymap)
                    (reader/register-tag-parser! "testtag" (fn [x] [[x]] ))
                    (reader/register-tag-parser! "loop"
-                                                (fn [x] (loop/Loop. (assoc x :input (atom (:input x)) :output (atom (:output x)))) ))
+                                                (fn [x] (loop/Loop. (assoc x :input (atom (:input x)) :output (atom (:output x))) (atom nil)) ))
                    (reader/register-tag-parser! "session"
-                                                (fn [x] (session/Session. x) ))
+                                                (fn [x] (session/Session. x (atom nil)) ))
                    (reader/register-tag-parser! "subsession"
-                                                (fn [x] (subsession/Subsession. (assoc x :loops (atom (:loops x)))) ))
+                                                (fn [x] (subsession/Subsession. (assoc x :loops (atom (:loops x))) (atom nil))))
                    (load-session "default-session"))))

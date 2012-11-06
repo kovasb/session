@@ -147,12 +147,18 @@
        [:db/add dataid :data/edn datastring]
        ]))
 
+(defmulti service-request :op)
+
+(defmethod service-request :evaluate-clj [request]
+  (d/transact
+   conn
+   (create-action-request
+    (:id request)
+    (:data request))))
+
+
 (defn submit-request [m]
-  (d/transact conn
-              (let [d (read-string m)]
-                (create-action-request
-                 (:id d)
-                 (:data d)))))
+  (service-request (read-string m)))
 
 (defn submit-response [data]
   (lamina/enqueue datomic-channel
@@ -160,9 +166,10 @@
                            ) :id (:id data)})))
 
 
+
 (defn process-response [response]
   (let [rdb (:db-after response) datoms (:tx-data response)]
-    (let [x (first (filter #(= :action/response (d/ident rdb (:a %))) datoms))]
+   (let [x (first (filter #(= :action/response (d/ident rdb (:a %))) datoms))]
       (let
        [d (q '[:find ?req ?res ?res-summary ?ui-id
             :in $ ?x
@@ -179,7 +186,7 @@
          )
        )
       (reset! last-response (:e x))
-      )))
+      ) ))
 
 
 (noir-async/defpage-async "/service" [] conn
@@ -225,11 +232,31 @@
    :id (str (:db/id entity))})
 
 (defn get-loop-maps []
-  (map (fn [[id input output]] {:id (str id) :input input :output (read-string output)}) (actions-q)))
+  (map (fn [[id input output]] {:id (str id) :input input :output (if output (read-string output) nil)}) (actions-q)))
 
 (defn get-datomic-session []
   (map->Session
    {:id 1 :last-loop-id 1
     :subsessions [(map->Subsession
                   {:type :clj
-                   :loops (mapv map->Loop (map entity-data (follow-next-action  (datomic.api/entity (db conn) :action/root))))})]}))
+                   :loops (mapv
+                           map->Loop
+                           (map entity-data
+                                (follow-next-action
+                                 (datomic.api/entity (db conn) :action/root))))})]}))
+
+(defmethod service-request :insert-loop [request]
+  (let [root (datomic.api/entity (db conn) :action/root)
+        rootid (:db/id (datomic.api/entity (db conn) :action/root))
+        newidtmp (d/tempid :db.part/user)
+        result @(d/transact conn
+                [[:db/add newidtmp :action/next (:db/id (:action/next root))]
+                 [:db/add rootid :action/next newidtmp]])
+        newid (d/resolve-tempid (db conn) (:tempids result) newidtmp)
+        ]
+    (lamina/enqueue datomic-channel
+                  (pr-str {
+                           :op :insert-loop
+                           :data {:position {:after "subsession-root"}
+                                  :loop (map->Loop {:id (str newid) :output nil :input ""} )}
+                           :id "subsession"}))))

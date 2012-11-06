@@ -4,92 +4,69 @@
    [session.client.loop :as loop]
    [session.client.mvc :as mvc]
    [session.client.session :as session]
-   [cljs.reader :as reader])
+   [cljs.reader :as reader]
+   [session.client.subscribe :as subscribe])
   (:use-macros [cljs-jquery.macros :only [$]])
   (:require-macros [fetch.macros :as pm]))
 
 (defprotocol ISubsession
-  (insert-new-loop [this session-view event])
-  (delete-loop [this session-view event])
-  (evaluate-loop [this session-view event]))
+  (insert-new-loop [this event])
+  (delete-loop [this event]))
 
-(def callbacks (atom {}))
+;; {:op :insert-loop :data {:position {:after "subsession-root" :loop #loop {...}}}
 
-(def ws  (new js/WebSocket "ws://localhost:8090/service"))
+(deftype Subsession [model dom]
+  session.client.subscribe/ISubscribe
+  (receive [this msg]
+    (cond
+     (= :insert-loop (:op msg)) (insert-new-loop this (:data msg))))
 
-(aset ws "onmessage"
-      (fn [e] (let [data (cljs.reader/read-string (.-data e))]
-
-           ((@callbacks (:id data))
-           (:data data)))))
-
-(defn response-handler [event-model]
-      #(reset! (:output event-model) %))
-
-(defn evaluate-clj [event-model]
-  (swap! callbacks assoc (:id event-model) (response-handler event-model))
-  (.send
-    ws
-   (pr-str {
-           :op :evaluate-clj
-           :data @(:input event-model)
-           :id (:id event-model)})))
-
-(defn evaluate-cljs [event-model]
-  (pm/remote
-   (compile-expr-string @(:input event-model) (:id event-model))
-   [result]
-   ;;(js/alert (pr-str (:result result)))
-   (reset! (:output event-model) (let [x (js/eval (:result result))] (if x x nil)))))
-
-
-(deftype Subsession [model]
    ILookup
   (-lookup [o k] (model k))
   (-lookup [o k not-found] (model k not-found))
 
   mvc/IMVC
   (view [this]
-
-    ($ [:div.subsession
-        (mvc/render (loop-creator/LoopCreator. true))
-        (map mvc/render @(:loops model))
-        ] (data "model" model)))
-  (control [this session-view]
-    ($ session-view
-       (on "insert-new-loop" #(insert-new-loop this session-view %)))
-    ($ session-view (on "delete-loop" #(delete-loop this session-view %)))
-    ($ session-view (on "evaluate-loop" #(evaluate-loop this session-view %))))
+    (let [v
+          ($ [:div.subsession
+         (mvc/render (loop-creator/LoopCreator. true (atom nil)))
+         (map mvc/render @(:loops model))
+              ] (data "model" model))]
+      (reset! dom v)
+      v))
+  (control [this]
+    (subscribe/subscribe!
+     ;;(:id model)
+     "subsession"
+     this)
+    ($ @dom
+       (on "insert-new-loop" #(insert-new-loop this  %)))
+    ($ @dom (on "delete-loop" #(delete-loop this  %))))
 
   ISubsession
-  (insert-new-loop [this session-view event]
+  (insert-new-loop [this data]
     (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
-        loop-model (let [id (session/new-loop-id)] (loop/Loop. {:id id :input (atom "") :output (atom nil)}))
-        loop-view (mvc/render loop-model)
-        session-model this]
+          loop (:loop data)
+          position (:position data)
+          loop-view (mvc/render loop)]
 
     (if
-        (= event-model "loop-creator")
-      (swap! (:loops session-model) #(vec (concat [loop-model] %)))
-      (swap! (:loops session-model)
-             #(let
-                  [[left right] (split-with (fn [m] (not= m event-model)) %)]
-                (vec (concat left [event-model loop-model] (rest right))))))
-    ($ loop-view (insertAfter event-target))
+        (=  "subsession-root" (:after position))
+      (do
+        (swap! (:loops this) #(vec (concat [loop] %)))
+        ($ loop-view (insertAfter ($ "#subsession-root-lc"))))
+      (do (swap! (:loops this)
+              #(let
+                   [[left right] (split-with (fn [m] (not=  (:id m) (:after position))) %)]
+                 (vec (concat left (if (first right) [(frist right)]) [loop] (rest right)))))
+          ($ loop-view (insertAfter ($ (str "#" (:after position)))))))
+
     ($ loop-view (trigger "post-render"))))
 
-  (delete-loop [this session-view event]
+  (delete-loop [this event]
     (let [
         event-target (. event -target)
         event-model ($ event-target (data "model"))
         session-model this]
      ($ event-target (remove))
-     (swap! (:loops session-model) #(vec (filter (fn [m] (not= m event-model)) %)))))
-
-  (evaluate-loop [this session-view event]
-    (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))]
-      (evaluate-clj event-model))))
+     (swap! (:loops session-model) #(vec (filter (fn [m] (not= m event-model)) %))))))

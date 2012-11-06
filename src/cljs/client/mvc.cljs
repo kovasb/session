@@ -3,7 +3,7 @@
 
 (defprotocol IMVC
   (view [this])
-  (control [this viewobject])
+  (control [this])
   )
 
 (defmulti control2 #(identity (:view (meta %))))
@@ -20,6 +20,6 @@
    true (pr-str arg)))
 
 
-(defn render [m] (let [v (view m)] (control m v) v))
+(defn render [m] (let [v (view m)] (control m) v))
 
-(extend-type default IMVC (view [this] (pr-str this)) (control [this viewobject] viewobject))
+(extend-type default IMVC (view [this] (pr-str this)) (control [this] viewobject))

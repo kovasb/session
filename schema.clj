@@ -15,6 +15,10 @@
  :db.install/_attribute :db.part/db :db/id #db/id[:db.part/db]
  }
 
+
+{:db/id #db/id[:db.part/user -2]
+  :db/ident :action/root}
+
 ;; request entity attributes
 {:db/ident :request/op
  :db/valueType :db.type/keyword

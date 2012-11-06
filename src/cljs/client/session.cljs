@@ -19,7 +19,7 @@
                        (pm/remote (new-loop id) [x] x)
                        (str id)))
 
-(defrecord Session [model])
+(defrecord Session [model dom])
 
 (defn load-subsession-tab [x]
   ($ ".tab-content" (html ""))
@@ -43,4 +43,4 @@
         (make-session-tabs (:subsessions (:model this)))
         [:div.tab-content ""]]
        (data "model" (:model this))))
-  (control [this session-view] (reset! last-loop-id (:last-loop-id (:model this)))))
+  (control [this] (reset! last-loop-id (:last-loop-id (:model this)))))

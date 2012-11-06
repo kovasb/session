@@ -19,32 +19,32 @@ clojure.browser.repl.connect.call(null,"http://localhost:9000/repl");
 session.client.main.session = cljs.core.atom.call(null,null);
 session.client.main.load_session = (function load_session(id){
 return fetch.remotes.remote_callback.call(null,"get-session",cljs.core.PersistentVector.fromArray([id], true),(function (result){
-var s__7532 = cljs.reader.read_string.call(null,(new cljs.core.Keyword("\uFDD0'result")).call(null,result));
-var v__7534 = ((cljs.core._EQ_.call(null,"\uFDD0'this",session.client.mvc.view.call(null,s__7532)))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____7533 = cljs.core.vector_QMARK_.call(null,session.client.mvc.view.call(null,s__7532));
-if(or__3824__auto____7533)
-{return or__3824__auto____7533;
+var s__81719 = cljs.reader.read_string.call(null,(new cljs.core.Keyword("\uFDD0'result")).call(null,result));
+var v__81721 = ((cljs.core._EQ_.call(null,"\uFDD0'this",session.client.mvc.view.call(null,s__81719)))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____81720 = cljs.core.vector_QMARK_.call(null,session.client.mvc.view.call(null,s__81719));
+if(or__3824__auto____81720)
+{return or__3824__auto____81720;
 } else
-{return cljs.core.keyword_QMARK_.call(null,session.client.mvc.view.call(null,s__7532));
+{return cljs.core.keyword_QMARK_.call(null,session.client.mvc.view.call(null,s__81719));
 }
-})())?cljs_jquery.core.dom_create.call(null,session.client.mvc.view.call(null,s__7532)):((true)?cljs_jquery.core.jquery.call(null,session.client.mvc.view.call(null,s__7532)):null)));
-cljs.core.reset_BANG_.call(null,session.client.main.session,s__7532);
-session.client.mvc.control.call(null,s__7532,v__7534);
-cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this","body > .container"))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____7535 = cljs.core.vector_QMARK_.call(null,"body > .container");
-if(or__3824__auto____7535)
-{return or__3824__auto____7535;
+})())?cljs_jquery.core.dom_create.call(null,session.client.mvc.view.call(null,s__81719)):((true)?cljs_jquery.core.jquery.call(null,session.client.mvc.view.call(null,s__81719)):null)));
+cljs.core.reset_BANG_.call(null,session.client.main.session,s__81719);
+session.client.mvc.control.call(null,s__81719,v__81721);
+cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this","body > .container"))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____81722 = cljs.core.vector_QMARK_.call(null,"body > .container");
+if(or__3824__auto____81722)
+{return or__3824__auto____81722;
 } else
 {return cljs.core.keyword_QMARK_.call(null,"body > .container");
 }
 })())?cljs_jquery.core.dom_create.call(null,"body > .container"):((true)?cljs_jquery.core.jquery.call(null,"body > .container"):null))),cljs.core.PersistentVector.fromArray(["html",""], true));
-return cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this",v__7534))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____7536 = cljs.core.vector_QMARK_.call(null,v__7534);
-if(or__3824__auto____7536)
-{return or__3824__auto____7536;
+return cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this",v__81721))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____81723 = cljs.core.vector_QMARK_.call(null,v__81721);
+if(or__3824__auto____81723)
+{return or__3824__auto____81723;
 } else
-{return cljs.core.keyword_QMARK_.call(null,v__7534);
+{return cljs.core.keyword_QMARK_.call(null,v__81721);
 }
-})())?cljs_jquery.core.dom_create.call(null,v__7534):((true)?cljs_jquery.core.jquery.call(null,v__7534):null))),cljs.core.PersistentVector.fromArray(["appendTo",((cljs.core._EQ_.call(null,"\uFDD0'this","body > .container"))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____7537 = cljs.core.vector_QMARK_.call(null,"body > .container");
-if(or__3824__auto____7537)
-{return or__3824__auto____7537;
+})())?cljs_jquery.core.dom_create.call(null,v__81721):((true)?cljs_jquery.core.jquery.call(null,v__81721):null))),cljs.core.PersistentVector.fromArray(["appendTo",((cljs.core._EQ_.call(null,"\uFDD0'this","body > .container"))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____81724 = cljs.core.vector_QMARK_.call(null,"body > .container");
+if(or__3824__auto____81724)
+{return or__3824__auto____81724;
 } else
 {return cljs.core.keyword_QMARK_.call(null,"body > .container");
 }
@@ -52,9 +52,9 @@ if(or__3824__auto____7537)
 }));
 });
 session.client.main.keymap = {"Shift-Enter":(function (cm){
-return cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this",cm.getWrapperElement()))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____7538 = cljs.core.vector_QMARK_.call(null,cm.getWrapperElement());
-if(or__3824__auto____7538)
-{return or__3824__auto____7538;
+return cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this",cm.getWrapperElement()))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____81725 = cljs.core.vector_QMARK_.call(null,cm.getWrapperElement());
+if(or__3824__auto____81725)
+{return or__3824__auto____81725;
 } else
 {return cljs.core.keyword_QMARK_.call(null,cm.getWrapperElement());
 }
@@ -120,9 +120,9 @@ return subpar.core.splice.call(null,cm);
 }),"Ctrl-Alt-\\":(function (cm){
 return subpar.core.indent_selection.call(null,cm);
 }),"fallthrough":["basic","emacs"]};
-cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this",document))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____7539 = cljs.core.vector_QMARK_.call(null,document);
-if(or__3824__auto____7539)
-{return or__3824__auto____7539;
+cljs_jquery.core.call_jquery.call(null,((cljs.core._EQ_.call(null,"\uFDD0'this",document))?cljs_jquery.core.jquery.call(null,this):(((function (){var or__3824__auto____81726 = cljs.core.vector_QMARK_.call(null,document);
+if(or__3824__auto____81726)
+{return or__3824__auto____81726;
 } else
 {return cljs.core.keyword_QMARK_.call(null,document);
 }
@@ -132,13 +132,13 @@ cljs.reader.register_tag_parser_BANG_.call(null,"testtag",(function (x){
 return cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray([x], true)], true);
 }));
 cljs.reader.register_tag_parser_BANG_.call(null,"loop",(function (x){
-return (new session.client.loop.Loop(cljs.core.assoc.call(null,x,"\uFDD0'input",cljs.core.atom.call(null,(new cljs.core.Keyword("\uFDD0'input")).call(null,x)),"\uFDD0'output",cljs.core.atom.call(null,(new cljs.core.Keyword("\uFDD0'output")).call(null,x)))));
+return (new session.client.loop.Loop(cljs.core.assoc.call(null,x,"\uFDD0'input",cljs.core.atom.call(null,(new cljs.core.Keyword("\uFDD0'input")).call(null,x)),"\uFDD0'output",cljs.core.atom.call(null,(new cljs.core.Keyword("\uFDD0'output")).call(null,x))),cljs.core.atom.call(null,null)));
 }));
 cljs.reader.register_tag_parser_BANG_.call(null,"session",(function (x){
-return (new session.client.session.Session(x));
+return (new session.client.session.Session(x,cljs.core.atom.call(null,null)));
 }));
 cljs.reader.register_tag_parser_BANG_.call(null,"subsession",(function (x){
-return (new session.client.subsession.Subsession(cljs.core.assoc.call(null,x,"\uFDD0'loops",cljs.core.atom.call(null,(new cljs.core.Keyword("\uFDD0'loops")).call(null,x)))));
+return (new session.client.subsession.Subsession(cljs.core.assoc.call(null,x,"\uFDD0'loops",cljs.core.atom.call(null,(new cljs.core.Keyword("\uFDD0'loops")).call(null,x))),cljs.core.atom.call(null,null)));
 }));
 return session.client.main.load_session.call(null,"default-session");
 })], true));
