@@ -2,7 +2,8 @@
   :description "FIXME: write this!"
   :url "http://exampl.com/FIXME"
   :dependencies
-  [[org.clojure/clojure "1.4.0"]
+  [
+   [org.clojure/clojure "1.5.0-beta1"]
    [org.clojure/clojurescript "0.0-1450"]
    [org.clojars.nmeyer/simple-avro "0.0.6"]
    [storm/carbonite "1.5.0"]
@@ -18,7 +19,7 @@
   :dev-dependencies []
   :source-path "src/clj"
   :source-paths ["src/clj"]
-  :plugins [[lein-cljsbuild "0.2.7"]]
+  :plugins [[lein-cljsbuild "0.2.7"] [lein-localrepo "0.4.1"]]
   :cljsbuild {
               :builds [{
                         :source-path "src/cljs"

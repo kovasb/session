@@ -32,7 +32,8 @@
      (reset! session s)
      (mvc/control s v)
      ($ "body > .container" (html ""))
-     ($ v (appendTo ($ "body > .container"))))))
+     ($ v (appendTo ($ "body > .container")))
+     (session.client.session/load-subsession-tab (first (:subsessions (:model @session)))))))
 
 (def keymap
   (js-obj
@@ -72,14 +73,54 @@
    "fallthrough" (array "basic" "emacs"))) ;; not sure if this is right
 
 
+(defn series-plot [x]
+  (let [elt ($ [:div {:style "width:600px;height:200px;position:relative"} ""])]
+    (. js/$ (plot elt
+                  (array (js-obj "data"  (apply array
+                                          (map #(apply array %) (:data x)))
+
+                                 ))
+                  (js-obj
+                           "yaxis" (js-obj  "labelWidth" 25 "position" "left") )
+                  ;;(js-obj "xaxis" (js-obj "labelWidth" 25))
+                  ))
+    elt))
+
+(defn timeseries-plot [x]
+  (let [elt ($ [:div {:style "width:600px;height:200px;position:relative"} ""])]
+    (. js/$ (plot elt
+                  (array (js-obj "data"  (apply array
+                                          (map #(array (.getTime (first %)) (last %)) (:data x)))))
+                  (js-obj
+                   "xaxis" (js-obj  "mode" "time" "timeformat" "%y/%m/%d")
+                   "yaxis" (js-obj  "labelWidth" 25 "position" "left") )
+                  ;;(js-obj "xaxis" (js-obj "labelWidth" 25))
+                  ))
+    elt))
+
+
+(defn table [x]
+  ($ [:table {:style "width:100%"}
+    (map (fn [r] [:tr (map (fn [c] [:td (mvc/render c)] ) r)] )  (:data x))]))
+
+
 ($ js/document (ready
                 #(do
+                   (aset CodeMirror.defaults "theme" "ambiance")
                    (aset CodeMirror.keyMap "subpar" keymap)
                    (reader/register-tag-parser! "testtag" (fn [x] [[x]] ))
+                   (reader/register-tag-parser! "flot" series-plot)
+                   (reader/register-tag-parser! "table" table)
+
+
+                   (reader/register-tag-parser! "series-plot" series-plot)
+                   (reader/register-tag-parser! "timeseries-plot" timeseries-plot)
                    (reader/register-tag-parser! "loop"
                                                 (fn [x] (loop/Loop. (assoc x :input (atom (:input x)) :output (atom (:output x))) (atom nil)) ))
                    (reader/register-tag-parser! "session"
                                                 (fn [x] (session/Session. x (atom nil)) ))
                    (reader/register-tag-parser! "subsession"
                                                 (fn [x] (subsession/Subsession. (assoc x :loops (atom (:loops x))) (atom nil))))
-                   (load-session "default-session"))))
+                   (load-session "default-session")
+                   )
+                ))

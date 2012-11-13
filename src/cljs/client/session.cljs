@@ -22,25 +22,15 @@
 (defrecord Session [model dom])
 
 (defn load-subsession-tab [x]
-  ($ ".tab-content" (html ""))
   ($ [:tab-pane (mvc/render x)] (appendTo ($ ".tab-content")))
-  ($ ".loop-container" (trigger "post-render"))
-  ($ "#sessiontabs > li" (removeClass "active"))
-  ($ (str "#tab" (name (:type x))) (addClass "active")))
+  ($ ".loop-container" (trigger "post-render")))
 
-(defn make-session-tabs [x]
-  [:div.tabbable
-         [:ul#sessiontabs.nav.nav-tabs
-          (map (fn [ss]
-                 ($ [:li {:id (str "tab" (name (:type ss)))}  [:a {:href (str "#tab" (name (:type ss))) } (name (:type ss))]]
-                    (click (fn [] (load-subsession-tab ss)))))
-               x)]])
 
 (extend-type Session
   mvc/IMVC
   (view [this]
     ($ [:div.session.row
-        (make-session-tabs (:subsessions (:model this)))
+
         [:div.tab-content ""]]
        (data "model" (:model this))))
   (control [this] (reset! last-loop-id (:last-loop-id (:model this)))))

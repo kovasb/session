@@ -17,22 +17,25 @@
             [noir.response :as response]
             [ring.middleware [multipart-params :as mp]]))
 
-(import '(java.io Writer))
+;;(import '(java.io Writer))
 
 (server/load-views-ns 'session.views)
 
 (defremote get-session [id]
   (let []
-    {:result (pr-str (session.datomic/get-datomic-session)) ;;(slurp (resource filename))
+    {:result (pr-str (session.datomic/get-datomic-session))
      :status 200} ))
 
 
+;;"datomic:free://localhost:4334/session-test6"
+
 (defn -main [& m]
   (let [mode :dev  ;;(keyword (or (first m) :dev))
-        port 8090  ;; (Integer. (get (System/getenv) "PORT" "3502"))
+        port (Integer/parseInt (first m)) ;; (Integer. (get (System/getenv) "PORT" "3502"))
         noir-handler (server/gen-handler {:mode mode})]
+    (session.datomic/setup  (last m))
     (start-http-server
       (wrap-ring-handler noir-handler)
       {:port port :websocket true})
-    (session.datomic/process-responses-thread session.datomic/conn)
-    (session.datomic/process-requests-thread session.datomic/conn)))
+    (session.datomic/process-responses-thread @session.datomic/conn)
+    (session.datomic/process-requests-thread @session.datomic/conn)))

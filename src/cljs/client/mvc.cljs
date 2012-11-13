@@ -22,4 +22,9 @@
 
 (defn render [m] (let [v (view m)] (control m) v))
 
-(extend-type default IMVC (view [this] (pr-str this)) (control [this] viewobject))
+(extend-type default IMVC
+             (view [this] (cond
+                           (instance? js/Element this) this
+                           (instance? js/jQuery this) this
+                           true (pr-str this)))
+             (control [this] this))

@@ -13,13 +13,13 @@
   (insert-new-loop [this event])
   (delete-loop [this event]))
 
-;; {:op :insert-loop :data {:position {:after "subsession-root" :loop #loop {...}}}
-
 (deftype Subsession [model dom]
   session.client.subscribe/ISubscribe
   (receive [this msg]
+
     (cond
-     (= :insert-loop (:op msg)) (insert-new-loop this (:data msg))))
+     (= :insert-loop (:op msg)) (insert-new-loop this (:data msg))
+     (= :delete-loop (:op msg)) (delete-loop this (:data msg))))
 
    ILookup
   (-lookup [o k] (model k))
@@ -29,7 +29,8 @@
   (view [this]
     (let [v
           ($ [:div.subsession
-         (mvc/render (loop-creator/LoopCreator. true (atom nil)))
+              [:div#subsession-root {:style "margin-left:-20px"}
+               (mvc/render (loop-creator/LoopCreator. "subsession-root" (atom nil)))]
          (map mvc/render @(:loops model))
               ] (data "model" model))]
       (reset! dom v)
@@ -50,23 +51,8 @@
           position (:position data)
           loop-view (mvc/render loop)]
 
-    (if
-        (=  "subsession-root" (:after position))
-      (do
-        (swap! (:loops this) #(vec (concat [loop] %)))
-        ($ loop-view (insertAfter ($ "#subsession-root-lc"))))
-      (do (swap! (:loops this)
-              #(let
-                   [[left right] (split-with (fn [m] (not=  (:id m) (:after position))) %)]
-                 (vec (concat left (if (first right) [(frist right)]) [loop] (rest right)))))
-          ($ loop-view (insertAfter ($ (str "#" (:after position)))))))
-
+    ($ loop-view (insertAfter ($ (str "#" (:after position) ))))
     ($ loop-view (trigger "post-render"))))
 
-  (delete-loop [this event]
-    (let [
-        event-target (. event -target)
-        event-model ($ event-target (data "model"))
-        session-model this]
-     ($ event-target (remove))
-     (swap! (:loops session-model) #(vec (filter (fn [m] (not= m event-model)) %))))))
+  (delete-loop [this data]
+    ($ (str "#" (:id data)) (remove))))

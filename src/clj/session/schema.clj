@@ -11,6 +11,10 @@
  :db/valueType :db.type/ref
  :db/cardinality :db.cardinality/one
  :db.install/_attribute :db.part/db :db/id #db/id[:db.part/db]}
+{:db/ident :action/next
+ :db/valueType :db.type/ref
+ :db/cardinality :db.cardinality/one
+ :db.install/_attribute :db.part/db :db/id #db/id[:db.part/db]}
 
 ;; request entity attributes
 {:db/ident :request/op
