@@ -106,7 +106,7 @@
 
 ($ js/document (ready
                 #(do
-                   (aset CodeMirror.defaults "theme" "ambiance")
+                   ;;(aset CodeMirror.defaults "theme" "ambiance")
                    (aset CodeMirror.keyMap "subpar" keymap)
                    (reader/register-tag-parser! "testtag" (fn [x] [[x]] ))
                    (reader/register-tag-parser! "flot" series-plot)

@@ -4,7 +4,7 @@
 (defprotocol ISubscribe
   (receive [this msg]))
 
-(def ws  (new js/WebSocket "ws:///service"))
+(def ws  (new js/WebSocket (str "ws://" document.location.host "/service")))
 
 (def callbacks (atom {}))
 

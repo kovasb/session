@@ -8,7 +8,7 @@
 
 (defmulti control2 #(identity (:view (meta %))))
 
-(defmethod control2 :default nil)
+(defmethod control2 :default [] nil)
 
 (defmulti view2 #(identity (:view (meta %))))
 

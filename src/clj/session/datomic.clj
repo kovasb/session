@@ -195,6 +195,7 @@
                              :data
                              (binding
                                  [*default-data-reader-fn* session.tags/->GenericData]
+
                                (try (read-string (nth (first d) 2)) (catch Exception e [:unreadable-form (nth (first d) 2)])))}))
          )))))
 
@@ -261,7 +262,10 @@
 (defn entity-data [entity]
   {:output (let [d (get-in entity [:action/response :response/summary])]
              (if d
-               (binding [*default-data-reader-fn* session.tags/->GenericData] (try (read-string d) (catch Exception e [:unreadable-form d]))) nil))
+               (binding
+                   [*default-data-reader-fn* session.tags/->GenericData]
+                 (try (read-string d) (catch Exception e [:unreadable-form d]))) nil))
+
    :input (get-in entity [:action/request :request/data :data/edn])
    :id (str (:db/id entity))})
 
@@ -322,7 +326,7 @@
                             (if next
                               [[:db/add (:db/id previous) :action/next (:db/id next)]
                                [:db/retract (:db/id deleted) :action/next (:db/id deleted)]]
-                              [[:db/retract (:db/id deleted) :action/next (:db/id deleted)]]))]
+                              [[:db/retract (:db/id previous) :action/next (:db/id deleted)]]))]
     (lamina/enqueue datomic-channel
                   (pr-str {
                            :op :delete-loop

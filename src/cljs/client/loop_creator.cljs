@@ -6,12 +6,14 @@
   )
 
 
+(defn foobar "docstring" [x] x)
+
 (defrecord LoopCreator [x dom]
   mvc/IMVC
   (view [this]
     (let [v ($
              [:div.loop-creator
-              {:style "margin-left:20px;height:18px;margin-top:5px;margin-bottom:5px"}  [:i.new-loop-icon.icon-white ""]]
+              {:style "margin-left:20px;height:18px;margin-top:5px;margin-bottom:5px"}  [:i.new-loop-icon""]]
                (data "model" "loop-creator"))]
       (reset! dom v)
       v))

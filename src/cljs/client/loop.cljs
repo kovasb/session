@@ -38,12 +38,12 @@
          [:div.span12 {:style "padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}
 
           [:div.row.loop-container {:style "margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}
-           [:i.icon-chevron-right.icon-white {:height "18px" :style "opacity:.8;position:absolute;left:0px;top:2px"} ""]
+           [:i.icon-chevron-right {:height "18px" :style "opacity:.8;position:absolute;left:0px;top:2px"} ""]
            [:textarea {:id (str "area" id)}
             @(:input model)]]
           [:div.row {:style "position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}
-           [:i.icon-chevron-left.icon-white {:height "18px" :style "opacity:.8;position:absolute;left:-25px;top:7px"} ""]
-           [:div.loopout.cm-s-ambiance {:style "background-color:#000"} (render-loop-output @(:output model))]
+           [:i.icon-chevron-left {:height "18px" :style "opacity:.8;position:absolute;left:-25px;top:7px"} ""]
+           [:div.loopout.cm-s-default {:style "background-color:#FFF"} (render-loop-output @(:output model))]
            ]
 
 
@@ -79,5 +79,5 @@
                      (let [viewable (mvc/view new)]
                        ($ dom-elt (find ".loopout") (html "")
                          (append
-                          ($ [:div.cm-s-ambiance {:style "background-color:#000"}
+                          ($ [:div.cm-s-default {:style "background-color:#FFF"}
                               (render-loop-output new)]))))))))))
