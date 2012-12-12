@@ -8,7 +8,7 @@ More tangibly, Session is a web-based clojure repl that stores your repl session
 
 Content created in Session, as well as the process of creating it, live natively on the web, and can be plugged into your other systems.
 
-Session is designed to maximize leverage of your existing architecture. It doesn't do the work itself; it just helps orchestrate the dataflow.
+Session is designed to maximize leverage of your existing architecture. It doesn't do the work itself; it just helps orchestrate the dataflow. It promotes, but does not enforce, programming with immutable values at the systems level.
 
 The sequence of REPL interactions are persisisted, so you can continue an existing session - yours, or another's.  
 
