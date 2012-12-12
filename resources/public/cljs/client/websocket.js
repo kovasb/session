@@ -19,23 +19,23 @@ var configure__4 = (function (soc,opened,message,error){
 return configure.call(null,soc,opened,message,error,null);
 });
 var configure__5 = (function (soc,opened,message,error,closed){
-var handler__7767 = (new goog.events.EventHandler());
-handler__7767.listen(soc,goog.net.WebSocket.EventType.OPENED,opened);
-handler__7767.listen(soc,goog.net.WebSocket.EventType.MESSAGE,(function (p1__7759_SHARP_){
-var payload__7769 = p1__7759_SHARP_.message();
-var vec__7768__7770 = cljs.core.re_matches.call(null,/\/([^ ]+) (.*)/,payload__7769);
-var ___7771 = cljs.core.nth.call(null,vec__7768__7770,0,null);
-var cmd__7772 = cljs.core.nth.call(null,vec__7768__7770,1,null);
-var body__7773 = cljs.core.nth.call(null,vec__7768__7770,2,null);
-alert("websocket",[cljs.core.str("R: "),cljs.core.str(payload__7769)].join(''));
-return message.call(null,cmd__7772,body__7773);
+var handler__7764 = (new goog.events.EventHandler());
+handler__7764.listen(soc,goog.net.WebSocket.EventType.OPENED,opened);
+handler__7764.listen(soc,goog.net.WebSocket.EventType.MESSAGE,(function (p1__7756_SHARP_){
+var payload__7766 = p1__7756_SHARP_.message();
+var vec__7765__7767 = cljs.core.re_matches.call(null,/\/([^ ]+) (.*)/,payload__7766);
+var ___7768 = cljs.core.nth.call(null,vec__7765__7767,0,null);
+var cmd__7769 = cljs.core.nth.call(null,vec__7765__7767,1,null);
+var body__7770 = cljs.core.nth.call(null,vec__7765__7767,2,null);
+alert("websocket",[cljs.core.str("R: "),cljs.core.str(payload__7766)].join(''));
+return message.call(null,cmd__7769,body__7770);
 }));
 if(cljs.core.truth_(error))
-{handler__7767.listen(soc,goog.net.WebSocket.EventType.ERROR,error);
+{handler__7764.listen(soc,goog.net.WebSocket.EventType.ERROR,error);
 } else
 {}
 if(cljs.core.truth_(closed))
-{handler__7767.listen(soc,goog.net.WebSocket.EventType.CLOSED,closed);
+{handler__7764.listen(soc,goog.net.WebSocket.EventType.CLOSED,closed);
 } else
 {}
 return soc;
@@ -63,12 +63,12 @@ return configure;
 session.client.websocket.connect_BANG_ = (function connect_BANG_(socket,url){
 try{socket.open(url);
 return socket;
-}catch (e7776){if(cljs.core.instance_QMARK_.call(null,Error,e7776))
-{var e__7777 = e7776;
+}catch (e7773){if(cljs.core.instance_QMARK_.call(null,Error,e7773))
+{var e__7774 = e7773;
 return alert("websocket","No WebSocket supported, get a decent browser.");
 } else
 {if("\uFDD0'else")
-{throw e7776;
+{throw e7773;
 } else
 {return null;
 }
@@ -89,9 +89,9 @@ var emit_BANG___2 = (function (socket,cmd){
 return emit_BANG_.call(null,socket,cmd,null);
 });
 var emit_BANG___3 = (function (socket,cmd,msg){
-var packet__7779 = [cljs.core.str("/"),cljs.core.str(cmd),cljs.core.str((cljs.core.truth_(msg)?[cljs.core.str(" "),cljs.core.str(msg)].join(''):null))].join('');
-alert("websocket",[cljs.core.str("T: "),cljs.core.str(packet__7779)].join(''));
-return socket.send(packet__7779);
+var packet__7776 = [cljs.core.str("/"),cljs.core.str(cmd),cljs.core.str((cljs.core.truth_(msg)?[cljs.core.str(" "),cljs.core.str(msg)].join(''):null))].join('');
+alert("websocket",[cljs.core.str("T: "),cljs.core.str(packet__7776)].join(''));
+return socket.send(packet__7776);
 });
 emit_BANG_ = function(socket,cmd,msg){
 switch(arguments.length){

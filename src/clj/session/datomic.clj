@@ -321,7 +321,7 @@
                             (if next
                               [[:db/add (:db/id previous) :action/next (:db/id next)]
                                [:db/retract (:db/id deleted) :action/next (:db/id deleted)]]
-                              [[:db/retract (:db/id deleted) :action/next (:db/id deleted)]]))]
+                              [[:db/retract (:db/id previous) :action/next (:db/id deleted)]]))]
     (lamina/enqueue datomic-channel
                   (pr-str {
                            :op :delete-loop

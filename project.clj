@@ -14,8 +14,8 @@
    [fetch "0.1.0-alpha2" :exclusions [org.clojure/clojure]]
    [crate "0.1.0-alpha3" :exclusions [org.clojure/clojure]]
    [noir "1.3.0-beta2" :exclusions [org.clojure/clojure]]
-   [cljs-jquery "1.0.4-SNAPSHOT"
-    :exclusions [org.clojure/clojure org.clojure/clojurescript]]]
+   [cljs-jquery "1.0.4-SNAPSHOT" :exclusions [org.clojure/clojure org.clojure/clojurescript]]
+   ]
   :dev-dependencies []
   :source-path "src/clj"
   :source-paths ["src/clj"]

@@ -13,7 +13,7 @@
                (include-css "css/cm-theme/ambiance.css")
                ;;(include-css "css/fatcursor.css")
                ]
-              [:body {:style "padding-top:20px;padding-left:60px;background-color:#000"}
+              [:body {:style "padding-top:20px;padding-left:60px;background-color:#FFF"}
                content
                [:script {:type "text/javascript" :src "js/codemirror-compressed.js"}]
                [:script {:type "text/javascript" :src "js/cm-util/runmode.js"}]
