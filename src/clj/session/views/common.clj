@@ -6,7 +6,7 @@
 (defpartial layout [& content]
             (html5
               [:head
-               [:title "htmlrepl"]
+               [:title "session"]
                (include-css "bootstrap/css/bootstrap.css")
                ;;(include-css "css/jquery.fileupload-ui.css")
                (include-css "css/codemirror.css")
