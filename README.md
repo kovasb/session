@@ -1,6 +1,16 @@
 # SESSION
 
-In progress.
+In progress. All aspects of the design and implemention are likely to change. There are many known issues.
+
+# Usage
+
+Sample invocation:
+
+    lein run 8090 datomic:mem://test
+
+Then direct the browser to localhost:8090 . (Only verified to work with Chrome)
+
+In general, supply the port and the datomic URI to connect to. For persistent results, you'll likely want set up and use a transactor with local storage.
 
 ## License
 
