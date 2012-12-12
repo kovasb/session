@@ -12,7 +12,7 @@ Session is designed to maximize leverage of your existing architecture. It doesn
 
 The sequence of REPL interactions are persisisted, so you can continue an existing session - yours, or another's.  
 
-Session persistence is meant first for human consumption, and secondarily for computational reconstruction. Computations can be annotated to facilitate both purposes, using datomic attributes, for instance with textual comments, or automatically recorded environment variables.
+Session persistence is meant first for human understanding of what happened, and secondarily for computational reconstruction. Computations can be annotated to facilitate both purposes, using datomic attributes, for instance with textual comments, or automatically recorded environment variables.
 
 Session places greater constraints on UI than it does on the computations themselves. It is essential to be able to perceive a piece of data, without reproducing the universe in which the data was created. UI constructs created in session are therefore required to be values. However, they also have access to Datomic, and thus can deal in novelty.
 
