@@ -4,9 +4,7 @@
   :dependencies
   [
    [org.clojure/clojure "1.5.0-beta1"]
-   ;;[org.clojure/clojure "1.4.0"]
-
-   ;;[org.clojure/clojurescript "0.0-1450"]
+   [org.clojure/clojurescript "0.0-1450"]
    [org.clojars.nmeyer/simple-avro "0.0.6"]
    [storm/carbonite "1.5.0"]
    [com.datomic/datomic-free "0.8.3561"]
