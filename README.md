@@ -14,6 +14,10 @@ Then direct the browser to localhost:8090 . (Only verified to work with Chrome)
 
 In general, supply the port and the datomic URI to connect to. For persistent results, you'll likely want set up and use a transactor with local storage.
 
+To create input areas, mouse around the UI untill a right arrow appears, and click. 
+
+To evaluate input, hit shift-enter.
+
 ## License
 
 Copyright (C) 2012 Kovas Boguta
