@@ -1,6 +1,18 @@
 # SESSION
 
-In progress. All aspects of the design and implemention are likely to change. There are many known issues.
+Currently alpha quality software, use at your own risk :)
+
+Session is a tool for social computation. It allows computational work to be specified, executed, and consumed socially.
+
+More tangibly, Session is a web-based clojure repl that stores your repl session in Datomic.
+
+Content created in Session, as well as the process of creating it, live natively on the web, and can be plugged into your other systems.
+
+Session is designed to maximize leverage of your existing architecture. It doesn't do the work itself; it just helps orchestrate the dataflow.
+
+The sequence of REPL interactions are persisisted, so you can continue an existing session - yours, or another's.  
+
+Session persistence is meant for human, not machine consumption. If it is easier for the human to reproduce the state, it makes that tradeoff. Values have persistence and reproducibility garuntees; beyond that you are on your own.
 
 See [Architecture](https://github.com/kovasb/session/wiki/Architecture) for a description of components and how they come together.
 
