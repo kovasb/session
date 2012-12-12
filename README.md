@@ -2,6 +2,8 @@
 
 In progress. All aspects of the design and implemention are likely to change. There are many known issues.
 
+See [Architecture](https://github.com/kovasb/session/wiki/Architecture) for a description of components and how they come together.
+
 # Usage
 
 Sample invocation:
