@@ -13,7 +13,6 @@
    [session.client.hiccup :as hiccup]
    [subpar.core]
    [goog.object :as gobject]
-   [session.ui :as ui]
    [cljs.reader :as reader])
   (:use-macros [cljs-jquery.macros :only [$]])
   (:require-macros [fetch.macros :as pm]))

@@ -5,7 +5,6 @@ goog.require('goog.events');
 goog.require('session.client.loop');
 goog.require('session.client.session');
 goog.require('cljs.reader');
-goog.require('session.ui');
 goog.require('subpar.core');
 goog.require('goog.events.EventType');
 goog.require('goog.object');
