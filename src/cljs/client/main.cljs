@@ -16,7 +16,7 @@
    [session.ui :as ui]
    [cljs.reader :as reader])
   (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm] [client.macros :as cm]))
+  (:require-macros [fetch.macros :as pm]))
 
 (repl/connect "http://localhost:9000/repl")
 

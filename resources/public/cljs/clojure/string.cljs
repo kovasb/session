@@ -133,7 +133,13 @@
 (defn blank?
   "True is s is nil, empty, or contains only whitespace."
   [s]
-  (gstring/isEmptySafe s))
+  (let [s (str s)]
+    (if (or
+         (not s)
+         (= "" s)
+         (re-matches #"\s+" s))
+      true
+      false)))
 
 (defn escape
   "Return a new string, using cmap to escape each character ch

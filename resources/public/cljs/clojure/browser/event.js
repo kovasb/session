@@ -5,23 +5,23 @@ goog.require('goog.events.EventTarget');
 goog.require('goog.events');
 clojure.browser.event.EventType = {};
 clojure.browser.event.event_types = (function event_types(this$){
-if((function (){var and__3937__auto__ = this$;
-if(and__3937__auto__)
+if((function (){var and__3937__auto____13189 = this$;
+if(and__3937__auto____13189)
 {return this$.clojure$browser$event$EventType$event_types$arity$1;
 } else
-{return and__3937__auto__;
+{return and__3937__auto____13189;
 }
 })())
 {return this$.clojure$browser$event$EventType$event_types$arity$1(this$);
 } else
-{var x__2408__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3939__auto__ = (clojure.browser.event.event_types[goog.typeOf(x__2408__auto__)]);
-if(or__3939__auto__)
-{return or__3939__auto__;
+{var x__2396__auto____13190 = (((this$ == null))?null:this$);
+return (function (){var or__3939__auto____13191 = (clojure.browser.event.event_types[goog.typeOf(x__2396__auto____13190)]);
+if(or__3939__auto____13191)
+{return or__3939__auto____13191;
 } else
-{var or__3939__auto____$1 = (clojure.browser.event.event_types["_"]);
-if(or__3939__auto____$1)
-{return or__3939__auto____$1;
+{var or__3939__auto____13192 = (clojure.browser.event.event_types["_"]);
+if(or__3939__auto____13192)
+{return or__3939__auto____13192;
 } else
 {throw cljs.core.missing_protocol.call(null,"EventType.event-types",this$);
 }
@@ -31,20 +31,20 @@ if(or__3939__auto____$1)
 });
 Element.prototype.clojure$browser$event$EventType$ = true;
 Element.prototype.clojure$browser$event$EventType$event_types$arity$1 = (function (this$){
-return cljs.core.into.call(null,cljs.core.ObjMap.EMPTY,cljs.core.map.call(null,(function (p__4114){
-var vec__4115 = p__4114;
-var k = cljs.core.nth.call(null,vec__4115,0,null);
-var v = cljs.core.nth.call(null,vec__4115,1,null);
-return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null,k.toLowerCase()),v], true);
+return cljs.core.into.call(null,cljs.core.ObjMap.EMPTY,cljs.core.map.call(null,(function (p__13193){
+var vec__13194__13195 = p__13193;
+var k__13196 = cljs.core.nth.call(null,vec__13194__13195,0,null);
+var v__13197 = cljs.core.nth.call(null,vec__13194__13195,1,null);
+return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null,k__13196.toLowerCase()),v__13197], true);
 }),cljs.core.merge.call(null,cljs.core.js__GT_clj.call(null,goog.events.EventType))));
 });
 goog.events.EventTarget.prototype.clojure$browser$event$EventType$ = true;
 goog.events.EventTarget.prototype.clojure$browser$event$EventType$event_types$arity$1 = (function (this$){
-return cljs.core.into.call(null,cljs.core.ObjMap.EMPTY,cljs.core.map.call(null,(function (p__4116){
-var vec__4117 = p__4116;
-var k = cljs.core.nth.call(null,vec__4117,0,null);
-var v = cljs.core.nth.call(null,vec__4117,1,null);
-return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null,k.toLowerCase()),v], true);
+return cljs.core.into.call(null,cljs.core.ObjMap.EMPTY,cljs.core.map.call(null,(function (p__13198){
+var vec__13199__13200 = p__13198;
+var k__13201 = cljs.core.nth.call(null,vec__13199__13200,0,null);
+var v__13202 = cljs.core.nth.call(null,vec__13199__13200,1,null);
+return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null,k__13201.toLowerCase()),v__13202], true);
 }),cljs.core.merge.call(null,cljs.core.js__GT_clj.call(null,goog.events.EventType))));
 });
 clojure.browser.event.listen = (function() {
@@ -62,7 +62,7 @@ return listen__3.call(this,src,type,fn);
 case 4:
 return listen__4.call(this,src,type,fn,capture_QMARK_);
 }
-throw(new Error('Invalid arity: ' + arguments.length));
+throw('Invalid arity: ' + arguments.length);
 };
 listen.cljs$lang$arity$3 = listen__3;
 listen.cljs$lang$arity$4 = listen__4;
@@ -84,7 +84,7 @@ return listen_once__3.call(this,src,type,fn);
 case 4:
 return listen_once__4.call(this,src,type,fn,capture_QMARK_);
 }
-throw(new Error('Invalid arity: ' + arguments.length));
+throw('Invalid arity: ' + arguments.length);
 };
 listen_once.cljs$lang$arity$3 = listen_once__3;
 listen_once.cljs$lang$arity$4 = listen_once__4;
@@ -106,7 +106,7 @@ return unlisten__3.call(this,src,type,fn);
 case 4:
 return unlisten__4.call(this,src,type,fn,capture_QMARK_);
 }
-throw(new Error('Invalid arity: ' + arguments.length));
+throw('Invalid arity: ' + arguments.length);
 };
 unlisten.cljs$lang$arity$3 = unlisten__3;
 unlisten.cljs$lang$arity$4 = unlisten__4;

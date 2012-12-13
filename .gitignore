@@ -2,6 +2,9 @@ pom.xml
 *jar
 /lib/
 /classes/
+/target/
+/out/
+/repl/
 .lein*
 .#*
 .DS_Store

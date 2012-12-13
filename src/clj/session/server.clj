@@ -2,7 +2,6 @@
  (:use aleph.http
        noir-async.core)
   (:use [noir.fetch.remotes])
-  (:use [client.macros])
   (:use [noir.core])
   (:use [clojure.java.io :only [resource]])
   (:use [datomic.api :only [db q] :as d])

@@ -234,7 +234,7 @@ nil if the end of stream has been reached")
   [delim rdr recursive?]
   (loop [a (transient [])]
     (let [ch (read-past whitespace? rdr)]
-      (when-not ch (reader-error rdr "EOF while reading"))
+      (when-not ch (reader-error rdr "EOF"))
       (if (identical? delim ch)
         (persistent! a)
         (if-let [macrofn (macros ch)]
@@ -303,7 +303,7 @@ nil if the end of stream has been reached")
   (loop [buffer (gstring/StringBuffer.)
          ch (read-char reader)]
     (cond
-     (nil? ch) (reader-error reader "EOF while reading")
+     (nil? ch) (reader-error reader "EOF while reading string")
      (identical? "\\" ch) (recur (do (.append buffer (escape-char buffer reader)) buffer)
                         (read-char reader))
      (identical? \" ch) (. buffer (toString))
@@ -418,7 +418,7 @@ nil if the end of stream has been reached")
   [reader eof-is-error sentinel is-recursive]
   (let [ch (read-char reader)]
     (cond
-     (nil? ch) (if eof-is-error (reader-error reader "EOF while reading") sentinel)
+     (nil? ch) (if eof-is-error (reader-error reader "EOF") sentinel)
      (whitespace? ch) (recur reader eof-is-error sentinel is-recursive)
      (comment-prefix? ch) (recur (read-comment reader ch) eof-is-error sentinel is-recursive)
      :else (let [f (macros ch)
