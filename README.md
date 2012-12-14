@@ -4,17 +4,13 @@ Session is a tool for social computation.
 
 If git lets us code together, Session lets us compute together.
 
-More tangibly, it is a web-based clojure repl that stores the repl history in Datomic. 
+More tangibly, it is a web-based clojure repl that stores the repl history in Datomic. Datomic, clojure, clojurescript, and EDN are the enabling technologies.
 
 Session makes it easier to compute new data, exchange computational work, and adapt prior work to new needs. In the web UI, we compute things step by step, and this process is automatically stored in the session. We can then curate, extend, modify, or share it at our convenience. We can annotate specific results or hand them off to another system. Since it is also a database, automated tools can query and interact with it. 
 
-Like git, the core of Session is an immutable datastructure that can easily be shared. 
+Like git, the core of Session is an immutable datastructure that can easily be shared. Git showed that immutable data is ideal for facilitating peer networks. This is as true of networks of people, as it is of computer systems.
 
-Git showed that immutable data is ideal for facilitating peer networks. This is as true of networks of people, as it is of computer systems.
-
-In Session, we commit not only the code, but also the result of executing the code. 
-
-Having both code and result together is the foundation.
+In Session, we commit not only the code, but also the result of executing the code. Having both code and result together is the foundation.
 
 The second key element is the web UI. Session's UI lives on the web, as does the content it creates. This makes it easy to share what you've created, as well as the process of creation you used. It also provides an extensible foundation for rich visualization and interaction elements, which are important to any data manipulation workflow.
 
