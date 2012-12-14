@@ -38,7 +38,7 @@ This is relevant to many context, such as science, data journalism, business ana
 
 It also makes it possible to socially assemble sessions, in the same way we do with source code. For instance computations on open government data could be done collaboritively.
 
-## Executing code
+## Interfacing with Services
 
 Session supports diverse and potentially large-scale use cases. It is designed to to maximize leverage of your existing architecture. It speaks in the language of the system.
 
@@ -56,7 +56,7 @@ When a human-operated computation throws an exception, the operator can investig
 
 This makes Session a useful tool when dealing with messy, real-world systems. 
 
-## Seeing results
+## UI
 
 Session places greater constraints on UI than it does on the computations themselves. It is essential to be able to perceive a piece of data, without reproducing the universe in which the data was created. UI constructs created in session are therefore required to be values. 
 
