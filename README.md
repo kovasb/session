@@ -4,63 +4,23 @@ Session is a tool for social computation.
 
 If git lets us code together, Session lets us compute together.
 
-More tangibly, Session is a web-based clojure repl that stores your repl session in Datomic. 
+More tangibly, it is a web-based clojure repl that stores the repl history in Datomic. We build up results step by step, and later can return to the session to reproduce, extend, or modify it.
+
+Session makes it easier to compute new data, exchange computational work, and adapt prior work to new needs.
 
 Like git, the core of Session is an immutable datastructure that can easily be shared. 
 
-Git showed that immutable data is the foundation of social computation. Immutable data is not tied to a place, and thus provides the basis of a peer network.
+Git showed that immutable data is ideal for facilitating peer networks. This is as true of networks of people, as it is of computer systems.
 
-In Session, we commit not only the code, but also the result of running the code. 
+In Session, we commit not only the code, but also the result of executing the code. 
 
-On top of this datastructure, Session provides a web-based UI for writing code and seeing the results.
+Having both code and result together is the foundation.
+
+The second key element is the web UI. Session's UI lives on the web, as does the content it creates. This makes it easy to share what you've created, as well as the process of creation you used. It also provides an extensible foundation for rich visualization and interaction elements, which are important to any data manipulation workflow.
+
+The third key element is coordinating the execution of computation. Session delegates execution to services, and can be used in any architecture. As it keeps track of the history of the computation, it can also track the state and metadata associated with the services. This facilitates reproducibility, location independence, and shields user code from incidental complexity.
 
 This combination of features allows Session to create easily sharable computations that are unrestricted in power.
-
-## Creating computations
-
-The Session datastructure can be viewed as a database, narrative, or audit history of human-operated computation. 
-
-As you are computing, a granular history of your operations is built up. These may include both the results, and metadata.
-
-The results themselves are often the immediate goal of the operator -- you need to produce a piece of data or a visualization.
-
-Session reduces the complexity of producing and delivering these results. 
-
-Session lives natively on the web, minimizing friction for creating and delivering web content. Because session is also a database, it can be queried or plugged into a messaging system. Compute and publish.
-
-Beyond creating specific results, Session manages their history.
-
-Simply by remembering the details of what happened, Session eliminates a huge source of human error and confusion -- from overwriting files, to forgetting special cases.
-
-It also gives us the opportunity to try to reproduce the result, modify the code to achieve a variation, or compute new things from the same basis.
-
-This is relevant to many context, such as science, data journalism, business analytics, dev ops, and online education.
-
-It also makes it possible to socially assemble sessions, in the same way we do with source code. For instance computations on open government data could be done collaboratively.
-
-## Interfacing with Services
-
-Session supports diverse and potentially large-scale use cases. It is designed to to maximize leverage of your existing architecture. It speaks in the language of the system.
-
-Specifically, Session ensures that it does not bottleneck or limit the computations. It just orchestrates services, and records essentially metadata about what happened.
-
-The degree to which the entire computation is recorded in session depends on the properties of the services & results.
-
-A goal of session is to wrap services that are otherwise stateful or place-oriented, and insulate user code from getting entangled in them.
-
-However, Session can be still very useful for recording interactions with stateful services, even if the results are not reproducible.
-
-The purpose of the Session history is foremost for human understanding of the computation, particulary for the kinds of ambiguous situations that code cannot forsee.
-
-When a human-operated computation throws an exception, the operator can investigate, reason, and take action -- so long as they have the neccessary context, eg, the history.
-
-This makes Session a useful tool when dealing with messy, real-world systems. 
-
-## UI
-
-Session places greater constraints on UI than it does on the computations themselves. It is essential to be able to perceive a piece of data, without reproducing the universe in which the data was created. UI constructs created in session are therefore required to be values. 
-
-However, they also have access to Datomic, and thus can deal in novelty.
 
 
 Currently alpha quality software, use at your own risk :)
