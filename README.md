@@ -10,16 +10,21 @@ Session lets you do data analysis, produce web content, stand up systems, and in
 
 Importantly, Session also records the history of your actions and results. So you can come back to it, and see what happened. Or share it with others, so they can repeat it, or extend and adapt your work. 
 
-Like git, the core of Session is an immutable datastructure that can easily be shared. Git showed that immutable data is ideal for facilitating peer networks. This is as true of networks of people, as it is of computer systems.
+Like git, the core of Session is an immutable datastructure.
 
-In Session, we commit not only the code, but also the result of executing the code. Having both code and result together is the foundation.
+Immutable data allows systems to interoperate with less coordination, fewer architectural assumptions, and simpler interfaces. It facilitates peer networks for both humans and programs. 
 
-The second key element is the web UI. Session's UI lives on the web, as does the content it creates. This makes it easy to share what you've created, as well as the process of creation you used. It also provides an extensible foundation for rich visualization and interaction elements, which are important to any data manipulation workflow.
+The first key element in Session is storing not just the code, but also the result. Storing both means remembering what happened.
 
-The third key element is coordinating the execution of computation. Session delegates execution to services, and can be used in any architecture. As it keeps track of the history of the computation, it can also track state and metadata associated with the services. This facilitates reproducibility, location independence, and shields user code from incidental complexity.
+The second key element is the web UI. Being on the web means being able to create & distribute interactive content.
 
-This combination of features allows Session to create easily sharable computations that are unrestricted in power.
+The third key element is delegating to services for the actual computations. Delegation means having the full power of our existing sytems, wrapped up in a more convenient package.
 
+In a sense, Session facilitates the interplay between human and machine computation. The computation of the human is to take the state of the world, and produce the next instruction. The computation of the machine is to execute the instruction and display the result in context.
+
+If this process can be made location independent, then the computation can be constructed socially, with any number of participants bringing their ideas and computational resources to the table.
+
+We will know social computation has arrived when we are the causes and effects of each other's computations.
 
 Currently alpha quality software, use at your own risk :)
 
