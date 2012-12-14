@@ -12,7 +12,9 @@ Importantly, Session also records the history of your actions and results. So yo
 
 Like git, the core of Session is an immutable datastructure.
 
-Immutable data allows systems to interoperate with less coordination, fewer architectural assumptions, and simpler interfaces. It facilitates peer networks for both humans and programs. 
+Git demonstrated the importance of immutable data as the basis of peer networks. Immutable data facilitates exchange.
+
+Session uses Datomic as this core datastructure.
 
 The first key element in Session is storing not just the code, but also the result. Storing both means remembering what happened.
 
