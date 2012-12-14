@@ -12,9 +12,13 @@ Git showed that immutable data is the foundation of social computation. Immutabl
 
 In Session, we commit not only the code, but also the result of running the code. 
 
-The Session datastructure can be viewed as a database, narrative, or audit history of human-operated computation. 
+On top of this datastructure, Session provides a web-based UI for writing code and seeing the results.
 
-Combined with a web-based interface, this allows us to interactively construct computations, and share them with others.
+This combination of features allows Session to create easily sharable computations that are unrestricted in power.
+
+## Creating computations
+
+The Session datastructure can be viewed as a database, narrative, or audit history of human-operated computation. 
 
 As you are computing, a granular history of your operations is built up. These may include both the results, and metadata.
 
@@ -34,6 +38,8 @@ This is relevant to many context, such as science, data journalism, business ana
 
 It also makes it possible to socially assemble sessions, in the same way we do with source code. For instance computations on open government data could be done collaboritively.
 
+## Executing code
+
 Session supports diverse and potentially large-scale use cases. It is designed to to maximize leverage of your existing architecture. It speaks in the language of the system.
 
 Specifically, Session ensures that it does not bottleneck or limit the computations. It just orchestrates services, and records essentially metadata about what happened.
@@ -50,11 +56,12 @@ When a human-operated computation throws an exception, the operator can investig
 
 This makes Session a useful tool when dealing with messy, real-world systems. 
 
+## Seeing results
+
 Session places greater constraints on UI than it does on the computations themselves. It is essential to be able to perceive a piece of data, without reproducing the universe in which the data was created. UI constructs created in session are therefore required to be values. 
 
 However, they also have access to Datomic, and thus can deal in novelty.
 
-This combination of properties allows Session to create easily sharable computations that are unrestricted in power.
 
 Currently alpha quality software, use at your own risk :)
 
