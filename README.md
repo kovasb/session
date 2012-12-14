@@ -26,7 +26,7 @@ The results themselves are often the immediate goal of the operator -- you need 
 
 Session reduces the complexity of producing and delivering these results. 
 
-Session lives natively on the web, minimizing friction for creating and delivering web content. Because session is also a database, it can be queried or plugged into a messsaging system. Compute and publish.
+Session lives natively on the web, minimizing friction for creating and delivering web content. Because session is also a database, it can be queried or plugged into a messaging system. Compute and publish.
 
 Beyond creating specific results, Session manages their history.
 
