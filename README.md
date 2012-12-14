@@ -36,7 +36,7 @@ It also gives us the opportunity to try to reproduce the result, modify the code
 
 This is relevant to many context, such as science, data journalism, business analytics, dev ops, and online education.
 
-It also makes it possible to socially assemble sessions, in the same way we do with source code. For instance computations on open government data could be done collaboritively.
+It also makes it possible to socially assemble sessions, in the same way we do with source code. For instance computations on open government data could be done collaboratively.
 
 ## Interfacing with Services
 
