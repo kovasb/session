@@ -10,7 +10,9 @@ Session lets you do data analysis, produce web content, stand up systems, and in
 
 Importantly, Session also records the history of your actions and results. So you can come back to it, and see what happened. Or share it with others, so they can repeat it, or extend and adapt your work. 
 
-Session provides a way of socially accreating reusable computations. Computations are more concrete and self-documenting than just source code. And they are lighter-weight, more flexible,  more portable than running programs or applications. They are a different form of executable knowledge.
+Sessions can serve as templates, extension points, audit trails, documentation, or CMS components. They are a form of accretive, executable knowledge. 
+
+Like source code, sessions can be incrementally authored by one person, or by a community. Session is the equivalent of git for computations.
 
 Like git, the core of Session is an immutable datastructure.
 
