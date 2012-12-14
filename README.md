@@ -18,7 +18,7 @@ Session uses Datomic as this core datastructure.
 
 The first key element in Session is storing not just the code, but also the result. Storing both means remembering what happened.
 
-The second key element is the web UI. Being on the web means being able to create & distribute interactive content.
+The second key element is the web UI. Being on the web means being able to create & distribute interactive content. It means integrating human-operated computation into our communications network.
 
 The third key element is delegating to services for the actual computations. Delegation means having the full power of our existing sytems, wrapped up in a more convenient package.
 
