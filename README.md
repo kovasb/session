@@ -10,6 +10,8 @@ Session lets you do data analysis, produce web content, stand up systems, and in
 
 Importantly, Session also records the history of your actions and results. So you can come back to it, and see what happened. Or share it with others, so they can repeat it, or extend and adapt your work. 
 
+Session provides a way of socially accreating reusable computations. Computations are more concrete and self-documenting than just source code. And they are lighter-weight, more flexible,  more portable than running programs or applications. They are a different form of executable knowledge.
+
 Like git, the core of Session is an immutable datastructure.
 
 Git demonstrated the importance of immutable data as the basis of peer networks. Immutable data facilitates exchange.
