@@ -26,6 +26,8 @@ The second key element is the web UI. Being on the web means being able to creat
 
 The third key element is delegating to services for the actual computations. Delegation means having the full power of our existing sytems, wrapped up in a more convenient package.
 
+This combination of features lets Session create easily shareable computations of arbitrary power.
+
 In a sense, Session facilitates the interplay between human and machine computation. The computation of the human is to take the state of the world, and produce the next instruction. The computation of the machine is to execute the instruction and display the result in context.
 
 If this process can be made location independent, then the computation can be constructed socially, with any number of participants bringing their ideas and computational resources to the table.
