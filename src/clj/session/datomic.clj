@@ -23,7 +23,7 @@
 (defn connect-database [uri]
   (let [created? (d/create-database uri)
         conn (d/connect uri)]
-    (if (not (:db/id (d/entity (db conn) :action/request)))
+    (when-not (:db/id (d/entity (db conn) :action/request))
       (do
         @(load-schema conn)
         @(d/transact conn [[:db/add (d/tempid :db.part/user) :db/ident :action/root] ])
@@ -190,13 +190,13 @@
                       ]
                     rdb (:e x))]
             (println [:submit-respose (:e x) d])
-         (if (not (empty? d))
-           (submit-response {:id (str (:e x))
-                             :data
-                             (binding
-                                 [*default-data-reader-fn* session.tags/->GenericData]
+            (if (seq d)
+              (submit-response {:id (str (:e x))
+                                :data
+                                (binding
+                                    [*default-data-reader-fn* session.tags/->GenericData]
 
-                               (try (read-string (nth (first d) 2)) (catch Exception e [:unreadable-form (nth (first d) 2)])))}))
+                                  (try (read-string (nth (first d) 2)) (catch Exception e [:unreadable-form (nth (first d) 2)])))}))
          )))))
 
 
@@ -238,7 +238,7 @@
 
 (noir-async/defpage-async "/service" [] conn
   (subscribe-channel (:request-channel conn))
-  (noir-async/on-receive conn (fn [m]  (submit-request m))))
+  (noir-async/on-receive conn submit-request))
 
 
 
