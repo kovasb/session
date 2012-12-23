@@ -173,6 +173,13 @@
     (lamina/enqueue datomic-channel r)))
 
 
+(defmethod service-request :update-textarea [request]
+  (let [r (pr-str {:data (:data request)
+                   :id (:id request)
+                   :input (:input request)
+                   :origin(:origin request)})]
+    (lamina/enqueue datomic-channel r)))
+
 
 (defn process-response [response]
   (let [rdb (:db-after response) datoms (:tx-data response)]

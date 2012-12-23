@@ -24,7 +24,9 @@
   session.client.subscribe/ISubscribe
   (receive [this msg]
     (reset! (:output model) (:data msg))
-    (reset! (:input model) (:input msg)))
+    (when-not (= (:origin msg)
+                 session.client.editor/session-uuid)
+      (reset! (:input model) (:input msg))))
   ILookup
   (-lookup [o k] (model k))
   (-lookup [o k not-found] (model k not-found))
