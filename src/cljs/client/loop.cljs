@@ -23,7 +23,8 @@
 (deftype Loop [model dom]
   session.client.subscribe/ISubscribe
   (receive [this msg]
-    (reset! (:output model) (:data msg)))
+    (reset! (:output model) (:data msg))
+    (reset! (:input model) (:input msg)))
   ILookup
   (-lookup [o k] (model k))
   (-lookup [o k not-found] (model k not-found))
@@ -39,7 +40,7 @@
 
           [:div.row.loop-container {:style "margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}
            [:i.icon-chevron-right {:height "18px" :style "opacity:.8;position:absolute;left:0px;top:2px"} ""]
-           [:textarea {:id (str "area" id)}
+           [:textarea {:id (str "area" id) :class "exp-input"}
             @(:input model)]]
           [:div.row {:style "position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}
            [:i.icon-chevron-left {:height "18px" :style "opacity:.8;position:absolute;left:-25px;top:7px"} ""]
@@ -80,4 +81,8 @@
                        ($ dom-elt (find ".loopout") (html "")
                          (append
                           ($ [:div.cm-s-default {:style "background-color:#FFF"}
-                              (render-loop-output new)]))))))))))
+                              (render-loop-output new)]))))))
+        (add-watch (:input model) :input-output
+                   (fn [key atom old new]
+                     ($ dom-elt (find "textarea.exp-input") (html new))
+                     (.  @editor (setValue new))))))))
