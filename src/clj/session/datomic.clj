@@ -168,7 +168,7 @@
   (service-request (read-string m)))
 
 (defn submit-response [data]
-  (let [r (pr-str {:data (:data data) :id (:id data)})]
+  (let [r (pr-str {:data (:data data) :id (:id data) :input (:input data)})]
     (println ["submit response" r])
     (lamina/enqueue datomic-channel r)))
 
@@ -178,20 +178,22 @@
   (let [rdb (:db-after response) datoms (:tx-data response)]
     (let [x (first (filter #(and (= true (:added %)) (= :action/response (d/ident rdb (:a %)))) datoms))]
         (println ["response from tx into channel" x (map :a datoms)])
+        (println ["yo"  (:e x)])
         (if x
           (let
-              [d (q '[:find ?req ?res ?res-summary
+              [d (q '[:find ?req ?res ?res-summary ?in-string
                       :in $ ?x
                       :where
                       [$ ?x :action/request ?req]
                       [$ ?x :action/response ?res]
                       [$ ?res :response/summary ?res-summary]
-
-                      ]
+                      [$ ?req :request/data ?did]
+                      [?did :data/edn ?in-string]]
                     rdb (:e x))]
             (println [:submit-respose (:e x) d])
             (if (seq d)
               (submit-response {:id (str (:e x))
+                                :input ((comp last last) d)
                                 :data
                                 (binding
                                     [*default-data-reader-fn* session.tags/->GenericData]
