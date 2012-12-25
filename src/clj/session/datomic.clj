@@ -120,7 +120,7 @@
 (defn response-datoms [actionid op datastring]
   (let [resultid (d/tempid :db.part/user)
         result (binding [*default-data-reader-fn* generic-data-reader-fn]
-                 (eval (read-string datastring)))]
+                 (with-out-str (eval (read-string datastring))))]
     [
      [:db/add actionid :action/response resultid]
      [:db/add resultid :response/summary (pr-str result)]
@@ -185,7 +185,6 @@
   (let [rdb (:db-after response) datoms (:tx-data response)]
     (let [x (first (filter #(and (= true (:added %)) (= :action/response (d/ident rdb (:a %)))) datoms))]
         (println ["response from tx into channel" x (map :a datoms)])
-        (println ["yo"  (:e x)])
         (if x
           (let
               [d (q '[:find ?req ?res ?res-summary ?in-string

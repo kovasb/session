@@ -388,6 +388,13 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  this.stack = Error().stack || "";
+  a && (this.message = "" + a)
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -708,13 +715,6 @@ goog.string.toSelectorCaseCache_ = {};
 goog.string.toSelectorCase = function(a) {
   return goog.string.toSelectorCaseCache_[a] || (goog.string.toSelectorCaseCache_[a] = ("" + a).replace(/([A-Z])/g, "-$1").toLowerCase())
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  this.stack = Error().stack || "";
-  a && (this.message = "" + a)
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -15231,325 +15231,6 @@ goog.debug.entryPointRegistry.register(function(a) {
   goog.net.XhrIo.prototype.onReadyStateChangeEntryPoint_ = a(goog.net.XhrIo.prototype.onReadyStateChangeEntryPoint_)
 });
 var session = {client:{}};
-session.client.mvc = {};
-session.client.mvc.IMVC = {};
-session.client.mvc.view = function(a) {
-  if(a ? a.session$client$mvc$IMVC$view$arity$1 : a) {
-    return a.session$client$mvc$IMVC$view$arity$1(a)
-  }
-  var b;
-  b = session.client.mvc.view[goog.typeOf(null == a ? null : a)];
-  if(!b && (b = session.client.mvc.view._, !b)) {
-    throw cljs.core.missing_protocol.call(null, "IMVC.view", a);
-  }
-  return b.call(null, a)
-};
-session.client.mvc.control = function(a) {
-  if(a ? a.session$client$mvc$IMVC$control$arity$1 : a) {
-    return a.session$client$mvc$IMVC$control$arity$1(a)
-  }
-  var b;
-  b = session.client.mvc.control[goog.typeOf(null == a ? null : a)];
-  if(!b && (b = session.client.mvc.control._, !b)) {
-    throw cljs.core.missing_protocol.call(null, "IMVC.control", a);
-  }
-  return b.call(null, a)
-};
-session.client.mvc.control2 = function() {
-  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
-  return new cljs.core.MultiFn("control2", function(a) {
-    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
-  }, "\ufdd0'default", e, a, b, c, d)
-}();
-cljs.core._add_method.call(null, session.client.mvc.control2, "\ufdd0'default", function() {
-  return null
-});
-session.client.mvc.view2 = function() {
-  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
-  return new cljs.core.MultiFn("view2", function(a) {
-    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
-  }, "\ufdd0'default", e, a, b, c, d)
-}();
-cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", function(a) {
-  if(cljs.core._EQ_.call(null, "\ufdd0'this", a)) {
-    return cljs_jquery.core.jquery.call(null, this)
-  }
-  var b;
-  b = (b = cljs.core.vector_QMARK_.call(null, a)) ? b : cljs.core.keyword_QMARK_.call(null, a);
-  return b ? cljs_jquery.core.dom_create.call(null, a) : cljs_jquery.core.jquery.call(null, a)
-});
-cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
-  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
-});
-session.client.mvc.render = function(a) {
-  var b = session.client.mvc.view.call(null, a);
-  session.client.mvc.control.call(null, a);
-  return b
-};
-session.client.mvc.IMVC._ = !0;
-session.client.mvc.view._ = function(a) {
-  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
-};
-session.client.mvc.control._ = function(a) {
-  return a
-};
-subpar.core = {};
-subpar.core.get_index = function(a) {
-  return a.indexFromPos(a.getCursor())
-};
-subpar.core.go_to_index = function(a, b, c) {
-  return cljs.core.not_EQ_.call(null, b, c) ? a.setCursor(a.posFromIndex(c)) : null
-};
-subpar.core.nothing_selected_QMARK_ = function(a) {
-  return cljs.core._EQ_.call(null, "", a.getSelection())
-};
-subpar.core.get_info = function(a) {
-  return cljs.core.PersistentVector.fromArray([a.getCursor(), subpar.core.get_index.call(null, a), a.getValue()], !0)
-};
-subpar.core.open_expression = function(a, b) {
-  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null);
-  return cljs.core.truth_(subpar.paredit.in_string.call(null, c, e)) ? (a.replaceRange(cljs.core.nth.call(null, b, 0), d), a.setCursor(d.line, d.ch + 1)) : a.compoundChange(function() {
-    a.replaceRange(b, d);
-    a.setCursor(d.line, d.ch + 1);
-    return a.indentLine(d.line)
-  })
-};
-goog.exportSymbol("subpar.core.open_expression", subpar.core.open_expression);
-subpar.core.forward_delete = function(a) {
-  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
-    var b = subpar.core.get_info.call(null, a);
-    cljs.core.nth.call(null, b, 0, null);
-    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.forward_delete_action.call(null, b, c), d = a.posFromIndex(c), e = a.posFromIndex(c + 1), f = a.posFromIndex(c - 1), c = a.posFromIndex(c + 2), g = cljs.core._EQ_;
-    if(g.call(null, 1, b)) {
-      return a.replaceRange("", d, e)
-    }
-    if(g.call(null, 2, b)) {
-      return a.replaceRange("", f, e)
-    }
-    if(g.call(null, 3, b)) {
-      return a.replaceRange("", d, c)
-    }
-    if(g.call(null, 4, b)) {
-      return a.setCursor(e)
-    }
-    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
-  }
-  return a.replaceSelection("")
-};
-goog.exportSymbol("subpar.core.forward_delete", subpar.core.forward_delete);
-subpar.core.backward_delete = function(a) {
-  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
-    var b = subpar.core.get_info.call(null, a);
-    cljs.core.nth.call(null, b, 0, null);
-    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.backward_delete_action.call(null, b, c), d = a.posFromIndex(c - 1), e = a.posFromIndex(c), f = a.posFromIndex(c + 1), c = a.posFromIndex(c - 2), g = cljs.core._EQ_;
-    if(g.call(null, 1, b)) {
-      return a.replaceRange("", d, e)
-    }
-    if(g.call(null, 2, b)) {
-      return a.replaceRange("", d, f)
-    }
-    if(g.call(null, 3, b)) {
-      return a.replaceRange("", c, e)
-    }
-    if(g.call(null, 4, b)) {
-      return a.setCursor(d)
-    }
-    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
-  }
-  return a.replaceSelection("")
-};
-goog.exportSymbol("subpar.core.backward_delete", subpar.core.backward_delete);
-subpar.core.double_quote = function(a) {
-  var b = subpar.core.get_info.call(null, a), c = cljs.core.nth.call(null, b, 0, null), d = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.double_quote_action.call(null, b, d), e = cljs.core._EQ_;
-  if(e.call(null, 0, b)) {
-    return subpar.core.open_expression.call(null, a, '""')
-  }
-  if(e.call(null, 1, b)) {
-    return a.replaceRange('\\"', c)
-  }
-  if(e.call(null, 2, b)) {
-    return subpar.core.go_to_index.call(null, a, d, d + 1)
-  }
-  if(e.call(null, 3, b)) {
-    return a.replaceRange('"', c)
-  }
-  throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
-};
-goog.exportSymbol("subpar.core.double_quote", subpar.core.double_quote);
-subpar.core.close_expression = function(a, b) {
-  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = subpar.paredit.parse.call(null, c);
-  if(cljs.core.truth_(subpar.paredit.in_string_QMARK_.call(null, c, e))) {
-    return a.replaceRange(b, d), a.setCursor(d.line, d.ch + 1)
-  }
-  var f = subpar.paredit.close_expression_vals.call(null, c, e), d = cljs.core.nth.call(null, f, 0, null), c = cljs.core.nth.call(null, f, 1, null), g = cljs.core.nth.call(null, f, 2, null), f = cljs.core.nth.call(null, f, 3, null);
-  return cljs.core.truth_(f) ? (cljs.core.truth_(d) && a.replaceRange("", a.posFromIndex(c), a.posFromIndex(g)), subpar.core.go_to_index.call(null, a, e, f)) : null
-};
-goog.exportSymbol("subpar.core.close_expression", subpar.core.close_expression);
-subpar.core.go = function(a, b) {
-  var c = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, c, 0, null);
-  var d = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = b.call(null, c, d);
-  return subpar.core.go_to_index.call(null, a, d, c)
-};
-subpar.core.backward_up = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.backward_up_fn)
-};
-goog.exportSymbol("subpar.core.backward_up", subpar.core.backward_up);
-subpar.core.forward_down = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.forward_down_fn)
-};
-goog.exportSymbol("subpar.core.forward_down", subpar.core.forward_down);
-subpar.core.backward = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.backward_fn)
-};
-goog.exportSymbol("subpar.core.backward", subpar.core.backward);
-subpar.core.forward = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.forward_fn)
-};
-goog.exportSymbol("subpar.core.forward", subpar.core.forward);
-subpar.core.backward_down = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.backward_down_fn)
-};
-goog.exportSymbol("subpar.core.backward_down", subpar.core.backward_down);
-subpar.core.forward_up = function(a) {
-  return subpar.core.go.call(null, a, subpar.paredit.forward_up_fn)
-};
-goog.exportSymbol("subpar.core.forward_up", subpar.core.forward_up);
-subpar.core.forward_slurp = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.forward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
-  if(cljs.core.truth_(f)) {
-    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
-    return a.compoundChange(function() {
-      a.replaceRange(d, i);
-      a.replaceRange("", g, h);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, j, j + f))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.forward_slurp", subpar.core.forward_slurp);
-subpar.core.backward_slurp = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
-  if(cljs.core.truth_(f)) {
-    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
-    return a.compoundChange(function() {
-      a.replaceRange("", g, h);
-      a.replaceRange(d, i);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, j, j + f))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.backward_slurp", subpar.core.backward_slurp);
-subpar.core.backward_barf = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_barf_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
-  if(cljs.core.truth_(g)) {
-    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(b)].join("") : b, i = a.posFromIndex(e), j = a.posFromIndex(d), k = a.posFromIndex(d + 1), m = j.line;
-    return a.compoundChange(function() {
-      a.replaceRange(h, i);
-      a.replaceRange("", j, k);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, m, m + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.backward_barf", subpar.core.backward_barf);
-subpar.core.forward_barf = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), d = subpar.paredit.forward_barf_vals.call(null, b, c), c = cljs.core.nth.call(null, d, 0, null), b = cljs.core.nth.call(null, d, 1, null), e = cljs.core.nth.call(null, d, 2, null), f = cljs.core.nth.call(null, d, 3, null), g = cljs.core.nth.call(null, d, 4, null), d = cljs.core.nth.call(null, d, 5, null);
-  if(cljs.core.truth_(g)) {
-    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(c)].join("") : c, i = a.posFromIndex(e), j = a.posFromIndex(b), k = a.posFromIndex(b + 1), m = a.posFromIndex(d).line;
-    return a.compoundChange(function() {
-      a.replaceRange("", j, k);
-      a.replaceRange(h, i);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, m, m + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.forward_barf", subpar.core.forward_barf);
-subpar.core.splice_delete_backward = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_backward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
-  if(cljs.core.truth_(f)) {
-    var h = a.posFromIndex(f).line, i = a.posFromIndex(e), j = a.posFromIndex(e + 1), k = a.posFromIndex(b), m = a.posFromIndex(d);
-    return a.compoundChange(function() {
-      a.replaceRange("", i, j);
-      a.replaceRange("", k, m);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, h, h + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.splice_delete_backward", subpar.core.splice_delete_backward);
-subpar.core.splice_delete_forward = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_forward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
-  if(cljs.core.truth_(f)) {
-    var h = a.posFromIndex(f).line, i = a.posFromIndex(b), j = a.posFromIndex(b + 1), k = a.posFromIndex(d), m = a.posFromIndex(e);
-    return a.compoundChange(function() {
-      a.replaceRange("", k, m);
-      a.replaceRange("", i, j);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, h, h + g))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.splice_delete_forward", subpar.core.splice_delete_forward);
-subpar.core.splice = function(a) {
-  var b = subpar.core.get_info.call(null, a);
-  cljs.core.nth.call(null, b, 0, null);
-  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
-  if(cljs.core.truth_(e)) {
-    var g = a.posFromIndex(e).line, h = a.posFromIndex(b), i = a.posFromIndex(b + 1), j = a.posFromIndex(d), k = a.posFromIndex(d + 1);
-    return a.compoundChange(function() {
-      a.replaceRange("", j, k);
-      a.replaceRange("", h, i);
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, g, g + f))
-    })
-  }
-  return null
-};
-goog.exportSymbol("subpar.core.splice", subpar.core.splice);
-subpar.core.indent_selection = function(a) {
-  if(cljs.core.truth_(a.somethingSelected())) {
-    var b = a.getCursor(!0).line, c = a.getCursor(!1).line;
-    return a.compoundChange(function() {
-      return cljs.core.map.call(null, function(b) {
-        return a.indentLine(b)
-      }, cljs.core.range.call(null, b, c + 1))
-    })
-  }
-  return a.indentLine(a.getCursor().line)
-};
-goog.exportSymbol("subpar.core.indent_selection", subpar.core.indent_selection);
-session.client.editor = {};
-session.client.editor.create_editor = function(a) {
-  return CodeMirror.fromTextArea(document.getElementById(a), {lineNumbers:!1, mode:"text/x-clojure", keyMap:"subpar"})
-};
 session.client.subscribe = {};
 session.client.subscribe.ISubscribe = {};
 session.client.subscribe.receive = function(a, b) {
@@ -16006,6 +15687,337 @@ cljs.reader.deregister_tag_parser_BANG_ = function(a) {
   cljs.core.swap_BANG_.call(null, cljs.reader._STAR_tag_table_STAR_, cljs.core.dissoc, a);
   return b
 };
+session.client.mvc = {};
+session.client.mvc.IMVC = {};
+session.client.mvc.view = function(a) {
+  if(a ? a.session$client$mvc$IMVC$view$arity$1 : a) {
+    return a.session$client$mvc$IMVC$view$arity$1(a)
+  }
+  var b;
+  b = session.client.mvc.view[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = session.client.mvc.view._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMVC.view", a);
+  }
+  return b.call(null, a)
+};
+session.client.mvc.control = function(a) {
+  if(a ? a.session$client$mvc$IMVC$control$arity$1 : a) {
+    return a.session$client$mvc$IMVC$control$arity$1(a)
+  }
+  var b;
+  b = session.client.mvc.control[goog.typeOf(null == a ? null : a)];
+  if(!b && (b = session.client.mvc.control._, !b)) {
+    throw cljs.core.missing_protocol.call(null, "IMVC.control", a);
+  }
+  return b.call(null, a)
+};
+session.client.mvc.control2 = function() {
+  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
+  return new cljs.core.MultiFn("control2", function(a) {
+    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
+  }, "\ufdd0'default", e, a, b, c, d)
+}();
+cljs.core._add_method.call(null, session.client.mvc.control2, "\ufdd0'default", function() {
+  return null
+});
+session.client.mvc.view2 = function() {
+  var a = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), b = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), c = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), d = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY), e = cljs.core._lookup.call(null, cljs.core.ObjMap.EMPTY, "\ufdd0'hierarchy", cljs.core.global_hierarchy);
+  return new cljs.core.MultiFn("view2", function(a) {
+    return cljs.core.identity.call(null, (new cljs.core.Keyword("\ufdd0'view")).call(null, cljs.core.meta.call(null, a)))
+  }, "\ufdd0'default", e, a, b, c, d)
+}();
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'dom", function(a) {
+  if(cljs.core._EQ_.call(null, "\ufdd0'this", a)) {
+    return cljs_jquery.core.jquery.call(null, this)
+  }
+  var b;
+  b = (b = cljs.core.vector_QMARK_.call(null, a)) ? b : cljs.core.keyword_QMARK_.call(null, a);
+  return b ? cljs_jquery.core.dom_create.call(null, a) : cljs_jquery.core.jquery.call(null, a)
+});
+cljs.core._add_method.call(null, session.client.mvc.view2, "\ufdd0'default", function(a) {
+  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
+});
+session.client.mvc.render = function(a) {
+  var b = session.client.mvc.view.call(null, a);
+  session.client.mvc.control.call(null, a);
+  return b
+};
+session.client.mvc.IMVC._ = !0;
+session.client.mvc.view._ = function(a) {
+  return cljs.core.instance_QMARK_.call(null, Element, a) ? a : cljs.core.instance_QMARK_.call(null, jQuery, a) ? a : cljs.core.pr_str.call(null, a)
+};
+session.client.mvc.control._ = function(a) {
+  return a
+};
+subpar.core = {};
+subpar.core.get_index = function(a) {
+  return a.indexFromPos(a.getCursor())
+};
+subpar.core.go_to_index = function(a, b, c) {
+  return cljs.core.not_EQ_.call(null, b, c) ? a.setCursor(a.posFromIndex(c)) : null
+};
+subpar.core.nothing_selected_QMARK_ = function(a) {
+  return cljs.core._EQ_.call(null, "", a.getSelection())
+};
+subpar.core.get_info = function(a) {
+  return cljs.core.PersistentVector.fromArray([a.getCursor(), subpar.core.get_index.call(null, a), a.getValue()], !0)
+};
+subpar.core.open_expression = function(a, b) {
+  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null);
+  return cljs.core.truth_(subpar.paredit.in_string.call(null, c, e)) ? (a.replaceRange(cljs.core.nth.call(null, b, 0), d), a.setCursor(d.line, d.ch + 1)) : a.compoundChange(function() {
+    a.replaceRange(b, d);
+    a.setCursor(d.line, d.ch + 1);
+    return a.indentLine(d.line)
+  })
+};
+goog.exportSymbol("subpar.core.open_expression", subpar.core.open_expression);
+subpar.core.forward_delete = function(a) {
+  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
+    var b = subpar.core.get_info.call(null, a);
+    cljs.core.nth.call(null, b, 0, null);
+    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.forward_delete_action.call(null, b, c), d = a.posFromIndex(c), e = a.posFromIndex(c + 1), f = a.posFromIndex(c - 1), c = a.posFromIndex(c + 2), g = cljs.core._EQ_;
+    if(g.call(null, 1, b)) {
+      return a.replaceRange("", d, e)
+    }
+    if(g.call(null, 2, b)) {
+      return a.replaceRange("", f, e)
+    }
+    if(g.call(null, 3, b)) {
+      return a.replaceRange("", d, c)
+    }
+    if(g.call(null, 4, b)) {
+      return a.setCursor(e)
+    }
+    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
+  }
+  return a.replaceSelection("")
+};
+goog.exportSymbol("subpar.core.forward_delete", subpar.core.forward_delete);
+subpar.core.backward_delete = function(a) {
+  if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, a))) {
+    var b = subpar.core.get_info.call(null, a);
+    cljs.core.nth.call(null, b, 0, null);
+    var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.backward_delete_action.call(null, b, c), d = a.posFromIndex(c - 1), e = a.posFromIndex(c), f = a.posFromIndex(c + 1), c = a.posFromIndex(c - 2), g = cljs.core._EQ_;
+    if(g.call(null, 1, b)) {
+      return a.replaceRange("", d, e)
+    }
+    if(g.call(null, 2, b)) {
+      return a.replaceRange("", d, f)
+    }
+    if(g.call(null, 3, b)) {
+      return a.replaceRange("", c, e)
+    }
+    if(g.call(null, 4, b)) {
+      return a.setCursor(d)
+    }
+    throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
+  }
+  return a.replaceSelection("")
+};
+goog.exportSymbol("subpar.core.backward_delete", subpar.core.backward_delete);
+subpar.core.double_quote = function(a) {
+  var b = subpar.core.get_info.call(null, a), c = cljs.core.nth.call(null, b, 0, null), d = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), b = subpar.paredit.double_quote_action.call(null, b, d), e = cljs.core._EQ_;
+  if(e.call(null, 0, b)) {
+    return subpar.core.open_expression.call(null, a, '""')
+  }
+  if(e.call(null, 1, b)) {
+    return a.replaceRange('\\"', c)
+  }
+  if(e.call(null, 2, b)) {
+    return subpar.core.go_to_index.call(null, a, d, d + 1)
+  }
+  if(e.call(null, 3, b)) {
+    return a.replaceRange('"', c)
+  }
+  throw Error([cljs.core.str("No matching clause: "), cljs.core.str(b)].join(""));
+};
+goog.exportSymbol("subpar.core.double_quote", subpar.core.double_quote);
+subpar.core.close_expression = function(a, b) {
+  var c = subpar.core.get_info.call(null, a), d = cljs.core.nth.call(null, c, 0, null), e = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = subpar.paredit.parse.call(null, c);
+  if(cljs.core.truth_(subpar.paredit.in_string_QMARK_.call(null, c, e))) {
+    return a.replaceRange(b, d), a.setCursor(d.line, d.ch + 1)
+  }
+  var f = subpar.paredit.close_expression_vals.call(null, c, e), d = cljs.core.nth.call(null, f, 0, null), c = cljs.core.nth.call(null, f, 1, null), g = cljs.core.nth.call(null, f, 2, null), f = cljs.core.nth.call(null, f, 3, null);
+  return cljs.core.truth_(f) ? (cljs.core.truth_(d) && a.replaceRange("", a.posFromIndex(c), a.posFromIndex(g)), subpar.core.go_to_index.call(null, a, e, f)) : null
+};
+goog.exportSymbol("subpar.core.close_expression", subpar.core.close_expression);
+subpar.core.go = function(a, b) {
+  var c = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, c, 0, null);
+  var d = cljs.core.nth.call(null, c, 1, null), c = cljs.core.nth.call(null, c, 2, null), c = b.call(null, c, d);
+  return subpar.core.go_to_index.call(null, a, d, c)
+};
+subpar.core.backward_up = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.backward_up_fn)
+};
+goog.exportSymbol("subpar.core.backward_up", subpar.core.backward_up);
+subpar.core.forward_down = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.forward_down_fn)
+};
+goog.exportSymbol("subpar.core.forward_down", subpar.core.forward_down);
+subpar.core.backward = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.backward_fn)
+};
+goog.exportSymbol("subpar.core.backward", subpar.core.backward);
+subpar.core.forward = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.forward_fn)
+};
+goog.exportSymbol("subpar.core.forward", subpar.core.forward);
+subpar.core.backward_down = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.backward_down_fn)
+};
+goog.exportSymbol("subpar.core.backward_down", subpar.core.backward_down);
+subpar.core.forward_up = function(a) {
+  return subpar.core.go.call(null, a, subpar.paredit.forward_up_fn)
+};
+goog.exportSymbol("subpar.core.forward_up", subpar.core.forward_up);
+subpar.core.forward_slurp = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.forward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
+  if(cljs.core.truth_(f)) {
+    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
+    return a.compoundChange(function() {
+      a.replaceRange(d, i);
+      a.replaceRange("", g, h);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, j, j + f))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.forward_slurp", subpar.core.forward_slurp);
+subpar.core.backward_slurp = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_slurp_vals.call(null, b, c), d = cljs.core.nth.call(null, c, 0, null), b = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
+  if(cljs.core.truth_(f)) {
+    var g = a.posFromIndex(b), h = a.posFromIndex(b + 1), i = a.posFromIndex(e), j = g.line;
+    return a.compoundChange(function() {
+      a.replaceRange("", g, h);
+      a.replaceRange(d, i);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, j, j + f))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.backward_slurp", subpar.core.backward_slurp);
+subpar.core.backward_barf = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.backward_barf_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
+  if(cljs.core.truth_(g)) {
+    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(b)].join("") : b, i = a.posFromIndex(e), j = a.posFromIndex(d), k = a.posFromIndex(d + 1), m = j.line;
+    return a.compoundChange(function() {
+      a.replaceRange(h, i);
+      a.replaceRange("", j, k);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, m, m + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.backward_barf", subpar.core.backward_barf);
+subpar.core.forward_barf = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), d = subpar.paredit.forward_barf_vals.call(null, b, c), c = cljs.core.nth.call(null, d, 0, null), b = cljs.core.nth.call(null, d, 1, null), e = cljs.core.nth.call(null, d, 2, null), f = cljs.core.nth.call(null, d, 3, null), g = cljs.core.nth.call(null, d, 4, null), d = cljs.core.nth.call(null, d, 5, null);
+  if(cljs.core.truth_(g)) {
+    var h = cljs.core.truth_(f) ? [cljs.core.str(" "), cljs.core.str(c)].join("") : c, i = a.posFromIndex(e), j = a.posFromIndex(b), k = a.posFromIndex(b + 1), m = a.posFromIndex(d).line;
+    return a.compoundChange(function() {
+      a.replaceRange("", j, k);
+      a.replaceRange(h, i);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, m, m + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.forward_barf", subpar.core.forward_barf);
+subpar.core.splice_delete_backward = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_backward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
+  if(cljs.core.truth_(f)) {
+    var h = a.posFromIndex(f).line, i = a.posFromIndex(e), j = a.posFromIndex(e + 1), k = a.posFromIndex(b), m = a.posFromIndex(d);
+    return a.compoundChange(function() {
+      a.replaceRange("", i, j);
+      a.replaceRange("", k, m);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, h, h + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.splice_delete_backward", subpar.core.splice_delete_backward);
+subpar.core.splice_delete_forward = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_delete_forward_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null), g = cljs.core.nth.call(null, c, 4, null);
+  if(cljs.core.truth_(f)) {
+    var h = a.posFromIndex(f).line, i = a.posFromIndex(b), j = a.posFromIndex(b + 1), k = a.posFromIndex(d), m = a.posFromIndex(e);
+    return a.compoundChange(function() {
+      a.replaceRange("", k, m);
+      a.replaceRange("", i, j);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, h, h + g))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.splice_delete_forward", subpar.core.splice_delete_forward);
+subpar.core.splice = function(a) {
+  var b = subpar.core.get_info.call(null, a);
+  cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null), c = subpar.paredit.splice_vals.call(null, b, c), b = cljs.core.nth.call(null, c, 0, null), d = cljs.core.nth.call(null, c, 1, null), e = cljs.core.nth.call(null, c, 2, null), f = cljs.core.nth.call(null, c, 3, null);
+  if(cljs.core.truth_(e)) {
+    var g = a.posFromIndex(e).line, h = a.posFromIndex(b), i = a.posFromIndex(b + 1), j = a.posFromIndex(d), k = a.posFromIndex(d + 1);
+    return a.compoundChange(function() {
+      a.replaceRange("", j, k);
+      a.replaceRange("", h, i);
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, g, g + f))
+    })
+  }
+  return null
+};
+goog.exportSymbol("subpar.core.splice", subpar.core.splice);
+subpar.core.indent_selection = function(a) {
+  if(cljs.core.truth_(a.somethingSelected())) {
+    var b = a.getCursor(!0).line, c = a.getCursor(!1).line;
+    return a.compoundChange(function() {
+      return cljs.core.map.call(null, function(b) {
+        return a.indentLine(b)
+      }, cljs.core.range.call(null, b, c + 1))
+    })
+  }
+  return a.indentLine(a.getCursor().line)
+};
+goog.exportSymbol("subpar.core.indent_selection", subpar.core.indent_selection);
+session.client.editor = {};
+session.client.editor.uuid = function() {
+  var a = cljs.core.repeatedly.call(null, 30, function() {
+    return cljs.core.rand_int.call(null, 16).toString(16)
+  });
+  return cljs.core.apply.call(null, cljs.core.str, cljs.core.concat.call(null, cljs.core.take.call(null, 8, a), cljs.core.PersistentVector.fromArray(["-"], !0), cljs.core.take.call(null, 4, cljs.core.drop.call(null, 8, a)), cljs.core.PersistentVector.fromArray(["-4"], !0), cljs.core.take.call(null, 3, cljs.core.drop.call(null, 12, a)), cljs.core.PersistentVector.fromArray(["-"], !0), cljs.core.PersistentVector.fromArray([(8 | 3 & cljs.core.rand_int.call(null, 15)).toString(16)], !0), cljs.core.take.call(null, 
+  3, cljs.core.drop.call(null, 15, a)), cljs.core.PersistentVector.fromArray(["-"], !0), cljs.core.take.call(null, 12, cljs.core.drop.call(null, 18, a))))
+};
+session.client.editor.session_uuid = session.client.editor.uuid.call(null);
+session.client.editor.create_editor = function(a) {
+  return CodeMirror.fromTextArea(document.getElementById([cljs.core.str("area"), cljs.core.str(a)].join("")), {lineNumbers:!1, mode:"text/x-clojure", onKeyEvent:function(b, c) {
+    var d = b.getValue();
+    cljs.core._EQ_.call(null, c.type, "keyup") && session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'input", "\ufdd0'origin"], {"\ufdd0'op":"\ufdd0'update-textarea", "\ufdd0'id":a, "\ufdd0'input":d, "\ufdd0'origin":session.client.editor.session_uuid}));
+    return!1
+  }, keyMap:"subpar"})
+};
 session.client.loop_creator = {};
 session.client.loop_creator.foobar = function(a) {
   return a
@@ -16152,9 +16164,9 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$view$arity$1 = functi
     }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
       return session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'data"], {"\ufdd0'op":"\ufdd0'delete-loop", "\ufdd0'id":b, "\ufdd0'data":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":b})}))
     }], !0)), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span12", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-right", cljs.core.ObjMap.fromObject(["\ufdd0'height", 
-    "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), 
-    cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, 
-    a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'class"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join(""), "\ufdd0'class":"exp-input"}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+    {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+    {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
       var d = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'style"], {"\ufdd0'id":b, "\ufdd0'style":"position:relative"}), cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) ? cljs_jquery.core.jquery.call(null, 
       this) : function() {
         var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0));
@@ -16162,9 +16174,9 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$view$arity$1 = functi
       }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
         return session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'data"], {"\ufdd0'op":"\ufdd0'delete-loop", "\ufdd0'id":b, "\ufdd0'data":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":b})}))
       }], !0)), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span12", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-right", cljs.core.ObjMap.fromObject(["\ufdd0'height", 
-      "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), 
-      cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, 
-      a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0));
+      "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'class"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join(""), "\ufdd0'class":"exp-input"}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+      {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+      {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0));
       return d ? d : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'style"], {"\ufdd0'id":b, "\ufdd0'style":"position:relative"}), cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) ? cljs_jquery.core.jquery.call(null, 
       this) : function() {
         var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0));
@@ -16172,9 +16184,9 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$view$arity$1 = functi
       }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
         return session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'data"], {"\ufdd0'op":"\ufdd0'delete-loop", "\ufdd0'id":b, "\ufdd0'data":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":b})}))
       }], !0)), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span12", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-right", cljs.core.ObjMap.fromObject(["\ufdd0'height", 
-      "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), 
-      cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, 
-      a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0))
+      "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'class"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join(""), "\ufdd0'class":"exp-input"}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+      {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+      {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0))
     }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'style"], {"\ufdd0'id":b, "\ufdd0'style":"position:relative"}), cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) ? cljs_jquery.core.jquery.call(null, 
     this) : function() {
       var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0));
@@ -16182,18 +16194,18 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$view$arity$1 = functi
     }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
       return session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'data"], {"\ufdd0'op":"\ufdd0'delete-loop", "\ufdd0'id":b, "\ufdd0'data":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":b})}))
     }], !0)), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span12", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-right", cljs.core.ObjMap.fromObject(["\ufdd0'height", 
-    "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), 
-    cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, 
-    a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'style"], {"\ufdd0'id":b, "\ufdd0'style":"position:relative"}), cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", 
-    cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
+    "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'class"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join(""), "\ufdd0'class":"exp-input"}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+    {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+    {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div", cljs.core.ObjMap.fromObject(["\ufdd0'id", 
+    "\ufdd0'style"], {"\ufdd0'id":b, "\ufdd0'style":"position:relative"}), cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) ? cljs_jquery.core.jquery.call(null, this) : function() {
       var a = cljs.core.vector_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0));
       return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0))
     }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-remove", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:absolute;top:2px;right:-20px"}), ""], !0)), cljs.core.PersistentVector.fromArray(["click", function() {
       return session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'data"], {"\ufdd0'op":"\ufdd0'delete-loop", "\ufdd0'id":b, "\ufdd0'data":cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":b})}))
     }], !0)), cljs.core.PersistentVector.fromArray(["\ufdd0'div.span12", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row.loop-container", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-right", cljs.core.ObjMap.fromObject(["\ufdd0'height", 
-    "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join("")}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), 
-    cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, 
-    a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", a], !0))
+    "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:0px;top:2px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'textarea", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'class"], {"\ufdd0'id":[cljs.core.str("area"), cljs.core.str(b)].join(""), "\ufdd0'class":"exp-input"}), cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, a))], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+    {"\ufdd0'style":"position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}), cljs.core.PersistentVector.fromArray(["\ufdd0'i.icon-chevron-left", cljs.core.ObjMap.fromObject(["\ufdd0'height", "\ufdd0'style"], {"\ufdd0'height":"18px", "\ufdd0'style":"opacity:.8;position:absolute;left:-25px;top:7px"}), ""], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.loopout.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], 
+    {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, a)))], !0)], !0)], !0), cljs.core.PersistentVector.fromArray(["\ufdd0'div.row", session.client.mvc.render.call(null, new session.client.loop_creator.LoopCreator(b, cljs.core.atom.call(null, null)))], !0)], !0)), cljs.core.PersistentVector.fromArray(["data", "model", a], !0))
   }();
   cljs.core.reset_BANG_.call(null, this.dom, b);
   return b
@@ -16206,7 +16218,7 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$control$arity$1 = fun
     var a = cljs.core.vector_QMARK_.call(null, c);
     return a ? a : cljs.core.keyword_QMARK_.call(null, c)
   }() ? cljs_jquery.core.dom_create.call(null, c) : cljs_jquery.core.jquery.call(null, c), cljs.core.PersistentVector.fromArray(["on", "post-render", function() {
-    return cljs.core.reset_BANG_.call(null, e, session.client.editor.create_editor.call(null, [cljs.core.str("area"), cljs.core.str(d)].join("")))
+    return cljs.core.reset_BANG_.call(null, e, session.client.editor.create_editor.call(null, d))
   }], !0));
   cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", c) ? cljs_jquery.core.jquery.call(null, this) : function() {
     var a = cljs.core.vector_QMARK_.call(null, c);
@@ -16228,7 +16240,7 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$control$arity$1 = fun
     cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, b.model), cljs.core.deref.call(null, e).getValue());
     return session.client.subscribe.send_BANG_.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'op", "\ufdd0'id", "\ufdd0'data"], {"\ufdd0'op":"\ufdd0'evaluate-clj", "\ufdd0'id":(new cljs.core.Keyword("\ufdd0'id")).call(null, b.model), "\ufdd0'data":cljs.core.deref.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, b.model))}))
   }], !0));
-  return cljs.core.add_watch.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, b.model), "\ufdd0'update-output", function(a, b, d, e) {
+  cljs.core.add_watch.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, b.model), "\ufdd0'update-output", function(a, b, d, e) {
     session.client.mvc.view.call(null, e);
     return cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", c) ? cljs_jquery.core.jquery.call(null, this) : function() {
       var a = cljs.core.vector_QMARK_.call(null, c);
@@ -16239,6 +16251,13 @@ session.client.loop.Loop.prototype.session$client$mvc$IMVC$control$arity$1 = fun
       return a ? a : cljs.core.keyword_QMARK_.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, e)], !0))
     }() ? cljs_jquery.core.dom_create.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, e)], !0)) : cljs_jquery.core.jquery.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'div.cm-s-default", cljs.core.ObjMap.fromObject(["\ufdd0'style"], {"\ufdd0'style":"background-color:#FFF"}), session.client.loop.render_loop_output.call(null, 
     e)], !0))], !0))
+  });
+  return cljs.core.add_watch.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, b.model), "\ufdd0'input-output", function(a, b, d, i) {
+    cljs_jquery.core.call_jquery.call(null, cljs_jquery.core.call_jquery.call(null, cljs.core._EQ_.call(null, "\ufdd0'this", c) ? cljs_jquery.core.jquery.call(null, this) : function() {
+      var a = cljs.core.vector_QMARK_.call(null, c);
+      return a ? a : cljs.core.keyword_QMARK_.call(null, c)
+    }() ? cljs_jquery.core.dom_create.call(null, c) : cljs_jquery.core.jquery.call(null, c), cljs.core.PersistentVector.fromArray(["find", "textarea.exp-input"], !0)), cljs.core.PersistentVector.fromArray(["html", i], !0));
+    return cljs.core.deref.call(null, e).setValue(i)
   })
 };
 session.client.loop.Loop.prototype.cljs$core$ILookup$_lookup$arity$2 = function(a, b) {
@@ -16249,7 +16268,8 @@ session.client.loop.Loop.prototype.cljs$core$ILookup$_lookup$arity$3 = function(
 };
 session.client.loop.Loop.prototype.session$client$subscribe$ISubscribe$ = !0;
 session.client.loop.Loop.prototype.session$client$subscribe$ISubscribe$receive$arity$2 = function(a, b) {
-  return cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, this.model), (new cljs.core.Keyword("\ufdd0'data")).call(null, b))
+  cljs.core.truth_((new cljs.core.Keyword("\ufdd0'data")).call(null, b)) && cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'output")).call(null, this.model), (new cljs.core.Keyword("\ufdd0'data")).call(null, b));
+  return cljs.core._EQ_.call(null, (new cljs.core.Keyword("\ufdd0'origin")).call(null, b), session.client.editor.session_uuid) ? null : cljs.core.reset_BANG_.call(null, (new cljs.core.Keyword("\ufdd0'input")).call(null, this.model), (new cljs.core.Keyword("\ufdd0'input")).call(null, b))
 };
 session.client.loop.Loop;
 session.client.session = {};
@@ -16946,35 +16966,6 @@ goog.Uri.QueryData.prototype.extend = function(a) {
     }, this)
   }
 };
-session.client.hiccup = {};
-session.client.hiccup.Hiccup = function(a) {
-  this.model = a;
-  this.cljs$lang$protocol_mask$partition1$ = 0;
-  this.cljs$lang$protocol_mask$partition0$ = 536870912
-};
-session.client.hiccup.Hiccup.cljs$lang$type = !0;
-session.client.hiccup.Hiccup.cljs$lang$ctorPrSeq = function() {
-  return cljs.core.list.call(null, "session.client.hiccup/Hiccup")
-};
-session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$ = !0;
-session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
-  if(cljs.core._EQ_.call(null, "\ufdd0'this", this.model)) {
-    return cljs_jquery.core.jquery.call(null, this)
-  }
-  var a;
-  a = (a = cljs.core.vector_QMARK_.call(null, this.model)) ? a : cljs.core.keyword_QMARK_.call(null, this.model);
-  return a ? cljs_jquery.core.dom_create.call(null, this.model) : cljs_jquery.core.jquery.call(null, this.model)
-};
-session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$control$arity$1 = function() {
-  return session.client.hiccup.viewobject
-};
-session.client.hiccup.Hiccup.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
-  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#hiccup "], !0), cljs.core._pr_seq.call(null, this.model, b), "")
-};
-session.client.hiccup.Hiccup;
-cljs.reader.register_tag_parser_BANG_.call(null, "hiccup", function(a) {
-  return new session.client.hiccup.Hiccup(a)
-});
 var clojure = {string:{}};
 clojure.string.seq_reverse = function(a) {
   return cljs.core.reduce.call(null, cljs.core.conj, cljs.core.List.EMPTY, a)
@@ -17184,6 +17175,95 @@ cljs_jquery.core.call_jquery = function(a, b) {
     return a.get(cljs_jquery.core.camel_case.call(null, c)).call(a, cljs.core.nth.call(null, d, 0), cljs.core.nth.call(null, d, 1), cljs.core.nth.call(null, d, 2))
   }
   throw Error([cljs.core.str("No matching clause: "), cljs.core.str(g)].join(""));
+};
+session.client.hiccup = {};
+session.client.hiccup.Hiccup = function(a) {
+  this.model = a;
+  this.cljs$lang$protocol_mask$partition1$ = 0;
+  this.cljs$lang$protocol_mask$partition0$ = 536870912
+};
+session.client.hiccup.Hiccup.cljs$lang$type = !0;
+session.client.hiccup.Hiccup.cljs$lang$ctorPrSeq = function() {
+  return cljs.core.list.call(null, "session.client.hiccup/Hiccup")
+};
+session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$ = !0;
+session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$view$arity$1 = function() {
+  if(cljs.core._EQ_.call(null, "\ufdd0'this", this.model)) {
+    return cljs_jquery.core.jquery.call(null, this)
+  }
+  var a;
+  a = (a = cljs.core.vector_QMARK_.call(null, this.model)) ? a : cljs.core.keyword_QMARK_.call(null, this.model);
+  return a ? cljs_jquery.core.dom_create.call(null, this.model) : cljs_jquery.core.jquery.call(null, this.model)
+};
+session.client.hiccup.Hiccup.prototype.session$client$mvc$IMVC$control$arity$1 = function() {
+  return session.client.hiccup.viewobject
+};
+session.client.hiccup.Hiccup.prototype.cljs$core$IPrintable$_pr_seq$arity$2 = function(a, b) {
+  return cljs.core.concat.call(null, cljs.core.PersistentVector.fromArray(["#hiccup "], !0), cljs.core._pr_seq.call(null, this.model, b), "")
+};
+session.client.hiccup.Hiccup;
+cljs.reader.register_tag_parser_BANG_.call(null, "hiccup", function(a) {
+  return new session.client.hiccup.Hiccup(a)
+});
+var fetch = {util:{}};
+fetch.util.clj__GT_js = function clj__GT_js(b) {
+  return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
+    var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
+    return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
+  }, cljs.core.ObjMap.EMPTY, b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
+};
+fetch.core = {};
+fetch.core.__GT_method = function(a) {
+  return clojure.string.upper_case.call(null, cljs.core.name.call(null, a))
+};
+fetch.core.parse_route = function(a) {
+  if(cljs.core.string_QMARK_.call(null, a)) {
+    return cljs.core.PersistentVector.fromArray(["GET", a], !0)
+  }
+  if(cljs.core.vector_QMARK_.call(null, a)) {
+    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
+    return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null, b), a], !0)
+  }
+  return cljs.core.PersistentVector.fromArray(["GET", a], !0)
+};
+fetch.core.__GT_data = function(a) {
+  a = fetch.util.clj__GT_js.call(null, a);
+  a = goog.Uri.QueryData.createFromMap(new goog.structs.Map(a));
+  return"" + cljs.core.str(a)
+};
+fetch.core.__GT_callback = function(a) {
+  return cljs.core.truth_(a) ? function(b) {
+    b = b.getResponseText();
+    return a.call(null, b)
+  } : null
+};
+fetch.core.xhr = function() {
+  var a = function(a, b, e, f) {
+    var f = cljs.core.nth.call(null, f, 0, null), g = new goog.net.XhrIo, h = fetch.core.parse_route.call(null, a), a = cljs.core.nth.call(null, h, 0, null), h = cljs.core.nth.call(null, h, 1, null), b = fetch.core.__GT_data.call(null, b), i = fetch.core.__GT_callback.call(null, e);
+    cljs.core.truth_(i) && goog.events.listen(g, goog.net.EventType.COMPLETE, function() {
+      return i.call(null, g)
+    });
+    return g.send(h, a, b, cljs.core.truth_(f) ? fetch.util.clj__GT_js.call(null, f) : null)
+  }, b = function(b, d, e, f) {
+    var g = null;
+    goog.isDef(f) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
+    return a.call(this, b, d, e, g)
+  };
+  b.cljs$lang$maxFixedArity = 3;
+  b.cljs$lang$applyTo = function(b) {
+    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), f = cljs.core.first(cljs.core.next(cljs.core.next(b))), b = cljs.core.rest(cljs.core.next(cljs.core.next(b)));
+    return a(d, e, f, b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
+fetch.remotes = {};
+fetch.remotes.remote_uri = "/_fetch";
+fetch.remotes.remote_callback = function(a, b, c) {
+  return fetch.core.xhr.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'post", fetch.remotes.remote_uri], !0), cljs.core.ObjMap.fromObject(["\ufdd0'remote", "\ufdd0'params"], {"\ufdd0'remote":a, "\ufdd0'params":cljs.core.pr_str.call(null, b)}), cljs.core.truth_(c) ? function(a) {
+    a = cljs.core._EQ_.call(null, a, "") ? "nil" : a;
+    return c.call(null, cljs.reader.read_string.call(null, a))
+  } : null)
 };
 clojure.browser = {};
 clojure.browser.event = {};
@@ -19260,66 +19340,6 @@ clojure.browser.repl.connect = function(a) {
   return clojure.browser.net.connect.call(null, b, cljs.core.constantly.call(null, null), function(a) {
     return a.style.display = "none"
   })
-};
-var fetch = {util:{}};
-fetch.util.clj__GT_js = function clj__GT_js(b) {
-  return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
-    var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
-    return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
-  }, cljs.core.ObjMap.EMPTY, b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
-};
-fetch.core = {};
-fetch.core.__GT_method = function(a) {
-  return clojure.string.upper_case.call(null, cljs.core.name.call(null, a))
-};
-fetch.core.parse_route = function(a) {
-  if(cljs.core.string_QMARK_.call(null, a)) {
-    return cljs.core.PersistentVector.fromArray(["GET", a], !0)
-  }
-  if(cljs.core.vector_QMARK_.call(null, a)) {
-    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
-    return cljs.core.PersistentVector.fromArray([fetch.core.__GT_method.call(null, b), a], !0)
-  }
-  return cljs.core.PersistentVector.fromArray(["GET", a], !0)
-};
-fetch.core.__GT_data = function(a) {
-  a = fetch.util.clj__GT_js.call(null, a);
-  a = goog.Uri.QueryData.createFromMap(new goog.structs.Map(a));
-  return"" + cljs.core.str(a)
-};
-fetch.core.__GT_callback = function(a) {
-  return cljs.core.truth_(a) ? function(b) {
-    b = b.getResponseText();
-    return a.call(null, b)
-  } : null
-};
-fetch.core.xhr = function() {
-  var a = function(a, b, e, f) {
-    var f = cljs.core.nth.call(null, f, 0, null), g = new goog.net.XhrIo, h = fetch.core.parse_route.call(null, a), a = cljs.core.nth.call(null, h, 0, null), h = cljs.core.nth.call(null, h, 1, null), b = fetch.core.__GT_data.call(null, b), i = fetch.core.__GT_callback.call(null, e);
-    cljs.core.truth_(i) && goog.events.listen(g, goog.net.EventType.COMPLETE, function() {
-      return i.call(null, g)
-    });
-    return g.send(h, a, b, cljs.core.truth_(f) ? fetch.util.clj__GT_js.call(null, f) : null)
-  }, b = function(b, d, e, f) {
-    var g = null;
-    goog.isDef(f) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
-    return a.call(this, b, d, e, g)
-  };
-  b.cljs$lang$maxFixedArity = 3;
-  b.cljs$lang$applyTo = function(b) {
-    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), f = cljs.core.first(cljs.core.next(cljs.core.next(b))), b = cljs.core.rest(cljs.core.next(cljs.core.next(b)));
-    return a(d, e, f, b)
-  };
-  b.cljs$lang$arity$variadic = a;
-  return b
-}();
-fetch.remotes = {};
-fetch.remotes.remote_uri = "/_fetch";
-fetch.remotes.remote_callback = function(a, b, c) {
-  return fetch.core.xhr.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'post", fetch.remotes.remote_uri], !0), cljs.core.ObjMap.fromObject(["\ufdd0'remote", "\ufdd0'params"], {"\ufdd0'remote":a, "\ufdd0'params":cljs.core.pr_str.call(null, b)}), cljs.core.truth_(c) ? function(a) {
-    a = cljs.core._EQ_.call(null, a, "") ? "nil" : a;
-    return c.call(null, cljs.reader.read_string.call(null, a))
-  } : null)
 };
 session.client.main = {};
 clojure.browser.repl.connect.call(null, "http://localhost:9000/repl");

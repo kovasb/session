@@ -23,7 +23,8 @@
 (deftype Loop [model dom]
   session.client.subscribe/ISubscribe
   (receive [this msg]
-    (reset! (:output model) (:data msg))
+    (when (:data msg)
+      (reset! (:output model) (:data msg)))
     (when-not (= (:origin msg)
                  session.client.editor/session-uuid)
       (reset! (:input model) (:input msg))))
@@ -68,7 +69,7 @@
       (let [
             id (:id model) editor (atom [])]
 
-        ($ dom-elt (on "post-render" #(reset! editor (editor/create-editor (str "area" id)))))
+        ($ dom-elt (on "post-render" #(reset! editor (editor/create-editor id))))
         ($ dom-elt (on "click" ".loop-deleter" #($ dom-elt (trigger "delete-loop"))))
         ($ dom-elt (on "evaluate-input"
                        #(do
