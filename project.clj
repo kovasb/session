@@ -3,11 +3,11 @@
   :url "http://exampl.com/FIXME"
   :dependencies
   [
-   [org.clojure/clojure "1.5.0-beta1"]
-   [org.clojure/clojurescript "0.0-1450"]
+   [org.clojure/clojure "1.5.0-RC1"]
+   [org.clojure/clojurescript "0.0-1552"]
    [org.clojars.nmeyer/simple-avro "0.0.6"]
    [storm/carbonite "1.5.0"]
-   [com.datomic/datomic-free "0.8.3561"]
+   [com.datomic/datomic-free "0.8.3664"]
    [noir-async "1.1.0-beta10"]
    [cheshire "2.0.4"]
    [jayq "0.1.0-alpha1" :exclusions [org.clojure/clojure]]
@@ -18,7 +18,7 @@
   :dev-dependencies []
   :source-path "src/clj"
   :source-paths ["src/clj"]
-  :plugins [[lein-cljsbuild "0.2.9"] [lein-localrepo "0.4.1"]]
+  :plugins [[lein-cljsbuild "0.2.10"] [lein-localrepo "0.4.1"]]
   :cljsbuild {
               :builds [{
                         :source-path "src/cljs"
