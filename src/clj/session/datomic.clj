@@ -120,7 +120,7 @@
 (defn response-datoms [actionid op datastring]
   (let [resultid (d/tempid :db.part/user)
         result (binding [*default-data-reader-fn* generic-data-reader-fn]
-                 (with-out-str (eval (read-string datastring))))]
+                 (eval (read-string datastring)))]
     [
      [:db/add actionid :action/response resultid]
      [:db/add resultid :response/summary (pr-str result)]
