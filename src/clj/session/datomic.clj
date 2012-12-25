@@ -39,7 +39,7 @@
 (defn uncompleted-actions-q [db]
   (q '[:find ?id
       :where
-      [?id :action/request _]
+      [?id :action/request]
       [(session.datomic/attr-missing? $ ?id :action/response)]]
     db))
 
@@ -47,9 +47,8 @@
 (defn completed-actions-q [db]
   (q '[:find ?id
       :where
-      [?id :action/response _]
-      [?id :action/request _]
-      ]
+      [?id :action/response]
+      [?id :action/request]]
     db))
 
 (defn attr-missing? [db eid attr]
@@ -108,13 +107,12 @@
 (defn request-data [x rdb]
   (let [actionid (:e x) requestid (:v x)]
     (q '[:find ?actionid ?op ?string
-        :in $ [[?actionid ?requestid]]
-        :where
-        [?requestid :request/op ?op]
-        [?requestid :request/data ?did]
-        [?did :data/edn ?string]]
-       rdb
-       [[actionid requestid]])))
+         :in $ ?actionid ?requestid
+         :where
+         [?requestid :request/op ?op]
+         [?requestid :request/data ?did]
+         [?did :data/edn ?string]]
+       rdb actionid requestid)))
 
 
 (defn response-datoms [actionid op datastring]
