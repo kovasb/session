@@ -6,10 +6,9 @@
   (:use [datomic.api :only (q db tempid) :as d]))
 
 
-
 (def generic-data-reader-fn (fn [y x] `(session.tags/->GenericData (quote ~y) ~x)))
 
-;;(def uri "datomic:free://localhost:4334/session-default")
+;;;;;;;;;;;;;;;;;;;;;;;;  DB SETUP ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def conn (atom nil))
 
@@ -31,78 +30,61 @@
     conn))
 
 (defn setup [uri]
-  (reset! conn (connect-database uri))
-  )
+  (reset! conn (connect-database uri)))
 
 
-;; requests without responses
-(defn uncompleted-actions-q [db]
-  (q '[:find ?id
-      :where
-      [?id :action/request]
-      [(session.datomic/attr-missing? $ ?id :action/response)]]
-    db))
-
-;; requests with responses
-(defn completed-actions-q [db]
-  (q '[:find ?id
-      :where
-      [?id :action/response]
-      [?id :action/request]]
-    db))
-
-(defn attr-missing? [db eid attr]
-      (not (attr (d/entity db eid))))
-
-;; unprocessed actions and their request data
-(defn unprocessed-actions-q [db]
-  (q '[:find ?id ?op ?string
-      :where
-      [?id :action/request ?id2]
-      [(session.datomic/attr-missing? $ ?id :action/response)]
-      [?id2 :request/op ?op]
-      [?id2 :request/data ?did]
-      [?did :data/edn ?string]]
-    db))
-
-;; loops and their data
-(defn actions-q [db]
-  (q '[:find ?id ?in-string ?out-string
-      :where
-      [?id :action/response ?responseid]
-      [?id :action/request ?requestid]
-      [?requestid :request/op ?op]
-      [?requestid :request/data ?did]
-      [?did :data/edn ?in-string]
-      [?responseid :response/summary ?out-string]]
-    db))
+;;;;;;;;;;;;;;;;;;;;;;;;  TOP-LEVEL ENTRY POINTS ;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defn requests-q [db]
-  (q '[:find ?id ?id2
-      :where
-      [?id :action/request ?id2]]
-    db))
-
-;; actions and their request data
-(defn actions-requests-q [db]
-  (q '[:find ?id ?op ?string
-      :where
-      [?id :action/request ?id2]
-      [?id2 :request/op ?op]
-      [?id2 :request/data ?did]
-      [?did :data/edn ?string]]
-    db))
-
-
+(defmulti service-request :op)
 
 (def datomic-channel (lamina/permanent-channel))
-
 
 (defn subscribe-channel [ch]
   (lamina/siphon datomic-channel ch))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(noir-async/defpage-async "/service" [] conn
+  (subscribe-channel (:request-channel conn))
+  (noir-async/on-receive conn #(service-request (read-string %))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;  GET SESSION  ;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defn follow-next-action
+  ([entity]
+   (lazy-seq
+    (when-let [s (:action/next entity)]
+      (cons s (follow-next-action s))))))
+
+
+
+(defn entity-data [entity]
+  {:output (let [d (get-in entity [:action/response :response/summary])]
+             (if d
+               (binding
+                   [*default-data-reader-fn* session.tags/->GenericData]
+                 (try (read-string d) (catch Exception e [:unreadable-form d]))) nil))
+
+   :input (get-in entity [:action/request :request/data :data/edn])
+   :id (str (:db/id entity))})
+
+
+(defn get-datomic-session []
+  (map->Session
+   {:id 1 :last-loop-id 1
+    :subsessions [(map->Subsession
+                  {:type :clj
+                   :loops (mapv
+                           map->Loop
+                           (map entity-data
+                                (follow-next-action
+                                 (datomic.api/entity (db @conn) :action/root))))})]}))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;  EVALUATION SERVICE ;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defn request-data [x rdb]
   (let [actionid (:e x) requestid (:v x)]
@@ -150,7 +132,6 @@
        [:db/add dataid :data/edn datastring]
        ]))
 
-(defmulti service-request :op)
 
 (defmethod service-request :evaluate-clj [request]
  (let [datoms (create-action-request
@@ -162,9 +143,6 @@
    datoms)))
 
 
-(defn submit-request [m]
-  (service-request (read-string m)))
-
 (defn submit-response [data]
   (let [r (pr-str {:data (:data data) :id (:id data) :input (:input data)})]
     (println ["submit response" r])
@@ -175,7 +153,7 @@
   (let [r (pr-str {:data (:data request)
                    :id (:id request)
                    :input (:input request)
-                   :origin(:origin request)})]
+                   :origin (:origin request)})]
     (lamina/enqueue datomic-channel r)))
 
 
@@ -194,16 +172,15 @@
                       [$ ?req :request/data ?did]
                       [?did :data/edn ?in-string]]
                     rdb (:e x))]
-            (println [:submit-respose (:e x) d])
+            (println [:submit-response (:e x) d])
             (if (seq d)
               (submit-response {:id (str (:e x))
                                 :input ((comp last last) d)
                                 :data
                                 (binding
                                     [*default-data-reader-fn* session.tags/->GenericData]
-
-                                  (try (read-string (nth (first d) 2)) (catch Exception e [:unreadable-form (nth (first d) 2)])))}))
-         )))))
+                                  (try (read-string (nth (first d) 2))
+                                       (catch Exception e [:unreadable-form (nth (first d) 2)])))})))))))
 
 
 
@@ -226,68 +203,13 @@
     (doseq [req (repeatedly #(.take tx-report-queue))]
                    (try (process-request req) (catch Exception e (println e)))
                    (try (process-response req) (catch Exception e (println e)))
-                   ;;(.start (Thread. #(process-request req)))
                    )))
 
 (defn process-requests-thread [conn]
   (.start (Thread. #(process-requests (d/tx-report-queue conn)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn process-responses [tx-report-queue]
-  (doseq [req (repeatedly #(.take tx-report-queue))]
-    (.start (Thread. #(process-response req)))))
-
-(defn process-responses-thread [conn]
-  ;(.start (Thread. #(process-responses (d/tx-report-queue conn))))
-  nil
-  )
-
-(noir-async/defpage-async "/service" [] conn
-  (subscribe-channel (:request-channel conn))
-  (noir-async/on-receive conn submit-request))
-
-
-
-(defn follow-next-action
-  ([entity]
-   (lazy-seq
-    (when-let [s (:action/next entity)]
-      (cons s (follow-next-action s))))))
-
-(defn actions-q [db]
-  (q '[:find ?id ?in-string ?out-string
-      :where
-      [?id :action/response ?responseid]
-      [?id :action/request ?requestid]
-      [?requestid :request/op ?op]
-      [?requestid :request/data ?did]
-      [?did :data/edn ?in-string]
-      [?responseid :response/summary ?out-string]]
-    db))
-
-(defn entity-data [entity]
-  {:output (let [d (get-in entity [:action/response :response/summary])]
-             (if d
-               (binding
-                   [*default-data-reader-fn* session.tags/->GenericData]
-                 (try (read-string d) (catch Exception e [:unreadable-form d]))) nil))
-
-   :input (get-in entity [:action/request :request/data :data/edn])
-   :id (str (:db/id entity))})
-
-(defn get-loop-maps []
-  (map (fn [[id input output]] {:id (str id) :input input :output (if output (read-string output) nil)}) (actions-q)))
-
-(defn get-datomic-session []
-  (map->Session
-   {:id 1 :last-loop-id 1
-    :subsessions [(map->Subsession
-                  {:type :clj
-                   :loops (mapv
-                           map->Loop
-                           (map entity-data
-                                (follow-next-action
-                                 (datomic.api/entity (db @conn) :action/root))))})]}))
 
 (defn insert-loop-root [request]
   (let [p (:after (:position (:data request)))]
@@ -338,3 +260,89 @@
                            :op :delete-loop
                            :data {:id id}
                            :id "subsession"}))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;  MISC QUERIES ;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; possibly out of date
+
+(comment
+
+  ;; requests without responses
+(defn uncompleted-actions-q [db]
+  (q '[:find ?id
+      :where
+      [?id :action/request]
+      [(session.datomic/attr-missing? $ ?id :action/response)]]
+    db))
+
+;; requests with responses
+(defn completed-actions-q [db]
+  (q '[:find ?id
+      :where
+      [?id :action/response]
+      [?id :action/request]]
+    db))
+
+(defn attr-missing? [db eid attr]
+      (not (attr (d/entity db eid))))
+
+;; unprocessed actions and their request data
+(defn unprocessed-actions-q [db]
+  (q '[:find ?id ?op ?string
+      :where
+      [?id :action/request ?id2]
+      [(session.datomic/attr-missing? $ ?id :action/response)]
+      [?id2 :request/op ?op]
+      [?id2 :request/data ?did]
+      [?did :data/edn ?string]]
+    db))
+
+
+;; loops and their data
+(defn actions-q [db]
+  (q '[:find ?id ?in-string ?out-string
+      :where
+      [?id :action/response ?responseid]
+      [?id :action/request ?requestid]
+      [?requestid :request/op ?op]
+      [?requestid :request/data ?did]
+      [?did :data/edn ?in-string]
+      [?responseid :response/summary ?out-string]]
+    db))
+
+
+(defn requests-q [db]
+  (q '[:find ?id ?id2
+      :where
+      [?id :action/request ?id2]]
+    db))
+
+;; actions and their request data
+(defn actions-requests-q [db]
+  (q '[:find ?id ?op ?string
+      :where
+      [?id :action/request ?id2]
+      [?id2 :request/op ?op]
+      [?id2 :request/data ?did]
+      [?did :data/edn ?string]]
+     db))
+
+(defn actions-q [db]
+  (q '[:find ?id ?in-string ?out-string
+      :where
+      [?id :action/response ?responseid]
+      [?id :action/request ?requestid]
+      [?requestid :request/op ?op]
+      [?requestid :request/data ?did]
+      [?did :data/edn ?in-string]
+      [?responseid :response/summary ?out-string]]
+    db))
+
+(defn get-loop-maps []
+  (map (fn [[id input output]] {:id (str id) :input input :output (if output (read-string output) nil)}) (actions-q)))
+
+
+
+
+  )
