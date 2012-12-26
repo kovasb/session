@@ -5,6 +5,7 @@ pom.xml
 /target/
 /out/
 /repl/
+/resources/public/cljs/
 .lein*
 .#*
 .DS_Store
