@@ -40,7 +40,11 @@ See [Architecture](https://github.com/kovasb/session/wiki/Architecture) for a de
 
 # Usage
 
-Sample invocation:
+First, compile the javascript:
+
+    lein cljsbuild once
+
+Then run session with the desired port and datomic uri:
 
     lein run 8090 datomic:mem://test
 
