@@ -2,12 +2,6 @@ goog.provide('session.client.loop_creator');
 goog.require('cljs.core');
 goog.require('session.client.subscribe');
 goog.require('session.client.mvc');
-/**
-* docstring
-*/
-session.client.loop_creator.foobar = (function foobar(x){
-return x;
-});
 
 /**
 * @constructor

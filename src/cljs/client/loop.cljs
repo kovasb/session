@@ -26,13 +26,10 @@
     (when (:data msg)
       (reset! (:output model) (:data msg)))
     (when-not (= (:origin msg)
-                 session.client.editor/session-uuid)
+                 session.client.main/session-uuid)
       (reset! (:input model) (:input msg))))
-  ILookup
-  (-lookup [o k] (model k))
-  (-lookup [o k not-found] (model k not-found))
-  session.client.mvc/IMVC
-  (view [model]
+   session.client.mvc/IMVC
+  (view [this]
     (let [v (let [id (:id model)]
        ($
         [:div {:id id :style "position:relative"}
@@ -48,19 +45,12 @@
           [:div.row {:style "position:relative;margin-left:5px;padding-top:5px;padding-left:0px;font-family: Monaco, Menlo, 'Andale Mono', 'lucida console', 'Courier New', monospace;color:#AAA"}
            [:i.icon-chevron-left {:height "18px" :style "opacity:.8;position:absolute;left:-25px;top:7px"} ""]
            [:div.loopout.cm-s-default {:style "background-color:#FFF"} (render-loop-output @(:output model))]
-           ]
-
-
-
-
-
-
-
-               ]
+           ]]
          [:div.row (session.client.mvc/render (loop-creator/LoopCreator. id (atom nil)))]
 
          ]
-        (data "model" model)))]
+
+        ))]
       (reset! dom v)
       v))
   (control [this]
@@ -70,7 +60,7 @@
             id (:id model) editor (atom [])]
 
         ($ dom-elt (on "post-render" #(reset! editor (editor/create-editor id))))
-        ($ dom-elt (on "click" ".loop-deleter" #($ dom-elt (trigger "delete-loop"))))
+
         ($ dom-elt (on "evaluate-input"
                        #(do
                           ($ dom-elt (find ".loopout") (html ""))

@@ -21,9 +21,6 @@
      (= :insert-loop (:op msg)) (insert-new-loop this (:data msg))
      (= :delete-loop (:op msg)) (delete-loop this (:data msg))))
 
-   ILookup
-  (-lookup [o k] (model k))
-  (-lookup [o k not-found] (model k not-found))
 
   mvc/IMVC
   (view [this]
@@ -31,13 +28,11 @@
           ($ [:div.subsession
               [:div#subsession-root {:style "margin-left:-20px"}
                (mvc/render (loop-creator/LoopCreator. "subsession-root" (atom nil)))]
-         (map mvc/render @(:loops model))
-              ] (data "model" model))]
+         (map mvc/render @(:loops model))])]
       (reset! dom v)
       v))
   (control [this]
     (subscribe/subscribe!
-     ;;(:id model)
      "subsession"
      this)
     ($ @dom

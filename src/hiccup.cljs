@@ -13,4 +13,6 @@
        (concat  ["#hiccup "] (-pr-seq model opts) ""))
      session.client.mvc/IMVC
      (view [this] ($ model))
-     (control [this] this))
+     (control [this] viewobject))
+
+(reader/register-tag-parser! "hiccup" (fn [x] (Hiccup. x) ))
