@@ -11,7 +11,6 @@
    [noir-async "1.1.0-beta10"]
    [cheshire "2.0.4"]
    [jayq "0.1.0-alpha1" :exclusions [org.clojure/clojure]]
-   [fetch "0.1.0-alpha2" :exclusions [org.clojure/clojure]]
    [crate "0.1.0-alpha3" :exclusions [org.clojure/clojure]]
    [noir "1.3.0-beta2" :exclusions [org.clojure/clojure]]
    [cljs-jquery "1.0.4-SNAPSHOT" :exclusions [org.clojure/clojure org.clojure/clojurescript]]]

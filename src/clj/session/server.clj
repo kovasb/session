@@ -9,7 +9,7 @@
 
 (defpage get-session [:any "/_fetch"] args
   {:status 202
-   :headers {"Content-Type" "application/clojure; charset=utf-8"}
+   :headers {"Content-Type" "application/edn; charset=utf-8"}
    :body (pr-str (session.datomic/get-datomic-session))})
 
 (defn -main [& m]
