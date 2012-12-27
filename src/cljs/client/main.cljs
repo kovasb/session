@@ -32,10 +32,8 @@
   (pm/remote
    (get-session id)
    [result]
-   (let [
-         s (reader/read-string (:result result))]
-     (reset! session s)
-     (session.client.session/render-session (first (:subsessions (:model @session)))))))
+   (reset! session result)
+   (session.client.session/render-session (first (:subsessions (:model @session))))))
 
 ($ js/document (ready
                 #(do

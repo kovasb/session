@@ -79,7 +79,7 @@
                            map->Loop
                            (map entity-data
                                 (follow-next-action
-                                 (datomic.api/entity (db @conn) :action/root))))})]}))
+                                 (d/entity (db @conn) :action/root))))})]}))
 
 
 

@@ -1,18 +1,16 @@
 (ns session.server
  (:use aleph.http
        noir-async.core
-       noir.fetch.remotes
-       noir.core
-       datomic.api ;; removing causes schema to explode
-       )
+       noir.core)
  (:require session.datomic
            [noir.server :as server]))
 
 (server/load-views-ns 'session.views)
 
-(defremote get-session [id]
-  {:result (pr-str (session.datomic/get-datomic-session))
-   :status 200} )
+(defpage get-session [:any "/_fetch"] args
+  {:status 202
+   :headers {"Content-Type" "application/clojure; charset=utf-8"}
+   :body (pr-str (session.datomic/get-datomic-session))})
 
 (defn -main [& m]
   (let [mode :dev
