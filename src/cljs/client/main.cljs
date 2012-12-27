@@ -28,7 +28,7 @@
 (def session (atom nil))
 
 (defn load-session [id]
-  (remote/send "/_fetch"
+  (remote/send "/get_session"
                :data id
                :callback (fn [result]
                            (reset! session result)

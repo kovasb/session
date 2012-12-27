@@ -7,7 +7,7 @@
 
 (server/load-views-ns 'session.views)
 
-(defpage get-session [:any "/_fetch"] args
+(defpage [:get "/get_session"] args
   {:status 202
    :headers {"Content-Type" "application/edn; charset=utf-8"}
    :body (pr-str (session.datomic/get-datomic-session))})
