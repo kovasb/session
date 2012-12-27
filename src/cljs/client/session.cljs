@@ -4,7 +4,6 @@
    [session.client.loop :as loop]
    [session.client.mvc :as mvc]
    [cljs.reader :as reader])
-  (:require-macros [fetch.macros :as pm])
   (:use-macros [cljs-jquery.macros :only [$]]))
 
 (defrecord Session [model dom])
