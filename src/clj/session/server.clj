@@ -2,13 +2,10 @@
   (:require [session.datomic :as datomic]
             [session.views.common :as common]
             [noir.core :as nc]
+            [noir-async.core :as nac]
             [aleph.http :as http]
             [noir.server :as server]))
 
-(nc/defpage "/get_session" args
-  {:status 202
-   :headers {"Content-Type" "application/edn; charset=utf-8"}
-   :body (pr-str (datomic/get-datomic-session))})
 
 (nc/defpage "/" []
   (common/layout
@@ -19,6 +16,16 @@
             [:ul.nav]]]]
          [:div.container {:style "margin-left:20px"}
           [:div.content]]])))
+
+(nc/defpage "/get_session" args
+  {:status 202
+   :headers {"Content-Type" "application/edn; charset=utf-8"}
+   :body (pr-str (datomic/get-datomic-session))})
+
+(nac/defpage-async "/service" [] conn
+  (datomic/subscribe-channel (:request-channel conn))
+  (nac/on-receive conn #(datomic/service-request (read-string %))))
+
 
 (defn -main [& m]
   (let [mode :dev
