@@ -1,6 +1,5 @@
 (ns session.datomic
   (:require session.schema)
-  (:require [noir-async.core :as noir-async])
   (:require [lamina.core :as lamina])
   (:use session.tags)
   (:use [datomic.api :only (q db tempid) :as d]))
@@ -23,10 +22,8 @@
   (let [created? (d/create-database uri)
         conn (d/connect uri)]
     (when-not (:db/id (d/entity (db conn) :action/request))
-      (do
-        @(load-schema conn)
-        @(d/transact conn [[:db/add (d/tempid :db.part/user) :db/ident :action/root] ])
-        ))
+      @(load-schema conn)
+      @(d/transact conn [[:db/add (d/tempid :db.part/user) :db/ident :action/root]]))
     conn))
 
 (defn setup [uri]
@@ -42,10 +39,6 @@
 
 (defn subscribe-channel [ch]
   (lamina/siphon datomic-channel ch))
-
-(noir-async/defpage-async "/service" [] conn
-  (subscribe-channel (:request-channel conn))
-  (noir-async/on-receive conn #(service-request (read-string %))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  GET SESSION  ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -79,7 +72,7 @@
                            map->Loop
                            (map entity-data
                                 (follow-next-action
-                                 (datomic.api/entity (db @conn) :action/root))))})]}))
+                                 (d/entity (db @conn) :action/root))))})]}))
 
 
 

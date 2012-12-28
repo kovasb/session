@@ -9,5 +9,5 @@ pom.xml
 .lein*
 .#*
 .DS_Store
-
+*~
 target/repl-port

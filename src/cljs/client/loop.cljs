@@ -5,8 +5,7 @@
    [session.client.editor :as editor]
    [cljs.reader :as reader]
    [session.client.loop-creator :as loop-creator])
-  (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm]))
+  (:use-macros [cljs-jquery.macros :only [$]]))
 
 
 (defn render-loop-output [x]

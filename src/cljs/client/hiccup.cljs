@@ -3,9 +3,7 @@
    [session.client.mvc :as mvc]
    [session.client.editor :as editor]
    [cljs.reader :as reader])
-  (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm])
-  )
+  (:use-macros [cljs-jquery.macros :only [$]]))
 
 (deftype Hiccup [model]
      IPrintable

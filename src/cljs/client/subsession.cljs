@@ -6,8 +6,7 @@
    [session.client.session :as session]
    [cljs.reader :as reader]
    [session.client.subscribe :as subscribe])
-  (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm]))
+  (:use-macros [cljs-jquery.macros :only [$]]))
 
 (defprotocol ISubsession
   (insert-new-loop [this event])
