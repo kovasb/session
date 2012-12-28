@@ -1,15 +1,14 @@
 (ns session.client.main
   (:require
    [clojure.browser.repl :as repl]
-   [fetch.remotes :as remotes]
    [subpar.core]
    [session.client.keymap]
    [session.client.readermap]
+   [session.client.remote :as remote]
    [session.client.mvc :as mvc]
-   [cljs.reader :as reader]
+   [session.client.session :as session]
    [cljs-jquery.core])
-  (:use-macros [cljs-jquery.macros :only [$]])
-  (:require-macros [fetch.macros :as pm]))
+  (:use-macros [cljs-jquery.macros :only [$]]))
 
 (repl/connect "http://localhost:9000/repl")
 
@@ -29,13 +28,11 @@
 (def session (atom nil))
 
 (defn load-session [id]
-  (pm/remote
-   (get-session id)
-   [result]
-   (let [
-         s (reader/read-string (:result result))]
-     (reset! session s)
-     (session.client.session/render-session (first (:subsessions (:model @session)))))))
+  (remote/send "/get_session"
+               :data id
+               :callback (fn [result]
+                           (reset! session result)
+                           (-> @session :model :subsessions first session/render-session))))
 
 ($ js/document (ready
                 #(do

@@ -1,4 +1,5 @@
-(ns session.schema)
+(ns session.schema
+  (:require datomic.api))
 
 (def schema
 [
