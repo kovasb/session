@@ -1,8 +1,9 @@
 (ns session.datomic
-  (:require session.schema)
-  (:require [lamina.core :as lamina])
-  (:use session.tags)
-  (:use [datomic.api :only (q db tempid) :as d]))
+  (:require [session.schema :refer [schema]]
+            [session.tags :refer :all]
+            [lamina.core :as lamina]
+            [datomic.api :refer [q db tempid] :as d]
+            [session.tags :refer :all]))
 
 
 (def generic-data-reader-fn (fn [y x] `(session.tags/->GenericData (quote ~y) ~x)))
@@ -11,12 +12,8 @@
 
 (def conn (atom nil))
 
-
 (defn load-schema [conn]
-  (d/transact
-   conn
-   session.schema/schema))
-
+  (d/transact conn schema))
 
 (defn connect-database [uri]
   (let [created? (d/create-database uri)
@@ -29,9 +26,7 @@
 (defn setup [uri]
   (reset! conn (connect-database uri)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;  TOP-LEVEL ENTRY POINTS ;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defmulti service-request :op)
 
@@ -40,28 +35,23 @@
 (defn subscribe-channel [ch]
   (lamina/siphon datomic-channel ch))
 
+(defn enqueue [data]
+  (->> data pr-str (lamina/enqueue datomic-channel)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  GET SESSION  ;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(defn follow-next-action
-  ([entity]
-   (lazy-seq
-    (when-let [s (:action/next entity)]
-      (cons s (follow-next-action s))))))
-
-
+(defn follow-next-action [entity]
+  (lazy-seq
+   (when-let [s (:action/next entity)]
+     (cons s (follow-next-action s)))))
 
 (defn entity-data [entity]
-  {:output (let [d (get-in entity [:action/response :response/summary])]
-             (if d
-               (binding
-                   [*default-data-reader-fn* session.tags/->GenericData]
-                 (try (read-string d) (catch Exception e [:unreadable-form d]))) nil))
-
+  {:output (when-let [d (get-in entity [:action/response :response/summary])]
+             (binding [*default-data-reader-fn* session.tags/->GenericData]
+               (try (read-string d)
+                    (catch Exception e [:unreadable-form d]))))
    :input (get-in entity [:action/request :request/data :data/edn])
    :id (str (:db/id entity))})
-
 
 (defn get-datomic-session []
   (map->Session
@@ -74,10 +64,7 @@
                                 (follow-next-action
                                  (d/entity (db @conn) :action/root))))})]}))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;  EVALUATION SERVICE ;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defn request-data [x rdb]
   (let [actionid (:e x) requestid (:v x)]
@@ -89,42 +76,31 @@
          [?did :data/edn ?string]]
        rdb actionid requestid)))
 
-
 (defn response-datoms [actionid op datastring]
   (let [resultid (d/tempid :db.part/user)
         result (binding [*default-data-reader-fn* generic-data-reader-fn]
                  (eval (read-string datastring)))]
-    [
-     [:db/add actionid :action/response resultid]
+    [[:db/add actionid :action/response resultid]
      [:db/add resultid :response/summary (pr-str result)]
      [:db/add resultid :response/status :success]]))
 
-
-
 (defn process-request [request]
-  (let [rdb (:db-after request) datoms (:tx-data request)]
-    (let [x (first (filter #(and (= true (:added %)) (= :action/request (d/ident rdb (:a %)))) datoms))
-         ]
+  (let [rdb (:db-after request) datoms (:tx-data request)
+        x (first (filter #(and (= true (:added %)) (= :action/request (d/ident rdb (:a %)))) datoms))]
       (println ["get request from tx, transact result into db" x (map :a datoms)])
       (if x
         @(d/transact
-         @conn
-        (apply response-datoms (first (request-data x rdb))))))))
-
-
+          @conn
+          (apply response-datoms (first (request-data x rdb)))))))
 
 (defn create-action-request [ui-id datastring]
   (let [actionid (read-string ui-id)
         requestid (d/tempid :db.part/user)
         dataid (d/tempid :db.part/user)]
-      [
-       [:db/add actionid :action/request requestid]
-
+      [[:db/add actionid :action/request requestid]
        [:db/add requestid :request/op :evaluate]
        [:db/add requestid :request/data dataid]
-       [:db/add dataid :data/edn datastring]
-       ]))
-
+       [:db/add dataid :data/edn datastring]]))
 
 (defmethod service-request :evaluate-clj [request]
  (let [datoms (create-action-request
@@ -135,47 +111,37 @@
      @conn
    datoms)))
 
-
 (defn submit-response [data]
-  (let [r (pr-str {:data (:data data) :id (:id data) :input (:input data)})]
+  (let [r (select-keys data [:data :id :input])]
     (println ["submit response" r])
-    (lamina/enqueue datomic-channel r)))
-
+    (enqueue r)))
 
 (defmethod service-request :update-textarea [request]
-  (let [r (pr-str {:data (:data request)
-                   :id (:id request)
-                   :input (:input request)
-                   :origin (:origin request)})]
-    (lamina/enqueue datomic-channel r)))
-
+  (let [r (select-keys request [:data :id :input :origin])]
+    (enqueue r)))
 
 (defn process-response [response]
-  (let [rdb (:db-after response) datoms (:tx-data response)]
-    (let [x (first (filter #(and (= true (:added %)) (= :action/response (d/ident rdb (:a %)))) datoms))]
+  (let [rdb (:db-after response) datoms (:tx-data response)
+        x (first (filter #(and (= true (:added %)) (= :action/response (d/ident rdb (:a %)))) datoms))]
         (println ["response from tx into channel" x (map :a datoms)])
         (if x
-          (let
-              [d (q '[:find ?req ?res ?res-summary ?in-string
-                      :in $ ?x
-                      :where
-                      [$ ?x :action/request ?req]
-                      [$ ?x :action/response ?res]
-                      [$ ?res :response/summary ?res-summary]
-                      [$ ?req :request/data ?did]
-                      [?did :data/edn ?in-string]]
-                    rdb (:e x))]
+          (let [d (q '[:find ?req ?res ?res-summary ?in-string
+                       :in $ ?x
+                       :where
+                       [?x :action/request ?req]
+                       [?x :action/response ?res]
+                       [?res :response/summary ?res-summary]
+                       [?req :request/data ?did]
+                       [?did :data/edn ?in-string]]
+                     rdb (:e x))]
             (println [:submit-response (:e x) d])
             (if (seq d)
               (submit-response {:id (str (:e x))
                                 :input ((comp last last) d)
                                 :data
-                                (binding
-                                    [*default-data-reader-fn* session.tags/->GenericData]
+                                (binding [*default-data-reader-fn* session.tags/->GenericData]
                                   (try (read-string (nth (first d) 2))
-                                       (catch Exception e [:unreadable-form (nth (first d) 2)])))})))))))
-
-
+                                       (catch Exception e [:unreadable-form (nth (first d) 2)])))}))))))
 
 (defn process-requests [tx-report-queue]
   (binding [*ns* *ns*
@@ -194,15 +160,13 @@
             *3 nil
             *e nil]
     (doseq [req (repeatedly #(.take tx-report-queue))]
-                   (try (process-request req) (catch Exception e (println e)))
-                   (try (process-response req) (catch Exception e (println e)))
-                   )))
+      (try (process-request req) (catch Exception e (println e)))
+      (try (process-response req) (catch Exception e (println e))))))
 
 (defn process-requests-thread [conn]
   (.start (Thread. #(process-requests (d/tx-report-queue conn)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defn insert-loop-root [request]
   (let [p (:after (:position (:data request)))]
@@ -211,31 +175,22 @@
       (datomic.api/entity (db @conn) (read-string p)))))
 
 (defmethod service-request :insert-loop [request]
-
   (let [root (insert-loop-root request)
         rootid (:db/id root)
         newidtmp (d/tempid :db.part/user)
-
         result (if (:action/next root)
                  @(d/transact @conn
                               [[:db/add newidtmp :action/next (:db/id (:action/next root))]
                                [:db/add rootid :action/next newidtmp]])
-                  @(d/transact @conn
-                               [
-                                [:db/add rootid :action/next newidtmp]
-                                [:db/add newidtmp :db/doc "placeholder/hack"]
-                                ]))
-
+                 @(d/transact @conn
+                              [[:db/add rootid :action/next newidtmp]
+                               [:db/add newidtmp :db/doc "placeholder/hack"]]))
         newid (d/resolve-tempid (db @conn) (:tempids result) newidtmp)]
     (println result)
-
-    (lamina/enqueue datomic-channel
-                  (pr-str {
-                           :op :insert-loop
-                           :data {:position (:position (:data request))
-                                  :loop (map->Loop {:id (str newid) :output nil :input ""} )}
-                           :id "subsession"}))))
-
+    (enqueue {:op :insert-loop
+              :data {:position (:position (:data request))
+                     :loop (map->Loop {:id (str newid) :output nil :input ""} )}
+              :id "subsession"})))
 
 (defmethod service-request :delete-loop [request]
   (println request)
@@ -248,12 +203,9 @@
                               [[:db/add (:db/id previous) :action/next (:db/id next)]
                                [:db/retract (:db/id deleted) :action/next (:db/id deleted)]]
                               [[:db/retract (:db/id previous) :action/next (:db/id deleted)]]))]
-    (lamina/enqueue datomic-channel
-                  (pr-str {
-                           :op :delete-loop
-                           :data {:id id}
-                           :id "subsession"}))))
-
+    (enqueue {:op :delete-loop
+              :data {:id id}
+              :id "subsession"})))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  MISC QUERIES ;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -261,7 +213,7 @@
 
 (comment
 
-  ;; requests without responses
+;; requests without responses
 (defn uncompleted-actions-q [db]
   (q '[:find ?id
       :where
@@ -335,7 +287,4 @@
 (defn get-loop-maps []
   (map (fn [[id input output]] {:id (str id) :input input :output (if output (read-string output) nil)}) (actions-q)))
 
-
-
-
-  )
+)

@@ -19,3 +19,13 @@
     [:script {:type "text/javascript" :src "js/vendor/jquery.ui.widget.js"}]
     [:script {:type "text/javascript" :src "js/locale.js"}]
     [:script {:type "text/javascript" :src "cljs/bootstrap.js"}]]))
+
+(defn page []
+  (layout
+   (seq [[:div.navbar.navbar-fixed-top
+          [:div.navbar-inner
+           [:div.container {:style "margin-left:80px"}
+            [:span {:href "#" :style "font-size:20px;margin-left:0px"} "session"]
+            [:ul.nav]]]]
+         [:div.container {:style "margin-left:20px"}
+          [:div.content]]])))
