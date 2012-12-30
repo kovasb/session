@@ -22,18 +22,11 @@
 (defroutes routes
 
   (GET "/" _
-    (common/layout
-     (seq [[:div.navbar.navbar-fixed-top
-            [:div.navbar-inner
-             [:div.container {:style "margin-left:80px"}
-              [:span {:href "#" :style "font-size:20px;margin-left:0px"} "session"]
-              [:ul.nav]]]]
-           [:div.container {:style "margin-left:20px"}
-            [:div.content]]])))
+    (common/page))
 
   (GET "/get_session" _
     {:status 202
-     :headers{"Content-Type" "application/edn; charset=utf-8"}
+     :headers {"Content-Type" "application/edn; charset=utf-8"}
      :body (pr-str (datomic/get-datomic-session))})
   
   (GET "/service" _
