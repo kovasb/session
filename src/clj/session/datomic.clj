@@ -23,15 +23,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  TOP-LEVEL ENTRY POINTS ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmulti service-request (fn [request db-conn] (:op request)))
+(defmulti service-request (fn [request ch db-conn] (:op request)))
 
-(def datomic-channel (lamina/permanent-channel))
-
-(defn subscribe-channel [ch]
-  (lamina/siphon datomic-channel ch))
-
-(defn enqueue [data]
-  (->> data pr-str (lamina/enqueue datomic-channel)))
+(defn enqueue [ch data]
+  (->> data pr-str (lamina/enqueue ch)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  GET SESSION  ;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -96,23 +91,23 @@
        [:db/add requestid :request/data dataid]
        [:db/add dataid :data/edn datastring]]))
 
-(defmethod service-request :evaluate-clj [request db-conn]
+(defmethod service-request :evaluate-clj [request ch db-conn]
   (let [datoms (create-action-request
                 (:id request)
                 (:data request))]
     (println ["transact request into db" :evaluate-clj datoms])
     @(d/transact db-conn datoms)))
 
-(defn submit-response [data]
+(defn submit-response [ch data]
   (let [r (select-keys data [:data :id :input])]
     (println ["submit response" r])
-    (enqueue r)))
+    (enqueue ch r)))
 
-(defmethod service-request :update-textarea [request db-conn]
+(defmethod service-request :update-textarea [request ch db-conn]
   (let [r (select-keys request [:data :id :input :origin])]
-    (enqueue r)))
+    (enqueue ch r)))
 
-(defn process-response [response]
+(defn process-response [ch response]
   (let [rdb (:db-after response) datoms (:tx-data response)
         x (first (filter #(and (= true (:added %)) (= :action/response (d/ident rdb (:a %)))) datoms))]
         (println ["response from tx into channel" x (map :a datoms)])
@@ -128,14 +123,14 @@
                      rdb (:e x))]
             (println [:submit-response (:e x) d])
             (if (seq d)
-              (submit-response {:id (str (:e x))
-                                :input ((comp last last) d)
-                                :data
-                                (binding [*default-data-reader-fn* session.tags/->GenericData]
-                                  (try (read-string (nth (first d) 2))
-                                       (catch Exception e [:unreadable-form (nth (first d) 2)])))}))))))
+              (submit-response ch {:id (str (:e x))
+                                   :input ((comp last last) d)
+                                   :data
+                                   (binding [*default-data-reader-fn* session.tags/->GenericData]
+                                     (try (read-string (nth (first d) 2))
+                                          (catch Exception e [:unreadable-form (nth (first d) 2)])))}))))))
 
-(defn process-requests [tx-report-queue db-conn]
+(defn process-requests [tx-report-queue ch db-conn]
   (binding [*ns* *ns*
             *warn-on-reflection* *warn-on-reflection*
             *math-context* *math-context*
@@ -153,10 +148,10 @@
             *e nil]
     (doseq [req (repeatedly #(.take tx-report-queue))]
       (try (process-request req db-conn) (catch Exception e (println e)))
-      (try (process-response req) (catch Exception e (println e))))))
+      (try (process-response ch req) (catch Exception e (println e))))))
 
-(defn process-requests-thread [conn]
-  (.start (Thread. #(process-requests (d/tx-report-queue conn) conn))))
+(defn process-requests-thread [conn ch]
+  (.start (Thread. #(process-requests (d/tx-report-queue conn) ch conn))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -166,7 +161,7 @@
       (datomic.api/entity (db db-conn) :action/root)
       (datomic.api/entity (db db-conn) (read-string p)))))
 
-(defmethod service-request :insert-loop [request db-conn]
+(defmethod service-request :insert-loop [request ch db-conn]
   (let [root (insert-loop-root request db-conn)
         rootid (:db/id root)
         newidtmp (d/tempid :db.part/user)
@@ -179,12 +174,12 @@
                                [:db/add newidtmp :db/doc "placeholder/hack"]]))
         newid (d/resolve-tempid (db db-conn) (:tempids result) newidtmp)]
     (println result)
-    (enqueue {:op :insert-loop
-              :data {:position (:position (:data request))
-                     :loop (map->Loop {:id (str newid) :output nil :input ""} )}
-              :id "subsession"})))
+    (enqueue ch {:op :insert-loop
+                 :data {:position (:position (:data request))
+                        :loop (map->Loop {:id (str newid) :output nil :input ""} )}
+                 :id "subsession"})))
 
-(defmethod service-request :delete-loop [request db-conn]
+(defmethod service-request :delete-loop [request ch db-conn]
   (println request)
   (let [id (:id (:data request))
         deleted (d/entity (db db-conn) (read-string id))
@@ -195,7 +190,7 @@
                               [[:db/add (:db/id previous) :action/next (:db/id next)]
                                [:db/retract (:db/id deleted) :action/next (:db/id deleted)]]
                               [[:db/retract (:db/id previous) :action/next (:db/id deleted)]]))]
-    (enqueue {:op :delete-loop
-              :data {:id id}
-              :id "subsession"})))
+    (enqueue ch {:op :delete-loop
+                 :data {:id id}
+                 :id "subsession"})))
 

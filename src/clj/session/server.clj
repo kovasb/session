@@ -12,17 +12,21 @@
 
 
 
-(defn service-handler [channel db-conn]
-  (datomic/subscribe-channel channel)
-  (lamina/receive-all channel #(datomic/service-request (read-string %) db-conn)))
+(defn service-handler [response-channel broadcast-channel db-conn]
+  (lamina/siphon broadcast-channel
+                 response-channel)
+  (lamina/receive-all response-channel
+                      #(datomic/service-request (read-string %)
+                                                broadcast-channel
+                                                db-conn)))
 
-(defn make-service [db-conn]
-  (fn [channel request]
+(defn make-service [db-conn broadcast-channel]
+  (fn [response-channel request]
     (if (:websocket request)
-      (service-handler channel db-conn)
-      (lamina/enqueue channel request))))
+      (service-handler response-channel broadcast-channel db-conn)
+      (lamina/enqueue response-channel request))))
   
-(defn routes [db-conn]
+(defn routes [db-conn broadcast-channel]
   (compojure/routes
    (GET "/" _
         (common/page))
@@ -33,18 +37,19 @@
          :body (pr-str (datomic/get-datomic-session (d/db db-conn)))})
    
    (GET "/service" _
-        (http/wrap-aleph-handler (make-service db-conn)))))
+        (http/wrap-aleph-handler (make-service db-conn broadcast-channel)))))
 
 
 (defn -main [& m]
   (let [port (Integer/parseInt (first m))
         db-uri (last m)
-        db-conn (datomic/connect-database db-uri)]
+        db-conn (datomic/connect-database db-uri)
+        broadcast-channel (lamina/permanent-channel)]
     (http/start-http-server
-     (-> (routes db-conn)
+     (-> (routes db-conn broadcast-channel)
          site
          wrap-file-info
          (wrap-resource "public/")
          http/wrap-ring-handler)
      {:port port :websocket true})
-    (datomic/process-requests-thread db-conn)))
+    (datomic/process-requests-thread db-conn broadcast-channel)))
