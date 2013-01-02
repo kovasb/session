@@ -3,9 +3,7 @@
             [session.tags :refer :all]
             [lamina.core :as lamina]
             [datomic.api :refer [q db tempid] :as d]
-            [session.tags :refer :all]))
-
-(def generic-data-reader-fn (fn [y x] `(session.tags/->GenericData (quote ~y) ~x)))
+            [session.tags :refer [->GenericData]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  DB SETUP ;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -33,50 +31,39 @@
 
 (defn entity-data [entity]
   {:output (when-let [d (get-in entity [:action/response :response/summary])]
-             (binding [*default-data-reader-fn* session.tags/->GenericData]
-               (try (read-string d)
-                    (catch Exception e [:unreadable-form d]))))
+             (try (read-string d)
+                  (catch Exception e [:unreadable-form d])))
    :input (get-in entity [:action/request :request/data :data/edn])
    :id (str (:db/id entity))})
 
 (defn get-datomic-session [db-val]
   (map->Session
-   {:id 1 :last-loop-id 1
+   {:id 1
+    :last-loop-id 1
     :subsessions [(map->Subsession
-                  {:type :clj
-                   :loops (mapv
-                           map->Loop
-                           (map entity-data
-                                (follow-next-action
-                                 (d/entity db-val :action/root))))})]}))
+                   {:type :clj
+                    :loops (mapv
+                            map->Loop
+                            (map entity-data
+                                 (follow-next-action
+                                  (d/entity db-val :action/root))))})]}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  EVALUATION SERVICE ;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn request-data [x rdb]
-  (let [actionid (:e x) requestid (:v x)]
-    (q '[:find ?actionid ?op ?string
-         :in $ ?actionid ?requestid
-         :where
-         [?requestid :request/op ?op]
-         [?requestid :request/data ?did]
-         [?did :data/edn ?string]]
-       rdb actionid requestid)))
-
-(defn response-datoms [actionid op datastring]
-  (let [resultid (d/tempid :db.part/user)
-        result (binding [*default-data-reader-fn* generic-data-reader-fn]
-                 (eval (read-string datastring)))]
-    [[:db/add actionid :action/response resultid]
-     [:db/add resultid :response/summary (pr-str result)]
-     [:db/add resultid :response/status :success]]))
 
 (defn process-request [request {:keys [transact]}]
   (let [rdb (:db-after request)
         datoms (:tx-data request)
-        x (first (filter #(and (= true (:added %)) (= :action/request (d/ident rdb (:a %)))) datoms))]
-    (when x
-      (println ["get request from tx, transact result into db" x (map :a datoms)])
-      (transact (apply response-datoms (first (request-data x rdb)))))))
+        action (some #(and (:added %)
+                           (= :action/request (d/ident rdb (:a %)))
+                           (d/entity rdb (:e %)))
+                     datoms)]
+    (when action
+      (let [resultid (d/tempid :db.part/user)
+            result (-> action :action/request :request/data :data/edn read-string eval)]
+        (transact [{:db/id resultid
+                    :action/_response (:db/id action)
+                    :response/summary (pr-str result)
+                    :response/status :success}])))))
 
 (defn create-action-request [ui-id datastring]
   (let [actionid (read-string ui-id)
@@ -91,7 +78,6 @@
   (let [datoms (create-action-request
                 (:id request)
                 (:data request))]
-    (println ["transact request into db" :evaluate-clj datoms])
     (transact datoms)))
 
 (defmethod service-request :update-textarea [request {:keys [broadcast]}]
@@ -101,27 +87,14 @@
 (defn process-response [response {:keys [broadcast]}]
   (let [rdb (:db-after response)
         datoms (:tx-data response)
-        x (first (filter #(and (= true (:added %)) (= :action/response (d/ident rdb (:a %)))) datoms))]
-    (println ["response from tx into channel" x (map :a datoms)])
-    (if x
-      (let [d (q '[:find ?req ?res ?res-summary ?in-string
-                   :in $ ?x
-                   :where
-                   [?x :action/request ?req]
-                   [?x :action/response ?res]
-                   [?res :response/summary ?res-summary]
-                   [?req :request/data ?did]
-                   [?did :data/edn ?in-string]]
-                 rdb (:e x))]
-        (println [:submit-response (:e x) d])
-        (if (seq d)
-          (broadcast {:id (str (:e x))
-                      :input ((comp last last) d)
-                      :data
-                      (binding [*default-data-reader-fn* session.tags/->GenericData]
-                        (try (read-string (nth (first d) 2))
-                             (catch Exception e [:unreadable-form (nth (first d) 2)])))}))))))
-
+        action (some #(and (:added %)
+                           (= :action/response (d/ident rdb (:a %)))
+                           (d/entity rdb (:e %)))
+                     datoms)]
+    (when action
+      (broadcast {:id (pr-str (:db/id action)) ;; Must be a string for some reason
+                  :input (-> action :action/request :request/data :data/edn)
+                  :data (-> action :action/response :response/summary)}))))
 
 (defn process-requests [tx-report-queue ctx]
   (binding [*ns* *ns*
