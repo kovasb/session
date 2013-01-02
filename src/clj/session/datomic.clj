@@ -1,5 +1,6 @@
 (ns session.datomic
-  (:require [session.schema :refer [schema]]
+  (:require [clojure.repl :refer [pst]]
+            [session.schema :refer [schema]]
             [session.tags :refer :all]
             [lamina.core :as lamina]
             [datomic.api :refer [q db tempid] :as d]
@@ -97,24 +98,10 @@
                   :data (-> action :action/response :response/summary)}))))
 
 (defn process-requests [tx-report-queue ctx]
-  (binding [*ns* *ns*
-            *warn-on-reflection* *warn-on-reflection*
-            *math-context* *math-context*
-            *print-meta* *print-meta*
-            *print-length* *print-length*
-            *print-level* *print-level*
-            *data-readers* *data-readers*
-            *compile-path* (System/getProperty "clojure.compile.path" "classes")
-            *command-line-args* *command-line-args*
-            *unchecked-math* *unchecked-math*
-            *assert* *assert*
-            *1 nil
-            *2 nil
-            *3 nil
-            *e nil]
-    (doseq [req (repeatedly #(.take tx-report-queue))]
-      (try (process-request req ctx) (catch Exception e (println e)))
-      (try (process-response req ctx) (catch Exception e (println e))))))
+  (doseq [req (repeatedly #(.take tx-report-queue))]
+    (try (process-request req ctx) 
+         (process-response req ctx)
+         (catch Exception e (pst e)))))
 
 (defn process-requests-thread [{:keys [db-conn] :as ctx}]
   (.start (Thread. #(process-requests (d/tx-report-queue db-conn) ctx))))
