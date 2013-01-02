@@ -10,8 +10,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  DB SETUP ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def conn (atom nil))
-
 (defn load-schema [conn]
   (d/transact conn schema))
 
@@ -23,12 +21,9 @@
       @(d/transact conn [[:db/add (d/tempid :db.part/user) :db/ident :action/root]]))
     conn))
 
-(defn setup [uri]
-  (reset! conn (connect-database uri)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;  TOP-LEVEL ENTRY POINTS ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmulti service-request :op)
+(defmulti service-request (fn [request db-conn] (:op request)))
 
 (def datomic-channel (lamina/permanent-channel))
 
@@ -53,7 +48,7 @@
    :input (get-in entity [:action/request :request/data :data/edn])
    :id (str (:db/id entity))})
 
-(defn get-datomic-session []
+(defn get-datomic-session [db-val]
   (map->Session
    {:id 1 :last-loop-id 1
     :subsessions [(map->Subsession
@@ -62,7 +57,7 @@
                            map->Loop
                            (map entity-data
                                 (follow-next-action
-                                 (d/entity (db @conn) :action/root))))})]}))
+                                 (d/entity db-val :action/root))))})]}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  EVALUATION SERVICE ;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -84,14 +79,13 @@
      [:db/add resultid :response/summary (pr-str result)]
      [:db/add resultid :response/status :success]]))
 
-(defn process-request [request]
+(defn process-request [request db-conn]
   (let [rdb (:db-after request) datoms (:tx-data request)
         x (first (filter #(and (= true (:added %)) (= :action/request (d/ident rdb (:a %)))) datoms))]
       (println ["get request from tx, transact result into db" x (map :a datoms)])
       (if x
-        @(d/transact
-          @conn
-          (apply response-datoms (first (request-data x rdb)))))))
+        @(d/transact db-conn
+                     (apply response-datoms (first (request-data x rdb)))))))
 
 (defn create-action-request [ui-id datastring]
   (let [actionid (read-string ui-id)
@@ -102,21 +96,19 @@
        [:db/add requestid :request/data dataid]
        [:db/add dataid :data/edn datastring]]))
 
-(defmethod service-request :evaluate-clj [request]
- (let [datoms (create-action-request
-    (:id request)
-    (:data request))]
-   (println ["transact request into db" :evaluate-clj datoms])
-   @(d/transact
-     @conn
-   datoms)))
+(defmethod service-request :evaluate-clj [request db-conn]
+  (let [datoms (create-action-request
+                (:id request)
+                (:data request))]
+    (println ["transact request into db" :evaluate-clj datoms])
+    @(d/transact db-conn datoms)))
 
 (defn submit-response [data]
   (let [r (select-keys data [:data :id :input])]
     (println ["submit response" r])
     (enqueue r)))
 
-(defmethod service-request :update-textarea [request]
+(defmethod service-request :update-textarea [request db-conn]
   (let [r (select-keys request [:data :id :input :origin])]
     (enqueue r)))
 
@@ -143,7 +135,7 @@
                                   (try (read-string (nth (first d) 2))
                                        (catch Exception e [:unreadable-form (nth (first d) 2)])))}))))))
 
-(defn process-requests [tx-report-queue]
+(defn process-requests [tx-report-queue db-conn]
   (binding [*ns* *ns*
             *warn-on-reflection* *warn-on-reflection*
             *math-context* *math-context*
@@ -160,45 +152,45 @@
             *3 nil
             *e nil]
     (doseq [req (repeatedly #(.take tx-report-queue))]
-      (try (process-request req) (catch Exception e (println e)))
+      (try (process-request req db-conn) (catch Exception e (println e)))
       (try (process-response req) (catch Exception e (println e))))))
 
 (defn process-requests-thread [conn]
-  (.start (Thread. #(process-requests (d/tx-report-queue conn)))))
+  (.start (Thread. #(process-requests (d/tx-report-queue conn) conn))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn insert-loop-root [request]
+(defn insert-loop-root [request db-conn]
   (let [p (:after (:position (:data request)))]
     (if (= p "subsession-root")
-      (datomic.api/entity (db @conn) :action/root)
-      (datomic.api/entity (db @conn) (read-string p)))))
+      (datomic.api/entity (db db-conn) :action/root)
+      (datomic.api/entity (db db-conn) (read-string p)))))
 
-(defmethod service-request :insert-loop [request]
-  (let [root (insert-loop-root request)
+(defmethod service-request :insert-loop [request db-conn]
+  (let [root (insert-loop-root request db-conn)
         rootid (:db/id root)
         newidtmp (d/tempid :db.part/user)
         result (if (:action/next root)
-                 @(d/transact @conn
+                 @(d/transact db-conn
                               [[:db/add newidtmp :action/next (:db/id (:action/next root))]
                                [:db/add rootid :action/next newidtmp]])
-                 @(d/transact @conn
+                 @(d/transact db-conn
                               [[:db/add rootid :action/next newidtmp]
                                [:db/add newidtmp :db/doc "placeholder/hack"]]))
-        newid (d/resolve-tempid (db @conn) (:tempids result) newidtmp)]
+        newid (d/resolve-tempid (db db-conn) (:tempids result) newidtmp)]
     (println result)
     (enqueue {:op :insert-loop
               :data {:position (:position (:data request))
                      :loop (map->Loop {:id (str newid) :output nil :input ""} )}
               :id "subsession"})))
 
-(defmethod service-request :delete-loop [request]
+(defmethod service-request :delete-loop [request db-conn]
   (println request)
   (let [id (:id (:data request))
-        deleted (d/entity (db @conn) (read-string id))
+        deleted (d/entity (db db-conn) (read-string id))
         previous (first (:action/_next deleted))
         next (:action/next deleted)
-        result @(d/transact @conn
+        result @(d/transact db-conn
                             (if next
                               [[:db/add (:db/id previous) :action/next (:db/id next)]
                                [:db/retract (:db/id deleted) :action/next (:db/id deleted)]]
@@ -207,84 +199,3 @@
               :data {:id id}
               :id "subsession"})))
 
-;;;;;;;;;;;;;;;;;;;;;;;;  MISC QUERIES ;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; possibly out of date
-
-(comment
-
-;; requests without responses
-(defn uncompleted-actions-q [db]
-  (q '[:find ?id
-      :where
-      [?id :action/request]
-      [(session.datomic/attr-missing? $ ?id :action/response)]]
-    db))
-
-;; requests with responses
-(defn completed-actions-q [db]
-  (q '[:find ?id
-      :where
-      [?id :action/response]
-      [?id :action/request]]
-    db))
-
-(defn attr-missing? [db eid attr]
-      (not (attr (d/entity db eid))))
-
-;; unprocessed actions and their request data
-(defn unprocessed-actions-q [db]
-  (q '[:find ?id ?op ?string
-      :where
-      [?id :action/request ?id2]
-      [(session.datomic/attr-missing? $ ?id :action/response)]
-      [?id2 :request/op ?op]
-      [?id2 :request/data ?did]
-      [?did :data/edn ?string]]
-    db))
-
-
-;; loops and their data
-(defn actions-q [db]
-  (q '[:find ?id ?in-string ?out-string
-      :where
-      [?id :action/response ?responseid]
-      [?id :action/request ?requestid]
-      [?requestid :request/op ?op]
-      [?requestid :request/data ?did]
-      [?did :data/edn ?in-string]
-      [?responseid :response/summary ?out-string]]
-    db))
-
-
-(defn requests-q [db]
-  (q '[:find ?id ?id2
-      :where
-      [?id :action/request ?id2]]
-    db))
-
-;; actions and their request data
-(defn actions-requests-q [db]
-  (q '[:find ?id ?op ?string
-      :where
-      [?id :action/request ?id2]
-      [?id2 :request/op ?op]
-      [?id2 :request/data ?did]
-      [?did :data/edn ?string]]
-     db))
-
-(defn actions-q [db]
-  (q '[:find ?id ?in-string ?out-string
-      :where
-      [?id :action/response ?responseid]
-      [?id :action/request ?requestid]
-      [?requestid :request/op ?op]
-      [?requestid :request/data ?did]
-      [?did :data/edn ?in-string]
-      [?responseid :response/summary ?out-string]]
-    db))
-
-(defn get-loop-maps []
-  (map (fn [[id input output]] {:id (str id) :input input :output (if output (read-string output) nil)}) (actions-q)))
-
-)
