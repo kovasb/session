@@ -10,12 +10,11 @@
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.file-info :refer [wrap-file-info]]))
 
-(defn service-handler [response-channel ctx]
-  (lamina/siphon (:broadcast-channel ctx)
+(defn service-handler [response-channel {:keys [broadcast-channel db-conn] :as ctx}]
+  (lamina/siphon broadcast-channel
                  response-channel)
   (lamina/receive-all response-channel
-                      #(datomic/service-request (read-string %) ctx)))
-                                                
+                      #(datomic/service-request (read-string %) (assoc ctx :db (d/db db-conn)))))
 
 (defn make-service [ctx]
   (fn [response-channel request]
@@ -36,13 +35,11 @@
    (GET "/service" _
         (http/wrap-aleph-handler (make-service ctx)))))
 
-
 (defn -main [& m]
   (let [port (Integer/parseInt (first m))
         db-uri (last m)
         db-conn (datomic/connect-database db-uri)
         broadcast-channel (lamina/permanent-channel)
-        
         ctx {:db-conn db-conn
              :transact (fn [tx-data] @(d/transact db-conn tx-data))
              :broadcast-channel broadcast-channel

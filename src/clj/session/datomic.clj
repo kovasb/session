@@ -148,14 +148,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn insert-loop-root [request db-conn]
+(defn insert-loop-root [request db]
   (let [p (:after (:position (:data request)))]
     (if (= p "subsession-root")
-      (datomic.api/entity (db db-conn) :action/root)
-      (datomic.api/entity (db db-conn) (read-string p)))))
+      (datomic.api/entity db :action/root)
+      (datomic.api/entity db (read-string p)))))
 
-(defmethod service-request :insert-loop [request {:keys [db-conn transact broadcast]}]
-  (let [root (insert-loop-root request db-conn)
+(defmethod service-request :insert-loop [request {:keys [db transact broadcast]}]
+  (let [root (insert-loop-root request db)
         rootid (:db/id root)
         newidtmp (d/tempid :db.part/user)
         result (if (:action/next root)
@@ -163,15 +163,15 @@
                             [:db/add rootid :action/next newidtmp]])
                  (transact [[:db/add rootid :action/next newidtmp]
                             [:db/add newidtmp :db/doc "placeholder/hack"]]))
-        newid (d/resolve-tempid (db db-conn) (:tempids result) newidtmp)]
+        newid (d/resolve-tempid db (:tempids result) newidtmp)]
     (broadcast {:op :insert-loop
                 :data {:position (:position (:data request))
                        :loop (map->Loop {:id (str newid) :output nil :input ""} )}
                 :id "subsession"})))
 
-(defmethod service-request :delete-loop [request {:keys [db-conn transact broadcast]}]
+(defmethod service-request :delete-loop [request {:keys [db transact broadcast]}]
   (let [id (:id (:data request))
-        deleted (d/entity (db db-conn) (read-string id))
+        deleted (d/entity db (read-string id))
         previous (first (:action/_next deleted))
         next (:action/next deleted)
         result (transact (if next
