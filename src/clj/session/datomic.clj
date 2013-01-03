@@ -1,6 +1,6 @@
 (ns session.datomic
   (:require [clojure.repl :refer [pst]]
-            [session.schema :refer [schema]]
+            [session.schema :refer [schema nrepl-schema]]
             [session.tags :refer :all]
             [lamina.core :as lamina]
             [datomic.api :refer [q db tempid] :as d]
@@ -9,7 +9,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;  DB SETUP ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn load-schema [conn]
-  (d/transact conn schema))
+  (d/transact conn (concat schema nrepl-schema)))
 
 (defn connect-database [uri]
   (let [created? (d/create-database uri)

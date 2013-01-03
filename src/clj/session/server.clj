@@ -1,6 +1,7 @@
 (ns session.server
   (:require [session.datomic :as datomic]
             [session.views.common :as common]
+            [session.nrepl :as nrepl]
             [datomic.api :as d]
             [lamina.core :as lamina]
             [aleph.http :as http]
@@ -14,7 +15,8 @@
   (lamina/siphon broadcast-channel
                  response-channel)
   (lamina/receive-all response-channel
-                      #(datomic/service-request (read-string %) (assoc ctx :db (d/db db-conn)))))
+                      #(datomic/service-request (read-string %)
+                                                (assoc ctx :db (d/db db-conn)))))
 
 (defn make-service [ctx]
   (fn [response-channel request]
@@ -35,20 +37,35 @@
    (GET "/service" _
         (http/wrap-aleph-handler (make-service ctx)))))
 
-(defn -main [& m]
-  (let [port (Integer/parseInt (first m))
-        db-uri (last m)
-        db-conn (datomic/connect-database db-uri)
-        broadcast-channel (lamina/permanent-channel)
-        ctx {:db-conn db-conn
-             :transact (fn [tx-data] @(d/transact db-conn tx-data))
-             :broadcast-channel broadcast-channel
-             :broadcast (fn [data] (->> data pr-str (lamina/enqueue broadcast-channel)))}]
-    (http/start-http-server
-     (-> (routes ctx)
-         site
-         wrap-file-info
-         (wrap-resource "public/")
-         http/wrap-ring-handler)
-     {:port port :websocket true})
-    (datomic/process-requests-thread ctx)))
+(def default-opts
+  {:port 8090
+   :datomic-uri "datomic:mem://test"
+   :nrepl-uri "nrepl://localhost:42277"
+   :nrepl-timeout 1000})
+
+(defn -main
+  ([] (-main "{}"))
+  ([opts-string]
+     (let [opts (merge default-opts (read-string opts-string))
+           port (:port opts)
+           db-uri (:datomic-uri opts)
+           nrepl-uri (:nrepl-uri opts)
+           nrepl-timeout (:nrepl-timeout opts)
+           db-conn (datomic/connect-database db-uri)
+           nrepl-client (nrepl/make-client nrepl-uri nrepl-timeout)
+           broadcast-channel (lamina/permanent-channel)
+           ctx {:db-conn db-conn
+                :transact (fn [tx-data] @(d/transact db-conn tx-data))
+                :broadcast-channel broadcast-channel
+                :broadcast (fn [data] (->> data pr-str (lamina/enqueue broadcast-channel)))
+                :nrepl-client nrepl-client}]
+       (http/start-http-server
+        (-> (routes ctx)
+            site
+            wrap-file-info
+            (wrap-resource "public/")
+            http/wrap-ring-handler)
+        {:port port :websocket true})
+       (datomic/process-requests-thread ctx)
+       (printf "Session server running on http://localhost:%s with\n" port)
+       (printf "Datomic server: %s\nNrepl server: %s\n" db-uri nrepl-uri))))

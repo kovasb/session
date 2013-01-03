@@ -63,7 +63,11 @@
                           (reset!
                            (:input model)
                            (.getValue @editor))
-                          (subscribe/send! {:op :evaluate-clj :id (:id model) :data @(:input model)}))))
+                          (subscribe/send! {:op :nrepl
+                                            :nrepl {:op :eval
+                                                    :code @(:input model)
+                                                    :id (reader/read-string (:id model))}
+                                            :id (:id model)}))))
         
         (add-watch (:output model) :update-output
                    (fn [key atom old new]
