@@ -7,6 +7,7 @@
    [session.client.remote :as remote]
    [session.client.mvc :as mvc]
    [session.client.session :as session]
+   [session.client.subscribe :as ws]
    [cljs-jquery.core])
   (:use-macros [cljs-jquery.macros :only [$]]))
 
@@ -24,5 +25,12 @@
 (defn ^:export start []
   (do (readermap/register-tag-parsers)
       (aset (.-keyMap js/CodeMirror) "subpar" keymap/subpar-keymap)
-      (load-session "default-session")))
+      (load-session "default-session")
+
+      ;; print *out* to console.log
+      (ws/subscribe!
+       :out
+       (reify ws/ISubscribe
+         (receive [_ msg]
+           (.log js/console (:data msg)))))))
 
