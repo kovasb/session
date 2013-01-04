@@ -49,64 +49,12 @@
                                  (follow-next-action
                                   (d/entity db-val :action/root))))})]}))
 
-;;;;;;;;;;;;;;;;;;;;;;;;  EVALUATION SERVICE ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn process-request [request {:keys [transact]}]
-  (let [rdb (:db-after request)
-        datoms (:tx-data request)
-        action (some #(and (:added %)
-                           (= :action/request (d/ident rdb (:a %)))
-                           (d/entity rdb (:e %)))
-                     datoms)]
-    (when action
-      (let [resultid (d/tempid :db.part/user)
-            result (-> action :action/request :request/data :data/edn read-string eval)]
-        (transact [{:db/id resultid
-                    :action/_response (:db/id action)
-                    :response/summary (pr-str result)
-                    :response/status :success}])))))
-
-(defn create-action-request [ui-id datastring]
-  (let [actionid (read-string ui-id)
-        requestid (d/tempid :db.part/user)
-        dataid (d/tempid :db.part/user)]
-    [[:db/add actionid :action/request requestid]
-     [:db/add requestid :request/op :evaluate]
-     [:db/add requestid :request/data dataid]
-     [:db/add dataid :data/edn datastring]]))
-
-(defmethod service-request :evaluate-clj [request {:keys [transact]}]
-  (let [datoms (create-action-request
-                (:id request)
-                (:data request))]
-    (transact datoms)))
+;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod service-request :update-textarea [request {:keys [broadcast]}]
   (let [r (select-keys request [:data :id :input :origin])]
     (broadcast r)))
-
-(defn process-response [response {:keys [broadcast]}]
-  (let [rdb (:db-after response)
-        datoms (:tx-data response)
-        action (some #(and (:added %)
-                           (= :action/response (d/ident rdb (:a %)))
-                           (d/entity rdb (:e %)))
-                     datoms)]
-    (when action
-      (broadcast {:id (pr-str (:db/id action)) ;; Must be a string for some reason
-                  :input (-> action :action/request :request/data :data/edn)
-                  :data (-> action :action/response :response/summary)}))))
-
-(defn process-requests [tx-report-queue ctx]
-  (doseq [req (repeatedly #(.take tx-report-queue))]
-    (try (process-request req ctx) 
-         (process-response req ctx)
-         (catch Exception e (pst e)))))
-
-(defn process-requests-thread [{:keys [db-conn] :as ctx}]
-  (.start (Thread. #(process-requests (d/tx-report-queue db-conn) ctx))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn insert-loop-root [request db]
   (let [p (:after (:position (:data request)))]

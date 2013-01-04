@@ -66,6 +66,5 @@
             (wrap-resource "public/")
             http/wrap-ring-handler)
         {:port port :websocket true})
-       (datomic/process-requests-thread ctx)
        (printf "Session server running on http://localhost:%s with\n" port)
        (printf "Datomic server: %s\nNrepl server: %s\n" db-uri nrepl-uri))))
