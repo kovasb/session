@@ -3,6 +3,7 @@
             [session.views.common :as common]
             [session.nrepl :as nrepl]
             [datomic.api :as d]
+            [clojure.tools.nrepl.server :as nrepl-server]
             [lamina.core :as lamina]
             [aleph.http :as http]
             [compojure.core :refer [defroutes GET] :as compojure]
@@ -40,7 +41,6 @@
 (def default-opts
   {:port 8090
    :datomic-uri "datomic:mem://test"
-   :nrepl-uri "nrepl://localhost:42277"
    :nrepl-timeout 1000})
 
 (defn -main
@@ -49,7 +49,9 @@
      (let [opts (merge default-opts (read-string opts-string))
            port (:port opts)
            db-uri (:datomic-uri opts)
-           nrepl-uri (:nrepl-uri opts)
+           nrepl-uri (or (:nrepl-uri opts)
+                         (str "nrepl://localhost:"
+                              (:port (nrepl-server/start-server))))
            nrepl-timeout (:nrepl-timeout opts)
            db-conn (datomic/connect-database db-uri)
            nrepl-client (nrepl/make-client nrepl-uri nrepl-timeout)
