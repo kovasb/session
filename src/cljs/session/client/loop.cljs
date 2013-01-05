@@ -33,10 +33,12 @@
     (let [v (let [id (:id model)]
               ($
                [:div {:id id :style "position:relative"}
-                ($ [:i.icon-stop { :style "position:absolute;top:18px;right:-20px"} ""]
-                   (click #(subscribe/send! {:op :interrupt-loop :id id :data {:id id}})))
                 ($ [:i.icon-remove { :style "position:absolute;top:2px;right:-20px"}  ""]
                    (click #(subscribe/send! {:op :delete-loop :id id :data {:id id}})))
+                ($ [:i.icon-stop { :style "position:absolute;top:18px;right:-20px"} ""]
+                   (click #(subscribe/send! {:op :nrepl
+                                             :nrepl {:op :interrupt
+                                                     :id (reader/read-string id)}})))
                 [:div.span12 {:style "padding-top:0px;border-right:dotted #555 1px;border-left:dotted #555 1px"}
                  [:div.row.loop-container {:style "margin-left:0px;padding-bottom:5px;border-bottom: dotted #555 1px"}
                   [:i.icon-chevron-right {:height "18px" :style "opacity:.8;position:absolute;left:0px;top:2px"} ""]

@@ -15,11 +15,25 @@
 (defmethod datomic/service-request :nrepl [request ctx]
   (nrepl-request (:nrepl request) ctx))
 
-(defmethod nrepl-request :eval [req {:keys [nrepl-client broadcast transact]}]
+(defmethod nrepl-request :eval [req {:keys [nrepl-client transact]}]
   (let [result (nrepl/message nrepl-client req)]
     (transact (nrepl-request-tx-data req))
     (doseq [r result]
       (transact (nrepl-response-tx-data r)))))
+
+(def session-query
+  '[:find ?session-id
+    :in $ ?id
+    :where
+    [?id :loop.nrepl/request ?request]
+    [?request :nrepl.request/session ?session-id]])
+
+(defmethod nrepl-request :interrupt [{:keys [id] :as req}
+                                     {:keys [db nrepl-client]}]
+  ;; Find the nrepl session associated with this loop id
+  (let [[session-id] (first (q session-query db id))]
+    (nrepl/message nrepl-client (assoc req :session :session-id))))
+
 
 (defmethod nrepl-request-tx-data :eval [req]
   [{:db/id (d/tempid :db.part/user)

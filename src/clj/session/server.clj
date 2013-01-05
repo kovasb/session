@@ -58,14 +58,13 @@
                 :transact (fn [tx-data] @(d/transact db-conn tx-data))
                 :broadcast-channel broadcast-channel
                 :broadcast (fn [data] (->> data pr-str (lamina/enqueue broadcast-channel)))
-                :nrepl-client nrepl-client}]
-       (http/start-http-server
-        (-> (routes ctx)
-            site
-            wrap-file-info
-            (wrap-resource "public/")
-            http/wrap-ring-handler)
-        {:port port :websocket true})
+                :nrepl-client nrepl-client}
+           handler (-> (routes ctx)
+                       site
+                       wrap-file-info
+                       (wrap-resource "public/")
+                       http/wrap-ring-handler)]
+       (http/start-http-server handler {:port port :websocket true})
        (future
          (nrepl/process-tx-report-queue (d/tx-report-queue db-conn)
                                         (:broadcast ctx)))
