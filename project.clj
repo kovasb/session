@@ -4,6 +4,7 @@
   :dependencies
   [[org.clojure/clojure "1.5.0-RC1"]
    [org.clojure/clojurescript "0.0-1552"]
+   [org.clojure/tools.nrepl "0.2.0-RC1"]
    [com.datomic/datomic-free "0.8.3664"]
    [aleph "0.3.0-beta8"]
    [lamina "0.5.0-beta8"]

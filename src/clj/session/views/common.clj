@@ -18,7 +18,9 @@
     [:script {:type "text/javascript" :src "bootstrap/js/bootstrap.js"}]
     [:script {:type "text/javascript" :src "js/vendor/jquery.ui.widget.js"}]
     [:script {:type "text/javascript" :src "js/locale.js"}]
-    [:script {:type "text/javascript" :src "cljs/bootstrap.js"}]]))
+    [:script {:type "text/javascript" :src "cljs/bootstrap.js"}]
+    [:script {:type "text/javascript"} "goog.require('session.client.main');"]
+    [:script {:type "text/javascript"} "session.client.main.start();"]]))
 
 (defn page []
   (layout
