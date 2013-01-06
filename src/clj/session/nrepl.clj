@@ -96,7 +96,8 @@
                              tx-data)]
     (broadcast {:id (pr-str id)
                 :input code
-                :data value}))
+                :data (try (read-string value)
+                           (catch Exception e [:unreadable-form value]))}))
   (doseq [[id out] (q out-query
                       db-after
                       tx-data)]
