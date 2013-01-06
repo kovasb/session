@@ -30,11 +30,20 @@
    (when-let [s (:action/next entity)]
      (cons s (follow-next-action s)))))
 
-(defn entity-data [entity]
-  {:output (when-let [d (get-in entity [:action/response :response/summary])]
+(defn entity-data [entity db-val]
+  {:output (when-let [d (first
+                         (last
+                          (sort-by last
+                                   (q '[:find ?out ?tx
+                                        :in $ ?entid
+                                        :where
+                                        [?entid :loop.nrepl/response ?e]
+                                        [?e :nrepl.response/value ?out ?tx]]
+                                      db-val (:db/id entity)))))
+                      ]
              (try (read-string d)
                   (catch Exception e [:unreadable-form d])))
-   :input (get-in entity [:action/request :request/data :data/edn])
+   :input (get-in entity [:loop.nrepl/request :nrepl.request/code])
    :id (str (:db/id entity))})
 
 (defn get-datomic-session [db-val]
@@ -45,7 +54,7 @@
                    {:type :clj
                     :loops (mapv
                             map->Loop
-                            (map entity-data
+                            (map #(entity-data % db-val)
                                  (follow-next-action
                                   (d/entity db-val :action/root))))})]}))
 
