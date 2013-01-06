@@ -44,13 +44,17 @@ First, compile the javascript:
 
     lein cljsbuild once
 
-Then run session with the desired port and datomic uri:
+To invoke session with a default datomic db and nrepl server:
 
-    lein run 8090 datomic:mem://test
+    lein run
 
 Then direct the browser to localhost:8090 . (Only verified to work with Chrome)
 
-In general, supply the port and the datomic URI to connect to. For persistent results, you'll likely want set up and use a transactor with local storage.
+You can override the various defaults with your own uri's and ports:
+
+    lein run '{:port <session-web-client-port> :datomic-uri "<your-datomic-uri>" :nrepl-uri "<your-nrepl-uri>"}'
+
+For persistent results, you'll likely want set up and use a transactor with local storage.
 
 To create input areas, mouse around the UI untill a right arrow appears, and click. An input area should appear.
 
