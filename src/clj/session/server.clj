@@ -8,9 +8,7 @@
             [aleph.http :as http]
             [compojure.core :refer [defroutes GET] :as compojure]
             [compojure.route :as route]
-            [compojure.handler :refer [site]]
-            [ring.middleware.resource :refer [wrap-resource]]
-            [ring.middleware.file-info :refer [wrap-file-info]]))
+            [compojure.handler :refer [site]]))
 
 (defn service-handler [response-channel {:keys [broadcast-channel db-conn] :as ctx}]
   (lamina/siphon broadcast-channel
@@ -36,7 +34,9 @@
          :body (pr-str (datomic/get-datomic-session (-> ctx :db-conn d/db)))})
    
    (GET "/service" _
-        (http/wrap-aleph-handler (make-service ctx)))))
+        (http/wrap-aleph-handler (make-service ctx)))
+
+   (route/resources "/")))
 
 (def default-opts
   {:port 8090
@@ -63,8 +63,6 @@
                 :nrepl-client nrepl-client}
            handler (-> (routes ctx)
                        site
-                       wrap-file-info
-                       (wrap-resource "public/")
                        http/wrap-ring-handler)]
        (http/start-http-server handler {:port port :websocket true})
        (future
