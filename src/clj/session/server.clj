@@ -36,7 +36,9 @@
    (GET "/service" _
         (http/wrap-aleph-handler (make-service ctx)))
 
-   (route/resources "/")))
+   (route/resources "/")
+
+   (route/not-found "Not found.")))
 
 (def default-opts
   {:port 8090
