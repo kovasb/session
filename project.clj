@@ -5,19 +5,11 @@
   [[org.clojure/clojure "1.5.0-RC1"]
    [org.clojure/clojurescript "0.0-1552"]
    [org.clojure/tools.nrepl "0.2.0-RC1"]
-   [com.datomic/datomic-free "0.8.3664"]
-   [aleph "0.3.0-beta8"]
+   [com.datomic/datomic-free "0.8.3664" :exclusions [com.google.guava/guava]]
+   [aleph "0.3.0-beta8" :exclusions [org.clojure/tools.logging]]
    [lamina "0.5.0-beta8"]
-   [compojure "1.1.3"]
-   [ring "1.1.6"]
+   [compojure "1.1.5" :exclusions [org.clojure/tools.macro]]
    [hiccup "1.0.2"]
-   
-   [org.clojars.nmeyer/simple-avro "0.0.6"]
-   [storm/carbonite "1.5.0"]
-   
-   [cheshire "2.0.4"]
-   [jayq "0.1.0-alpha1" :exclusions [org.clojure/clojure]]
-   [crate "0.1.0-alpha3" :exclusions [org.clojure/clojure]]
    [cljs-jquery "1.0.4-SNAPSHOT" :exclusions [org.clojure/clojure org.clojure/clojurescript]]]
   :dev-dependencies []
   :source-path "src/clj"
