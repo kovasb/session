@@ -5,6 +5,8 @@ pom.xml
 /target/
 /out/
 /repl/
+/checkouts/
+/logs/
 /resources/public/cljs/
 .lein*
 .#*
