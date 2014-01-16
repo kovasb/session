@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c937446f-1562-4c04-9ba3-890c5115be9f" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/ace/ace.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/ace/mode-clojure.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-go/app.yaml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-go/app/main.go" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-go/resize/resize.go" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-go/static/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-go/static/robots.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-python/app.yaml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-python/main.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-python/static/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/gae-python/static/robots.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/node/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/node/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/node/server.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/node/tmp/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/php/files/.htaccess" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/php/index.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/php/thumbnails/.htaccess" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/php/upload.class.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/test/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/test/test.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/css/bootstrap-responsive.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/css/bootstrap-responsive.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/css/bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/css/bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/img/glyphicons-halflings-white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/img/glyphicons-halflings.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/js/bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/bootstrap/js/bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/cors/postmessage.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/cors/result.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/ambiance.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/blackboard.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/cobalt.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/eclipse.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/elegant.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/erlang-dark.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/lesser-dark.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/monokai.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/neat.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/night.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/rubyblue.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/vibrant-ink.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/cm-theme/xq-dark.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/codemirror.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/docs.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/fatcursor.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/jquery.fileupload-ui.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/css/style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/highcharts.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/img/loading.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/img/progressbar.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/closetag.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/dialog.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/dialog.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/foldcode.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/formatting.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/javascript-hint.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/loadmode.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/match-highlighter.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/multiplex.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/overlay.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/pig-hint.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/runmode-standalone.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/runmode.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/search.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/searchcursor.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/simple-hint.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/simple-hint.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cm-util/xml-hint.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/codemirror-compressed.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cors/jquery.postmessage-transport.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/cors/jquery.xdr-transport.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/API.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/FAQ.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/LICENSE.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/NEWS.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/PLUGINS.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/README.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/ajax.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/annotating.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/arrow-down.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/arrow-left.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/arrow-right.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/arrow-up.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/basic.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-eu-gdp-growth-1.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-eu-gdp-growth-2.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-eu-gdp-growth-3.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-eu-gdp-growth-4.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-eu-gdp-growth-5.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-eu-gdp-growth.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-japan-gdp-growth.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/data-usa-gdp-growth.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/graph-types.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/hs-2004-27-a-large_web.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/image.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/interacting-axes.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/interacting.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/layout.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/multiple-axes.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/navigate.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/percentiles.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/pie.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/realtime.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/resize.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/selection.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/setting-options.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/stacking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/symbols.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/thresholding.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/time.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/tracking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/turning-series.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/visitors.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/examples/zooming.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/excanvas.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/excanvas.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.colorhelpers.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.crosshair.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.fillbetween.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.image.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.navigate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.pie.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.resize.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.selection.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.stack.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.symbol.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.flot.threshold.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/flot-flot-f0e78fc/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/jquery.fileupload-fp.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/jquery.fileupload-ui.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/jquery.fileupload.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/jquery.iframe-transport.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/locale.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/main.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/subpar.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/js/vendor/jquery.ui.widget.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/sessions/cascalog.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/sessions/clojure-language.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/sessions/default-session.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/clj/session/.#util.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/clj/session/datomic.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/clj/session/nrepl.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/clj/session/schema.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/clj/session/tags.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/clj/session/views/common.clj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/editor.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/hiccup.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/keymap.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/loop.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/loop_creator.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/mvc.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/plot.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/readermap.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/remote.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/session.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/subscribe.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/subsession.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/session/client/util.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/subpar/core.cljs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/cljs/subpar/paredit.cljs" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/resources/public/blueimp-jQuery-File-Upload-e98f2ae/server/node/public/files/thumbnail/.gitignore" afterPath="$PROJECT_DIR$/src/cljs/session/client/make.cljs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cljs/session/client/main.cljs" afterPath="$PROJECT_DIR$/src/cljs/session/client/main.cljs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.clj" afterPath="$PROJECT_DIR$/project.clj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/clj/session/server.clj" afterPath="$PROJECT_DIR$/src/clj/session/server.clj" />
+    </list>
+    <ignored path="session.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="session" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="project.clj" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project.clj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="35" selection-start="709" selection-end="709" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="make.cljs" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cljs/session/client/make.cljs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="211" column="30" selection-start="5130" selection-end="5135" vertical-scroll-proportion="1.4982079" vertical-offset="1911" max-vertical-offset="5910">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.clj" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="59" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0" vertical-offset="157" max-vertical-offset="1275">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="37" selection-start="95" selection-end="95" vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="285">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cljs" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cljs/session/client/main.cljs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="88" column="63" selection-start="2107" selection-end="2107" vertical-scroll-proportion="-50.76923" vertical-offset="0" max-vertical-offset="1965">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/cljs/session/client/loop_creator.cljs" />
+        <option value="$PROJECT_DIR$/src/cljs/session/client/subsession.cljs" />
+        <option value="$PROJECT_DIR$/src/cljs/session/client/loop.cljs" />
+        <option value="$PROJECT_DIR$/resources/public/index.html" />
+        <option value="$PROJECT_DIR$/src/clj/session/server.clj" />
+        <option value="$PROJECT_DIR$/project.clj" />
+        <option value="$PROJECT_DIR$/src/cljs/session/client/main.cljs" />
+        <option value="$PROJECT_DIR$/src/cljs/session/client/make.cljs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1703" />
+    <option name="height" value="983" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="SearchEverywhereHistory" value="" />
+  </component>
+  <component name="RunManager" selected="Clojure REPL.REPL for session">
+    <configuration default="false" name="REPL for session" type="ClojureREPL" factoryName="Local" temporary="true">
+      <setting name="useLein" value="true" />
+      <setting name="leinProjectName" value="session:0.1.2-SNAPSHOT" />
+      <module name="session" />
+      <setting name="jvmArgs" value="" />
+      <setting name="parameters" value="" />
+      <setting name="workingDir" value="$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Local REPL Run" />
+      <ConfigurationWrapper RunnerId="Local REPL Run" />
+      <method>
+        <option name="Synchronize Leiningen" enabled="true" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ClojureScriptRunConfiguration" factoryName="Clojure Script">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="" />
+      <setting name="repl" value="false" />
+      <method>
+        <option name="Synchronize Leiningen" enabled="true" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Local">
+      <setting name="useLein" value="true" />
+      <setting name="leinProjectName" value="" />
+      <module name="" />
+      <setting name="jvmArgs" value="" />
+      <setting name="parameters" value="" />
+      <setting name="workingDir" value="" />
+      <method>
+        <option name="Synchronize Leiningen" enabled="true" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Clojure REPL.REPL for session" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Clojure REPL.REPL for session" />
+      </list>
+    </recent_temporary>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c937446f-1562-4c04-9ba3-890c5115be9f" name="Default" comment="" />
+      <created>1387057149518</created>
+      <updated>1387057149518</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1703" height="983" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Leiningen" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18083182" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="REPL" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USERS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/project.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="1284" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/make.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="244" column="34" selection-start="6132" selection-end="6132" vertical-scroll-proportion="0.0" vertical-offset="3337" max-vertical-offset="5070">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="15" selection-start="629" selection-end="629" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1215">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="285">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/main.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="14" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="1860">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="47" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/make.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="31" selection-start="3203" selection-end="3203" vertical-scroll-proportion="0.0" vertical-offset="1920" max-vertical-offset="4155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="365" selection-end="365" vertical-scroll-proportion="0.0" vertical-offset="11" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="40" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/main.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="2" selection-start="687" selection-end="687" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="47" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/make.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="0" selection-start="4624" selection-end="4624" vertical-scroll-proportion="0.0" vertical-offset="2640" max-vertical-offset="4155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="365" selection-end="365" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="40" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/main.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="22" selection-start="811" selection-end="811" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="37" selection-start="95" selection-end="95" vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="285">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="59" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0" vertical-offset="157" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/main.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="63" selection-start="2107" selection-end="2107" vertical-scroll-proportion="-50.76923" vertical-offset="0" max-vertical-offset="1965">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="35" selection-start="709" selection-end="709" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/make.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="211" column="30" selection-start="5130" selection-end="5135" vertical-scroll-proportion="1.4982079" vertical-offset="1911" max-vertical-offset="5910">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

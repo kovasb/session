@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.clojure/core.async:0.1.267.0-0d7780-alpha">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/clojure/core.async/0.1.267.0-0d7780-alpha/core.async-0.1.267.0-0d7780-alpha.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
