@@ -1,74 +1,92 @@
 (ns session.server
-  (:require [session.datomic :as datomic]
-            [session.views.common :as common]
-            [session.nrepl :as nrepl]
+  (:require
             [datomic.api :as d]
-            [clojure.tools.nrepl.server :as nrepl-server]
-            [lamina.core :as lamina]
-            [aleph.http :as http]
-            [compojure.core :refer [defroutes GET] :as compojure]
+            [session.datomic :as sd]
+            [compojure.core :refer [routes]]
             [compojure.route :as route]
-            [compojure.handler :refer [site]]))
+            [com.keminglabs.jetty7-websockets-async.core :as ws]
+            [clojure.core.async :refer [chan go >! <!]]
+            [ring.adapter.jetty :refer [run-jetty]]))
 
-(defn service-handler [response-channel {:keys [broadcast-channel db-conn] :as ctx}]
-  (lamina/siphon broadcast-channel
-                 response-channel)
-  (lamina/receive-all response-channel
-                      #(datomic/service-request (read-string %)
-                                                (assoc ctx :db (d/db db-conn)))))
 
-(defn make-service [ctx]
-  (fn [response-channel request]
-    (if (:websocket request)
-      (service-handler response-channel ctx)
-      (lamina/enqueue response-channel request))))
-  
-(defn routes [ctx]
-  (compojure/routes
-   (GET "/" _
-        (common/page))
-   
-   (GET "/get_session" _
-        {:status 202
-         :headers {"Content-Type" "application/edn; charset=utf-8"}
-         :body (pr-str (datomic/get-datomic-session (-> ctx :db-conn d/db)))})
-   
-   (GET "/service" _
-        (http/wrap-aleph-handler (make-service ctx)))
+(def app
+  (routes
+    (route/files "/" {:root "resources/public"})))
 
-   (route/resources "/")
 
-   (route/not-found "Not found.")))
+(defmulti handle-request (fn [input out-chan datomic-conn] (:op input)))
 
-(def default-opts
-  {:port 8090
-   :datomic-uri "datomic:mem://test"
-   :nrepl-timeout 1000})
+(defmethod handle-request :eval-request [input out-chan datomic-conn]
+  (go (>! out-chan
+          (let [eval-request input]
+            (sd/session-transact eval-request datomic-conn)
+            (let [response (try
+                             {:op :eval-response
+                              :out (eval (read-string (:in eval-request)))
+                              :id (:id eval-request)}
+                             (catch Exception e
+                               {:op :eval-error
+                                :error (str e)})) ]
+              (sd/session-transact response datomic-conn)
+              (pr-str response))))))
+;; decorate transactions with request ids & meta info from client?
+
+
+(defmethod handle-request :insert-loop [input out-chan datomic-conn]
+  (sd/session-transact input datomic-conn))
+
+(defmethod handle-request :delete-loop [input out-chan datomic-conn]
+  (sd/session-transact input datomic-conn))
+
+(defn to-client-side-session [x]
+  {:tag :session :loops (mapv (fn [l]  {:tag :loop :in (:loop/in l) :out (read-string (:loop/out l)) :id (:loop/id l)}) x)})
+
+(defmethod handle-request :connect-session [input out-chan datomic-conn]
+  (go (>! out-chan (pr-str (to-client-side-session (sd/get-session (d/db datomic-conn)))))))
+
+
+(defn spawn-new-connection-handlers [conn datomic-conn]
+  (let [in (:in conn) out (:out conn)]
+    (go
+      (while true
+        (let [req (read-string (<! out))]
+          (println req)
+          (handle-request req in datomic-conn))))))
+
+
+(defn register-ws-app!
+  [conn-chan datomic-conn]
+  (go
+    (while true
+        (let [newconn (<! conn-chan)]
+            (println newconn)
+            (spawn-new-connection-handlers newconn datomic-conn)))))
+
+
+
+(defn system
+  []
+  {:connection-chan (chan)
+   :datomic-conn (sd/connect-database "datomic:mem://test")})
+
+(defn start! [system]
+
+  (register-ws-app! (system :connection-chan) (system :datomic-conn))
+
+  (assoc system
+    :server (run-jetty app
+                       {:join? false :port 8080
+                        :configurator (ws/configurator (system :connection-chan))})))
+
+(defn stop! [system]
+  (when-let [server (:server system)]
+    (.stop server)))
+
 
 (defn -main
   ([] (-main "{}"))
   ([opts-string]
-     (let [opts (merge default-opts (read-string opts-string))
-           port (:port opts)
-           db-uri (:datomic-uri opts)
-           nrepl-uri (or (:nrepl-uri opts)
-                         (str "nrepl://localhost:"
-                              (:port (nrepl-server/start-server))))
-           nrepl-timeout (:nrepl-timeout opts)
-           db-conn (datomic/connect-database db-uri)
-           nrepl-client (nrepl/make-client nrepl-uri nrepl-timeout)
-           broadcast-channel (lamina/permanent-channel)
-           ctx {:db-conn db-conn
-                :transact (fn [tx-data] @(d/transact db-conn tx-data))
-                :broadcast-channel broadcast-channel
-                :broadcast (fn [data] (->> data pr-str (lamina/enqueue broadcast-channel)))
-                :nrepl-client nrepl-client}
-           handler (-> (routes ctx)
-                       site
-                       http/wrap-ring-handler)]
-       (http/start-http-server handler {:port port :websocket true})
-       (future
-         (nrepl/process-tx-report-queue (d/tx-report-queue db-conn)
-                                        (:broadcast ctx)))
-       (printf "Session server running on http://localhost:%s with\n" port)
-       (printf "Datomic server: %s\nNrepl server: %s\n" db-uri nrepl-uri))))
+    (start! (system))
+    (printf "session started on port 8080")))
+
+

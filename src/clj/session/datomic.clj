@@ -1,100 +1,101 @@
 (ns session.datomic
-  (:require [clojure.repl :refer [pst]]
-            [session.schema :refer [schema nrepl-schema]]
-            [session.tags :refer :all]
-            [lamina.core :as lamina]
-            [datomic.api :refer [q db tempid] :as d]
-            [session.tags :refer [->GenericData]]))
+  (:require [datomic.api :as d]))
 
-;;;;;;;;;;;;;;;;;;;;;;;;  DB SETUP ;;;;;;;;;;;;;;;;;;;;;;;;
+(def schema
+  [
+    {:db/ident :loop/id
+     :db/valueType :db.type/string
+     :db/cardinality :db.cardinality/one
+     :db/unique :db.unique/identity
+     :db.install/_attribute :db.part/db
+     :db/id #db/id[:db.part/db]}
+    {:db/ident :loop/in
+     :db/valueType :db.type/string
+     :db/cardinality :db.cardinality/one
+     :db.install/_attribute :db.part/db
+     :db/id #db/id[:db.part/db]}
+    {:db/ident :loop/out
+     :db/valueType :db.type/string
+     :db/cardinality :db.cardinality/one
+     :db.install/_attribute :db.part/db
+     :db/id #db/id[:db.part/db]}
+    {:db/ident :loop/next
+     :db/valueType :db.type/ref
+     :db/cardinality :db.cardinality/one
+     :db.install/_attribute :db.part/db
+     :db/id #db/id[:db.part/db]}
+    ])
+
 
 (defn load-schema [conn]
-  (d/transact conn (concat schema nrepl-schema)))
+  (d/transact conn schema))
 
 (defn connect-database [uri]
   (let [created? (d/create-database uri)
         conn (d/connect uri)]
-    (when-not (:db/id (d/entity (db conn) :action/request))
+    (when-not (:db/id (d/entity (d/db conn) :loop/root))
       @(load-schema conn)
-      @(d/transact conn [[:db/add (d/tempid :db.part/user) :db/ident :action/root]]))
+      @(d/transact conn [[:db/add (d/tempid :db.part/user) :db/ident :loop/root]]))
     conn))
 
-;;;;;;;;;;;;;;;;;;;;;;;;  TOP-LEVEL ENTRY POINTS ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmulti service-request (fn [request ctx] (:op request)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;  GET SESSION  ;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn follow-next-action [entity]
-  (lazy-seq
-   (when-let [s (:action/next entity)]
-     (cons s (follow-next-action s)))))
-
-(defn entity-data [entity db-val]
-  {:output (when-let [d (first
-                         (last
-                          (sort-by last
-                                   (q '[:find ?out ?tx
-                                        :in $ ?entid
-                                        :where
-                                        [?entid :loop.nrepl/response ?e]
-                                        [?e :nrepl.response/value ?out ?tx]]
-                                      db-val (:db/id entity)))))
-                      ]
-             (try (read-string d)
-                  (catch Exception e [:unreadable-form d])))
-   :input (get-in entity [:loop.nrepl/request :nrepl.request/code])
-   :id (str (:db/id entity))})
-
-(defn get-datomic-session [db-val]
-  (map->Session
-   {:id 1
-    :last-loop-id 1
-    :subsessions [(map->Subsession
-                   {:type :clj
-                    :loops (mapv
-                            map->Loop
-                            (map #(entity-data % db-val)
-                                 (follow-next-action
-                                  (d/entity db-val :action/root))))})]}))
+(defn get-session [db]
+  (loop [loops [] current (d/entity db :loop/root)]
+    (if-let [n (:loop/next current)]
+      (recur (conj loops n) n)
+      loops)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;  INSERTION & DELETION ;;;;;;;;;;;;;;;;;;;;;;;;
+(defmulti session-transact (fn [a b] (:op a)))
 
-(defmethod service-request :update-textarea [request {:keys [broadcast]}]
-  (let [r (select-keys request [:data :id :input :origin])]
-    (broadcast r)))
 
-(defn insert-loop-root [request db]
-  (let [p (:after (:position (:data request)))]
-    (if (= p "subsession-root")
-      (datomic.api/entity db :action/root)
-      (datomic.api/entity db (read-string p)))))
+(defmethod session-transact :eval-request [data conn]
+  (d/transact conn [{:db/id (d/tempid :db.part/user) :loop/id (:id data) :loop/in (:in data)}]))
 
-(defmethod service-request :insert-loop [request {:keys [db transact broadcast]}]
-  (let [root (insert-loop-root request db)
-        rootid (:db/id root)
-        newidtmp (d/tempid :db.part/user)
-        result (if (:action/next root)
-                 (transact [[:db/add newidtmp :action/next (:db/id (:action/next root))]
-                            [:db/add rootid :action/next newidtmp]])
-                 (transact [[:db/add rootid :action/next newidtmp]
-                            [:db/add newidtmp :db/doc "placeholder/hack"]]))
-        newid (d/resolve-tempid db (:tempids result) newidtmp)]
-    (broadcast {:op :insert-loop
-                :data {:position (:position (:data request))
-                       :loop (map->Loop {:id (str newid) :output nil :input ""} )}
-                :id "subsession"})))
+(defmethod session-transact :eval-response [data conn]
+  (d/transact conn [{:db/id (d/tempid :db.part/user) :loop/id (:id data) :loop/out (pr-str (:out data))}]))
 
-(defmethod service-request :delete-loop [request {:keys [db transact broadcast]}]
-  (let [id (:id (:data request))
-        deleted (d/entity db (read-string id))
-        previous (first (:action/_next deleted))
-        next (:action/next deleted)
-        result (transact (if next
-                           [[:db/add (:db/id previous) :action/next (:db/id next)]
-                            [:db/retract (:db/id deleted) :action/next (:db/id deleted)]]
-                           [[:db/retract (:db/id previous) :action/next (:db/id deleted)]]))]
-    (broadcast {:op :delete-loop
-                :data {:id id}
-                :id "subsession"})))
+
+(defn entity-for-loop-id [id db]
+  (d/entity db (first (first (d/q '[:find ?id
+                                    :in $ ?id2
+                                    :where
+                                    [?id :loop/id ?id2]] db id)))))
+
+(defn insertion-point-entity [id db]
+  (if (= :session-top id)
+    (d/entity db :loop/root)
+    (entity-for-loop-id id db)))
+
+
+
+(defmethod session-transact :insert-loop [data conn]
+  (let [db (d/db conn)
+        x (insertion-point-entity (:id data) db)
+        newid (d/tempid :db.part/user)]
+    (println {:insert-after (d/touch x)})
+    (d/transact
+      conn
+      (if-let [n (:loop/next x)]
+              [{:db/id newid :loop/id (:new-id data) :loop/in "" :loop/out ":default" :loop/next (:db/id n)}
+               {:db/id (:db/id x) :loop/next newid}]
+
+              [{:db/id newid :loop/id (:new-id data) :loop/in "" :loop/out ":default"}
+               {:db/id (:db/id x) :loop/next newid}]))))
+
+
+(defmethod session-transact :delete-loop [data conn]
+  (let [db (d/db conn)
+        x (entity-for-loop-id (:id data) db)
+        parent (first (:loop/_next x))]
+    (d/transact
+      conn
+      (if-let [n (:loop/next x)]
+        [{:db/id (:db/id parent) :loop/next (:db/id n)}]
+        [[:db/retract (:db/id parent) :loop/next (:db/id x)]]))))
+
+(defmethod session-transact :eval-error [data conn])
+
+
+
+

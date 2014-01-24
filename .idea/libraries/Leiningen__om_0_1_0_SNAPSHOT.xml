@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: om:0.1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/om/om/0.1.0-SNAPSHOT/om-0.1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

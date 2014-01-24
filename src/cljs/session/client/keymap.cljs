@@ -1,11 +1,11 @@
 (ns session.client.keymap
   (:require
    [subpar.core])
-  (:use-macros [cljs-jquery.macros :only [$]]))
+  )
 
 (def subpar-keymap
   (js-obj
-   "Shift-Enter" (fn [cm] ($ (.getWrapperElement cm) (trigger "evaluate-input")))
+   ;;"Shift-Enter" (fn [cm] ($ (.getWrapperElement cm) (trigger "evaluate-input")))
    "Backspace" (fn [cm] (subpar.core/backward-delete cm))
    "Delete" (fn [cm] (subpar.core/forward-delete cm))
    "Ctrl-D" (fn [cm] (subpar.core/forward-delete cm))
@@ -38,4 +38,4 @@
    "Alt-S" (fn [cm] (subpar.core/splice cm))
   ;;todo wrap expression in round, square, curly.
    "Ctrl-Alt-\\" (fn [cm] (subpar.core/indent-selection cm))
-   "fallthrough" (array "basic" "emacs"))) ;; not sure if this is right
+   "fallthrough" #js ["basic" "emacs"] )) ;; not sure if this is right
