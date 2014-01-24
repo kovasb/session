@@ -13,6 +13,7 @@
    [ring/ring-servlet "1.2.0"]
    [compojure "1.1.5" :exclusions [ring/ring-core]]
 
+   [com.datomic/datomic-free "0.9.4384"]
    ]
   :dev-dependencies []
   :source-paths ["src/clj"]
