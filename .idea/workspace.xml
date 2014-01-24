@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c937446f-1562-4c04-9ba3-890c5115be9f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session.iml" afterPath="$PROJECT_DIR$/session.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cljs/session/client/editor.cljs" afterPath="$PROJECT_DIR$/src/cljs/session/client/editor.cljs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="session.iws" />
@@ -115,7 +116,7 @@
       <file leaf-file-name="editor.cljs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cljs/session/client/editor.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="17" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.6691176" vertical-offset="357" max-vertical-offset="795">
+            <state line="44" column="0" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.74264705" vertical-offset="357" max-vertical-offset="810">
               <folding />
             </state>
           </provider>
@@ -881,7 +882,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cljs/session/client/editor.cljs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="17" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.6691176" vertical-offset="357" max-vertical-offset="795">
+        <state line="44" column="0" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.74264705" vertical-offset="357" max-vertical-offset="810">
           <folding />
         </state>
       </provider>
