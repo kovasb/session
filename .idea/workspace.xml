@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c937446f-1562-4c04-9ba3-890c5115be9f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.nrepl-port" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/public/ReactART.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/public/index.html" afterPath="$PROJECT_DIR$/resources/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cljs/session/client/main.cljs" afterPath="$PROJECT_DIR$/src/cljs/session/client/main.cljs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cljs/session/client/make.cljs" afterPath="$PROJECT_DIR$/src/cljs/session/client/make.cljs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.clj" afterPath="$PROJECT_DIR$/project.clj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/clj/session/server.clj" afterPath="$PROJECT_DIR$/src/clj/session/server.clj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/session.iml" afterPath="$PROJECT_DIR$/session.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="session.iws" />
@@ -77,11 +71,7 @@
         <entry file="file://$PROJECT_DIR$/src/clj/session/datomic.clj">
           <provider selected="true" editor-type-id="text-editor">
             <state line="96" column="28" selection-start="2983" selection-end="2983" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1605">
-              <folding>
-                <marker date="1390328284000" expanded="true" signature="1668:1904" placeholder="(defn entity-for-loop-id ...)" />
-                <marker date="1390328284000" expanded="true" signature="2034:2607" placeholder="(defmethod session-transact ...)" />
-                <marker date="1390328284000" expanded="true" signature="2610:2953" placeholder="(defmethod session-transact ...)" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,10 +85,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.clj" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.clj" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="44" selection-start="2800" selection-end="2800" vertical-scroll-proportion="1.3790323" vertical-offset="480" max-vertical-offset="1470">
+            <state line="89" column="44" selection-start="2800" selection-end="2800" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="1470">
               <folding />
             </state>
           </provider>
@@ -107,7 +97,7 @@
       <file leaf-file-name="main.cljs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../session copy/src/cljs/session/client/main.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="37" selection-start="74" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
+            <state line="4" column="37" selection-start="74" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="630">
               <folding />
             </state>
           </provider>
@@ -116,16 +106,16 @@
       <file leaf-file-name="keymap.cljs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cljs/session/client/keymap.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="39" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="705">
+            <state line="40" column="39" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editor.cljs" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="editor.cljs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cljs/session/client/editor.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="795">
+            <state line="42" column="17" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.6691176" vertical-offset="357" max-vertical-offset="795">
               <folding />
             </state>
           </provider>
@@ -134,7 +124,7 @@
       <file leaf-file-name="common.clj" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../session copy/src/clj/session/views/common.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="4" selection-start="195" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+            <state line="8" column="4" selection-start="195" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="570">
               <folding />
             </state>
           </provider>
@@ -143,7 +133,7 @@
       <file leaf-file-name="boot.cljs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cljs/session/client/boot.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="476" selection-end="476" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
+            <state line="13" column="0" selection-start="476" selection-end="476" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="615">
               <folding />
             </state>
           </provider>
@@ -161,7 +151,7 @@
       <file leaf-file-name="loop.cljs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cljs/session/client/loop.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="53" selection-start="605" selection-end="605" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+            <state line="25" column="53" selection-start="605" selection-end="605" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="660">
               <folding />
             </state>
           </provider>
@@ -191,8 +181,8 @@
         <option value="$PROJECT_DIR$/resources/public/index.html" />
         <option value="$PROJECT_DIR$/src/cljs/session/client/main.cljs" />
         <option value="$PROJECT_DIR$/src/cljs/session/client/keymap.cljs" />
-        <option value="$PROJECT_DIR$/src/cljs/session/client/editor.cljs" />
         <option value="$PROJECT_DIR$/src/clj/session/server.clj" />
+        <option value="$PROJECT_DIR$/src/cljs/session/client/editor.cljs" />
       </list>
     </option>
   </component>
@@ -228,8 +218,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -352,6 +340,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -419,14 +409,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
     <configuration default="true" type="ClojureREPL" factoryName="Local">
       <setting name="useLein" value="true" />
       <setting name="leinProjectName" value="" />
@@ -439,17 +421,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -477,6 +454,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -583,7 +573,7 @@
       <window_info id="Leiningen" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32923076" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -623,6 +613,76 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/clj/session/datomic.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="28" selection-start="2983" selection-end="2983" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1605">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../session copy/src/cljs/session/client/keymap.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="44" selection-start="2800" selection-end="2800" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="1470">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../session copy/src/cljs/session/client/main.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="37" selection-start="74" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="630">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/keymap.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="39" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="705">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/editor.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="795">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../session copy/src/clj/session/views/common.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="4" selection-start="195" selection-end="275" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="570">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/boot.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="476" selection-end="476" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="615">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/session.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="43" selection-start="3084" selection-end="3084" vertical-scroll-proportion="0.0" vertical-offset="985" max-vertical-offset="1680">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/loop.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="53" selection-start="605" selection-end="605" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project.clj">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="1284" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
@@ -738,11 +798,7 @@
     <entry file="file://$PROJECT_DIR$/src/clj/session/datomic.clj">
       <provider selected="true" editor-type-id="text-editor">
         <state line="96" column="28" selection-start="2983" selection-end="2983" vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1605">
-          <folding>
-            <marker date="1390328284000" expanded="true" signature="1668:1904" placeholder="(defn entity-for-loop-id ...)" />
-            <marker date="1390328284000" expanded="true" signature="2034:2607" placeholder="(defmethod session-transact ...)" />
-            <marker date="1390328284000" expanded="true" signature="2610:2953" placeholder="(defmethod session-transact ...)" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -781,13 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/keymap.cljs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="39" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="705">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cljs/session/client/session.cljs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="96" column="43" selection-start="3084" selection-end="3084" vertical-scroll-proportion="0.0" vertical-offset="1045" max-vertical-offset="1680">
@@ -809,13 +858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/editor.cljs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../session copy/src/cljs/session/client/main.cljs">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="37" selection-start="74" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
@@ -825,7 +867,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/clj/session/server.clj">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="44" selection-start="2800" selection-end="2800" vertical-scroll-proportion="1.3790323" vertical-offset="480" max-vertical-offset="1470">
+        <state line="89" column="44" selection-start="2800" selection-end="2800" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="1470">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/keymap.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="39" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="705">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cljs/session/client/editor.cljs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="17" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.6691176" vertical-offset="357" max-vertical-offset="795">
           <folding />
         </state>
       </provider>
