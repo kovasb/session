@@ -31,7 +31,7 @@
           n
           #js {
 
-                :lineNumbers true
+                :lineNumbers false
                 :mode "text/x-clojure"
                 :keyMap "subpar"
                 :onKeyEvent (fn [editor event]
