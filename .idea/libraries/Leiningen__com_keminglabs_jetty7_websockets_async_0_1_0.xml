@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Leiningen: com.keminglabs/jetty7-websockets-async:0.1.0">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/keminglabs/jetty7-websockets-async/0.1.0/jetty7-websockets-async-0.1.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
