@@ -1,13 +1,10 @@
-(ns session.client.editor
+(ns session.editor
   (:require-macros [cljs.core.async.macros :refer [go]])
-
   (:require
     React
-
     goog.string.StringBuffer
     [om.core :as om :include-macros true]
     [om.dom :as dom :include-macros true]
-    [session.client.make :as m]
     [cljs.core.async :refer [>! <! chan put! sliding-buffer alts!] ]))
 
 
@@ -20,25 +17,34 @@
 
     om/IRender
     (render [_]
-      (dom/textarea #js {:ref "theInput"} (om/value x)))
+      (dom/span #js {:style #js {:padding "-0.4em" } } (dom/textarea #js {:ref "theInput"} (om/value (:in x)))))
 
     om/IDidMount
     (did-mount [_ _]
       (let [n (om/get-node owner "theInput")]
-        (.log js/console "mounted editor")
         (.fromTextArea
           js/CodeMirror
           n
           #js {
-
                 :lineNumbers false
                 :mode "text/x-clojure"
                 :keyMap "subpar"
                 :onKeyEvent (fn [editor event]
-                              (.log js/console "in handler")
+                              ;(.log js/console "in handler")
+                              ;(.log js/console event)
+
+
+                              (if (and (= 13 (.-keyCode event))
+                                       (= "Enter" (.-keyIdentifier event)))
+                                (put! (:kernel-send opts)
+                                      (assoc
+                                          (dissoc (deref (om/get-props owner)) :out)
+                                        :op :eval-request)))
+
+
                               (let [ ]
                                 (when (= (.-type event) "keyup")
-                                  (om/transact! x [] (fn [e]  (.getValue editor))))
+                                  (om/transact! (om/get-props owner) [:in] (fn [e]  (.getValue editor))))
                                 false))
                 }
           )))))

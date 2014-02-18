@@ -1,18 +1,25 @@
-(ns session.client.main
+(ns session.main
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require
    goog.net.WebSocket
    cljs.reader
    React
    [subpar.core]
-   [session.client.keymap :as keymap]
+   [session.keymap :as keymap]
    [om.core :as om :include-macros true]
    [om.dom :as dom :include-macros true]
-   [session.client.make :as m]
-   session.client.session
-   session.client.loop
-   session.client.boot
+   yantra.edn
+   yantra.graphics
+   yantra.layout
+   yantra.controls
+   session.session
+   session.loop
+   session.boot
+   session.io
    [cljs.core.async :refer [>! <! chan close! put! take! sliding-buffer dropping-buffer timeout]]))
+
+
+(enable-console-print!)
 
 
 (defn system []
@@ -24,25 +31,38 @@
    :eval-send (chan)
    :eval-receive (chan)
    :host (aget js/window "location" "host")
-   :app-state (atom {:tag :boot})
+   :app-state (atom (session.datatypes.Boot.))
    })
 
 
-;; hack for https://groups.google.com/forum/#!topic/clojurescript/zvcl1GAn8B0
-(def t1 (fn [e] 1))
-(def t2 (fn [e] 2))
-(defn lookup-tag [x]
-  ({:session t1 :boot t2} x))
+
+(def all-renderers
+  (merge
+    yantra.edn/edn-renderers
+    yantra.graphics/graphics-renderers
+    yantra.layout/layout-renderers
+    yantra.controls/control-renderers
+    session.session/session-renderers
+    session.loop/loop-renderers
+    session.boot/boot-renderers
+
+    ))
+
+(defn builder [x y]
+  (om/build (all-renderers
+              (type (om/value x)))
+            x y))
+
 
 (defn ^:export start! [system]
+
+  (aset (.-keyMap js/CodeMirror) "subpar" keymap/subpar-keymap)
 
   (enable-console-print!)
 
   (.addEventListener (:socket system) goog.net.WebSocket.EventType.MESSAGE
                      (fn [e]
-                       (.log js/console e)
-                       (def t2 (js/Date.))
-                       (put! (:kernel-receive system) (cljs.reader/read-string (.-message e)))))
+                         (put! (:kernel-receive system) (session.io/read-edn (.-message e)))))
 
   (let [socket-opened (chan)]
 
@@ -55,19 +75,17 @@
 
       (while true
          (let [newin (<! (:kernel-send system))]
-           (.log js/console (str newin))
            (def t1 (js/Date.))
-           (.send (:socket system) (pr-str newin))))))
+           (.send (:socket system) (session.io/write-edn newin))))))
 
   (om/root
     (:app-state system)
+    {:builder builder}
     (fn [data]
     (om/component
-      (let [c (om/build m/make data {:opts (dissoc system :app-state)})]
-          ;; hack for https://groups.google.com/forum/#!topic/clojurescript/zvcl1GAn8B0
-        (set! (.-constructor c) (lookup-tag (:tag data)))
-        c)))
+      (builder data {:opts (dissoc system :app-state)})))
     js/document.body))
+
 
 
 

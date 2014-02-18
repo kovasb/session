@@ -1,12 +1,20 @@
 (ns session.server
   (:require
             [datomic.api :as d]
+            [session.datatypes :as dt]
             [session.datomic :as sd]
             [compojure.core :refer [routes]]
             [compojure.route :as route]
             [com.keminglabs.jetty7-websockets-async.core :as ws]
             [clojure.core.async :refer [chan go >! <!]]
-            [ring.adapter.jetty :refer [run-jetty]]))
+            [ring.adapter.jetty :refer [run-jetty]]
+            [merchant.edn.reader :as er]
+            [merchant.edn.writer :as ew]
+            yantra.datamappings
+
+            ))
+
+
 
 
 (def app
@@ -28,7 +36,7 @@
                                {:op :eval-error
                                 :error (str e)})) ]
               (sd/session-transact response datomic-conn)
-              (pr-str response))))))
+              (session.io/write-edn response ))))))
 ;; decorate transactions with request ids & meta info from client?
 
 
@@ -38,11 +46,23 @@
 (defmethod handle-request :delete-loop [input out-chan datomic-conn]
   (sd/session-transact input datomic-conn))
 
+
 (defn to-client-side-session [x]
-  {:tag :session :loops (mapv (fn [l]  {:tag :loop :in (:loop/in l) :out (read-string (:loop/out l)) :id (:loop/id l)}) x)})
+  (session.datatypes.Session. (mapv
+              (fn [l]
+                (dt/map->Loop
+                  {:in (:loop/in l)
+                   :out (session.io/read-edn (:loop/out l))
+                   :id (:loop/id l)}))
+              x)))
+
 
 (defmethod handle-request :connect-session [input out-chan datomic-conn]
-  (go (>! out-chan (pr-str (to-client-side-session (sd/get-session (d/db datomic-conn)))))))
+  (go (>! out-chan
+          (session.io/write-edn
+            (to-client-side-session
+              (sd/get-session
+                (d/db datomic-conn)))))))
 
 
 (defn spawn-new-connection-handlers [conn datomic-conn]

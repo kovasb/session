@@ -1,15 +1,18 @@
-(ns session.client.keymap
+(ns session.keymap
   (:require
-   [subpar.core])
-  )
+   [subpar.core]))
+
+
+
+
 
 (def subpar-keymap
   (js-obj
-   ;;"Shift-Enter" (fn [cm] ($ (.getWrapperElement cm) (trigger "evaluate-input")))
+   "Shift-Enter" (fn [cm] (.log js/console "shift-enter"))
    "Backspace" (fn [cm] (subpar.core/backward-delete cm))
    "Delete" (fn [cm] (subpar.core/forward-delete cm))
    "Ctrl-D" (fn [cm] (subpar.core/forward-delete cm))
-   "Shift-9" (fn [cm] (subpar.core/open-expression cm "()"))
+   "Shift-9" (fn [cm] (.log js/console "(") (subpar.core/open-expression cm "()"))
    "[" (fn [cm] (subpar.core/open-expression cm "[]"))
    "Shift-[" (fn [cm] (subpar.core/open-expression cm "{}"))
    "Shift-0" (fn [cm] (subpar.core/close-expression cm ")"))

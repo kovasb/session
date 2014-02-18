@@ -3,8 +3,8 @@
   :url "http://exampl.com/FIXME"
   :dependencies
   [[org.clojure/clojure "1.5.1"]
-   [org.clojure/clojurescript "0.0-2138"]
-   [om "0.1.7"]
+   [org.clojure/clojurescript "0.0-2156"]
+   [om "0.3.6"]
    [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
 
    [com.keminglabs/jetty7-websockets-async "0.1.0"]
@@ -14,6 +14,8 @@
    [compojure "1.1.5" :exclusions [ring/ring-core]]
 
    [com.datomic/datomic-free "0.9.4384"]
+   [yantra "0.1.1"]
+   [merchant "0.1.2-SNAPSHOT"]
    ]
   :dev-dependencies []
   :source-paths ["src/clj"]

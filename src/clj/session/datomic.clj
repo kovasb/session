@@ -1,5 +1,7 @@
 (ns session.datomic
-  (:require [datomic.api :as d]))
+  (:require [datomic.api :as d]
+            session.io
+            [session.datatypes :as dt]))
 
 (def schema
   [
@@ -53,7 +55,9 @@
   (d/transact conn [{:db/id (d/tempid :db.part/user) :loop/id (:id data) :loop/in (:in data)}]))
 
 (defmethod session-transact :eval-response [data conn]
-  (d/transact conn [{:db/id (d/tempid :db.part/user) :loop/id (:id data) :loop/out (pr-str (:out data))}]))
+  (d/transact conn [{:db/id (d/tempid :db.part/user)
+                     :loop/id (:id data)
+                     :loop/out (session.io/write-edn (:out data))}]))
 
 
 (defn entity-for-loop-id [id db]
