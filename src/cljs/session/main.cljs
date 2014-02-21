@@ -12,11 +12,13 @@
    yantra.graphics
    yantra.layout
    yantra.controls
+   yantra.plot
    session.session
    session.loop
    session.boot
    session.io
    [cljs.core.async :refer [>! <! chan close! put! take! sliding-buffer dropping-buffer timeout]]))
+
 
 
 (enable-console-print!)
@@ -42,6 +44,7 @@
     yantra.graphics/graphics-renderers
     yantra.layout/layout-renderers
     yantra.controls/control-renderers
+    yantra.plot/plot-renderers
     session.session/session-renderers
     session.loop/loop-renderers
     session.boot/boot-renderers
@@ -52,6 +55,10 @@
   (om/build (all-renderers
               (type (om/value x)))
             x y))
+
+(defn builder-raw [t x y]
+  (om/build (all-renderers t) x y))
+
 
 
 (defn ^:export start! [system]
@@ -80,7 +87,7 @@
 
   (om/root
     (:app-state system)
-    {:builder builder}
+    {:builder builder :builder-raw builder-raw}
     (fn [data]
     (om/component
       (builder data {:opts (dissoc system :app-state)})))

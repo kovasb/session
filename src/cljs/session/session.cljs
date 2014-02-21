@@ -64,7 +64,19 @@
 
 
 (def session-renderers
-  {dt/Session
+  {dt/SessionObject
+    (fn [cursor owner opts]
+      (reify
+        om/IRender
+        (render [_]
+          (dom/span nil "#session/Object "
+                    ((om/get-shared owner :builder-raw)
+                     (type {})
+                     cursor)))))
+
+
+
+    dt/Session
     (fn [cursor owner opts]
       (reify
         om/IWillMount

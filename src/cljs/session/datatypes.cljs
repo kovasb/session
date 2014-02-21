@@ -6,6 +6,6 @@
 
 (defrecord Boot [])
 
-
+(defrecord SessionObject [type id])
 
 

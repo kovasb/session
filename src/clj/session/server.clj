@@ -11,6 +11,7 @@
             [merchant.edn.reader :as er]
             [merchant.edn.writer :as ew]
             yantra.datamappings
+            session.user
 
             ))
 
@@ -24,19 +25,27 @@
 
 (defmulti handle-request (fn [input out-chan datomic-conn] (:op input)))
 
+
+
+
 (defmethod handle-request :eval-request [input out-chan datomic-conn]
   (go (>! out-chan
           (let [eval-request input]
-            (sd/session-transact eval-request datomic-conn)
-            (let [response (try
-                             {:op :eval-response
-                              :out (eval (read-string (:in eval-request)))
-                              :id (:id eval-request)}
-                             (catch Exception e
-                               {:op :eval-error
-                                :error (str e)})) ]
-              (sd/session-transact response datomic-conn)
-              (session.io/write-edn response ))))))
+            (try
+
+              (sd/session-transact eval-request datomic-conn)
+              (let [response {:op :eval-response
+                              :out (binding [*ns* (the-ns 'session.user)]
+                                     (eval (read-string (:in eval-request))))
+                              :id (:id eval-request)}]
+                @(sd/session-transact response datomic-conn)
+                (session.io/write-edn response))
+
+              (catch Exception e
+                (do
+                  (println "eval error")
+                  (pr-str {:op :eval-error :error (str e)}))))))))
+
 ;; decorate transactions with request ids & meta info from client?
 
 
@@ -86,8 +95,10 @@
 
 (defn system
   []
-  {:connection-chan (chan)
-   :datomic-conn (sd/connect-database "datomic:mem://test")})
+  { :env  (java.util.UUID/randomUUID)
+    :object-map {:id-to-object (atom {} :object-to-id (atom {}))}
+    :connection-chan (chan)
+    :datomic-conn (sd/connect-database "datomic:mem://test")})
 
 (defn start! [system]
 

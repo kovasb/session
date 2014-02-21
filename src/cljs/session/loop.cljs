@@ -31,7 +31,11 @@
                         }}
              (dom/div
                nil
-               (dom/span #js {:style #js {:font-size "10px" :color "#888888" :font-family "monospace" :float "left" :padding-right "5px"}} ">>")
+               (dom/span #js {:style #js {:font-size "10px"
+                                          :color "#888888"
+                                          :font-family "monospace"
+                                          :float "left"
+                                          :padding-right "5px"}} ">>")
                (dom/span
                  nil
                  (om/build editor/create-editor
