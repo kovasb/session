@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="urn:infinispan:config:5.0">
+  <global>
+    <transport 
+        clusterName="datomic-cluster" 
+        machineId="m1"> 
+    </transport>
+  </global>
+
+  <default />
+
+  <namedCache name="datomic">
+
+      <clustering mode="distribution">
+         <sync/>
+         <hash
+            numOwners="3"
+            numVirtualNodes="4096"
+            rehashWait="120000"
+            rehashRpcTimeout="600000"/>
+      </clustering>
+  </namedCache>
+</infinispan>

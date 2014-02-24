@@ -1,0 +1,7 @@
+#!/bin/bash
+cd `dirname $0`/..
+java -server -Xmx1g -cp `bin/classpath` jline.ConsoleRunner clojure.main bin/shell.clj "$@"
+
+
+
+

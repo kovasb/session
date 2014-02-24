@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -e "src/clj/datomic/db.clj" ]; then
+  echo $CLOJURE_JAR${CLOJURE_JAR+:}target/classes:build/src:bin:src/clj:samples/clj:`cat build/maven-classpath`
+else
+  s="`echo lib/*` `echo *transactor*.jar`"
+  echo ${s// /:}:samples/clj:bin:resources
+fi

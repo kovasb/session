@@ -1,5 +1,6 @@
 (ns session.io
   (:require
+    [com.stuartsierra.component :as component]
     merchant.common
     session.datamappings
     yantra.datamappings
@@ -11,22 +12,24 @@
 (declare resolve-session-object)
 (declare object-mappings)
 
-(def data-mappings
-  (concat yantra.datamappings/data-mappings
-         session.datamappings/data-mappings
-         ))
+
+(defrecord Merchant [data-mappings object-mappings])
+
+(defn merchant []
+  (->Merchant
+    (concat yantra.datamappings/data-mappings
+            session.datamappings/data-mappings)
+    {:id-to-object (atom {})
+     :object-to-id (atom {})}))
 
 
-(defn read-edn [x]
+
+(defn read-edn [x merchant]
   (merchant.edn.reader/import-edn
     x
-    (conj data-mappings {:tag "session/Object" :constructor resolve-session-object})))
-
-
-(def object-mappings
-  {:id-to-object (atom {})
-   :object-to-id (atom {})})
-
+    (conj (:data-mappings merchant)
+          {:tag "session/Object"
+           :constructor #(resolve-session-object % (:object-mappings merchant))})))
 
 
 ;; return an id
@@ -43,18 +46,19 @@
   (@(:id-to-object object-mappings) id))
 
 
-(defn resolve-session-object
-       [obj]
+(defn resolve-session-object [obj object-mappings]
   (if-let [o (id-to-object (:id obj) object-mappings)]
     o
     (throw (Exception. "No object for id"))))
 
 
 
-(defn write-edn [x]
-  (merchant.edn.writer/export-edn
-    x
-    { :default-fn
+(defn write-edn [x merchant]
+  (let
+      [object-mappings (:object-mappings merchant)]
+    (merchant.edn.writer/export-edn
+     x
+     {:default-fn
                (fn [writer o]
                  (merchant.common/write-tagged
                    writer
@@ -62,7 +66,7 @@
                    merchant.common/write-map
                    {:type (pr-str (class o)) :id (object-to-id o object-mappings)}))
       :tag-map (into {}
-                    (map
-                      #(vector (:record %)
-                               (assoc % :write-fn merchant.common/write-map))
-                      data-mappings))}))
+                     (map
+                       #(vector (:record %)
+                                (assoc % :write-fn merchant.common/write-map))
+                       (:data-mappings merchant)))})))

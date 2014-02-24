@@ -1,0 +1,39 @@
+#!/bin/bash
+cd `dirname $0`/..
+
+if [ "$1" == "" ]; then
+   echo "Usage: $0 properties-file-or-uri"
+   exit -1
+fi 
+
+while [ $# -gt 1 ]
+do
+    case "$1" in
+        -Xmx*)
+            XMX=$1
+            ;;
+        -Xms*)
+            XMS=$1
+            ;;
+        *) 
+            JAVA_OPTS="$JAVA_OPTS $1"
+            ;;
+    esac
+    shift
+done
+
+# defaults
+if [ "$XMX" == "" ]; then
+    XMX=-Xmx1g
+fi
+if [ "$XMS" == "" ]; then
+    XMS=-Xms1g
+fi
+if [ "$JAVA_OPTS"  == "" ]; then
+    JAVA_OPTS='-XX:NewRatio=4 -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:CMSInitiatingOccupancyFraction=60 -XX:+UseCMSInitiatingOccupancyOnly -XX:+CMSScavengeBeforeRemark'
+fi
+
+echo "Launching with Java options -server $XMS $XMX $JAVA_OPTS"
+exec java -server -cp `bin/classpath` $XMX $XMS $JAVA_OPTS clojure.main --main datomic.launcher "$@"
+
+

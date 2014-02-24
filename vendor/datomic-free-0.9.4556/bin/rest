@@ -1,0 +1,7 @@
+#!/bin/bash
+cd `dirname $0`/..
+/usr/bin/env java -server -Xmx1g $DATOMIC_JAVA_OPTS  -cp `bin/classpath` clojure.main -i "bin/bridge.clj" --main datomic.rest "$@"
+
+
+
+

@@ -8,6 +8,9 @@ pom.xml
 /checkouts/
 /logs/
 /resources/public/cljs/
+/data
+
+.nrepl*
 .lein*
 .#*
 .DS_Store

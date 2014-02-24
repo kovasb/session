@@ -1,0 +1,89 @@
+* Basics
+
+This is Datomic's interactive Java shell, a custom configured beanshell. It
+let's you interact with a Datomic database by dynamically executing
+Java statements. This allows you to explore the system directly using
+Datomic's programmatic API.
+
+To use the shell, just type a Java expression or statement and press
+enter (remember the ; ). Like this:
+
+String uri = "datomic:mem://seattle";
+Peer.createDatabase(uri);
+Connection conn = Peer.connect(uri);
+
+The shell supports dynamic typing, so the use of explicit types for
+variables is not required. When using dynamically typed variables, it
+is not necessary to cast for assignment.
+
+The shell does not support declaring variables of generic types, so
+you must use 'List' instead of 'List<Object>'. You can use objects
+returned from methods with generic signatures.
+
+* Imported types
+
+The shell imports the following types:
+
+import datomic.Entity;
+import datomic.Connection;
+import datomic.Database;
+import datomic.Datom;
+import datomic.Peer;
+import datomic.Util;
+
+import java.io.*;
+import java.util.*;
+
+You can import additional types as needed.
+
+* Input to Datomic API
+
+Many Datomic API methods take data structures as input, either as
+list/map objects or as strings.
+
+Strings are easier, but cannot contain new lines. Long strings
+must be concatenated with +.
+
+Alternatively, you can build ArrayList and HashMap objects, or use
+Datomic's Util.list and Util.map functions.
+
+The shell has simple history support, even across sessions, so if you
+want to repeat input, you can cycle through earlier statements using
+up arrow keys or  and .
+
+* Displaying results
+
+The shell will automatically display the result of a statement, if
+any. As in Java, assignment has a result value, the value assigned,
+which enables chained assignment. However, variable initialization
+does not have a value. The result is that:
+
+x = 10; // will print automatically
+
+but:
+
+int x = 10; // will not print automatically
+
+To print a value manually, call System.out.println(); or use the
+print(); command or simply evaluate the variable:
+
+x;
+
+You can turn the automatic display of results on/off using
+the show(); command. It is on by default.
+
+* Looping
+
+You can loop through data using a for loop:
+
+for (List result : results) print(result);
+
+* Sourcing files
+
+You can use the source(<file>); command to run a script from an
+external file. This is useful for frequently repeated steps, like
+setting up a database connection.
+
+* Beanshell
+
+See http://beanshell.org/ for complete documentation of beanshell.

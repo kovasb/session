@@ -1,0 +1,25 @@
+====================================
+Documentation 
+
+Getting Started (Free Edition):    http://docs.datomic.com/getting-started.html
+Setting Up Storage (Pro Edition):  http://docs.datomic.com/storage.html 
+All docs:                          http://datomic.com
+
+====================================
+Install Datomic to your local maven repo:
+
+bin/maven-install
+
+====================================
+Use Datomic from maven:
+
+    <dependency>
+      <groupId>com.datomic</groupId>
+      <artifactId>datomic-free</artifactId>
+      <version>0.9.4556</version>
+    </dependency>
+
+====================================
+Use Datomic from leiningen:
+
+   [com.datomic/datomic-free "0.9.4556"]

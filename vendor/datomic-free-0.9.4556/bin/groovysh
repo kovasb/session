@@ -1,0 +1,11 @@
+#!/bin/bash
+cd `dirname $0`/..
+
+if [ -z "$1" ]
+then
+  CMD="jline.ConsoleRunner org.codehaus.groovy.tools.shell.Main"
+else
+  CMD="groovy.lang.GroovyShell $@"
+fi
+
+java -server -Xmx1g -cp `bin/classpath` $CMD

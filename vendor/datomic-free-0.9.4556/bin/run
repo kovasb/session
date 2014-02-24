@@ -1,0 +1,21 @@
+#!/bin/bash
+cd `dirname $0`/..
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+        -X*)
+            java_opts="${java_opts} $1"
+            ;;
+        *) 
+            clojure_args="${clojure_args} $1"
+            ;;
+    esac
+    shift
+done
+
+/usr/bin/env java -server -Xmx1g -Xms1g $DATOMIC_JAVA_OPTS ${java_opts} -cp `bin/classpath` clojure.main -i "bin/bridge.clj" ${clojure_args}
+
+
+
+
