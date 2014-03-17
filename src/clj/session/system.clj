@@ -1,14 +1,14 @@
 (ns session.system
   (:require [com.stuartsierra.component :as component]
-            session.app
+            session.app.component
             session.webserver
             session.datomic
             session.io))
 
 
-(def session-system-components [:database :web-server :app :merchant])
+(def session-system-components [:system-database :web-server :app :merchant])
 
-(defrecord SessionSystem [database web-server app merchant]
+(defrecord SessionSystem [system-database session-database web-server app merchant]
   component/Lifecycle
   (start [this]
     (component/start-system this session-system-components))
@@ -21,12 +21,16 @@
     (map->SessionSystem
       {
        :merchant (session.io/merchant)
-       :database  (session.datomic/new-database)
+
+       :system-database  (session.datomic/new-system-database "datomic:free://localhost:4334/" "session-system3")
+       :session-database (atom nil)
+
        :web-server (session.webserver/new-web-server)
 
        :app (component/using
-              (session.app/map->SessionApp {})
-              {:database  :database
+              (session.app.component/map->SessionApp {})
+              {:system-database  :system-database
+               :session-database :session-database
                :web-server :web-server
                :merchant :merchant})})))
 

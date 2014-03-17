@@ -8,27 +8,62 @@
     [cljs.core.async :refer [>! <! chan put! sliding-buffer alts!] ]))
 
 
-;; on mount, send msg to kernel to request the session
-;; when receive the session, set the app state to be the session
-;; future work: allow option to browser, load existing sessions
+
+
+
+(defn show-index [cursor owner opts]
+  (dom/ul nil
+          (into-array
+            (map
+              (fn [elt]
+                (dom/li nil
+                        (dom/a #js {:href "#"
+                                    :onClick
+                                          (fn [e]
+                                            (put! (:kernel-send opts)
+                                                  {:op :connect-session :index/id (:index/id elt)}))}
+                               (if (get-in elt [:index/name])
+                                 (get-in elt [:index/name])
+                                 (.-uuid (get-in elt [:index/id]))
+                                 )
+                               )))
+              (:session-list (om/value cursor))))))
+
 
 
 
 (def
   boot-renderers
   {dt/Boot
-   (fn [cursor owner opts]
-     (reify
-       om/IWillMount
-       (will-mount [_]
-         (go
-           (>! (:kernel-send opts) {:op :connect-session :session :default})
+    (let [session-connect-chan (chan)]
+      (fn [cursor owner opts]
+       (reify
+         om/IWillMount
+         (will-mount [_]
+           (go
+             (>! (:kernel-send opts) {:op :list-sessions})
 
-           (let [res (<! (:kernel-receive opts))]
-             (om/update! cursor (fn [y z] z) res))))
-       om/IRender
-       (render [_]
-         (dom/div #js {:key "initial-load"} "LOADING"))))})
+             (let [res (<! (:kernel-receive opts))]
+               ;; update data so that render can show available sessions
+               (om/update! cursor (fn [y z] (assoc y :session-list res)))
+
+               ; (<! session-connect-chan)
+               ; (>! (:kernel-send opts) {:op :connect-session :session :default})
+
+               (let [res2 (<! (:kernel-receive opts))]
+                 (om/update! cursor (fn [y z] z) res2)))))
+         om/IRender
+         (render [_]
+           (if (:session-list (om/value cursor))
+             (dom/div nil
+               (dom/button #js {:onClick
+                                 (fn [e]
+                                   (put! (:kernel-send opts) {:op :create-session}))}
+                           "new session")
+
+               (show-index cursor owner opts))
+
+             (dom/div #js {:key "initial-load"} "LOADING"))))))})
 
 
 

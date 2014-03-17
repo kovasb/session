@@ -10,6 +10,7 @@
 
 
 
+
 (defn create-editor [x owner opts]
   (reify
     om/IWillMount
@@ -30,12 +31,11 @@
                 :mode "text/x-clojure"
                 :keyMap "subpar"
                 :onKeyEvent (fn [editor event]
-                              ;(.log js/console "in handler")
-                              ;(.log js/console event)
-
-
-                              (if (and (= 13 (.-keyCode event))
+                              (if (and (.-shiftKey event)
+                                       (= "keydown" (.-type event))
                                        (= "Enter" (.-keyIdentifier event)))
+
+
                                 (put! (:kernel-send opts)
                                       (assoc
                                           (dissoc (deref (om/get-props owner)) :out)
@@ -46,8 +46,8 @@
                                 (when (= (.-type event) "keyup")
                                   (om/transact! (om/get-props owner) [:in] (fn [e]  (.getValue editor))))
                                 false))
-                }
-          )))))
+                })))))
+
 
 
 
