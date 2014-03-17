@@ -61,6 +61,47 @@
   (.log js/console (:error response)))
 
 
+(defn display [show]
+  (if show
+    #js {}
+    #js {:display "none"}))
+
+
+(defn end-edit [text owner cb]
+  (om/set-state! owner :editing false)
+  (cb text))
+
+
+(defn on-edit [title id send]
+  (.log js/console "done edit")
+  (put! send {:op :update-name :name title :id id}))
+
+
+
+(defn session-top [cursor owner {:keys [on-edit] :as opts}]
+  (reify
+    om/IInitState
+    (init-state [_]
+      {:editing false})
+    om/IRenderState
+    (render-state [_ {:keys [edit-text editing]}]
+      (let [name (get-in (om/value cursor) [:meta :name])
+            id (get-in (om/value cursor) [:meta :id])]
+        (if editing
+         (dom/input
+           #js {:value      name
+                :onChange   (fn [e] (om/transact! cursor [:meta :name] (fn [_] (.. e -target -value))))
+                :onKeyPress  #(when (and (om/get-state owner :editing)
+                                         (== (.-keyCode %) 13))
+                               (end-edit name owner on-edit))
+                :onBlur     (fn [e]
+                              (when (om/get-state owner :editing)
+                                (end-edit name owner on-edit)))})
+         (dom/span
+           #js {:onClick #(om/set-state! owner :editing true)}
+           (if name name (.-uuid id))))))))
+
+
 
 
 (def session-renderers
@@ -109,8 +150,19 @@
         om/IRender
         (render [_]
           ;(.log js/console "rendering  session")
+
+          ;; session top regalia
+
+
           (apply dom/div nil
-                   (om/build session.loopcreator/new-loop-creator
+
+                 ;(session-top cursor owner opts)
+                 (let [id (get-in (om/value cursor) [:meta :id]) p (:kernel-send opts)]
+                   (om/build session-top
+                             cursor
+                             {:opts {:on-edit #(on-edit % id p)}}))
+
+                 (om/build session.loopcreator/new-loop-creator
                            (om/graft {:id :session-top :chan (:loop-create opts)} cursor))
                    (map
                      #((om/get-shared owner :builder)

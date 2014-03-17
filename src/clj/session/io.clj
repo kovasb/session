@@ -5,9 +5,8 @@
     session.datamappings
     yantra.datamappings
     merchant.edn.reader
-    merchant.edn.writer
+    merchant.edn.writer))
 
-    ))
 
 (declare resolve-session-object)
 (declare object-mappings)
