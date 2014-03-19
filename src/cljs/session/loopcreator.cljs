@@ -23,7 +23,9 @@
                     :onMouseEnter (fn [e] (om/set-state! owner :hover true))
                     :onMouseLeave (fn [e] (om/set-state! owner :hover false))
                     :onClick (fn [e] (put! (:chan data) (:id data)))}
-               (dom/div #js {:style #js {:height (if hover "10px" "10px")  :borderBottom (if hover "1px solid black" "1px dashed black")}} "")
-               (dom/div #js {:style #js {:height "10px"}} ""))
-               )))
+               (dom/div #js {:style #js {:height "1em"}}
+                        (if hover
+                          (dom/i #js {:className "fa fa-long-arrow-right"} "")
+                          \u00A0
+                                  ))))))
 

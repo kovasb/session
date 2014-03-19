@@ -5,7 +5,7 @@
   /* Necessary so the scrollbar can be absolutely positioned within the wrapper on Lion. */
   position: relative;
   /* This prevents unwanted scrollbars from showing up on the body and wrapper in IE. */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .CodeMirror-scroll {

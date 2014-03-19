@@ -18,7 +18,7 @@
 
     om/IRender
     (render [_]
-      (dom/span #js {:style #js {:padding "-0.4em" } } (dom/textarea #js {:ref "theInput"} (om/value (:in x)))))
+      (dom/span #js {:style #js {:padding "-0.4em" :display "inline-block" } } (dom/textarea #js {:ref "theInput"} (om/value (:in x)))))
 
     om/IDidMount
     (did-mount [_ _]

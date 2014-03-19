@@ -7,7 +7,8 @@
     React
     [om.core :as om :include-macros true]
     [om.dom :as dom :include-macros true]
-    [cljs.core.async :refer [>! <! chan put! sliding-buffer alts!] ]))
+    [cljs.core.async :refer [>! <! chan put! sliding-buffer alts!] ]
+    [goog.style :as gstyle]))
 
 
 
@@ -31,16 +32,18 @@
 
 (defn loop-output-block [cursor owner]
   (let [builder-fn (om/get-shared owner :builder)]
-    (dom/div nil
-             (dom/span #js {:style #js {:font-size "10px" :color "#888888" :padding-right "5px"}} "<<")
+    (dom/div #js {:style  #js {:font-family "monospace"}}
+             (dom/i #js {:className "fa fa-chevron-left" :style #js {:font-size "0.7em" :padding-right "5px"}} "")
+             ;(dom/span #js {:style #js {:font-size "10px" :color "#888888" :padding-right "5px"}} "<<")
              (builder-fn (get-in cursor [:out]) {:react-key :output}))))
 
 (defn loop-input-block [cursor opts]
   (dom/div
     nil
-    (loop-input-indicator)
+    (dom/span #js {:style #js {:display "inline-block"} } (dom/i #js {:className "fa fa-chevron-right" :style #js {:font-size "0.7em" :padding-right "5px"}} ""))
+    ;(loop-input-indicator)
     (dom/span
-      nil
+      #js {:style  #js {:font-family "monospace" :display "inline-block"}}
       (om/build
         editor/create-editor
         cursor
@@ -50,35 +53,72 @@
 
 ;(let [id (:id (om/value cursor))] (dom/button #js {:id "delete" } "delete"))
 
-
 (defn display [show]
-  (if show
-    #js {}
-    #js {:display "none"}))
+   (if show
+     #js {}
+     #js {:display "none"}))
+
+(defn input-display [show]
+  (let [ret #js {:outline "none"
+                 :width "90%"
+                 :border "none"
+                 :fontSize "13px"
+                 :fontFamily "Georgia"
+                 :padding "inherit"
+                 :margin-left "-1px"}]
+    (if-not show
+      (do
+        (aset ret "display" "none")
+        ret)
+      ret)))
 
 
 (defn handle-change [e data edit-key owner]
-  (om/transact! data edit-key (fn [_] (.. e -target -value))))
+  (let [value (.. e -target -value)]
+    (om/transact! data edit-key (fn [_] value))
+    (om/set-state! owner :edit-text value)))
 
 (defn end-edit [text owner cb]
   (om/set-state! owner :editing false)
+  (om/set-state! owner :edit-text text)
   (cb text))
 
-
+(defn gsize->vec [size]
+  [(.-width size) (.-height size)])
 
 (defn editable [data owner {:keys [edit-key on-edit] :as opts}]
   (reify
     om/IInitState
     (init-state [_]
-      {:editing false})
+      {:editing false
+       :edit-text (get data edit-key)
+       :hover false
+       :dimensions nil})
+    om/IDidMount
+    (did-mount [_ _]
+      (let [node (om/get-node owner "display")]
+        (om/set-state! owner :dimensions (gsize->vec (gstyle/getSize node)))
+        (println (om/get-state owner :dimensions))))
     om/IRenderState
-    (render-state [_ {:keys [edit-text editing]}]
+    (render-state [_ {:keys [edit-text editing hover]}]
       (let [text (get data edit-key)]
-        (dom/span nil
-                (dom/span #js {:style (display (not editing))} text)
+        (println editing)
+        (dom/div
+          #js {:onClick #(om/set-state! owner :editing true)
+               :onMouseEnter (fn [e] (om/set-state! owner :hover true))
+               :onMouseLeave (fn [e] (om/set-state! owner :hover false))
+
+               :style #js {:width "100%" :height "20px"}}
+
+                (if hover (dom/i #js {:className "fa fa-pencil" :style #js {:font-size "0.7em" :padding-right "5px"}} "")
+                          (dom/i #js {:className "fa fa-pencil" :style #js {:opacity 0 :font-size "0.7em" :padding-right "5px"}} "")
+                          )
+                (dom/span #js {:ref "display"
+                               :style (display (not editing))}
+                          (if text text \u00A0))
                 (dom/input
-                  #js {:style (display editing)
-                       :value text
+                  #js {:style (input-display editing)
+                       :value edit-text
                        :onChange #(handle-change % data edit-key owner)
                        :onKeyPress #(when (and (om/get-state owner :editing)
                                                (== (.-keyCode %) 13))
@@ -86,14 +126,14 @@
                        :onBlur (fn [e]
                                  (when (om/get-state owner :editing)
                                    (end-edit text owner on-edit)))})
-                (dom/button
-                  #js {:style (display (not editing))
-                       :onClick #(om/set-state! owner :editing true)}
-                  "Edit"))))))
+                )))))
 
 
 ;;;;;;;;;
 
+
+(defn note-view [cursor owner opts]
+  ())
 
 
 (defn loop-toolbar [cursor owner opts]
@@ -116,8 +156,10 @@
         (render [_ ]
           (dom/div
             nil
+
+            ;;<i class="fa fa-camera-retro"></i>
             (dom/div
-             #js {:style  #js {:font-family "monospace"}}
+             nil
              (loop-toolbar cursor owner opts)
 
              (loop-input-block cursor opts)
