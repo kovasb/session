@@ -50,10 +50,10 @@
 
 (defn resolve-session-object [obj object-mappings]
   (let [o (id-to-object (:id obj) object-mappings)]
-    (if
+    (if o
      o
      (do
-       (let [newo (map->StaleObject o) id (:id obj)]
+       (let [newo (map->StaleObject obj) id (:id obj)]
          (swap! (:object-to-id object-mappings) assoc newo id)
          (swap! (:id-to-object object-mappings) assoc id newo)
          newo)))))
