@@ -59,6 +59,9 @@
   (.log js/console "eval error:")
   (.log js/console (:error response)))
 
+(defmethod handle-kernel-response :default [response cursor owner opts]
+  nil)
+
 
 (defn display [show]
   (if show

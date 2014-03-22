@@ -95,13 +95,18 @@
   (.addEventListener (:socket system) goog.net.WebSocket.EventType.MESSAGE
                      (fn [e]
                        (let [msg (session.io/read-edn (.-message e))]
-                         ;; somewhat of a hack to get url to match that of a newly created session
+                         ;; total hack to get url to match that of a newly created session
+                         ;; problem is b/c hard to control when changing the URL results in secretary dispatching, or not
                          (when (= :display-session (:op msg))
                            (.log js/console "displaying a session")
                            (doto (:history system) (.setEnabled false))
-                           (.replaceToken (:history system) (str "/sessions/" (.-uuid (get-in msg [:session :meta :id]))) )
-                           (doto (:history system) (.setEnabled true)))
-                         (put! (:kernel-receive system) msg))))
+                           (.setToken (:history system) (str "/sessions/" (.-uuid (get-in msg [:session :meta :id]))) )
+
+                           )
+                         (put! (:kernel-receive system) msg)
+                         ;; results in an infinite loop:
+                         ;; (doto (:history system) (.setEnabled true))
+                         )))
 
   (let [socket-opened (chan)]
 
