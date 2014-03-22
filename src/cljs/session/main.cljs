@@ -1,6 +1,10 @@
 (ns session.main
+  (:import goog.History
+           goog.history.EventType)
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require
+   [secretary.core :as secretary :include-macros true :refer [defroute]]
+   [goog.events :as events]
    goog.net.WebSocket
    cljs.reader
    React
@@ -13,6 +17,7 @@
    yantra.layout
    yantra.controls
    yantra.plot
+   yantra.dom
    session.session
    session.loop
    session.boot
@@ -23,9 +28,17 @@
 
 (enable-console-print!)
 
+(defn new-id []
+  (letfn [(f [] (.toString (rand-int 16) 16))
+          (g [] (.toString (bit-or 0x8 (bit-and 0x3 (rand-int 15))) 16))]
+    (str (.append (goog.string.StringBuffer.)
+                  (f) (f) (f) (f) (f) (f) (f) (f) "-" (f) (f) (f) (f)
+                  "-4" (f) (f) (f) "-" (g) (f) (f) (f) "-"
+                  (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f)))))
 
 (defn system []
-  {:socket (goog.net.WebSocket.)
+  {:history (History.)
+   :socket (goog.net.WebSocket.)
    :kernel-send (chan)
    :kernel-receive (chan)
    :loop-create (chan)
@@ -33,10 +46,11 @@
    :eval-send (chan)
    :eval-receive (chan)
    :host (aget js/window "location" "host")
-   :app-state (atom (session.datatypes.Boot.))
+   :app-state (atom (assoc (session.datatypes.Boot.)
+                      :new-session (let [uuid (new-id)]
+                                     {:id uuid :name uuid})
+                      ))
    })
-
-
 
 (def all-renderers
   (merge
@@ -45,6 +59,7 @@
     yantra.layout/layout-renderers
     yantra.controls/control-renderers
     yantra.plot/plot-renderers
+    yantra.dom/dom-renderers
     session.session/session-renderers
     session.loop/loop-renderers
     session.boot/boot-renderers
@@ -60,9 +75,18 @@
   (om/build (all-renderers t) x y))
 
 
+(secretary/set-config! :prefix "#")
+
+;; bug workaround for secretary
+(defroute home-path "/" [] nil)
+
+
 
 
 (defn ^:export start! [system]
+
+  (goog.events/listen (:history system) EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
+  (doto (:history system) (.setEnabled true))
 
   (aset (.-keyMap js/CodeMirror) "subpar" keymap/subpar-keymap)
 
@@ -70,7 +94,14 @@
 
   (.addEventListener (:socket system) goog.net.WebSocket.EventType.MESSAGE
                      (fn [e]
-                         (put! (:kernel-receive system) (session.io/read-edn (.-message e)))))
+                       (let [msg (session.io/read-edn (.-message e))]
+                         ;; somewhat of a hack to get url to match that of a newly created session
+                         (when (= :display-session (:op msg))
+                           (.log js/console "displaying a session")
+                           (doto (:history system) (.setEnabled false))
+                           (.replaceToken (:history system) (str "/sessions/" (.-uuid (get-in msg [:session :meta :id]))) )
+                           (doto (:history system) (.setEnabled true)))
+                         (put! (:kernel-receive system) msg))))
 
   (let [socket-opened (chan)]
 
@@ -87,6 +118,10 @@
            (def t1 (js/Date.))
            (.send (:socket system) (session.io/write-edn newin))))))
 
+
+
+
+
   (om/root
     (:app-state system)
     {:builder builder :builder-raw builder-raw}
@@ -99,5 +134,14 @@
 
 
 (def the-system (system))
+
+(defroute sessions-path "/sessions/:uuid" [uuid]
+          (.log js/console "load session from url")
+          (put! (:kernel-send the-system)
+                {:op :connect-session :index/id uuid}))
+
+
+
+
 
 (start! the-system)

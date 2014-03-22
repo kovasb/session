@@ -14,12 +14,11 @@
 
 
 (defn loop-delete-button [loop-delete-chan loop-id]
-  (dom/span #js {:onClick (fn [e] (put! loop-delete-chan loop-id))
-                 :style   #js {:font-size "10px"
-                               :color "#888888"
-                               :font-family "monospace"
-                               :float "right"
-                               :padding-right "5px"}} "X"))
+  (dom/i #js {:onClick (fn [e] (put! loop-delete-chan loop-id))
+              :className "fa fa-times"
+              :style #js {:float "right" :font-size "0.7em"}} ""))
+
+
 
 
 (defn loop-input-indicator []
@@ -48,7 +47,7 @@
         editor/create-editor
         cursor
         {:react-key :editor :opts opts}))
-    (loop-delete-button (:loop-delete opts) (:id (om/value cursor)))))
+    ))
 
 
 ;(let [id (:id (om/value cursor))] (dom/button #js {:id "delete" } "delete"))
@@ -86,6 +85,7 @@
 (defn gsize->vec [size]
   [(.-width size) (.-height size)])
 
+
 (defn editable [data owner {:keys [edit-key on-edit] :as opts}]
   (reify
     om/IInitState
@@ -96,9 +96,10 @@
        :dimensions nil})
     om/IDidMount
     (did-mount [_ _]
-      (let [node (om/get-node owner "display")]
-        (om/set-state! owner :dimensions (gsize->vec (gstyle/getSize node)))
-        (println (om/get-state owner :dimensions))))
+      (comment
+        (let [node (om/get-node owner "display")]
+         (om/set-state! owner :dimensions (gsize->vec (gstyle/getSize node)))
+         (println (om/get-state owner :dimensions)))))
     om/IRenderState
     (render-state [_ {:keys [edit-text editing hover]}]
       (let [text (get data edit-key)]
@@ -111,21 +112,29 @@
                :style #js {:width "100%" :height "20px"}}
 
                 (if hover (dom/i #js {:className "fa fa-pencil" :style #js {:font-size "0.7em" :padding-right "5px"}} "")
-                          (dom/i #js {:className "fa fa-pencil" :style #js {:opacity 0 :font-size "0.7em" :padding-right "5px"}} "")
-                          )
-                (dom/span #js {:ref "display"
-                               :style (display (not editing))}
-                          (if text text \u00A0))
+                          (dom/i #js {:className "fa fa-pencil" :style #js {:opacity 0 :font-size "0.7em" :padding-right "5px"}} ""))
+
                 (dom/input
-                  #js {:style (input-display editing)
+                  #js {:ref "theInput"
+                        :style #js
+                               {:outline "none"
+                               :width "90%"
+                               :border "none"
+                               :fontSize "13px"
+                               :fontFamily "Georgia"
+                               :padding "inherit"
+                               :margin-left "-1px"}
                        :value edit-text
                        :onChange #(handle-change % data edit-key owner)
                        :onKeyPress #(when (and (om/get-state owner :editing)
                                                (== (.-keyCode %) 13))
+                                     (.blur (om/get-node owner "theInput") )
                                      (end-edit text owner on-edit))
                        :onBlur (fn [e]
                                  (when (om/get-state owner :editing)
                                    (end-edit text owner on-edit)))})
+                (if hover (loop-delete-button (:loop-delete opts) (:id (om/value data)))
+                          "")
                 )))))
 
 
@@ -137,7 +146,8 @@
 
 
 (defn loop-toolbar [cursor owner opts]
-  (om/build editable cursor {:opts {:edit-key :note
+  (om/build editable cursor {:opts {:loop-delete (:loop-delete opts)
+                                    :edit-key :note
                                     :on-edit  (fn [text]
                                                 (.log js/console "update note")
 

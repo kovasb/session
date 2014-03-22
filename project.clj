@@ -21,6 +21,8 @@
    [com.keminglabs/jetty7-websockets-async "0.1.0"]
    [ring/ring-jetty-adapter "1.2.0"]
    [ring/ring-servlet "1.2.0"]
+   [secretary "1.1.0"]
+
 
    ;; XXXXX
    [criterium "0.4.3"]

@@ -36,7 +36,10 @@
                     (try
                       {:op :eval-response :id (:id eval-request)
                        :out (binding [*ns* (the-ns 'session.user)
-                                      session.user/*datomic-conn* datomic-conn]
+                                      session.user/*datomic-conn* datomic-conn
+                                      session.user/*reader* #(session.io/read-edn % (:merchant app))
+
+                                      ]
                               (eval (read-string (:in eval-request))))}
                       (catch Exception e
                         {:op :eval-response :id (:id eval-request)
@@ -94,8 +97,9 @@
 
 
 (defn list-sessions [db]
-  (mapv #(session-index db (first %))
-        (d/q '[:find ?e :where [_ :index/id ?e]] db)))
+  { :op :list-sessions
+    :session-list (mapv #(session-index db (first %))
+         (d/q '[:find ?e :where [_ :index/id ?e]] db))})
 
 
 
@@ -137,22 +141,25 @@
   ;; request needs to indicate which session to connect
   ;; connect it and transact into the app
   (let [
-
-
         session-db
         (do
             (component/start
               (session.datomic/new-session-database
                 (str (:system-base-uri (:system-database app)) (:index/id input))
-                (:index/id input))))]
+                ;; should probably pass just a map of the opts
+                (:index/id input)
+                (:index/name input))))]
 
     (swap! (:session-database app) (fn [x] session-db))
     (go (>! out-chan
             (session.io/write-edn
-              (to-client-side-session
-                (get-session (d/db (:connection session-db)))
 
-                app)
+              { :op :display-session
+                :session (to-client-side-session
+                 (get-session
+                   (d/db (:connection session-db)))
+
+                 app)}
               (:merchant app))))))
 
 
@@ -160,12 +167,21 @@
 (defmethod handle-request :create-session [input out-chan app db]
   ;; add entry for new session in system db
   ;; call out to :connect-session
-  (let [session-uuid  (java.util.UUID/randomUUID)]
+  (let [session-uuid (java.util.UUID/fromString (:id input))
+        name (:name input)]
+    (println "create session")
+    (println [session-uuid name])
+    (println input)
     (d/transact (:connection (:system-database app))
-                [[:db/add (d/tempid :db.part/user) :index/id session-uuid]])
+                [{:db/id (d/tempid :db.part/user)
+                  :index/id session-uuid
+                  :index/name name}])
+
+
     (handle-request (assoc input
                       :op :connect-session
-                      :index/id session-uuid)
+                      :index/id session-uuid
+                      :index/name name)
                     out-chan app db)))
 
 

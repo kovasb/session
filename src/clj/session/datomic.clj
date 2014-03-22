@@ -76,7 +76,19 @@
 
 (def session-seed
   {
-    :data [[:db/add (d/tempid :db.part/user) :db/ident :loop/root]]
+    :data (let [r (d/tempid :db.part/user)
+                l (d/tempid :db.part/user)
+                ]
+            [{:db/id     r
+             :db/ident  :loop/root
+             :loop/next l}
+            {:db/id     l
+             :loop/id   (str (java.util.UUID/randomUUID))
+             :loop/in   "(+ 1 1)"
+             :loop/out  "2"
+             :session/note "This is a sample evaluation"
+             }
+            ])
     :schema
     [{:db/ident              :session/note
       :db/valueType          :db.type/string
@@ -174,11 +186,12 @@
 (defn new-session-database
   ([base-uri] (let [uuid (java.util.UUID/randomUUID)]
         (new-session-database (str base-uri (str uuid)) uuid)))
-  ([uri uuid]
+  ([uri uuid name]
    (map->Database {:id uuid
                    :uri uri
                    :datomic-process false
-                   :seed (merge-with concat system-seed session-seed {:data [[:db/add :session/meta :index/id uuid]]})})))
+                   :seed (merge-with concat system-seed session-seed {:data [[:db/add :session/meta :index/id uuid]
+                                                                             [:db/add :session/meta :index/name name]]})})))
 
 
 

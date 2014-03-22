@@ -14,7 +14,6 @@
 
 
 (defn new-id []
-  ;; from
   (letfn [(f [] (.toString (rand-int 16) 16))
           (g [] (.toString (bit-or 0x8 (bit-and 0x3 (rand-int 15))) 16))]
     (str (.append (goog.string.StringBuffer.)
@@ -86,20 +85,24 @@
     om/IRenderState
     (render-state [_ {:keys [edit-text editing]}]
       (let [name (get-in (om/value cursor) [:meta :name])
-            id (get-in (om/value cursor) [:meta :id])]
-        (if editing
-         (dom/input
-           #js {:value      name
-                :onChange   (fn [e] (om/transact! cursor [:meta :name] (fn [_] (.. e -target -value))))
-                :onKeyPress  #(when (and (om/get-state owner :editing)
-                                         (== (.-keyCode %) 13))
-                               (end-edit name owner on-edit))
-                :onBlur     (fn [e]
-                              (when (om/get-state owner :editing)
-                                (end-edit name owner on-edit)))})
-         (dom/span
-           #js {:onClick #(om/set-state! owner :editing true)}
-           (if name name (.-uuid id))))))))
+            id (.-uuid (get-in (om/value cursor) [:meta :id]))]
+        (dom/input
+          #js {
+               :ref "theInput"
+               :style #js {:outline "none"
+                           :width "90%"
+                           :border "none"
+                           :fontSize "18px"
+                           :fontFamily "Georgia"
+                           :padding "inherit"
+                           :margin-left "-1px"}
+
+               :value (if name name id)
+               :onChange   (fn [e] (om/transact! cursor [:meta :name] (fn [_] (.. e -target -value))))
+               :onKeyPress  #(when (== (.-keyCode %) 13)
+                              (.blur (om/get-node owner "theInput") )
+                              (end-edit name owner on-edit))
+               :onBlur     (fn [e] (end-edit name owner on-edit))})))))
 
 
 
@@ -122,6 +125,11 @@
       (reify
         om/IWillMount
         (will-mount [_]
+
+
+
+
+
           ;; todo: simplify to a single go block
           ;; todo: make keywords consistent across front & back end (use Schema?)
           (go (while true
@@ -149,6 +157,9 @@
 
         om/IRender
         (render [_]
+
+
+
           ;(.log js/console "rendering  session")
 
           ;; session top regalia
