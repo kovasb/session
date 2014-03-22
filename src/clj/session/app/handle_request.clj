@@ -42,7 +42,7 @@
                          :out (binding [
 
                                         ]
-                                (eval (session.io/read-edn (:in eval-request) (:merchant app))))}
+                                (eval (read-string (:in eval-request) )))}
                         (catch Exception e
                           {:op  :eval-response :id (:id eval-request)
                            :out (pr-str e) :error true}))]

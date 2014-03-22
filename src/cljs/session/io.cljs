@@ -9,6 +9,7 @@
     ))
 
 
+
 (def data-mappings
   (concat yantra.datamappings/data-mappings
          session.datamappings/data-mappings))
