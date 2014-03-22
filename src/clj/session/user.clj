@@ -8,7 +8,13 @@
 
 (declare ^:dynamic *reader*)
 
+(declare ^:dynamic *writer*)
+
+
 (defn read-edn [x] (*reader* x))
+
+(defn write-edn [x] (*writer* x))
+
 
 (defn column [contents] (->Column contents))
 

@@ -31,6 +31,8 @@
             (binding [
                        session.user/*datomic-conn* datomic-conn
                        session.user/*reader* #(session.io/read-edn % (:merchant app))
+                       session.user/*writer* #(session.io/write-edn % (:merchant app))
+
                        *ns* (the-ns 'session.user)]
               (try
                 (d/transact datomic-conn (operation-datoms eval-request db app))
@@ -40,7 +42,7 @@
                          :out (binding [
 
                                         ]
-                                (eval (read-string (:in eval-request))))}
+                                (eval (session.io/read-edn (:in eval-request) (:merchant app))))}
                         (catch Exception e
                           {:op  :eval-response :id (:id eval-request)
                            :out (pr-str e) :error true}))]
