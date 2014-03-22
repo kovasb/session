@@ -6,12 +6,10 @@
             [datomic.api :as d]
             [session.datatypes :as dt]
             [session.datomic :as sd]
-
+            session.user
             [clojure.core.async :refer [chan go >! <!]]
             [merchant.edn.reader :as er]
-            [merchant.edn.writer :as ew]
-
-            session.user))
+            [merchant.edn.writer :as ew]))
 
 
 (defn entity-for-loop-id [id db]
@@ -29,29 +27,31 @@
 (defmethod handle-request :eval-request [input out-chan app db]
   (go (>! out-chan
           (let [eval-request input
-                datomic-conn (:connection @(:session-database app)) ]
-            (try
-              (d/transact datomic-conn (operation-datoms eval-request db app))
-              (let [response
-                    (try
-                      {:op :eval-response :id (:id eval-request)
-                       :out (binding [*ns* (the-ns 'session.user)
-                                      session.user/*datomic-conn* datomic-conn
-                                      session.user/*reader* #(session.io/read-edn % (:merchant app))
+                datomic-conn (:connection @(:session-database app))]
+            (binding [
+                       session.user/*datomic-conn* datomic-conn
+                       session.user/*reader* #(session.io/read-edn % (:merchant app))
+                       *ns* (the-ns 'session.user)]
+              (try
+                (d/transact datomic-conn (operation-datoms eval-request db app))
+                (let [response
+                      (try
+                        {:op  :eval-response :id (:id eval-request)
+                         :out (binding [
 
-                                      ]
-                              (eval (read-string (:in eval-request))))}
-                      (catch Exception e
-                        {:op :eval-response :id (:id eval-request)
-                         :out (pr-str e) :error true}))]
+                                        ]
+                                (eval (read-string (:in eval-request))))}
+                        (catch Exception e
+                          {:op  :eval-response :id (:id eval-request)
+                           :out (pr-str e) :error true}))]
 
-                @(d/transact datomic-conn (operation-datoms response db app))
-                (session.io/write-edn response (:merchant app)))
+                  @(d/transact datomic-conn (operation-datoms response db app))
+                  (session.io/write-edn response (:merchant app)))
 
-              (catch Exception e
-                (do
-                  (println "eval error")
-                  (pr-str {:op :eval-error :error (str e)}))))))))
+                (catch Exception e
+                  (do
+                    (println "eval error")
+                    (pr-str {:op :eval-error :error (str e)})))))))))
 
 
 
