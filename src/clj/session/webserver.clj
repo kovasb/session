@@ -23,17 +23,19 @@
 (defrecord WebServer [ws-chan port]
   component/Lifecycle
   (start [component]
-    (assoc component
-      :web-server (run-jetty app
-                         {:join? false :port port
-                          :configurator (ws/configurator ws-chan)})))
+    (let [c (assoc component
+            :web-server (run-jetty app
+                                   {:join?        false :port port
+                                    :configurator (ws/configurator ws-chan)}))]
+      (println (str "Started webserver on port " port))
+      c))
   (stop [component]
     (.stop (:web-server component))
     component))
 
 
-(defn new-web-server []
-  (map->WebServer {:ws-chan (chan) :port 8080}))
+(defn new-web-server [port]
+  (map->WebServer {:ws-chan (chan) :port port}))
 
 
 

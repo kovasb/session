@@ -17,7 +17,7 @@
 
 
 (defn session-system [config-options]
-  (let []
+  (let [port (:web-port config-options)]
     (map->SessionSystem
       {
        :merchant (session.io/merchant)
@@ -25,7 +25,7 @@
        :system-database  (session.datomic/new-system-database "datomic:free://localhost:4334/" "session-system3")
        :session-database (atom nil)
 
-       :web-server (session.webserver/new-web-server)
+       :web-server (session.webserver/new-web-server port)
 
        :app (component/using
               (session.app.component/map->SessionApp {})

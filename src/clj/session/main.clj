@@ -8,7 +8,9 @@
 (defn -main
   ([] (-main "{}"))
   ([opts-string]
-   (let [s-init (system/session-system nil)
+   (let [
+
+          s-init (system/session-system (read-string opts-string))
          s-running (component/start s-init)]
      s-running)))
 
