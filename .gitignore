@@ -22,4 +22,3 @@ target/repl-port
 *.iws
 
 /vendor/datomic-free-0.9.4556/log/*
-/vendor/datomic-free-0.9.4556/data/*

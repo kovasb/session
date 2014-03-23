@@ -72,9 +72,11 @@
            (dom/div nil "create new session:")
 
            (dom/span nil
-                     (dom/i #js {:className "fa fa-plus-square-o"} "")
+                     ;(dom/i #js {:className "fa fa-plus-square-o"} "")
                      (dom/input
-                       #js {:value (get-in (om/value cursor) [:new-session :name])
+                       #js {:style #js {:font "200 1em/1.5 Helvetica, Verdana, sans-serif"}
+                            :size "36"
+                            :value (get-in (om/value cursor) [:new-session :name])
                             :onChange #(let [value (.. % -target -value)]
                                         (om/transact! cursor [:new-session :name] (fn [_] value))
                                         ;(om/set-state! owner :edit-text value)
@@ -88,9 +90,7 @@
                                           (put! (:kernel-send opts) {:op   :create-session
                                                                      :name name
                                                                      :id   id}))}
-                                  "go!"))))
-
-  )
+                                  "go!")))))
 
 
 
@@ -125,7 +125,7 @@
              nil
              (dom/div #js {:style #js {:font-size "3em"}} "Session")
              (create-new-session cursor owner opts)
-
+             (dom/p nil "")
              (if (:session-list (om/value cursor))
                (display-index cursor owner opts)
               (dom/div #js {:key "initial-load"} "loading session index...")))))))})

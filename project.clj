@@ -13,8 +13,8 @@
 
    ;; Primary Libs
    [om "0.3.6"]
-   [yantra "0.1.1"]
-   [merchant "0.1.2-SNAPSHOT"]
+   [yantra "0.1.3"]
+   [merchant "0.1.4"]
 
    ;; Tools
    [compojure "1.1.5" :exclusions [ring/ring-core]]
