@@ -1,0 +1,11 @@
+{"version":3,
+ "file":
+ "/Users/kovasb/repo/session/resources/public/cljs/session/datamappings.js",
+ "sources":["datamappings.cljs"],
+ "lineCount":8,
+ "mappings":
+ ";AAAA;;;;AAKA,qCAAA,mFAAA,2CAAA,yFAAA,mDAAA,yBAAA,2CAAA,gFAAA,mDAAA,uBAAA,2CAAA,mFAAA,mDAAA,9rBAAKA,4NACOC,gNACAC,qMACAC",
+ "names":
+ ["session.datamappings/data-mappings",
+  "session.datatypes/SessionObject", "session.datatypes/Loop",
+  "session.datatypes/Session"]}

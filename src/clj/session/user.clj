@@ -16,7 +16,7 @@
 (defn write-edn [x] (*writer* x))
 
 
-(defn column [contents] (->Column contents))
+(defn column [contents] (->Column (vec contents)))
 
 (defn graphics [contents] (->Graphics contents))
 
