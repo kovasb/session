@@ -75,7 +75,6 @@
 
 
 (defn on-edit [title id send]
-  (.log js/console "done edit")
   (put! send {:op :update-name :name title :id id}))
 
 
@@ -128,11 +127,6 @@
       (reify
         om/IWillMount
         (will-mount [_]
-
-
-
-
-
           ;; todo: simplify to a single go block
           ;; todo: make keywords consistent across front & back end (use Schema?)
           (go (while true
@@ -162,15 +156,8 @@
         (render [_]
 
 
-
-          ;(.log js/console "rendering  session")
-
-          ;; session top regalia
-
-
           (apply dom/div nil
 
-                 ;(session-top cursor owner opts)
                  (let [id (get-in (om/value cursor) [:meta :id]) p (:kernel-send opts)]
                    (om/build session-top
                              cursor

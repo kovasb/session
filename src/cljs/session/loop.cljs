@@ -72,10 +72,7 @@
       ret)))
 
 
-(defn handle-change [e data edit-key owner]
-  (let [value (.. e -target -value)]
-    (om/transact! data edit-key (fn [_] value))
-    (om/set-state! owner :edit-text value)))
+
 
 (defn end-edit [text owner cb]
   (om/set-state! owner :editing false)
@@ -149,8 +146,6 @@
   (om/build editable cursor {:opts {:loop-delete (:loop-delete opts)
                                     :edit-key :note
                                     :on-edit  (fn [text]
-                                                (.log js/console "update note")
-
                                                 (put! (:kernel-send opts)
                                                       {:op :update-note
                                                        :id (:id @(om/get-props owner))

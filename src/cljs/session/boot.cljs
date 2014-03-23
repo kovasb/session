@@ -109,16 +109,12 @@
              (>! (:kernel-send opts) {:op :list-sessions})
              (loop []
                (let [res (<! (:kernel-receive opts))]
-                 (.log js/console (pr-str "kernel receive: " res))
                  (condp = (:op res)
                         :list-sessions (do
                                          (om/update! cursor (fn [y z] (assoc y :session-list (:session-list res))))
                                          (recur))
 
-                        :display-session (do
-                                           (.log js/console "received session")
-
-                                           (om/update! cursor (fn [y z] z) (:session res))))))))
+                        :display-session (om/update! cursor (fn [y z] z) (:session res)))))))
          om/IRender
          (render [_]
            (dom/div
