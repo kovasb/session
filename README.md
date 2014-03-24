@@ -2,6 +2,8 @@
 
 Session is a live-coding environment, based on Clojure, Om, and Datomic. You can think of it as a web-based REPL, backed by a database.
 
+Check out the [video](https://vimeo.com/89899023) and [introductory blog post.](https://medium.com/p/1a12997a5f70)
+
 # Usage
 
 Make you sure have Leiningen installed. 
