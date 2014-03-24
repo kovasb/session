@@ -25,6 +25,8 @@ Check out the example session for the kinds of operations currently supported.
 
 ## License
 
-Copyright (C) 2012 Kovas Boguta
+Session includes Datomic Free Edition, which is governed by [this license](https://github.com/kovasb/session/blob/master/vendor/datomic-free-0.9.4556/LICENSE)
+
+Session itself is Copyright (C) 2014 Kovas Boguta
 
 Distributed under the Eclipse Public License, the same as Clojure.
