@@ -1,4 +1,4 @@
-(defproject session "0.1.2-SNAPSHOT"
+(defproject session "0.1.3"
   :description "FIXME: write this!"
   :url "http://exampl.com/FIXME"
   :dependencies
