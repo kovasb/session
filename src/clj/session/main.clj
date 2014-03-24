@@ -6,7 +6,7 @@
 
 
 (defn -main
-  ([] (-main "{}"))
+  ([] (-main "{:web-port 8080}"))
   ([opts-string]
    (let [
 
