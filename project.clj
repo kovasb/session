@@ -46,4 +46,5 @@
                                     :output-dir "resources/public/cljs"
                                     :optimizations :none}}]}
 
+  :jvm-opts ["-Xmx1g"]
   :main ^{:skip-aot true} session.main)
