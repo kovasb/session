@@ -2,11 +2,13 @@
  "file":
  "/Users/kovasb/repo/session/resources/public/cljs/yantra/layout.js",
  "sources":["layout.cljs"],
- "lineCount":17,
+ "lineCount":61,
  "mappings":
- ";AAAA;;;;;;;;;;;AAaA,iCAAA,jCAAKA,6EACFC,wBAAU,8BAAA,nBAAKC,OAAOC,MAAMC,MAClB,6GAAA,zGAAMC,UAAQ,mCAAA,nCAACC,6BAAcH,kEAC3B,OAAAI,cAAA,KAEE,AAACC,+BACC,wBAAA,WAAAC,kBAAA,rDAACC,qDACE,OAAAH,cAAA,KAAa,kBAAAE,lBAACJ;GACf,AAAA,2FAAWH",
+ ";AAAA;;;;;;;;;;;AAaA,iCAAA,jCAAKA,6EACFC,wBAAU,8BAAA,nBAAKC,OAAOC,MAAMC,MAClB,6GAAA,zGAAMC,UAAQ,mCAAA,nCAACC,6BAAcH,kEAC3B,AAAA,GAAA,OAAAI;CAAA;CAAA,AAAA,AAAA;;;;;;;;;;;;;AAAA,AAAA,AAAAA,sCAAA;AAAA,AAAA,AAAAA,yCAAA;AAAA,AAAA,AAAAA,8CAAA;kBAAAC,mBAAAC,qBAAAC,mBAAA,AAAA,OAAAC,2BAAAF,qBAAA;;;AAAA,AAAA,AAAA,AAAA,AAAAF,kDAAA;AAAA,AAAA,AAAA,AAAAA,gEAAA;kBAEWQ;AAFX,AAAA,YAAA,KAAA,bAEWA,aACP,OAAAC,cAAA,KAEC,AAACC,+BACC,wBAAA,xBAACE;kBAADD,kBAAA,AACG,OAAAF,cAAA,KAAa,yBAAAE,zBAACb;;CACf,AAAA,2FAAWH;;;AARpB,AAAA,AAAA,AAAAK,+DAAA;kBAAAK;AAAA,AAAA,IAAAA,aAAA,KAAA,AAAAC;;;AAAA,AAAA,AAAA,AAAAN,wEAAA;kBAAAK,OAAAC;+FAFGX,bAAOC,ZAAMC,fACZC,vDACJ,AAAA,IAAAO,aAAA,KAAA,AAAA,YAAAL,2EAAAM;;;AAAA,AAAAC,4BAAA;4DAFGZ,sFAAAA,hGAAOC,sFAAAA,/FAAMC,sFAAAA,lGACZC,sFAAAA,5CACJQ,WAAA,AAAA,YAAAN,+DAAAM;;;AAAAN;oDAFGL,NAAOC,LAAMC,RACZC,jCACJ,YAAAE,+CAAA",
  "names":
  ["yantra.layout/layout-renderers", "yantra.datatypes/Column",
   "cursor", "owner", "opts", "builder", "om.core/get-shared",
-  "js/React.DOM.div", "cljs.core/into-array", "p1__14627#",
-  "cljs.core/map"]}
+  "yantra.layout/t14812", "this__4029__auto__", "writer__4030__auto__",
+  "opt__4031__auto__", "cljs.core/-write", "_14814", "meta14813",
+  "yantra.layout/->t14812", "_", "js/React.DOM.div",
+  "cljs.core/into-array", "p1__14811#", "cljs.core/map"]}

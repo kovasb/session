@@ -128,12 +128,13 @@
 
 
   (om/root
+    (fn [data owner]
+    (reify
+      om/IRender
+      (render [_]
+        (builder data {:opts (dissoc system :app-state)}))))
     (:app-state system)
-    {:builder builder :builder-raw builder-raw}
-    (fn [data]
-    (om/component
-      (builder data {:opts (dissoc system :app-state)})))
-    js/document.body))
+    {:shared {:builder builder :builder-raw builder-raw} :target js/document.body}))
 
 
 

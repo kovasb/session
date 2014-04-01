@@ -51,8 +51,7 @@
 
 (defmethod handle-kernel-response :eval-response [response cursor owner opts]
   (om/transact! cursor [:loops]
-                insert-output
-                response))
+                #(insert-output % response)))
 
 
 (defmethod handle-kernel-response :eval-error [response cursor owner opts]
@@ -139,9 +138,7 @@
                       (>! (:kernel-send opts) {:op :insert-loop :id insertion-id :new-id (:id new-loop)})
                       (om/transact! (om/get-props owner)
                                     [:loops]
-                                    loop-insert
-                                    insertion-id
-                                    new-loop))))))
+                                    #(loop-insert % insertion-id new-loop)))))))
           (let [c (:loop-delete opts)]
             (go (while true
                   (let [deletion-id (<! c)]
@@ -149,8 +146,7 @@
                       (>! (:kernel-send opts) {:op :delete-loop :id deletion-id})
                       (om/transact! (om/get-props owner)
                                     [:loops]
-                                    loop-delete
-                                    deletion-id)))))))
+                                    #(loop-delete % deletion-id))))))))
 
         om/IRender
         (render [_]

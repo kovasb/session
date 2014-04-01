@@ -51,8 +51,7 @@
 
 (defmethod handle-kernel-response :eval-response [response cursor owner opts]
   (om/transact! cursor [:loops]
-                insert-output
-                response))
+                #(insert-output % response)))
 
 
 (defmethod handle-kernel-response :eval-error [response cursor owner opts]
@@ -75,7 +74,6 @@
 
 
 (defn on-edit [title id send]
-  (.log js/console "done edit")
   (put! send {:op :update-name :name title :id id}))
 
 
@@ -128,11 +126,6 @@
       (reify
         om/IWillMount
         (will-mount [_]
-
-
-
-
-
           ;; todo: simplify to a single go block
           ;; todo: make keywords consistent across front & back end (use Schema?)
           (go (while true
@@ -145,9 +138,7 @@
                       (>! (:kernel-send opts) {:op :insert-loop :id insertion-id :new-id (:id new-loop)})
                       (om/transact! (om/get-props owner)
                                     [:loops]
-                                    loop-insert
-                                    insertion-id
-                                    new-loop))))))
+                                    #(loop-insert % insertion-id new-loop)))))))
           (let [c (:loop-delete opts)]
             (go (while true
                   (let [deletion-id (<! c)]
@@ -155,22 +146,14 @@
                       (>! (:kernel-send opts) {:op :delete-loop :id deletion-id})
                       (om/transact! (om/get-props owner)
                                     [:loops]
-                                    loop-delete
-                                    deletion-id)))))))
+                                    #(loop-delete % deletion-id))))))))
 
         om/IRender
         (render [_]
 
 
-
-          ;(.log js/console "rendering  session")
-
-          ;; session top regalia
-
-
           (apply dom/div nil
 
-                 ;(session-top cursor owner opts)
                  (let [id (get-in (om/value cursor) [:meta :id]) p (:kernel-send opts)]
                    (om/build session-top
                              cursor

@@ -6,9 +6,10 @@
 
 
 
+
 (def subpar-keymap
   (js-obj
-   ;"Shift-Enter" (fn [cm] (.log js/console "shift-enter"))
+   "Shift-Enter" (fn [cm])
    "Backspace" (fn [cm] (subpar.core/backward-delete cm))
    "Delete" (fn [cm] (subpar.core/forward-delete cm))
    "Ctrl-D" (fn [cm] (subpar.core/forward-delete cm))

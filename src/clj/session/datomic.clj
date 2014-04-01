@@ -8,23 +8,6 @@
 
 
 
-;; :session/database :session/name :session/first-at :session/last-at
-;; :session/group, tag, category
-;; prob want group to be an entity
-
-:index/id
-:index/name
-:index/created-at
-:index/modified-at
-
-:index/group
-:index.group/name
-
-
-
-
-
-
 (def system-seed
   {
     :data []
@@ -148,30 +131,48 @@
                    (recur (+ n 1))
                    (throw (Exception. "Datomic connection attempts timed out")))))))
 
+(defn restore-default-database [uuid-string datomic-uri-base db-name system-conn]
+  ;; db-spec should be {:file-path path :db-uuid uuid :db-name name}
+  (let [file-path (str "file:" (System/getProperty "user.dir") "/resources/data/default-sessions/" uuid-string)
+        datomic-uri (str datomic-uri-base  uuid-string)]
+    (println "restoring database: " db-name " " uuid-string)
+    (let [p (sh/proc "vendor/datomic-free-0.9.4556/bin/datomic"
+                   "restore-db"
+                   file-path
+                   datomic-uri)]
+      (sh/stream-to-out p :out)
+      (sh/stream-to-out p :err)
+      (println (str "add db to system index: " db-name " " uuid-string))
+      (d/transact system-conn
+                  [{:db/id (d/tempid :db.part/user)
+                    :index/id (java.util.UUID/fromString uuid-string)
+                    :index/name db-name}])
+      (println "database restored."))))
 
 
-(defrecord Database [uri connection datomic-process seed]
+
+
+
+(defrecord SystemDatabase [uri datomic-process connection seed]
   component/Lifecycle
   (start [component]
-    (try (let [p (if datomic-process (launch-datomic) nil)
+    (try (let [p (launch-datomic)
                conn (get-connection uri)]
+           (let []
+             (when-not (:db/id
+                        (d/entity (d/db conn)
+                                  (:db/ident (first (:schema seed)))))
 
+               @(d/transact conn (:schema seed))
+               @(d/transact conn (:data seed))
+               (restore-default-database "c899f45d-1a5e-4c5e-9672-0dfe4d874109"
+                                         "datomic:free://localhost:4334/"
+                                         "Examples"
+                                         conn))
+             ;(println conn p)
 
-
-
-       (let []
-
-         (when-not (:db/id
-                    (d/entity (d/db conn)
-                              (:db/ident (first (:schema seed)))))
-
-           @(d/transact conn (:schema seed))
-           @(d/transact conn (:data seed)))
-
-         ;(println conn p)
-
-         (assoc component :connection conn
-                          :datomic-process p)))
+             (assoc component :connection conn
+                              :datomic-process p)))
          (catch Exception e
            (println "Exception:" component)
            (println (str e)))))
@@ -182,6 +183,28 @@
     (println "Stopping database")))
 
 
+(defrecord Database [uri connection seed]
+  component/Lifecycle
+  (start [component]
+    (try (let [conn (get-connection uri)]
+           (when-not (:db/id
+                      (d/entity (d/db conn)
+                                (:db/ident (first (:schema seed)))))
+
+             @(d/transact conn (:schema seed))
+             @(d/transact conn (:data seed)))
+
+           ;(println conn p)
+
+           (assoc component :connection conn))
+         (catch Exception e
+           (println "Exception:" component)
+           (println (str e)))))
+
+
+  (stop [component]))
+
+
 
 (defn new-session-database
   ([base-uri] (let [uuid (java.util.UUID/randomUUID)]
@@ -189,7 +212,6 @@
   ([uri uuid name]
    (map->Database {:id uuid
                    :uri uri
-                   :datomic-process false
                    :seed (merge-with concat system-seed session-seed {:data [[:db/add :session/meta :index/id uuid]
                                                                              [:db/add :session/meta :index/name name]]})})))
 
@@ -197,11 +219,9 @@
 
 
 (defn new-system-database [base-uri db-name]
-  (map->Database {:uri (str base-uri db-name)
-                  :datomic-process true
+  (map->SystemDatabase {:uri (str base-uri db-name)
                   :seed system-seed
-                  :system-base-uri base-uri
-                  }))
+                  :system-base-uri base-uri}))
 
 
 

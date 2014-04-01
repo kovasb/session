@@ -24,7 +24,7 @@
                                  } } (dom/textarea #js {:ref "theInput"} (om/value (:in x)))))
 
     om/IDidMount
-    (did-mount [_ _]
+    (did-mount [_]
       (let [n (om/get-node owner "theInput")]
         (.fromTextArea
           js/CodeMirror

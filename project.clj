@@ -5,14 +5,14 @@
    ;; Platform
    [com.datomic/datomic-free "0.9.4556"]
    [org.clojure/clojure "1.5.1"]
-   [org.clojure/clojurescript "0.0-2156"]
+   [org.clojure/clojurescript "0.0-2197"]
    [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
 
    [com.stuartsierra/component "0.2.1"]
 
    ;; Primary Libs
-   [om "0.3.6"]
-   [yantra "0.1.3"]
+   [om "0.5.3"]
+   [yantra "0.1.4"]
    [merchant "0.1.4"]
 
    ;; Tools
