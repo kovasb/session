@@ -27,6 +27,26 @@ Use Chrome to navigate to the port on localhost.
 
 Check out the example session for the kinds of operations currently supported.
 
+## Loading libraries
+
+You can dynamically load libraries in Session using [alembic](https://github.com/pallet/alembic).
+
+require alembic:
+
+    (require 'alembic.still)
+    
+load the desired artifact (this may take a few moments; you can follow the progress in the terminal):
+
+    (alembic.still/distill '[incanter "1.5.4"])
+
+require a namespace from the artifact:
+
+    (require 'incanter.core)
+    
+use a function from the namespace:
+
+    (incanter.core/cumulative-sum (range 100))
+
 # Datomic "Gotcha"
 
 Make sure there is no pre-existing Datomic transactor already running when launching Session. If Session fails to run, check to see there is no other datomic transactor running. 
