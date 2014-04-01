@@ -14,9 +14,12 @@
 (def layout-renderers
   {dt/Column (fn [cursor owner opts]
              (let [builder (om/get-shared owner :builder )]
-               (dom/div
-                 nil
-                 (into-array
-                   (map
-                     #(dom/div nil (builder %))
-                     (:contents cursor ))))))})
+               (reify
+                 om/IRender
+                 (render [_]
+                   (dom/div
+                    nil
+                    (into-array
+                      (map
+                        #(dom/div nil (builder %))
+                        (:contents cursor))))))))})

@@ -111,10 +111,11 @@
                (let [res (<! (:kernel-receive opts))]
                  (condp = (:op res)
                         :list-sessions (do
-                                         (om/update! cursor (fn [y z] (assoc y :session-list (:session-list res))))
+                                         (om/transact! cursor [] (fn [y ]
+                                                                   (assoc y :session-list (:session-list res))))
                                          (recur))
 
-                        :display-session (om/update! cursor (fn [y z] z) (:session res)))))))
+                        :display-session (om/transact! cursor [] (fn [y ] (:session res))))))))
          om/IRender
          (render [_]
            (dom/div

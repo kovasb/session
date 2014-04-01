@@ -30,11 +30,14 @@
 
 
 (defn loop-output-block [cursor owner]
-  (let [builder-fn (om/get-shared owner :builder)]
-    (dom/div #js {:style  #js {:font-family "monospace"}}
-             (dom/i #js {:className "fa fa-chevron-left" :style #js {:font-size "0.7em" :padding-right "5px"}} "")
-             ;(dom/span #js {:style #js {:font-size "10px" :color "#888888" :padding-right "5px"}} "<<")
-             (builder-fn (get-in cursor [:out]) {:react-key :output}))))
+  (reify
+    om/IRender
+    (render [_]
+      (let [builder-fn (om/get-shared owner :builder)]
+       (dom/div #js {:style #js {:font-family "monospace"}}
+                (dom/i #js {:className "fa fa-chevron-left" :style #js {:font-size "0.7em" :padding-right "5px"}} "")
+                ;(dom/span #js {:style #js {:font-size "10px" :color "#888888" :padding-right "5px"}} "<<")
+                (builder-fn (get-in cursor [:out]) {:react-key :output}))))))
 
 (defn loop-input-block [cursor opts]
   (dom/div
@@ -48,6 +51,7 @@
         cursor
         {:react-key :editor :opts opts}))
     ))
+
 
 
 ;(let [id (:id (om/value cursor))] (dom/button #js {:id "delete" } "delete"))
@@ -72,10 +76,7 @@
       ret)))
 
 
-(defn handle-change [e data edit-key owner]
-  (let [value (.. e -target -value)]
-    (om/transact! data edit-key (fn [_] value))
-    (om/set-state! owner :edit-text value)))
+
 
 (defn end-edit [text owner cb]
   (om/set-state! owner :editing false)
@@ -95,7 +96,7 @@
        :hover false
        :dimensions nil})
     om/IDidMount
-    (did-mount [_ _]
+    (did-mount [_]
       (comment
         (let [node (om/get-node owner "display")]
          (om/set-state! owner :dimensions (gsize->vec (gstyle/getSize node)))
@@ -149,8 +150,6 @@
   (om/build editable cursor {:opts {:loop-delete (:loop-delete opts)
                                     :edit-key :note
                                     :on-edit  (fn [text]
-                                                (.log js/console "update note")
-
                                                 (put! (:kernel-send opts)
                                                       {:op :update-note
                                                        :id (:id @(om/get-props owner))
@@ -174,7 +173,7 @@
 
              (loop-input-block cursor opts)
              (dom/p nil "")
-             (loop-output-block cursor owner)
+             (om/build loop-output-block cursor)
 
              (om/build session.loopcreator/new-loop-creator
                        (om/graft {:id (:id (om/value cursor)) :chan (:loop-create opts)} cursor)))))))}

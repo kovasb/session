@@ -1,8 +1,8 @@
-// Compiled by ClojureScript 0.0-2156
+// Compiled by ClojureScript 0.0-2197
 goog.provide('session.keymap');
 goog.require('cljs.core');
 goog.require('subpar.core');
-session.keymap.subpar_keymap = (function (){var obj9438 = {"Ctrl-Alt-F":(function (cm){return subpar.core.forward.call(null,cm);
+session.keymap.subpar_keymap = (function (){var obj14816 = {"Ctrl-Alt-F":(function (cm){return subpar.core.forward.call(null,cm);
 }),"Shift-Ctrl-9":(function (cm){return subpar.core.backward_slurp.call(null,cm);
 }),"Ctrl-D":(function (cm){return subpar.core.forward_delete.call(null,cm);
 }),"Shift-Ctrl-[":(function (cm){return subpar.core.backward_barf.call(null,cm);
@@ -13,7 +13,7 @@ session.keymap.subpar_keymap = (function (){var obj9438 = {"Ctrl-Alt-F":(functio
 }),"Ctrl-Left":(function (cm){return subpar.core.forward_barf.call(null,cm);
 }),"fallthrough":["basic","emacs"],"Ctrl-Alt-P":(function (cm){return subpar.core.backward_down.call(null,cm);
 }),"Delete":(function (cm){return subpar.core.forward_delete.call(null,cm);
-}),"Shift-Enter":(function (cm){return console.log("shift-enter");
+}),"Shift-Enter":(function (cm){return null;
 }),"Ctrl-Alt-Left":(function (cm){return subpar.core.backward_slurp.call(null,cm);
 }),"Shift-9":(function (cm){console.log("(");
 return subpar.core.open_expression.call(null,cm,"()");
@@ -34,7 +34,7 @@ return subpar.core.open_expression.call(null,cm,"()");
 }),"Ctrl-Alt-D":(function (cm){return subpar.core.forward_down.call(null,cm);
 }),"Backspace":(function (cm){return subpar.core.backward_delete.call(null,cm);
 }),"Alt-Up":(function (cm){return subpar.core.splice_delete_backward.call(null,cm);
-})};return obj9438;
+})};return obj14816;
 })();
 
 //# sourceMappingURL=keymap.js.map

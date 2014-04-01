@@ -114,22 +114,28 @@
 
   {
    dt/Line (fn [cursor owner opts]
-              (let [ v (om/value cursor)
-                     coordfn (:coord-fn opts)]
-                (dom/polyline #js {:fill "none"  :points (points-to-svg-string (map coordfn (:points v)))})))
+             (reify
+               om/IRender
+               (render [_]
+                 (let [v (om/value cursor)
+                      coordfn (:coord-fn opts)]
+                  (dom/polyline #js {:fill "none" :points (points-to-svg-string (map coordfn (:points v)))})))))
 
    dt/Style (fn [cursor owner opts]
-              (let [e (om/value cursor)
-                    coordfn (:coord-fn opts)
-                    distancefn (:distance-fn opts)
-                    builder (om/get-shared owner :builder )]
-                (dom/g
-                  (clj->js {:style (:style e)})
-                       (if (or (seq? (:prims e)) (vector? (:prims e)))
-                         (into-array
-                           (map #(builder % {:opts {:coord-fn coordfn :distance-fn distancefn}})
-                                (:prims cursor)))
-                          (builder (:prims cursor) {:opts {:coord-fn coordfn :distance-fn distancefn}}))))
+              (reify
+                om/IRender
+                (render [_]
+                  (let [e (om/value cursor)
+                       coordfn (:coord-fn opts)
+                       distancefn (:distance-fn opts)
+                       builder (om/get-shared owner :builder)]
+                   (dom/g
+                     (clj->js {:style (:style e)})
+                     (if (or (seq? (:prims e)) (vector? (:prims e)))
+                       (into-array
+                         (map #(builder % {:opts {:coord-fn coordfn :distance-fn distancefn}})
+                              (:prims cursor)))
+                       (builder (:prims cursor) {:opts {:coord-fn coordfn :distance-fn distancefn}}))))))
              
 
 
@@ -137,24 +143,33 @@
               )
 
   dt/Point    (fn [cursor owner opts]
-             (let [p2 (:point (om/value cursor))]
-               (dom/circle {:cx (first p2) :cy (last p2) :r "3"})))
+                (reify
+                  om/IRender
+                  (render [_]
+                    (let [p2 (:point (om/value cursor))]
+                     (dom/circle {:cx (first p2) :cy (last p2) :r "3"})))))
 
-  dt/Disk     (fn [cursor owner opts]
-             (let [coordfn (:coord-fn opts) distancefn (:distance-fn opts)]
-               (let [v (om/value cursor)
-                     p2 (coordfn (:point v))]
-                 (dom/circle #js {:cx (first p2) :cy (last p2) :r (distancefn (:radius v))}))))
+  dt/Disk   (fn [cursor owner opts]
+              (reify
+                om/IRender
+                (render [_]
+                  (let [coordfn (:coord-fn opts) distancefn (:distance-fn opts)]
+                   (let [v (om/value cursor)
+                         p2 (coordfn (:point v))]
+                     (dom/circle #js {:cx (first p2) :cy (last p2) :r (distancefn (:radius v))}))))))
 
   dt/Graphics (fn [cursor owner opts]
-             (let [builder (om/get-shared owner :builder )
-                   bb (bounding-box (:contents (om/value cursor)))
-                   coordfn (coordinate-transformer bb [200 200])
-                   distancefn (distance-transformer bb [200 200])]
-               (dom/svg #js {:width 200 :height 200}
-                        (into-array
-                          (map #(builder % {:opts {:coord-fn coordfn :distance-fn distancefn}})
-                               (:contents cursor))))))
+                (reify
+                  om/IRender
+                  (render [_]
+                    (let [builder (om/get-shared owner :builder)
+                         bb (bounding-box (:contents (om/value cursor)))
+                         coordfn (coordinate-transformer bb [200 200])
+                         distancefn (distance-transformer bb [200 200])]
+                     (dom/svg #js {:width 200 :height 200}
+                              (into-array
+                                (mapv #(builder % {:opts {:coord-fn coordfn :distance-fn distancefn}})
+                                     (:contents cursor))))))))
   })
 
 
