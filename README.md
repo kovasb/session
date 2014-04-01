@@ -31,7 +31,7 @@ Check out the example session for the kinds of operations currently supported.
 
 You can dynamically load libraries in Session using [alembic](https://github.com/pallet/alembic).
 
-require alembic:
+In a session, require alembic:
 
     (require 'alembic.still)
     
