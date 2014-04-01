@@ -1,4 +1,4 @@
-(defproject session "0.1.3"
+(defproject session "0.1.4-SNAPSHOT"
   
   :dependencies
   [
