@@ -1,7 +1,7 @@
 (ns session.app.handle-request
   (:use [session.app.operation-datoms :only [operation-datoms]])
   (:require
-
+    session.app.paredit
     [com.stuartsierra.component :as component]
             [datomic.api :as d]
             [session.datatypes :as dt]
@@ -23,6 +23,9 @@
 
 
 (defmulti handle-request (fn [input out-chan app db] (:op input)))
+
+(defmethod handle-request :paredit-request [input out-chan app db]
+  (pr-str {:op :paredit-response :response (session.app.paredit/paredit-transform input)}))
 
 (defmethod handle-request :eval-request [input out-chan app db]
   (go (>! out-chan

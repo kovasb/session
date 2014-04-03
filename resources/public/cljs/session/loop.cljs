@@ -42,7 +42,7 @@
 (defn loop-input-block [cursor opts]
   (dom/div
     nil
-    (dom/span #js {:style #js {:display "inline-block"} } (dom/i #js {:className "fa fa-chevron-right" :style #js {:font-size "0.7em" :padding-right "5px"}} ""))
+    (dom/span #js {:style #js {:display "inline-block" :vertical-align "top"} } (dom/i #js {:className "fa fa-chevron-right" :style #js {:font-size "0.7em" :padding-right "5px"}} ""))
     ;(loop-input-indicator)
     (dom/span
       #js {:style  #js {:font-family "monospace" :display "inline-block"}}

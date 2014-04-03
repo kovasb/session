@@ -30,6 +30,10 @@
 ;; operations -- those belong in subpar.paredit.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn compound-change [cm f]
+  (f cm))
+
+
 (defn get-index [cm]
   (.indexFromPos cm (.getCursor cm)))
 
@@ -51,8 +55,8 @@
     (if (in-string s i)
       (do (.replaceRange cm (nth pair 0) cur)
           (.setCursor cm (.-line cur) (inc (.-ch cur))))
-      (.compoundChange cm
-                       (fn []
+      (compound-change cm
+                       (fn [cm]
                          (.replaceRange cm pair cur)
                          (.setCursor cm (.-line cur) (inc (.-ch cur)))
                          (.indentLine cm (.-line cur)))))))
@@ -131,11 +135,11 @@
             end (.posFromIndex cm (inc si))
             destination (.posFromIndex cm di)
             line (.-line start)
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm delimiter destination)
                      (.replaceRange cm "" start end)
                      (map #(.indentLine cm %) (range line (+ line ri))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 (defn ^:export backward-slurp [cm]
   (let [[cur i s] (get-info cm)
@@ -145,11 +149,11 @@
             end (.posFromIndex cm (inc si))
             destination (.posFromIndex cm di)
             line (.-line start)
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm "" start end)
                      (.replaceRange cm delimiter destination)
                      (map #(.indentLine cm %) (range line (+ line ri))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 (defn ^:export backward-barf [cm]
   (let [[cur i s] (get-info cm)
@@ -160,11 +164,11 @@
             start (.posFromIndex cm si)
             end (.posFromIndex cm (inc si))
             line (.-line start)
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm delimiter destination)
                      (.replaceRange cm "" start end)
                      (map #(.indentLine cm %) (range line (+ line ri))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 (defn ^:export forward-barf [cm]
   (let [[cur i s] (get-info cm)
@@ -175,11 +179,11 @@
             start (.posFromIndex cm si)
             end (.posFromIndex cm (inc si))
             line (.-line (.posFromIndex cm i0))
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm "" start end)
                      (.replaceRange cm delimiter destination)
                      (map #(.indentLine cm %) (range line (+ line ri))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 (defn ^:export splice-delete-backward [cm]
   (let [[cur i s] (get-info cm)
@@ -190,11 +194,11 @@
             c1 (.posFromIndex cm (inc closer))
             s0 (.posFromIndex cm start)
             s1 (.posFromIndex cm end)
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm "" c0 c1)
                      (.replaceRange cm "" s0 s1)
                      (map #(.indentLine cm %) (range line (+ line num))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 ;; todo: cut to clipboard instead of delete, for all splice fns
 (defn ^:export splice-delete-forward [cm]
@@ -206,11 +210,11 @@
             o1 (.posFromIndex cm (inc opener))
             s0 (.posFromIndex cm start)
             s1 (.posFromIndex cm end)
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm "" s0 s1)
                      (.replaceRange cm "" o0 o1)
                      (map #(.indentLine cm %) (range line (+ line num))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 (defn ^:export splice [cm]
   (let [[cur i s] (get-info cm)
@@ -221,16 +225,16 @@
             o1 (.posFromIndex cm (inc opener))
             c0 (.posFromIndex cm closer)
             c1 (.posFromIndex cm (inc closer))
-            update (fn []
+            update (fn [cm]
                      (.replaceRange cm "" c0 c1)
                      (.replaceRange cm "" o0 o1)
                      (map #(.indentLine cm %) (range line (+ line num))))]
-        (.compoundChange cm update)))))
+        (compound-change cm update)))))
 
 (defn ^:export indent-selection [cm]
   (if (.somethingSelected cm)
     (let [start (.-line (.getCursor cm true))
           end   (.-line (.getCursor cm false))
-          f     (fn [] (map #(.indentLine cm %) (range start (inc end))))]
-      (.compoundChange cm f))
+          f     (fn [cm] (map #(.indentLine cm %) (range start (inc end))))]
+      (compound-change cm f))
     (.indentLine cm (.-line (.getCursor cm)))))
