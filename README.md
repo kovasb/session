@@ -27,6 +27,43 @@ Use Chrome to navigate to the port on localhost.
 
 Check out the example session for the kinds of operations currently supported.
 
+## Paredit
+
+Session's editor supports the following Paredit actions:
+
+| Action        | Binding           |
+| ------------- |-------------| 
+| Open Round      | ( | 
+| Close Round     | )      | 
+| Close Round & Newline | Alt-Enter      |   
+| Open Square | [ |
+| Close Square | ] |
+| Open Curly | { |
+| Close Curly | } |
+| Double Quote | " |
+| Backwards Delete | Backspace |
+| | Delete |
+| Kill | Ctrl-K |
+| Wrap Round | Alt-( |
+| Wrap Square | Alt-[ |
+| Wrap Curly | Alt-{ |
+| Splice | Alt-S |
+| Raise | Ctrl-R |
+| Split | Shift-Alt-S | 
+| Join | Alt-J |
+| Forward Slurp | Ctrl-) |
+| | Ctrl-Right |
+| Forward Barf | Ctrl-} |
+| | Ctrl-Left |
+| Backward Slurp | Ctrl-( |
+| | Ctrl-Alt-Left |
+| | Ctrl-[ |
+| Backward Barf | Ctrl-{ |
+| | Ctrl-Alt-Right |
+| | Ctrl-] |
+
+
+
 ## Loading libraries
 
 You can dynamically load libraries in Session using [alembic](https://github.com/pallet/alembic).
