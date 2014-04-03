@@ -8,6 +8,7 @@ goog.addDependency("../cljs/core/async/impl/buffers.js", ['cljs.core.async.impl.
 goog.addDependency("../cljs/core/async/impl/dispatch.js", ['cljs.core.async.impl.dispatch'], ['cljs.core.async.impl.buffers', 'cljs.core']);
 goog.addDependency("../om/dom.js", ['om.dom'], ['cljs.core']);
 goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
+goog.addDependency("../../../../om/react.js", ['React'], []);
 goog.addDependency("../cljs/core/async/impl/ioc_helpers.js", ['cljs.core.async.impl.ioc_helpers'], ['cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/channels.js", ['cljs.core.async.impl.channels'], ['cljs.core.async.impl.buffers', 'cljs.core', 'cljs.core.async.impl.dispatch', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/timers.js", ['cljs.core.async.impl.timers'], ['cljs.core', 'cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core.async.impl.protocols']);
@@ -23,7 +24,9 @@ goog.addDependency("../subpar/core.js", ['subpar.core'], ['cljs.core', 'subpar.p
 goog.addDependency("../session/loopcreator.js", ['session.loopcreator'], ['cljs.core', 'om.core', 'React', 'session.datatypes', 'goog.string.StringBuffer', 'om.dom', 'cljs.core.async']);
 goog.addDependency("../merchant/common.js", ['merchant.common'], ['cljs.core']);
 goog.addDependency("../yantra/dom.js", ['yantra.dom'], ['cljs.core', 'om.core', 'yantra.datatypes', 'om.dom']);
-goog.addDependency("../session/keymap.js", ['session.keymap'], ['cljs.core', 'subpar.core']);
+goog.addDependency("../clojure/set.js", ['clojure.set'], ['cljs.core']);
+goog.addDependency("../session/paredit.js", ['session.paredit'], ['cljs.core', 'clojure.set']);
+goog.addDependency("../session/keymap.js", ['session.keymap'], ['cljs.core', 'subpar.core', 'session.paredit']);
 goog.addDependency("../session/loop.js", ['session.loop'], ['cljs.core', 'om.core', 'session.editor', 'React', 'session.datatypes', 'session.loopcreator', 'om.dom', 'cljs.core.async', 'goog.style']);
 goog.addDependency("../merchant/edn/writer.js", ['merchant.edn.writer'], ['cljs.core', 'goog.string', 'goog.string.StringBuffer', 'merchant.common']);
 goog.addDependency("../session/io.js", ['session.io'], ['merchant.edn.reader', 'cljs.core', 'merchant.edn.writer', 'yantra.datamappings', 'session.datamappings', 'merchant.common']);

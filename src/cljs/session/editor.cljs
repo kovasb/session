@@ -30,6 +30,7 @@
           js/CodeMirror
           n
           #js {
+                :matchBrackets true
                 :lineNumbers false
                 :mode "text/x-clojure"
                 :keyMap "subpar"

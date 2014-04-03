@@ -27,11 +27,12 @@
    [criterium "0.4.3"]
    [alembic "0.1.0"]
    [me.raynes/conch "0.5.0"]
+   [org.kovas/paredit.clj "0.20.1-SNAPSHOT"]
    ]
 
   :dev-dependencies []
   :source-paths ["src/clj"]
-  :plugins [[lein-cljsbuild "1.0.0"]
+  :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]
             [lein-localrepo "0.4.1"]]
 
   :cljsbuild {
