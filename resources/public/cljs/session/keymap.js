@@ -23,7 +23,6 @@ session.keymap.subpar_keymap = {"Shift-Ctrl-9": (function (cm){return subpar.cor
 }), "fallthrough": ["basic"], "Shift-Alt-9": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.wrap-round","paredit-plus.wrap-round",4530489071),cm);
 }), "Delete": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.backward-delete","paredit-plus.backward-delete",3592606805),cm);
 }), "Shift-Alt-[": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.wrap-curly","paredit-plus.wrap-curly",4516812078),cm);
-}), "Shift-Enter": (function (cm){return null;
 }), "Ctrl-Alt-Left": (function (cm){return subpar.core.backward_slurp.call(null,cm);
 }), "Shift-9": (function (cm){return subpar.core.open_expression.call(null,cm,"()");
 }), "Alt-S": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.splice-sexp","paredit-plus.splice-sexp",4170175995),cm);

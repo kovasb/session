@@ -108,7 +108,7 @@
        "Alt-J"           (fn [cm] (paredit/paredit :paredit-plus.join-sexps cm))
 
        ;; Session
-       "Shift-Enter"     (fn [cm] nil)
+       ;
        "fallthrough" #js ["basic"]
        })
 

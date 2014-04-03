@@ -26,31 +26,26 @@
     om/IDidMount
     (did-mount [_]
       (let [n (om/get-node owner "theInput")]
-        (.fromTextArea
-          js/CodeMirror
-          n
-          #js {
-                :matchBrackets true
-                :lineNumbers false
-                :mode "text/x-clojure"
-                :keyMap "subpar"
-                :onKeyEvent (fn [editor event]
-                              (if (and (.-shiftKey event)
-                                       (= "keydown" (.-type event))
-                                       (= "Enter" (.-keyIdentifier event)))
 
+        (let [cm
+              (.fromTextArea
+                js/CodeMirror
+                n
+                #js {
+                      :matchBrackets true
+                      :lineNumbers   false
+                      :mode          "text/x-clojure"
+                      :keyMap        "subpar"
+                      :extraKeys     #js {"Shift-Enter"
+                                           (fn [cm] (put! (:kernel-send opts)
+                                                          (assoc
+                                                              (dissoc (deref (om/get-props owner)) :out)
+                                                            :op :eval-request)))}
 
-                                (put! (:kernel-send opts)
-                                      (assoc
-                                          (dissoc (deref (om/get-props owner)) :out)
-                                        :op :eval-request)))
-
-
-                              (let [ ]
-                                (when (= (.-type event) "keyup")
-                                  (om/transact! (om/get-props owner) [:in] (fn [e]  (.getValue editor))))
-                                false))
-                })))))
+                                     })]
+          (.on cm "change" (fn [cm change]
+                             (om/transact! (om/get-props owner) [:in] (fn [e]  (.getValue cm)))))
+          )))))
 
 
 
