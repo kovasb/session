@@ -96,15 +96,11 @@
        :hover false
        :dimensions nil})
     om/IDidMount
-    (did-mount [_]
-      (comment
-        (let [node (om/get-node owner "display")]
-         (om/set-state! owner :dimensions (gsize->vec (gstyle/getSize node)))
-         (println (om/get-state owner :dimensions)))))
+    (did-mount [_] nil)
     om/IRenderState
     (render-state [_ {:keys [edit-text editing hover]}]
       (let [text (get data edit-key)]
-        (println editing)
+
         (dom/div
           #js {:onClick #(om/set-state! owner :editing true)
                :onMouseEnter (fn [e] (om/set-state! owner :hover true))

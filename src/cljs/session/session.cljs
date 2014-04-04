@@ -1,6 +1,5 @@
 (ns session.session
   (:require-macros [cljs.core.async.macros :refer [go]])
-
   (:require
     session.loopcreator
     React

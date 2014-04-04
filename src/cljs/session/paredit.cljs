@@ -2,12 +2,6 @@
   (:require clojure.set))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (defn string-contains? [str x]
@@ -536,5 +530,4 @@
        ])))
 
 (defn paredit [cmd ed]
-  (.log js/console cmd)
   ((commands cmd) ed))

@@ -140,8 +140,6 @@
 
       (while true
          (let [newin (<! (:kernel-send system))]
-           (.log js/console  (pr-str newin))
-           (def t1 (js/Date.))
            (.send (:socket system) (session.io/write-edn newin))))))
 
 
