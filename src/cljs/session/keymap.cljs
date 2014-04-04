@@ -46,19 +46,22 @@
 
 (def subpar-keymap
   #js {
+
+       "Cmd-Z" (fn [cm] (.undo cm))
        ;; Basic Insertion Commands
        ;; open round
-       "Shift-9"         (fn [cm] (subpar.core/open-expression cm "()"))
+       "Shift-9"         (fn [cm] (subpar.core/open-expression cm "()") )
        ;; close round
-       "Shift-0"         (fn [cm] (subpar.core/close-expression cm ")"))
+       "Shift-0"         (fn [cm] (subpar.core/close-expression cm ")") )
        ;; close round and newline
        "Alt-Enter"            (fn [cm] (paredit/paredit :paredit-plus.new-line-after-pair-close cm))
        ;; open square
-       "["               (fn [cm] (subpar.core/open-expression cm "[]"))
+
+       "[" (fn [cm] (subpar.core/open-expression cm "[]"))
        ;; close square
-       "]"               (fn [cm] (subpar.core/close-expression cm "]"))
+       "]"               (fn [cm] (subpar.core/close-expression cm "]") )
        ;; open curly
-       "Shift-["         (fn [cm] (subpar.core/open-expression cm "{}"))
+       "Shift-["         (fn [cm] (subpar.core/open-expression cm "{}") )
        ;; close curly
        "Shift-]"         (fn [cm] (subpar.core/close-expression cm "}"))
        ;; double quote

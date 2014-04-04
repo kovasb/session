@@ -8,7 +8,7 @@
  "names":
  ["yantra.layout/layout-renderers", "yantra.datatypes/Column",
   "cursor", "owner", "opts", "builder", "om.core/get-shared",
-  "yantra.layout/t15040", "this__4045__auto__", "writer__4046__auto__",
-  "opt__4047__auto__", "cljs.core/-write", "_15042", "meta15041",
-  "yantra.layout/->t15040", "_", "js/React.DOM.div",
-  "cljs.core/into-array", "p1__15039#", "cljs.core/map"]}
+  "yantra.layout/t15041", "this__4045__auto__", "writer__4046__auto__",
+  "opt__4047__auto__", "cljs.core/-write", "_15043", "meta15042",
+  "yantra.layout/->t15041", "_", "js/React.DOM.div",
+  "cljs.core/into-array", "p1__15040#", "cljs.core/map"]}

@@ -18,6 +18,7 @@ session.keymap.subpar_keymap = {"Shift-Ctrl-9": (function (cm){return subpar.cor
 }), "Shift-0": (function (cm){return subpar.core.close_expression.call(null,cm,")");
 }), "Alt-J": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.join-sexps","paredit-plus.join-sexps",3200795434),cm);
 }), "Shift-Ctrl-]": (function (cm){return subpar.core.forward_barf.call(null,cm);
+}), "Cmd-Z": (function (cm){return cm.undo();
 }), "Ctrl-K": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.kill","paredit-plus.kill",2146474370),cm);
 }), "Ctrl-Left": (function (cm){return subpar.core.forward_barf.call(null,cm);
 }), "fallthrough": ["basic"], "Shift-Alt-9": (function (cm){return session.paredit.paredit.call(null,new cljs.core.Keyword(null,"paredit-plus.wrap-round","paredit-plus.wrap-round",4530489071),cm);

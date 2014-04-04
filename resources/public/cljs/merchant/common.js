@@ -1,7 +1,7 @@
 // Compiled by ClojureScript 0.0-2197
 goog.provide('merchant.common');
 goog.require('cljs.core');
-merchant.common.ITaggedValue = (function (){var obj14740 = {};return obj14740;
+merchant.common.ITaggedValue = (function (){var obj14741 = {};return obj14741;
 })();
 merchant.common._tag = (function _tag(this$){if((function (){var and__3466__auto__ = this$;if(and__3466__auto__)
 {return this$.merchant$common$ITaggedValue$_tag$arity$1;
@@ -43,7 +43,7 @@ merchant.common._value = (function _value(this$){if((function (){var and__3466__
 })().call(null,this$);
 }
 });
-merchant.common.IValueWriter = (function (){var obj14742 = {};return obj14742;
+merchant.common.IValueWriter = (function (){var obj14743 = {};return obj14743;
 })();
 merchant.common.write = (function write(this$,o){if((function (){var and__3466__auto__ = this$;if(and__3466__auto__)
 {return this$.merchant$common$IValueWriter$write$arity$2;
@@ -330,8 +330,8 @@ merchant.common.default_dispatch_map = cljs.core.PersistentHashMap.fromArrays([n
 merchant.common.str_date = (function str_date(obj){var normalize = (function (n,len){var ns = [cljs.core.str(n)].join('');while(true){
 if((cljs.core.count.call(null,ns) < len))
 {{
-var G__14743 = [cljs.core.str("0"),cljs.core.str(ns)].join('');
-ns = G__14743;
+var G__14744 = [cljs.core.str("0"),cljs.core.str(ns)].join('');
+ns = G__14744;
 continue;
 }
 } else
@@ -341,8 +341,8 @@ break;
 }
 });return [cljs.core.str(obj.getUTCFullYear()),cljs.core.str("-"),cljs.core.str(normalize.call(null,(obj.getUTCMonth() + 1),2)),cljs.core.str("-"),cljs.core.str(normalize.call(null,obj.getUTCDate(),2)),cljs.core.str("T"),cljs.core.str(normalize.call(null,obj.getUTCHours(),2)),cljs.core.str(":"),cljs.core.str(normalize.call(null,obj.getUTCMinutes(),2)),cljs.core.str(":"),cljs.core.str(normalize.call(null,obj.getUTCSeconds(),2)),cljs.core.str("."),cljs.core.str(normalize.call(null,obj.getUTCMilliseconds(),3)),cljs.core.str("-"),cljs.core.str("00:00")].join('');
 });
-merchant.common.default_tag_map = new cljs.core.PersistentArrayMap.fromArray([Date,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"tag","tag",1014018828),"inst",new cljs.core.Keyword(null,"write-fn","write-fn",3462353128),(function (p1__14744_SHARP_,p2__14745_SHARP_){return merchant.common.write.call(null,p1__14744_SHARP_,merchant.common.str_date.call(null,p2__14745_SHARP_));
-})], null),cljs.core.UUID,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"tag","tag",1014018828),"uuid",new cljs.core.Keyword(null,"write-fn","write-fn",3462353128),(function (p1__14746_SHARP_,p2__14747_SHARP_){return merchant.common.write.call(null,p1__14746_SHARP_,[cljs.core.str(p2__14747_SHARP_.uuid)].join(''));
+merchant.common.default_tag_map = new cljs.core.PersistentArrayMap.fromArray([Date,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"tag","tag",1014018828),"inst",new cljs.core.Keyword(null,"write-fn","write-fn",3462353128),(function (p1__14745_SHARP_,p2__14746_SHARP_){return merchant.common.write.call(null,p1__14745_SHARP_,merchant.common.str_date.call(null,p2__14746_SHARP_));
+})], null),cljs.core.UUID,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"tag","tag",1014018828),"uuid",new cljs.core.Keyword(null,"write-fn","write-fn",3462353128),(function (p1__14747_SHARP_,p2__14748_SHARP_){return merchant.common.write.call(null,p1__14747_SHARP_,[cljs.core.str(p2__14748_SHARP_.uuid)].join(''));
 })], null)], true, false);
 
 /**
@@ -380,29 +380,29 @@ return h__3889__auto____$1;
 merchant.common.TaggedValue.prototype.cljs$core$ILookup$_lookup$arity$2 = (function (this__4064__auto__,k__4065__auto__){var self__ = this;
 var this__4064__auto____$1 = this;return cljs.core._lookup.call(null,this__4064__auto____$1,k__4065__auto__,null);
 });
-merchant.common.TaggedValue.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4066__auto__,k14749,else__4067__auto__){var self__ = this;
-var this__4066__auto____$1 = this;if(cljs.core.keyword_identical_QMARK_.call(null,k14749,new cljs.core.Keyword(null,"tag","tag",1014018828)))
+merchant.common.TaggedValue.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4066__auto__,k14750,else__4067__auto__){var self__ = this;
+var this__4066__auto____$1 = this;if(cljs.core.keyword_identical_QMARK_.call(null,k14750,new cljs.core.Keyword(null,"tag","tag",1014018828)))
 {return self__.tag;
 } else
-{if(cljs.core.keyword_identical_QMARK_.call(null,k14749,new cljs.core.Keyword(null,"value","value",1125876963)))
+{if(cljs.core.keyword_identical_QMARK_.call(null,k14750,new cljs.core.Keyword(null,"value","value",1125876963)))
 {return self__.value;
 } else
 {if(new cljs.core.Keyword(null,"else","else",1017020587))
-{return cljs.core.get.call(null,self__.__extmap,k14749,else__4067__auto__);
+{return cljs.core.get.call(null,self__.__extmap,k14750,else__4067__auto__);
 } else
 {return null;
 }
 }
 }
 });
-merchant.common.TaggedValue.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4071__auto__,k__4072__auto__,G__14748){var self__ = this;
-var this__4071__auto____$1 = this;var pred__14751 = cljs.core.keyword_identical_QMARK_;var expr__14752 = k__4072__auto__;if(cljs.core.truth_(pred__14751.call(null,new cljs.core.Keyword(null,"tag","tag",1014018828),expr__14752)))
-{return (new merchant.common.TaggedValue(G__14748,self__.value,self__.__meta,self__.__extmap,null));
+merchant.common.TaggedValue.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4071__auto__,k__4072__auto__,G__14749){var self__ = this;
+var this__4071__auto____$1 = this;var pred__14752 = cljs.core.keyword_identical_QMARK_;var expr__14753 = k__4072__auto__;if(cljs.core.truth_(pred__14752.call(null,new cljs.core.Keyword(null,"tag","tag",1014018828),expr__14753)))
+{return (new merchant.common.TaggedValue(G__14749,self__.value,self__.__meta,self__.__extmap,null));
 } else
-{if(cljs.core.truth_(pred__14751.call(null,new cljs.core.Keyword(null,"value","value",1125876963),expr__14752)))
-{return (new merchant.common.TaggedValue(self__.tag,G__14748,self__.__meta,self__.__extmap,null));
+{if(cljs.core.truth_(pred__14752.call(null,new cljs.core.Keyword(null,"value","value",1125876963),expr__14753)))
+{return (new merchant.common.TaggedValue(self__.tag,G__14749,self__.__meta,self__.__extmap,null));
 } else
-{return (new merchant.common.TaggedValue(self__.tag,self__.value,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4072__auto__,G__14748),null));
+{return (new merchant.common.TaggedValue(self__.tag,self__.value,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4072__auto__,G__14749),null));
 }
 }
 });
@@ -444,8 +444,8 @@ var this__4060__auto____$1 = this;if(cljs.core.truth_((function (){var and__3466
 {return false;
 }
 });
-merchant.common.TaggedValue.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4063__auto__,G__14748){var self__ = this;
-var this__4063__auto____$1 = this;return (new merchant.common.TaggedValue(self__.tag,self__.value,G__14748,self__.__extmap,self__.__hash));
+merchant.common.TaggedValue.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4063__auto__,G__14749){var self__ = this;
+var this__4063__auto____$1 = this;return (new merchant.common.TaggedValue(self__.tag,self__.value,G__14749,self__.__extmap,self__.__hash));
 });
 merchant.common.TaggedValue.prototype.cljs$core$ICloneable$_clone$arity$1 = (function (this__4058__auto__){var self__ = this;
 var this__4058__auto____$1 = this;return (new merchant.common.TaggedValue(self__.tag,self__.value,self__.__meta,self__.__extmap,self__.__hash));
@@ -467,7 +467,7 @@ merchant.common.TaggedValue.cljs$lang$ctorPrWriter = (function (this__4098__auto
 });
 merchant.common.__GT_TaggedValue = (function __GT_TaggedValue(tag,value){return (new merchant.common.TaggedValue(tag,value));
 });
-merchant.common.map__GT_TaggedValue = (function map__GT_TaggedValue(G__14750){return (new merchant.common.TaggedValue(new cljs.core.Keyword(null,"tag","tag",1014018828).cljs$core$IFn$_invoke$arity$1(G__14750),new cljs.core.Keyword(null,"value","value",1125876963).cljs$core$IFn$_invoke$arity$1(G__14750),null,cljs.core.dissoc.call(null,G__14750,new cljs.core.Keyword(null,"tag","tag",1014018828),new cljs.core.Keyword(null,"value","value",1125876963))));
+merchant.common.map__GT_TaggedValue = (function map__GT_TaggedValue(G__14751){return (new merchant.common.TaggedValue(new cljs.core.Keyword(null,"tag","tag",1014018828).cljs$core$IFn$_invoke$arity$1(G__14751),new cljs.core.Keyword(null,"value","value",1125876963).cljs$core$IFn$_invoke$arity$1(G__14751),null,cljs.core.dissoc.call(null,G__14751,new cljs.core.Keyword(null,"tag","tag",1014018828),new cljs.core.Keyword(null,"value","value",1125876963))));
 });
 
 //# sourceMappingURL=common.js.map

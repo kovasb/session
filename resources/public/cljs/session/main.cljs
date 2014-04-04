@@ -81,6 +81,27 @@
 (defroute home-path "/" [] nil)
 
 
+(def ^:private SafePure
+  (let [default-render (:render om/pure-methods)]
+    (js/React.createClass
+     (om/specify-state-methods!
+       (clj->js
+         (assoc om/pure-methods
+           :render (fn [] (this-as this
+                                   (try (.call default-render this)
+                                   (catch :default e (dom/span nil "Render error")))))))))))
+
+
+(defn safe-pure [obj] (SafePure. obj))
+
+(defn safe-render
+  ([data owner opts]
+   (om/build*
+     data
+     owner
+     (assoc opts :ctor safe-pure))))
+
+
 
 
 (defn ^:export start! [system]
@@ -134,7 +155,9 @@
       (render [_]
         (builder data {:opts (dissoc system :app-state)}))))
     (:app-state system)
-    {:shared {:builder builder :builder-raw builder-raw} :target js/document.body}))
+    {:shared {:builder builder :builder-raw builder-raw}
+     :target js/document.body
+     :instrument safe-render}))
 
 
 
