@@ -1,4 +1,4 @@
-(defproject session "0.1.6"
+(defproject session "0.1.7"
   
   :dependencies
   [
@@ -12,7 +12,7 @@
 
    ;; Primary Libs
    [om "0.5.3"]
-   [yantra "0.1.4"]
+   [yantra "0.1.5"]
    [merchant "0.1.4"]
 
    ;; Tools

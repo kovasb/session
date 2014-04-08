@@ -66,7 +66,7 @@ subpar.paredit.get_siblings = (function get_siblings(i,transform,predicate,p){re
 subpar.paredit.count_lines = (function count_lines(s,i,j){var and__3466__auto__ = i;if(cljs.core.truth_(and__3466__auto__))
 {var and__3466__auto____$1 = j;if(cljs.core.truth_(and__3466__auto____$1))
 {return (cljs.core.count.call(null,cljs.core.filter.call(null,((function (and__3466__auto____$1,and__3466__auto__){
-return (function (p1__10483_SHARP_){return cljs.core._EQ_.call(null,"\n",p1__10483_SHARP_);
+return (function (p1__10478_SHARP_){return cljs.core._EQ_.call(null,"\n",p1__10478_SHARP_);
 });})(and__3466__auto____$1,and__3466__auto__))
 ,cljs.core.drop.call(null,i,cljs.core.drop_last.call(null,((cljs.core.count.call(null,s) - j) - 1),cljs.core.take.call(null,cljs.core.count.call(null,s),s))))) + 1);
 } else
@@ -91,10 +91,10 @@ var a = cljs.core.nth.call(null,s,j,null);if((j < 0))
 } else
 {if(true)
 {{
-var G__10484 = (c + 1);
-var G__10485 = (j - 1);
-c = G__10484;
-j = G__10485;
+var G__10479 = (c + 1);
+var G__10480 = (j - 1);
+c = G__10479;
+j = G__10480;
 continue;
 }
 } else
@@ -111,7 +111,7 @@ subpar.paredit.closes_list_QMARK_ = (function closes_list_QMARK_(p,i){return clj
 });
 subpar.paredit.opens_list_QMARK_ = (function opens_list_QMARK_(p,i){return cljs.core.some.call(null,cljs.core.PersistentHashSet.fromArray([i], true),cljs.core.keys.call(null,new cljs.core.Keyword(null,"families","families",1801311860).cljs$core$IFn$_invoke$arity$1(p)));
 });
-subpar.paredit.backward_up_fn = (function backward_up_fn(s,i){var vec__10487 = subpar.paredit.get_wrapper.call(null,subpar.paredit.parse.call(null,s),i);var o = cljs.core.nth.call(null,vec__10487,0,null);var c = cljs.core.nth.call(null,vec__10487,1,null);if(cljs.core._EQ_.call(null,-1,o))
+subpar.paredit.backward_up_fn = (function backward_up_fn(s,i){var vec__10482 = subpar.paredit.get_wrapper.call(null,subpar.paredit.parse.call(null,s),i);var o = cljs.core.nth.call(null,vec__10482,0,null);var c = cljs.core.nth.call(null,vec__10482,1,null);if(cljs.core._EQ_.call(null,-1,o))
 {return i;
 } else
 {return o;
@@ -240,7 +240,7 @@ subpar.paredit.double_quote_action = (function double_quote_action(s,i){var p = 
 * 2 - where to delete to
 * 3 - the destination for the cursor
 */
-subpar.paredit.close_expression_vals = (function close_expression_vals(p,i){var vec__10489 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10489,0,null);var c = cljs.core.nth.call(null,vec__10489,1,null);if(cljs.core._EQ_.call(null,-1,o))
+subpar.paredit.close_expression_vals = (function close_expression_vals(p,i){var vec__10484 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10484,0,null);var c = cljs.core.nth.call(null,vec__10484,1,null);if(cljs.core._EQ_.call(null,-1,o))
 {return cljs.core.PersistentVector.EMPTY;
 } else
 {var start = ((function (){var or__3478__auto__ = cljs.core.last.call(null,subpar.paredit.get_siblings.call(null,i,cljs.core.vals,cljs.core.identity,p));if(cljs.core.truth_(or__3478__auto__))
@@ -255,8 +255,8 @@ subpar.paredit.close_expression_vals = (function close_expression_vals(p,i){var 
 * finds the start of the next list/string/vector/map
 */
 subpar.paredit.get_start_of_next_list = (function get_start_of_next_list(s,i){var p = subpar.paredit.parse.call(null,s);var r = cljs.core.first.call(null,subpar.paredit.get_siblings.call(null,i,cljs.core.keys,((function (p){
-return (function (p1__10490_SHARP_){var and__3466__auto__ = (p1__10490_SHARP_ >= i);if(and__3466__auto__)
-{return cljs.core.get_in.call(null,p,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"families","families",1801311860),p1__10490_SHARP_], null));
+return (function (p1__10485_SHARP_){var and__3466__auto__ = (p1__10485_SHARP_ >= i);if(and__3466__auto__)
+{return cljs.core.get_in.call(null,p,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"families","families",1801311860),p1__10485_SHARP_], null));
 } else
 {return and__3466__auto__;
 }
@@ -282,7 +282,7 @@ subpar.paredit.forward_down_fn = (function forward_down_fn(s,i){var r = subpar.p
 * preceding the point. and if there's nothing left, stay put.
 */
 subpar.paredit.backward_fn = (function backward_fn(s,i){var p = subpar.paredit.parse.call(null,s);var b = cljs.core.last.call(null,subpar.paredit.get_siblings.call(null,i,cljs.core.keys,((function (p){
-return (function (p1__10491_SHARP_){return (p1__10491_SHARP_ < i);
+return (function (p1__10486_SHARP_){return (p1__10486_SHARP_ < i);
 });})(p))
 ,p));var o = subpar.paredit.get_opening_delimiter_index_with_parse.call(null,p,i);var or__3478__auto__ = b;if(cljs.core.truth_(or__3478__auto__))
 {return or__3478__auto__;
@@ -298,8 +298,8 @@ return (function (p1__10491_SHARP_){return (p1__10491_SHARP_ < i);
 * paredit-backward-down
 */
 subpar.paredit.backward_down_fn = (function backward_down_fn(s,i){var p = subpar.paredit.parse.call(null,s);var b = cljs.core.last.call(null,subpar.paredit.get_siblings.call(null,i,cljs.core.vals,((function (p){
-return (function (p1__10492_SHARP_){var and__3466__auto__ = (p1__10492_SHARP_ < i);if(and__3466__auto__)
-{return subpar.paredit.closes_list_QMARK_.call(null,p,p1__10492_SHARP_);
+return (function (p1__10487_SHARP_){var and__3466__auto__ = (p1__10487_SHARP_ < i);if(and__3466__auto__)
+{return subpar.paredit.closes_list_QMARK_.call(null,p,p1__10487_SHARP_);
 } else
 {return and__3466__auto__;
 }
@@ -313,7 +313,7 @@ return (function (p1__10492_SHARP_){var and__3466__auto__ = (p1__10492_SHARP_ < 
 /**
 * paredit-forward-up
 */
-subpar.paredit.forward_up_fn = (function forward_up_fn(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10494 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10494,0,null);var c = cljs.core.nth.call(null,vec__10494,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
+subpar.paredit.forward_up_fn = (function forward_up_fn(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10489 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10489,0,null);var c = cljs.core.nth.call(null,vec__10489,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
 {return (c + 1);
 } else
 {return i;
@@ -329,7 +329,7 @@ subpar.paredit.forward_up_fn = (function forward_up_fn(s,i){var p = subpar.pared
 * before the end of the file, then go to the end.
 */
 subpar.paredit.forward_fn = (function forward_fn(s,i){var p = subpar.paredit.parse.call(null,s);var b = cljs.core.first.call(null,subpar.paredit.get_siblings.call(null,i,cljs.core.vals,((function (p){
-return (function (p1__10495_SHARP_){return (p1__10495_SHARP_ >= i);
+return (function (p1__10490_SHARP_){return (p1__10490_SHARP_ >= i);
 });})(p))
 ,p));var c = subpar.paredit.get_closing_delimiter_index_with_parse.call(null,p,i);var l = cljs.core.count.call(null,s);if(cljs.core.truth_(b))
 {return (b + 1);
@@ -354,15 +354,15 @@ return (function (p1__10495_SHARP_){return (p1__10495_SHARP_ >= i);
 * 
 * if nothing should be done, the vector returned will have length 0
 */
-subpar.paredit.forward_slurp_vals = (function forward_slurp_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10498 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10498,0,null);var c = cljs.core.nth.call(null,vec__10498,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var a = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
+subpar.paredit.forward_slurp_vals = (function forward_slurp_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10493 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10493,0,null);var c = cljs.core.nth.call(null,vec__10493,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var a = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
 {return cljs.core.nth.call(null,s,c,false);
 } else
 {return and__3466__auto__;
 }
 })();var d = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
-{return cljs.core.first.call(null,subpar.paredit.get_siblings.call(null,o,cljs.core.vals,((function (and__3466__auto__,p,vec__10498,o,c,in_list,a){
-return (function (p1__10496_SHARP_){return (p1__10496_SHARP_ > c);
-});})(and__3466__auto__,p,vec__10498,o,c,in_list,a))
+{return cljs.core.first.call(null,subpar.paredit.get_siblings.call(null,o,cljs.core.vals,((function (and__3466__auto__,p,vec__10493,o,c,in_list,a){
+return (function (p1__10491_SHARP_){return (p1__10491_SHARP_ > c);
+});})(and__3466__auto__,p,vec__10493,o,c,in_list,a))
 ,p));
 } else
 {return and__3466__auto__;
@@ -391,10 +391,10 @@ return (function (p1__10496_SHARP_){return (p1__10496_SHARP_ > c);
 * 
 * if nothing should be done, the vector returned will have length 0
 */
-subpar.paredit.backward_slurp_vals = (function backward_slurp_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10501 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10501,0,null);var c = cljs.core.nth.call(null,vec__10501,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var d = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
-{return cljs.core.last.call(null,subpar.paredit.get_siblings.call(null,o,cljs.core.keys,((function (and__3466__auto__,p,vec__10501,o,c,in_list){
-return (function (p1__10499_SHARP_){return (p1__10499_SHARP_ < o);
-});})(and__3466__auto__,p,vec__10501,o,c,in_list))
+subpar.paredit.backward_slurp_vals = (function backward_slurp_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10496 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10496,0,null);var c = cljs.core.nth.call(null,vec__10496,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var d = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
+{return cljs.core.last.call(null,subpar.paredit.get_siblings.call(null,o,cljs.core.keys,((function (and__3466__auto__,p,vec__10496,o,c,in_list){
+return (function (p1__10494_SHARP_){return (p1__10494_SHARP_ < o);
+});})(and__3466__auto__,p,vec__10496,o,c,in_list))
 ,p));
 } else
 {return and__3466__auto__;
@@ -426,7 +426,7 @@ return (function (p1__10499_SHARP_){return (p1__10499_SHARP_ < o);
 * 4 - the number of lines to indent
 * 5 - the starting index for the indentation
 */
-subpar.paredit.forward_barf_vals = (function forward_barf_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10503 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10503,0,null);var c = cljs.core.nth.call(null,vec__10503,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var endings = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
+subpar.paredit.forward_barf_vals = (function forward_barf_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10498 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10498,0,null);var c = cljs.core.nth.call(null,vec__10498,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var endings = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
 {return subpar.paredit.get_siblings.call(null,i,cljs.core.vals,cljs.core.constantly.call(null,true),p);
 } else
 {return and__3466__auto__;
@@ -469,7 +469,7 @@ subpar.paredit.forward_barf_vals = (function forward_barf_vals(s,i){var p = subp
 * 3 - whether there needs to be a padding space before the delimiter
 * 4 - the number of lines to indent
 */
-subpar.paredit.backward_barf_vals = (function backward_barf_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10505 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10505,0,null);var c = cljs.core.nth.call(null,vec__10505,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var starts = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
+subpar.paredit.backward_barf_vals = (function backward_barf_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10500 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10500,0,null);var c = cljs.core.nth.call(null,vec__10500,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);var starts = (function (){var and__3466__auto__ = in_list;if(and__3466__auto__)
 {return subpar.paredit.get_siblings.call(null,i,cljs.core.keys,cljs.core.constantly.call(null,true),p);
 } else
 {return and__3466__auto__;
@@ -511,8 +511,8 @@ subpar.paredit.backward_barf_vals = (function backward_barf_vals(s,i){var p = su
 * 2 - the index to start re-indenting from
 * 3 - how many lines to re-indent
 */
-subpar.paredit.splice_vals = (function splice_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10508 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10508,0,null);var c = cljs.core.nth.call(null,vec__10508,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
-{var vec__10509 = subpar.paredit.get_wrapper.call(null,p,o);var n = cljs.core.nth.call(null,vec__10509,0,null);var d = cljs.core.nth.call(null,vec__10509,1,null);var r = subpar.paredit.count_lines.call(null,s,n,d);return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,c,(function (){var x__3785__auto__ = 0;var y__3786__auto__ = n;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
+subpar.paredit.splice_vals = (function splice_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10503 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10503,0,null);var c = cljs.core.nth.call(null,vec__10503,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
+{var vec__10504 = subpar.paredit.get_wrapper.call(null,p,o);var n = cljs.core.nth.call(null,vec__10504,0,null);var d = cljs.core.nth.call(null,vec__10504,1,null);var r = subpar.paredit.count_lines.call(null,s,n,d);return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,c,(function (){var x__3785__auto__ = 0;var y__3786__auto__ = n;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
 })(),r], null);
 } else
 {return cljs.core.PersistentVector.EMPTY;
@@ -528,8 +528,8 @@ subpar.paredit.splice_vals = (function splice_vals(s,i){var p = subpar.paredit.p
 * 3 - the index to start re-indenting from
 * 4 - how many lines to re-indent
 */
-subpar.paredit.splice_delete_backward_vals = (function splice_delete_backward_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10512 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10512,0,null);var c = cljs.core.nth.call(null,vec__10512,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
-{var vec__10513 = subpar.paredit.get_wrapper.call(null,p,o);var n = cljs.core.nth.call(null,vec__10513,0,null);var d = cljs.core.nth.call(null,vec__10513,1,null);var r = subpar.paredit.count_lines.call(null,s,n,d);return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,(function (){var x__3785__auto__ = o;var y__3786__auto__ = i;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
+subpar.paredit.splice_delete_backward_vals = (function splice_delete_backward_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10507 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10507,0,null);var c = cljs.core.nth.call(null,vec__10507,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
+{var vec__10508 = subpar.paredit.get_wrapper.call(null,p,o);var n = cljs.core.nth.call(null,vec__10508,0,null);var d = cljs.core.nth.call(null,vec__10508,1,null);var r = subpar.paredit.count_lines.call(null,s,n,d);return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,(function (){var x__3785__auto__ = o;var y__3786__auto__ = i;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
 })(),c,(function (){var x__3785__auto__ = 0;var y__3786__auto__ = n;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
 })(),r], null);
 } else
@@ -546,8 +546,8 @@ subpar.paredit.splice_delete_backward_vals = (function splice_delete_backward_va
 * 3 - the index to start re-indenting from
 * 4 - how many lines to re-indent
 */
-subpar.paredit.splice_delete_forward_vals = (function splice_delete_forward_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10516 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10516,0,null);var c = cljs.core.nth.call(null,vec__10516,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
-{var vec__10517 = subpar.paredit.get_wrapper.call(null,p,o);var n = cljs.core.nth.call(null,vec__10517,0,null);var d = cljs.core.nth.call(null,vec__10517,1,null);var r = subpar.paredit.count_lines.call(null,s,n,d);return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,i,(c + 1),(function (){var x__3785__auto__ = 0;var y__3786__auto__ = n;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
+subpar.paredit.splice_delete_forward_vals = (function splice_delete_forward_vals(s,i){var p = subpar.paredit.parse.call(null,s);var vec__10511 = subpar.paredit.get_wrapper.call(null,p,i);var o = cljs.core.nth.call(null,vec__10511,0,null);var c = cljs.core.nth.call(null,vec__10511,1,null);var in_list = cljs.core.not_EQ_.call(null,-1,o);if(in_list)
+{var vec__10512 = subpar.paredit.get_wrapper.call(null,p,o);var n = cljs.core.nth.call(null,vec__10512,0,null);var d = cljs.core.nth.call(null,vec__10512,1,null);var r = subpar.paredit.count_lines.call(null,s,n,d);return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,i,(c + 1),(function (){var x__3785__auto__ = 0;var y__3786__auto__ = n;return ((x__3785__auto__ > y__3786__auto__) ? x__3785__auto__ : y__3786__auto__);
 })(),r], null);
 } else
 {return cljs.core.PersistentVector.EMPTY;
@@ -573,421 +573,421 @@ var a = cljs.core.nth.call(null,s,i,null);var j = (i + 1);var o = cljs.core.peek
 } else
 {if((cljs.core.not_EQ_.call(null,subpar.paredit.cmmnt,mode)) && (cljs.core._EQ_.call(null,"\\",a)) && (!(escaping)) && (!(in_word)))
 {{
-var G__10518 = j;
-var G__10519 = mode;
-var G__10520 = openings;
-var G__10521 = i;
-var G__10522 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10523 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),j);
-var G__10524 = true;
-var G__10525 = true;
-i = G__10518;
-mode = G__10519;
-openings = G__10520;
-start = G__10521;
-t = G__10522;
-families = G__10523;
-escaping = G__10524;
-in_word = G__10525;
+var G__10513 = j;
+var G__10514 = mode;
+var G__10515 = openings;
+var G__10516 = i;
+var G__10517 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10518 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),j);
+var G__10519 = true;
+var G__10520 = true;
+i = G__10513;
+mode = G__10514;
+openings = G__10515;
+start = G__10516;
+t = G__10517;
+families = G__10518;
+escaping = G__10519;
+in_word = G__10520;
 continue;
 }
 } else
 {if((cljs.core.not_EQ_.call(null,subpar.paredit.cmmnt,mode)) && (cljs.core._EQ_.call(null,"\\",a)) && (!(escaping)))
 {{
-var G__10526 = j;
-var G__10527 = mode;
-var G__10528 = openings;
-var G__10529 = i;
-var G__10530 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10531 = families;
-var G__10532 = true;
-var G__10533 = true;
-i = G__10526;
-mode = G__10527;
-openings = G__10528;
-start = G__10529;
-t = G__10530;
-families = G__10531;
-escaping = G__10532;
-in_word = G__10533;
+var G__10521 = j;
+var G__10522 = mode;
+var G__10523 = openings;
+var G__10524 = i;
+var G__10525 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10526 = families;
+var G__10527 = true;
+var G__10528 = true;
+i = G__10521;
+mode = G__10522;
+openings = G__10523;
+start = G__10524;
+t = G__10525;
+families = G__10526;
+escaping = G__10527;
+in_word = G__10528;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.code,mode)) && (cljs.core._EQ_.call(null,";",a)) && (!(escaping)))
 {{
-var G__10534 = j;
-var G__10535 = subpar.paredit.cmmnt;
-var G__10536 = openings;
-var G__10537 = start;
-var G__10538 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10539 = families;
-var G__10540 = false;
-var G__10541 = false;
-i = G__10534;
-mode = G__10535;
-openings = G__10536;
-start = G__10537;
-t = G__10538;
-families = G__10539;
-escaping = G__10540;
-in_word = G__10541;
+var G__10529 = j;
+var G__10530 = subpar.paredit.cmmnt;
+var G__10531 = openings;
+var G__10532 = start;
+var G__10533 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10534 = families;
+var G__10535 = false;
+var G__10536 = false;
+i = G__10529;
+mode = G__10530;
+openings = G__10531;
+start = G__10532;
+t = G__10533;
+families = G__10534;
+escaping = G__10535;
+in_word = G__10536;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.cmmnt,mode)) && (cljs.core._EQ_.call(null,"\n",a)))
 {{
-var G__10542 = j;
-var G__10543 = subpar.paredit.code;
-var G__10544 = openings;
-var G__10545 = start;
-var G__10546 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10547 = families;
-var G__10548 = false;
-var G__10549 = false;
-i = G__10542;
-mode = G__10543;
-openings = G__10544;
-start = G__10545;
-t = G__10546;
-families = G__10547;
-escaping = G__10548;
-in_word = G__10549;
+var G__10537 = j;
+var G__10538 = subpar.paredit.code;
+var G__10539 = openings;
+var G__10540 = start;
+var G__10541 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10542 = families;
+var G__10543 = false;
+var G__10544 = false;
+i = G__10537;
+mode = G__10538;
+openings = G__10539;
+start = G__10540;
+t = G__10541;
+families = G__10542;
+escaping = G__10543;
+in_word = G__10544;
 continue;
 }
 } else
 {if(cljs.core._EQ_.call(null,subpar.paredit.cmmnt,mode))
 {{
-var G__10550 = j;
-var G__10551 = subpar.paredit.cmmnt;
-var G__10552 = openings;
-var G__10553 = start;
-var G__10554 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10555 = families;
-var G__10556 = false;
-var G__10557 = false;
-i = G__10550;
-mode = G__10551;
-openings = G__10552;
-start = G__10553;
-t = G__10554;
-families = G__10555;
-escaping = G__10556;
-in_word = G__10557;
+var G__10545 = j;
+var G__10546 = subpar.paredit.cmmnt;
+var G__10547 = openings;
+var G__10548 = start;
+var G__10549 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10550 = families;
+var G__10551 = false;
+var G__10552 = false;
+i = G__10545;
+mode = G__10546;
+openings = G__10547;
+start = G__10548;
+t = G__10549;
+families = G__10550;
+escaping = G__10551;
+in_word = G__10552;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.code,mode)) && (cljs.core._EQ_.call(null,"\"",a)) && (!(escaping)))
 {{
-var G__10558 = j;
-var G__10559 = subpar.paredit.string;
-var G__10560 = cljs.core.conj.call(null,openings,i);
-var G__10561 = -1;
-var G__10562 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10563 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,new cljs.core.Keyword(null,"children","children",2673430897)], null),cljs.core.PersistentArrayMap.EMPTY),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),j);
-var G__10564 = false;
-var G__10565 = false;
-i = G__10558;
-mode = G__10559;
-openings = G__10560;
-start = G__10561;
-t = G__10562;
-families = G__10563;
-escaping = G__10564;
-in_word = G__10565;
+var G__10553 = j;
+var G__10554 = subpar.paredit.string;
+var G__10555 = cljs.core.conj.call(null,openings,i);
+var G__10556 = -1;
+var G__10557 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10558 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,new cljs.core.Keyword(null,"children","children",2673430897)], null),cljs.core.PersistentArrayMap.EMPTY),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),j);
+var G__10559 = false;
+var G__10560 = false;
+i = G__10553;
+mode = G__10554;
+openings = G__10555;
+start = G__10556;
+t = G__10557;
+families = G__10558;
+escaping = G__10559;
+in_word = G__10560;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.string,mode)) && (cljs.core._EQ_.call(null,"\"",a)) && (!(escaping)) && (in_word))
 {{
-var G__10566 = j;
-var G__10567 = subpar.paredit.code;
-var G__10568 = cljs.core.pop.call(null,openings);
-var G__10569 = -1;
-var G__10570 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10571 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1));
-var G__10572 = false;
-var G__10573 = false;
-i = G__10566;
-mode = G__10567;
-openings = G__10568;
-start = G__10569;
-t = G__10570;
-families = G__10571;
-escaping = G__10572;
-in_word = G__10573;
+var G__10561 = j;
+var G__10562 = subpar.paredit.code;
+var G__10563 = cljs.core.pop.call(null,openings);
+var G__10564 = -1;
+var G__10565 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10566 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1));
+var G__10567 = false;
+var G__10568 = false;
+i = G__10561;
+mode = G__10562;
+openings = G__10563;
+start = G__10564;
+t = G__10565;
+families = G__10566;
+escaping = G__10567;
+in_word = G__10568;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.string,mode)) && (cljs.core._EQ_.call(null,"\"",a)) && (!(escaping)))
 {{
-var G__10574 = j;
-var G__10575 = subpar.paredit.code;
-var G__10576 = cljs.core.pop.call(null,openings);
-var G__10577 = -1;
-var G__10578 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10579 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i);
-var G__10580 = false;
-var G__10581 = false;
-i = G__10574;
-mode = G__10575;
-openings = G__10576;
-start = G__10577;
-t = G__10578;
-families = G__10579;
-escaping = G__10580;
-in_word = G__10581;
+var G__10569 = j;
+var G__10570 = subpar.paredit.code;
+var G__10571 = cljs.core.pop.call(null,openings);
+var G__10572 = -1;
+var G__10573 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10574 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i);
+var G__10575 = false;
+var G__10576 = false;
+i = G__10569;
+mode = G__10570;
+openings = G__10571;
+start = G__10572;
+t = G__10573;
+families = G__10574;
+escaping = G__10575;
+in_word = G__10576;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.string,mode)) && (!(subpar.paredit.whitespace_QMARK_.call(null,a))) && (!(in_word)))
 {{
-var G__10582 = j;
-var G__10583 = subpar.paredit.string;
-var G__10584 = openings;
-var G__10585 = i;
-var G__10586 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10587 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i);
-var G__10588 = false;
-var G__10589 = true;
-i = G__10582;
-mode = G__10583;
-openings = G__10584;
-start = G__10585;
-t = G__10586;
-families = G__10587;
-escaping = G__10588;
-in_word = G__10589;
+var G__10577 = j;
+var G__10578 = subpar.paredit.string;
+var G__10579 = openings;
+var G__10580 = i;
+var G__10581 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10582 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i);
+var G__10583 = false;
+var G__10584 = true;
+i = G__10577;
+mode = G__10578;
+openings = G__10579;
+start = G__10580;
+t = G__10581;
+families = G__10582;
+escaping = G__10583;
+in_word = G__10584;
 continue;
 }
 } else
 {if((cljs.core._EQ_.call(null,subpar.paredit.string,mode)) && (subpar.paredit.whitespace_QMARK_.call(null,a)) && (in_word))
 {{
-var G__10590 = j;
-var G__10591 = subpar.paredit.string;
-var G__10592 = openings;
-var G__10593 = -1;
-var G__10594 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10595 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1));
-var G__10596 = false;
-var G__10597 = false;
-i = G__10590;
-mode = G__10591;
-openings = G__10592;
-start = G__10593;
-t = G__10594;
-families = G__10595;
-escaping = G__10596;
-in_word = G__10597;
+var G__10585 = j;
+var G__10586 = subpar.paredit.string;
+var G__10587 = openings;
+var G__10588 = -1;
+var G__10589 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10590 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1));
+var G__10591 = false;
+var G__10592 = false;
+i = G__10585;
+mode = G__10586;
+openings = G__10587;
+start = G__10588;
+t = G__10589;
+families = G__10590;
+escaping = G__10591;
+in_word = G__10592;
 continue;
 }
 } else
 {if(cljs.core._EQ_.call(null,subpar.paredit.string,mode))
 {{
-var G__10598 = j;
-var G__10599 = subpar.paredit.string;
-var G__10600 = openings;
-var G__10601 = start;
-var G__10602 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10603 = families;
-var G__10604 = false;
-var G__10605 = in_word;
-i = G__10598;
-mode = G__10599;
-openings = G__10600;
-start = G__10601;
-t = G__10602;
-families = G__10603;
-escaping = G__10604;
-in_word = G__10605;
+var G__10593 = j;
+var G__10594 = subpar.paredit.string;
+var G__10595 = openings;
+var G__10596 = start;
+var G__10597 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10598 = families;
+var G__10599 = false;
+var G__10600 = in_word;
+i = G__10593;
+mode = G__10594;
+openings = G__10595;
+start = G__10596;
+t = G__10597;
+families = G__10598;
+escaping = G__10599;
+in_word = G__10600;
 continue;
 }
 } else
 {if((subpar.paredit.opener_QMARK_.call(null,a)) && (in_word))
 {{
-var G__10606 = j;
-var G__10607 = subpar.paredit.code;
-var G__10608 = cljs.core.conj.call(null,openings,i);
-var G__10609 = -1;
-var G__10610 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10611 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1)),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,new cljs.core.Keyword(null,"children","children",2673430897)], null),cljs.core.PersistentArrayMap.EMPTY);
-var G__10612 = false;
-var G__10613 = false;
-i = G__10606;
-mode = G__10607;
-openings = G__10608;
-start = G__10609;
-t = G__10610;
-families = G__10611;
-escaping = G__10612;
-in_word = G__10613;
+var G__10601 = j;
+var G__10602 = subpar.paredit.code;
+var G__10603 = cljs.core.conj.call(null,openings,i);
+var G__10604 = -1;
+var G__10605 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10606 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1)),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,new cljs.core.Keyword(null,"children","children",2673430897)], null),cljs.core.PersistentArrayMap.EMPTY);
+var G__10607 = false;
+var G__10608 = false;
+i = G__10601;
+mode = G__10602;
+openings = G__10603;
+start = G__10604;
+t = G__10605;
+families = G__10606;
+escaping = G__10607;
+in_word = G__10608;
 continue;
 }
 } else
 {if(subpar.paredit.opener_QMARK_.call(null,a))
 {{
-var G__10614 = j;
-var G__10615 = subpar.paredit.code;
-var G__10616 = cljs.core.conj.call(null,openings,i);
-var G__10617 = -1;
-var G__10618 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10619 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,new cljs.core.Keyword(null,"children","children",2673430897)], null),cljs.core.PersistentArrayMap.EMPTY);
-var G__10620 = false;
-var G__10621 = false;
-i = G__10614;
-mode = G__10615;
-openings = G__10616;
-start = G__10617;
-t = G__10618;
-families = G__10619;
-escaping = G__10620;
-in_word = G__10621;
+var G__10609 = j;
+var G__10610 = subpar.paredit.code;
+var G__10611 = cljs.core.conj.call(null,openings,i);
+var G__10612 = -1;
+var G__10613 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10614 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [i,new cljs.core.Keyword(null,"children","children",2673430897)], null),cljs.core.PersistentArrayMap.EMPTY);
+var G__10615 = false;
+var G__10616 = false;
+i = G__10609;
+mode = G__10610;
+openings = G__10611;
+start = G__10612;
+t = G__10613;
+families = G__10614;
+escaping = G__10615;
+in_word = G__10616;
 continue;
 }
 } else
 {if((subpar.paredit.closer_QMARK_.call(null,a)) && (in_word))
 {{
-var G__10622 = j;
-var G__10623 = subpar.paredit.code;
-var G__10624 = cljs.core.pop.call(null,openings);
-var G__10625 = -1;
-var G__10626 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10627 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i);
-var G__10628 = false;
-var G__10629 = false;
-i = G__10622;
-mode = G__10623;
-openings = G__10624;
-start = G__10625;
-t = G__10626;
-families = G__10627;
-escaping = G__10628;
-in_word = G__10629;
+var G__10617 = j;
+var G__10618 = subpar.paredit.code;
+var G__10619 = cljs.core.pop.call(null,openings);
+var G__10620 = -1;
+var G__10621 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10622 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1)),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i);
+var G__10623 = false;
+var G__10624 = false;
+i = G__10617;
+mode = G__10618;
+openings = G__10619;
+start = G__10620;
+t = G__10621;
+families = G__10622;
+escaping = G__10623;
+in_word = G__10624;
 continue;
 }
 } else
 {if(subpar.paredit.closer_QMARK_.call(null,a))
 {{
-var G__10630 = j;
-var G__10631 = subpar.paredit.code;
-var G__10632 = cljs.core.pop.call(null,openings);
-var G__10633 = -1;
-var G__10634 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10635 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i);
-var G__10636 = false;
-var G__10637 = false;
-i = G__10630;
-mode = G__10631;
-openings = G__10632;
-start = G__10633;
-t = G__10634;
-families = G__10635;
-escaping = G__10636;
-in_word = G__10637;
+var G__10625 = j;
+var G__10626 = subpar.paredit.code;
+var G__10627 = cljs.core.pop.call(null,openings);
+var G__10628 = -1;
+var G__10629 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10630 = cljs.core.assoc_in.call(null,cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"closer","closer",3951351020)], null),i),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.second.call(null,openings),new cljs.core.Keyword(null,"children","children",2673430897),o], null),i);
+var G__10631 = false;
+var G__10632 = false;
+i = G__10625;
+mode = G__10626;
+openings = G__10627;
+start = G__10628;
+t = G__10629;
+families = G__10630;
+escaping = G__10631;
+in_word = G__10632;
 continue;
 }
 } else
 {if((!(subpar.paredit.whitespace_QMARK_.call(null,a))) && (!(in_word)))
 {{
-var G__10638 = j;
-var G__10639 = subpar.paredit.code;
-var G__10640 = openings;
-var G__10641 = i;
-var G__10642 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10643 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i);
-var G__10644 = false;
-var G__10645 = true;
-i = G__10638;
-mode = G__10639;
-openings = G__10640;
-start = G__10641;
-t = G__10642;
-families = G__10643;
-escaping = G__10644;
-in_word = G__10645;
+var G__10633 = j;
+var G__10634 = subpar.paredit.code;
+var G__10635 = openings;
+var G__10636 = i;
+var G__10637 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10638 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),i], null),i);
+var G__10639 = false;
+var G__10640 = true;
+i = G__10633;
+mode = G__10634;
+openings = G__10635;
+start = G__10636;
+t = G__10637;
+families = G__10638;
+escaping = G__10639;
+in_word = G__10640;
 continue;
 }
 } else
 {if((subpar.paredit.whitespace_QMARK_.call(null,a)) && (in_word))
 {{
-var G__10646 = j;
-var G__10647 = subpar.paredit.code;
-var G__10648 = openings;
-var G__10649 = -1;
-var G__10650 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10651 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1));
-var G__10652 = false;
-var G__10653 = false;
-i = G__10646;
-mode = G__10647;
-openings = G__10648;
-start = G__10649;
-t = G__10650;
-families = G__10651;
-escaping = G__10652;
-in_word = G__10653;
+var G__10641 = j;
+var G__10642 = subpar.paredit.code;
+var G__10643 = openings;
+var G__10644 = -1;
+var G__10645 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10646 = cljs.core.assoc_in.call(null,families,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [o,new cljs.core.Keyword(null,"children","children",2673430897),start], null),(i - 1));
+var G__10647 = false;
+var G__10648 = false;
+i = G__10641;
+mode = G__10642;
+openings = G__10643;
+start = G__10644;
+t = G__10645;
+families = G__10646;
+escaping = G__10647;
+in_word = G__10648;
 continue;
 }
 } else
 {if((subpar.paredit.whitespace_QMARK_.call(null,a)) && (!(in_word)))
 {{
-var G__10654 = j;
-var G__10655 = subpar.paredit.code;
-var G__10656 = openings;
-var G__10657 = -1;
-var G__10658 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10659 = families;
-var G__10660 = false;
-var G__10661 = false;
-i = G__10654;
-mode = G__10655;
-openings = G__10656;
-start = G__10657;
-t = G__10658;
-families = G__10659;
-escaping = G__10660;
-in_word = G__10661;
+var G__10649 = j;
+var G__10650 = subpar.paredit.code;
+var G__10651 = openings;
+var G__10652 = -1;
+var G__10653 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10654 = families;
+var G__10655 = false;
+var G__10656 = false;
+i = G__10649;
+mode = G__10650;
+openings = G__10651;
+start = G__10652;
+t = G__10653;
+families = G__10654;
+escaping = G__10655;
+in_word = G__10656;
 continue;
 }
 } else
 {if((!(subpar.paredit.whitespace_QMARK_.call(null,a))) && (in_word))
 {{
-var G__10662 = j;
-var G__10663 = subpar.paredit.code;
-var G__10664 = openings;
-var G__10665 = start;
-var G__10666 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
-var G__10667 = families;
-var G__10668 = false;
-var G__10669 = true;
-i = G__10662;
-mode = G__10663;
-openings = G__10664;
-start = G__10665;
-t = G__10666;
-families = G__10667;
-escaping = G__10668;
-in_word = G__10669;
+var G__10657 = j;
+var G__10658 = subpar.paredit.code;
+var G__10659 = openings;
+var G__10660 = start;
+var G__10661 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [mode,o], null));
+var G__10662 = families;
+var G__10663 = false;
+var G__10664 = true;
+i = G__10657;
+mode = G__10658;
+openings = G__10659;
+start = G__10660;
+t = G__10661;
+families = G__10662;
+escaping = G__10663;
+in_word = G__10664;
 continue;
 }
 } else
 {if(new cljs.core.Keyword(null,"default","default",2558708147))
 {{
-var G__10670 = j;
-var G__10671 = subpar.paredit.code;
-var G__10672 = openings;
-var G__10673 = start;
-var G__10674 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["?",o], null));
-var G__10675 = families;
-var G__10676 = escaping;
-var G__10677 = in_word;
-i = G__10670;
-mode = G__10671;
-openings = G__10672;
-start = G__10673;
-t = G__10674;
-families = G__10675;
-escaping = G__10676;
-in_word = G__10677;
+var G__10665 = j;
+var G__10666 = subpar.paredit.code;
+var G__10667 = openings;
+var G__10668 = start;
+var G__10669 = cljs.core.conj.call(null,t,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["?",o], null));
+var G__10670 = families;
+var G__10671 = escaping;
+var G__10672 = in_word;
+i = G__10665;
+mode = G__10666;
+openings = G__10667;
+start = G__10668;
+t = G__10669;
+families = G__10670;
+escaping = G__10671;
+in_word = G__10672;
 continue;
 }
 } else

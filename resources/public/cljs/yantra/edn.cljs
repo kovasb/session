@@ -16,6 +16,9 @@
   ICloneable
   (-clone [n] (js/String. n)))
 
+(extend-type boolean
+  ICloneable
+  (-clone [n] (js/Boolean. n)))
 
 
 (defn render-sequential [begin render-one sep end sequence]
@@ -121,6 +124,11 @@
        (reify
          om/IRender
          (render [_] (dom/span nil (str (om/value cursor))))))
+    js/Boolean
+      (fn [cursor owner opts]
+        (reify
+          om/IRender
+          (render [_] (dom/span nil (str (om/value cursor))))))
     Keyword
      (fn [cursor owner opts]
        (reify
