@@ -3,6 +3,7 @@
     [com.stuartsierra.component :as component]
     [session.datatypes :as dt]
     [datomic.api :as d]
+    [clojure.java.io :as jio]
     session.io
     [me.raynes.conch.low-level :as sh]))
 
@@ -104,10 +105,24 @@
 
 ;;;;;;;;;;;;
 
+(defn configure []
+  (let [windows (-> (System/getProperty "os.name") (.startsWith "Windows"))
+        datomic-dir (.getAbsolutePath (jio/file "vendor/datomic-free-0.9.4556"))]
+    ;
+    ; Use ".cmd" scripts on Windows
+    ; Capture fully-qualified paths for the datomic directory and scripts
+    ;
+    { :datomic-dir datomic-dir
+      :transactor-cmd (.getAbsolutePath (jio/file datomic-dir (str "bin/transactor" (if windows ".cmd" ""))))
+      :datomic-cmd (.getAbsolutePath (jio/file datomic-dir (str "bin/datomic" (if windows ".cmd" ""))))
+    }))
+
+(def config (configure))
 
 (defn launch-datomic []
-  (sh/proc "vendor/datomic-free-0.9.4556/bin/transactor"
-           "config/free-transactor.properties"))
+  (sh/proc (:transactor-cmd config)
+           "config/free-transactor.properties"
+           :dir (:datomic-dir config)))
 
 
 (defn stop-datomic [p]
@@ -136,10 +151,11 @@
   (let [file-path (str "file:" (System/getProperty "user.dir") "/resources/data/default-sessions/" uuid-string)
         datomic-uri (str datomic-uri-base  uuid-string)]
     (println "restoring database: " db-name " " uuid-string)
-    (let [p (sh/proc "vendor/datomic-free-0.9.4556/bin/datomic"
+    (let [p (sh/proc (:datomic-cmd config)
                    "restore-db"
                    file-path
-                   datomic-uri)]
+                   datomic-uri
+                   :dir (:datomic-dir config))]
       (sh/stream-to-out p :out)
       (sh/stream-to-out p :err)
       (println (str "add db to system index: " db-name " " uuid-string))
