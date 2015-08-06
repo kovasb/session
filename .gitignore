@@ -1,7 +1,7 @@
 /target
 /classes
 /checkouts
-/resources
+/resources/js/*
 pom.xml
 pom.xml.asc
 *.jar
@@ -11,4 +11,3 @@ pom.xml.asc
 .repl*
 .idea/
 gamma.iml
-resources/public/js/*
