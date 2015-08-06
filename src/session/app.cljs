@@ -10,13 +10,13 @@
     (render [_]
       (dom/div
         nil
-        (str "last: " (:last-saved data))
+        #_(str "last: " (:last-saved data))
         (dom/input
           #js {:type    "submit"
                :value   "save"
                :onClick (fn [x]
-                          ((om/get-shared owner :save) app-state))})
-        (dom/input
+                          ((om/get-shared owner :save)))})
+        #_(dom/input
           #js {:type    "submit"
                :value   "restore"
                :onClick (fn [x]

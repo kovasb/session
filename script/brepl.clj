@@ -8,7 +8,8 @@
    :output-to "resources/js/main.js"
    :output-dir "resources/js"
    :verbose true
-   :static-fns true})
+   :static-fns true
+   :optimizations :simple})
 
 (cljs.repl/repl
   (browser/repl-env
