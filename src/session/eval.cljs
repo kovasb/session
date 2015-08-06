@@ -8,8 +8,14 @@
     env
     x
     nil
-    {:eval cljs/js-eval
-     :ns   'test1}
+    {:eval       cljs/js-eval
+     :ns         'cljs.user
+     :source-map true
+     :context :expr
+     ;:context    :expr
+     ;:def-emits-var true
+     }
     (fn [{:keys [value error]}]
       (if (not error)
-        value))))
+        value
+        (println error)))))

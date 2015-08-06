@@ -12,8 +12,10 @@
         nil
         #_(str "last: " (:last-saved data))
         (dom/input
-          #js {:type    "submit"
+          #js {:type    "button"
                :value   "save"
+               :style #js {:margin-top "5px"
+                           :margin-bottom "5px"}
                :onClick (fn [x]
                           ((om/get-shared owner :save)))})
         #_(dom/input
@@ -32,7 +34,15 @@
         (om/build create-manager data)
         (apply dom/div nil
           (map #(om/build loop/create-loop % {:react-key (:id %)})
-            (:loops data)))))))
+            (:loops data)))
+        (dom/input
+          #js {:type    "button"
+               :value   "insert"
+               :style #js {:margin-top "20px"
+                           :margin-bottom "5px"}
+               :onClick (fn [x]
+                          ((om/get-shared owner :loop-insert)
+                            :last))})))))
 
 
 (defn main [system element-id]
