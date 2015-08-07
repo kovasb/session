@@ -16,13 +16,10 @@
     <orderEntry type="library" name="Leiningen: cljsjs/codemirror:5.1.0-2" level="project" />
     <orderEntry type="library" name="Leiningen: clojure-complete:0.2.3" level="project" />
     <orderEntry type="library" name="Leiningen: com.lucasbradstreet/cljs-uuid-utils:1.0.2" level="project" />
-    <orderEntry type="library" name="Leiningen: kovasb/gamma:0.0-135-9-g52d4**DIRTY**" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.7.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/clojurescript:1.7.28" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.nrepl:0.2.6" level="project" />
     <orderEntry type="library" name="Leiningen: org.omcljs/om:0.9.0" level="project" />
-    <orderEntry type="library" name="Leiningen: fipp:0.6.1" level="project" />
-    <orderEntry type="library" name="Leiningen: org.clojure/core.rrb-vector:0.0.11" level="project" />
     <orderEntry type="library" name="Leiningen: com.google.javascript/closure-compiler:v20150609" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/data.json:0.2.6" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/google-closure-library:0.0-20150505-021ed5b3" level="project" />
